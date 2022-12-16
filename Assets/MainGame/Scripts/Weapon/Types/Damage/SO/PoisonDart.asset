@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8713029c2daa00b47abcd87cf2686fc9, type: 3}
+  m_Name: PoisonDart
+  m_EditorClassIdentifier: 
+  Name: Poison Dart
+  Description: Poison Dart made by ***
+  Icon: {fileID: 21300000, guid: 2c63ea10cfb925d41bb998c79cc844f2, type: 3}
+  Cooldown: 3
+  AttackRange: 20
+  BaseDamage: 50
+  BaseSpeed: 2
+  Count: 1
+  Size: {x: 2, y: 2, z: 2}
+  Guardian: 0
+  DamagePattern: 2
+  PoolerType: 2
+  UpgradeDatas:
+  - Description: Level 1
+    UpgradeType: 0
+    PropertyToChange: 1
+    PropertyChangeType: 0
+    ChangeAmount: 2
+  - Description: Level 2
+    UpgradeType: 0
+    PropertyToChange: 3
+    PropertyChangeType: 1
+    ChangeAmount: 5
+  - Description: Level 3
+    UpgradeType: 0
+    PropertyToChange: 5
+    PropertyChangeType: 0
+    ChangeAmount: 0.125
+  - Description: 'Level 4 '
+    UpgradeType: 0
+    PropertyToChange: 7
+    PropertyChangeType: 0
+    ChangeAmount: 2

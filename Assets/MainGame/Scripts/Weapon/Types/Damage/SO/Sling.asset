@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8713029c2daa00b47abcd87cf2686fc9, type: 3}
+  m_Name: Sling
+  m_EditorClassIdentifier: 
+  Name: Sling
+  Description: Sling shots like a shotgun.
+  Icon: {fileID: 21300000, guid: ed4998c891fc19741b4ecff6a0e7aa54, type: 3}
+  Cooldown: 2.5
+  AttackRange: 20
+  BaseDamage: 100
+  BaseSpeed: 5
+  Count: 3
+  Size: {x: 0, y: 0, z: 0}
+  Guardian: 0
+  DamagePattern: 5
+  PoolerType: 3
+  UpgradeDatas:
+  - Description: Level 1
+    UpgradeType: 0
+    PropertyToChange: 4
+    PropertyChangeType: 1
+    ChangeAmount: 2
+  - Description: Level 2
+    UpgradeType: 0
+    PropertyToChange: 3
+    PropertyChangeType: 0
+    ChangeAmount: 1.25
+  - Description: Level 3
+    UpgradeType: 0
+    PropertyToChange: 2
+    PropertyChangeType: 0
+    ChangeAmount: 1.5
+  - Description: Level 4
+    UpgradeType: 0
+    PropertyToChange: 7
+    PropertyChangeType: 0
+    ChangeAmount: 2
