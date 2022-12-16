@@ -628,6 +628,7 @@ public class WeaponBase :CustomBehaviour
         IsActivated = false;
         PoolerBase.ReturnObjectToPool(gameObject);
         StopAllCoroutines();
+        
     }
     private void OnGameStart()
     {

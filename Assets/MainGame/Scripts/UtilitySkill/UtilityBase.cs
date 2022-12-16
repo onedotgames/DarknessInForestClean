@@ -14,61 +14,85 @@ public class UtilityBase : CustomBehaviour
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
-
+        if (GameManager != null)
+        {
+            GameManager.OnLevelFailed -= LevelFailed;
+        }
         mPlayer = gameManager.PlayerManager.CurrentPlayer;
     }
     
 
     public void MakeUpgrade()
     {
-        switch (UtilityPattern)
+        if(UpgradeLevel< UtilitySO.UpgradeUtilityDatas.Count)
         {
-            case UtilityPattern.MovementSpeed:
-                if (UtilitySO.UpgradeUtilityDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Multiplication)
-                {
-                    mPlayer.mForwardSpeed *= UtilitySO.UpgradeUtilityDatas[UpgradeLevel].ChangeAmount;
-                }
-                else if (UtilitySO.UpgradeUtilityDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Addition)
-                {
-                    mPlayer.mForwardSpeed += UtilitySO.UpgradeUtilityDatas[UpgradeLevel].ChangeAmount;
-                }  
-                break;
+            switch (UtilityPattern)
+            {
+                case UtilityPattern.MovementSpeed:
+                    if (UtilitySO.UpgradeUtilityDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Multiplication)
+                    {
+                        mPlayer.mForwardSpeed *= UtilitySO.UpgradeUtilityDatas[UpgradeLevel].ChangeAmount;
+                    }
+                    else if (UtilitySO.UpgradeUtilityDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Addition)
+                    {
+                        mPlayer.mForwardSpeed += UtilitySO.UpgradeUtilityDatas[UpgradeLevel].ChangeAmount;
+                    }
+                    break;
 
-            case UtilityPattern.Health:         
-                mPlayer.mMaxHealth += UtilitySO.UpgradeUtilityDatas[UpgradeLevel].ChangeAmount;
-                mPlayer.mCurrentHealth += UtilitySO.UpgradeUtilityDatas[UpgradeLevel].ChangeAmount;
-                GameManager.PlayerHealthManager.SetHealthBar(mPlayer.mMaxHealth);
-                break;
+                case UtilityPattern.Health:
+                    mPlayer.mMaxHealth += UtilitySO.UpgradeUtilityDatas[UpgradeLevel].ChangeAmount;
+                    mPlayer.mCurrentHealth += UtilitySO.UpgradeUtilityDatas[UpgradeLevel].ChangeAmount;
+                    GameManager.PlayerHealthManager.SetHealthBar(mPlayer.mMaxHealth);
+                    break;
 
-            case UtilityPattern.DamageReduction:
-                mPlayer.DamageReduction *= UtilitySO.UpgradeUtilityDatas[UpgradeLevel].ChangeAmount;
-                break;
+                case UtilityPattern.DamageReduction:
+                    mPlayer.DamageReduction *= UtilitySO.UpgradeUtilityDatas[UpgradeLevel].ChangeAmount;
+                    break;
 
-            case UtilityPattern.RecharcableShield:
-                if (!mPlayer.IsShieldOn)
-                {
-                    ShieldOn();
-                }
-                else
-                {
-                    mPlayer.ShieldValue = UtilitySO.UpgradeUtilityDatas[UpgradeLevel].ChangeAmount;
-                }
-                break;
+                case UtilityPattern.RecharcableShield:
+                    if (!mPlayer.IsShieldOn)
+                    {
+                        ShieldOn();
+                    }
+                    else
+                    {
+                        mPlayer.ShieldValue = UtilitySO.UpgradeUtilityDatas[UpgradeLevel].ChangeAmount;
+                    }
+                    break;
 
-            case UtilityPattern.HealthRegen:
-                GameManager.PlayerHealthManager.HpRegen();
-                break;
+                case UtilityPattern.HealthRegen:
+                    GameManager.PlayerHealthManager.HpRegen();
+                    break;
 
-            case UtilityPattern.WeaponCooldownReduction:
-                break;
+                case UtilityPattern.WeaponCooldownReduction:
+                    break;
+            }
+
+            UpgradeLevel++;
         }
-
-        UpgradeLevel++;
+        else
+        {
+            GameManager.WeaponManager.InitialUtilityList.Remove(this);
+        }
+        
     }
 
     public void ShieldOn()
     {
 
         mPlayer.CacheShieldRoutine();
+    }
+
+    private void LevelFailed()
+    {
+        UpgradeLevel = 0;
+    }
+
+    private void OnDestroy()
+    {
+        if(GameManager != null)
+        {
+            GameManager.OnLevelFailed -= LevelFailed;
+        }
     }
 }

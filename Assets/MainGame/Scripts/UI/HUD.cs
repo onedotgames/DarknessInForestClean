@@ -120,6 +120,29 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
         LevelText.SetText(playerLevelManager.PlayerLevel.ToString());
     }
 
+    public void UpdateWeaponIcons(Sprite sprite)
+    {
+
+        WeaponIconsOnPause[WeaponIndex].sprite = sprite;
+        WeaponIconsOnPause[WeaponIndex].gameObject.SetActive(true);
+        WeaponIndex++;
+    }
+    public void UpdateUtilIcons(Sprite sprite)
+    {
+
+        UtilIconsOnPause[UtilIndex].sprite = sprite;
+        UtilIconsOnPause[UtilIndex].gameObject.SetActive(true);
+        UtilIndex++;
+    }
+
+    public void ClosePauseIcons()
+    {
+        WeaponIconsOnPause.ForEach(x => x.gameObject.SetActive(false));
+        UtilIconsOnPause.ForEach(x => x.gameObject.SetActive(false));
+        WeaponIndex = 0;
+        UtilIndex = 0;
+    }
+
     private void Update()
     {
         if (!GameManager.IsGamePaused)
@@ -239,6 +262,7 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
     }
     private void OnLevelFailed()
     {
+        ClosePauseIcons();
         ClosePanel();
     }
 
