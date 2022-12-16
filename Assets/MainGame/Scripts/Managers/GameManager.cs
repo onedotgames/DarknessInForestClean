@@ -26,6 +26,7 @@ public class GameManager : CustomBehaviour
     public BarrelSystem BarrelSystem;
     public SpawnerManager SpawnerManager;
     public TimeManager TimeManager;
+    public QuestManager QuestManager; 
     #endregion
 
     public bool IsGameStarted = false;
