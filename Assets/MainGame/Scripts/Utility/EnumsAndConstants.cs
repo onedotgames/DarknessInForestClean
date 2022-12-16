@@ -206,7 +206,8 @@ public enum CollectablePoolerType
 {
     BarrelPooler = 0,
     MagnetPooler = 1,
-    BombPooler = 2
+    BombPooler = 2,
+    HealthPotPooler = 3
 }
 
 public enum EnemyPoolerType

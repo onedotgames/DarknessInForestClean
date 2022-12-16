@@ -157,6 +157,11 @@ public class Player : CustomBehaviour
                 GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.BombPooler].ReturnObjectToPool(collision.transform.parent.gameObject);
             });            
         }
+        if (collision.CompareTag("HealthPotion"))
+        {
+            GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.HealthPotPooler].ReturnObjectToPool(collision.gameObject);
+            GameManager.PlayerManager.CurrentPlayer.mCurrentHealth += 20;
+        }
     }
     private void InitializeCustomOptions()
     {
