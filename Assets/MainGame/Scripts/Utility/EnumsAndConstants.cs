@@ -232,6 +232,11 @@ public enum ExpPoolerType
     SmallExperience = 0
 }
 
+public enum QuestType
+{
+    Hunt = 0,
+    SearchNDestroy = 1
+}
 public enum UpgradeLevel
 {
     Level1 = 0,
