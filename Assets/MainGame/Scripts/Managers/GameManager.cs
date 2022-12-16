@@ -42,7 +42,6 @@ public class GameManager : CustomBehaviour
     public event Action OnLevelCompleted;
     public event Action OnTutorialCompleted;
     public event Action OnLevelFailed;
-    public event Action OnDistributionStart;
     public event Action OnMiniGame;
     #endregion
 

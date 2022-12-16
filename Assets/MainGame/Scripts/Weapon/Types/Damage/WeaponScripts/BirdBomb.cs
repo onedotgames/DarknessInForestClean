@@ -76,6 +76,12 @@ public class BirdBomb : WeaponBase
                 coin.transform.position = barrelPos;
             }
         }
+        if (collision.CompareTag("Boss"))
+        {
+            var enemy = collision.GetComponent<BossBase>();
+
+            enemy.GetHit(BaseDamage);
+        }
     }
 
     public void DestroyBomb()

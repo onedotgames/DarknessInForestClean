@@ -51,6 +51,12 @@ public class BeeShot : WeaponBase
 
             enemy.GetHit(BaseDamage);
         }
+        if (collision.gameObject.CompareTag("Boss"))
+        {
+            var enemy = collision.gameObject.GetComponent<BossBase>();
+
+            enemy.GetHit(BaseDamage);
+        }
     }
 
 

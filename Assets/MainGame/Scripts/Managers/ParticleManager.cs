@@ -27,8 +27,6 @@ public class ParticleManager : CustomBehaviour
         ConfettiDict["Explosion"] = Explosion;
         ConfettiDict["Fountain"] = Fountain;
 
-        GameManager.OnDistributionStart += OnDistrubitionStart;
-        //GameManager.OnTutorialCompleted += OnTutorialComplete;
         GameManager.OnReturnToMainMenu += OnResetToMainMenu;
     }
 
@@ -60,11 +58,6 @@ public class ParticleManager : CustomBehaviour
 
     #region Events
 
-    private void OnDistrubitionStart()
-    {
-        ActivateConfetties();
-    }
-
     private void OnTutorialComplete()
     {
         ActivateConfetties();
@@ -79,9 +72,6 @@ public class ParticleManager : CustomBehaviour
     {
         if (GameManager != null)
         {
-            //GameManager.OnLevelCompleted -= OnDistrubitionStart;
-            GameManager.OnDistributionStart -= OnDistrubitionStart;
-            //GameManager.OnTutorialCompleted -= OnTutorialComplete;
             GameManager.OnReturnToMainMenu -= OnResetToMainMenu;
         }
     }

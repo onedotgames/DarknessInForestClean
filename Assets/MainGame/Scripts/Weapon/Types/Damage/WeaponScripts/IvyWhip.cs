@@ -75,6 +75,10 @@ public class IvyWhip : WeaponBase
                     coin.transform.position = barrelPos;
                 }
             }
+            if (item.transform.CompareTag("Boss"))
+            {
+                item.transform.GetComponent<BossBase>().GetHit(BaseDamage);
+            }
         }
     }
 
