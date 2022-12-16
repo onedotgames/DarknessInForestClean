@@ -220,6 +220,7 @@ public class Player : CustomBehaviour
         if (GameManager != null)
         {
             GameManager.OnStartGame += StartGame;
+            GameManager.OnLevelFailed += StopShield;
             GameManager.OnReturnToMainMenu += ReturnToMainMenu;
         }
     }
@@ -312,16 +313,20 @@ public class Player : CustomBehaviour
 
     public IEnumerator ShieldOn()
     {
-        RechargableShieldOn.gameObject.SetActive(true);
-
-        RechargableShieldOn.Play();
-        ShieldValue = ShieldUtility.UtilitySO.UpgradeUtilityDatas[ShieldUtility.UpgradeLevel].ChangeAmount;
-        IsShieldOn = true;
-        yield return new WaitForSeconds(ShieldUtility.UtilitySO.Duration);
-        if(ShieldValue > 0)
+        if (GameManager.IsGameStarted)
         {
-            ShieldOff();
+            RechargableShieldOn.gameObject.SetActive(true);
+
+            RechargableShieldOn.Play();
+            ShieldValue = ShieldUtility.UtilitySO.UpgradeUtilityDatas[ShieldUtility.UpgradeLevel].ChangeAmount;
+            IsShieldOn = true;
+            yield return new WaitForSeconds(ShieldUtility.UtilitySO.Duration);
+            if (ShieldValue > 0)
+            {
+                ShieldOff();
+            }
         }
+        
     }
 
     public void ShieldOff()
@@ -337,6 +342,15 @@ public class Player : CustomBehaviour
         }
         
         Invoke("ReOpenShield", ShieldUtility.UtilitySO.Cooldown);
+    }
+
+    public void StopShield()
+    {
+        IsShieldOn = false;
+        if (ShieldOnRoutine != null)
+        {
+            StopCoroutine(ShieldOnRoutine);
+        }
     }
 
     public void ReOpenShield()
@@ -376,6 +390,7 @@ public class Player : CustomBehaviour
         {
             GameManager.OnStartGame -= StartGame;
             GameManager.OnReturnToMainMenu -= ReturnToMainMenu;
+            GameManager.OnLevelFailed -= StopShield;
         }
     }
 }

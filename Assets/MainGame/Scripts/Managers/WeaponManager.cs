@@ -147,9 +147,7 @@ public class WeaponManager : CustomBehaviour
             }
             else
             {
-                GameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>().UtilIconsOnPause
-                [GameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>().UtilIndex].sprite = selectedUtilityData.Image.sprite;
-                GameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>().UtilIndex++;
+                HUD.UpdateUtilIcons(selectedUtilityData.Image.sprite);
             }
 
         }
@@ -176,9 +174,7 @@ public class WeaponManager : CustomBehaviour
             }
             else
             {
-                GameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>().UtilIconsOnPause
-                [GameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>().UtilIndex].sprite = selectedUtilityData.Image.sprite;
-                GameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>().UtilIndex++;
+                HUD.UpdateUtilIcons(selectedUtilityData.Image.sprite);
             }
         }
 
@@ -233,8 +229,7 @@ public class WeaponManager : CustomBehaviour
             }
             else
             {
-                HUD.WeaponIconsOnPause[HUD.WeaponIndex].sprite = selectedWeaponData.Image.sprite;
-                HUD.WeaponIndex++;
+                HUD.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
             }
 
             LevelUpWeapon();
@@ -259,8 +254,7 @@ public class WeaponManager : CustomBehaviour
             }
             else
             {
-                HUD.WeaponIconsOnPause[HUD.WeaponIndex].sprite = selectedWeaponData.Image.sprite;
-                HUD.WeaponIndex++;
+                HUD.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
             }
 
             LevelUpWeapon();
@@ -570,80 +564,80 @@ public class WeaponManager : CustomBehaviour
 
         }
     }
-        private IEnumerator WeaponSlotRoutine(WeaponBase weapon) //Potionda Size artt�rma burada olacak.
+    private IEnumerator WeaponSlotRoutine(WeaponBase weapon) //Potionda Size artt�rma burada olacak.
+    {
+        if (GetClosestEnemy(GameManager.AIManager.EnemyList, weapon) != null)
         {
-            if (GetClosestEnemy(GameManager.AIManager.EnemyList, weapon) != null)
-            {
-                for (int i = 0; i < weapon.Count; i++)
-                {
-                    yield return new WaitForSeconds(0.25f);
-                    var obj = weapon.PoolerBase.GetObjectFromPool();
-
-                    obj.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
-                    obj.GetComponent<WeaponBase>().SetStats();
-                    obj.GetComponent<WeaponBase>().SetSkill(GameManager.AIManager.EnemyList);
-                    GameManager.AIManager.EnemyList.Remove(obj.GetComponent<WeaponBase>().Target);
-                }
-            }
-            yield return new WaitForSeconds(weapon.Cooldown);
-            StartCoroutine(WeaponSlotRoutine(weapon));
-        }
-        private IEnumerator BeeSlotRoutine(WeaponBase weapon) //Potionda Size artt�rma burada olacak.
-        {
-            if (ActiveBeeShots != null)
-            {
-                ActiveBeeShots.Clear();
-                BeeIndex = 0;
-            }
             for (int i = 0; i < weapon.Count; i++)
             {
-                var obj = weapon.PoolerBase.GetObjectFromPool();
-                ActiveBeeShots.Add(obj.GetComponent<BeeShot>());
-                obj.GetComponent<BeeShot>().index = BeeIndex;
-                BeeIndex++;
-                obj.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
-                obj.GetComponent<WeaponBase>().SetStats();
-                obj.GetComponent<WeaponBase>().SetSkill(GameManager.AIManager.EnemyList);
                 yield return new WaitForSeconds(0.25f);
-
-            }
-            yield return new WaitForSeconds(weapon.transform.GetComponent<BeeShot>().Duration);
-            ActiveBeeShots.ForEach(x => x.PoolerBase.ReturnObjectToPool(x.gameObject));
-            yield return new WaitForSeconds(weapon.Cooldown);
-            StartCoroutine(BeeSlotRoutine(weapon));
-        }
-
-        public void YoyoWeaponSlotRoutine(WeaponBase weapon)
-        {
-            for (int i = 0; i < weapon.Count; i++)
-            {
-                if (ActiveChestnuts != null)
-                {
-                    ActiveChestnuts.Clear();
-                }
                 var obj = weapon.PoolerBase.GetObjectFromPool();
-                ActiveChestnuts.Add(obj.GetComponent<ChestnutHammer>());//YOYO SADECE CHESTNUT DE��LSE BU SATIRI DE���T�R
+
                 obj.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
                 obj.GetComponent<WeaponBase>().SetStats();
                 obj.GetComponent<WeaponBase>().SetSkill(GameManager.AIManager.EnemyList);
                 GameManager.AIManager.EnemyList.Remove(obj.GetComponent<WeaponBase>().Target);
             }
         }
-
-        public IEnumerator WhipWeaponRoutine(WeaponBase weapon)
+        yield return new WaitForSeconds(weapon.Cooldown);
+        StartCoroutine(WeaponSlotRoutine(weapon));
+    }
+    private IEnumerator BeeSlotRoutine(WeaponBase weapon) //Potionda Size artt�rma burada olacak.
+    {
+        if (ActiveBeeShots != null)
         {
-            for (int i = 0; i < weapon.Count; i++)
-            {
-                var obj = weapon.PoolerBase.GetObjectFromPool();
-                obj.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
-                obj.GetComponent<WeaponBase>().SetStats();
-                //obj.GetComponent<WeaponBase>().SetSkill(GameManager.AIManager.EnemyList);
-                obj.GetComponent<IvyWhip>().WhipAttack();
-                yield return new WaitForSeconds(0.25f);
-            }
-            yield return new WaitForSeconds(weapon.Cooldown);
-            StartCoroutine(WhipWeaponRoutine(weapon));
+            ActiveBeeShots.Clear();
+            BeeIndex = 0;
         }
+        for (int i = 0; i < weapon.Count; i++)
+        {
+            var obj = weapon.PoolerBase.GetObjectFromPool();
+            ActiveBeeShots.Add(obj.GetComponent<BeeShot>());
+            obj.GetComponent<BeeShot>().index = BeeIndex;
+            BeeIndex++;
+            obj.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
+            obj.GetComponent<WeaponBase>().SetStats();
+            obj.GetComponent<WeaponBase>().SetSkill(GameManager.AIManager.EnemyList);
+            yield return new WaitForSeconds(0.25f);
+
+        }
+        yield return new WaitForSeconds(weapon.transform.GetComponent<BeeShot>().Duration);
+        ActiveBeeShots.ForEach(x => x.PoolerBase.ReturnObjectToPool(x.gameObject));
+        yield return new WaitForSeconds(weapon.Cooldown);
+        StartCoroutine(BeeSlotRoutine(weapon));
+    }
+
+    public void YoyoWeaponSlotRoutine(WeaponBase weapon)
+    {
+        for (int i = 0; i < weapon.Count; i++)
+        {
+            if (ActiveChestnuts != null)
+            {
+                ActiveChestnuts.Clear();
+            }
+            var obj = weapon.PoolerBase.GetObjectFromPool();
+            ActiveChestnuts.Add(obj.GetComponent<ChestnutHammer>());//YOYO SADECE CHESTNUT DE��LSE BU SATIRI DE���T�R
+            obj.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
+            obj.GetComponent<WeaponBase>().SetStats();
+            obj.GetComponent<WeaponBase>().SetSkill(GameManager.AIManager.EnemyList);
+            GameManager.AIManager.EnemyList.Remove(obj.GetComponent<WeaponBase>().Target);
+        }
+    }
+
+    public IEnumerator WhipWeaponRoutine(WeaponBase weapon)
+    {
+        for (int i = 0; i < weapon.Count; i++)
+        {
+            var obj = weapon.PoolerBase.GetObjectFromPool();
+            obj.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
+            obj.GetComponent<WeaponBase>().SetStats();
+            //obj.GetComponent<WeaponBase>().SetSkill(GameManager.AIManager.EnemyList);
+            obj.GetComponent<IvyWhip>().WhipAttack();
+            yield return new WaitForSeconds(0.25f);
+        }
+        yield return new WaitForSeconds(weapon.Cooldown);
+        StartCoroutine(WhipWeaponRoutine(weapon));
+    }
 
     public IEnumerator SkunkGasWeaponRoutine(WeaponBase weapon)
     {
@@ -668,172 +662,176 @@ public class WeaponManager : CustomBehaviour
         StartCoroutine(BananaWeaponRoutine(weapon));
     }
 
-        public IEnumerator BombWeaponRoutine(WeaponBase weapon)
+    public IEnumerator BombWeaponRoutine(WeaponBase weapon)
+    {
+        for (int i = 0; i < weapon.Count; i++)
         {
-            for (int i = 0; i < weapon.Count; i++)
-            {
-                var obj = weapon.PoolerBase.GetObjectFromPool();
-                //obj.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
-                obj.GetComponent<WeaponBase>().SetStats();
-                //obj.GetComponent<WeaponBase>().SetSkill(GameManager.AIManager.EnemyList);
-                yield return new WaitForSeconds(0.25f);
-                //obj.GetComponent<WeaponBase>().SetStats();
-                obj.GetComponent<BirdBomb>().SetSkill(GameManager.AIManager.EnemyList);
-                obj.GetComponent<BirdBomb>().Drop();
-                obj.GetComponent<BirdBomb>().DestroyBomb();
-            }
-            yield return new WaitForSeconds(weapon.Cooldown);
-            StartCoroutine(BombWeaponRoutine(weapon));
+            var obj = weapon.PoolerBase.GetObjectFromPool();
+            //obj.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
+            obj.GetComponent<WeaponBase>().SetStats();
+            //obj.GetComponent<WeaponBase>().SetSkill(GameManager.AIManager.EnemyList);
+            yield return new WaitForSeconds(0.25f);
+            //obj.GetComponent<WeaponBase>().SetStats();
+            obj.GetComponent<BirdBomb>().SetSkill(GameManager.AIManager.EnemyList);
+            obj.GetComponent<BirdBomb>().Drop();
+            obj.GetComponent<BirdBomb>().DestroyBomb();
         }
-
-        private IEnumerator ShotgunSlotRoutine(WeaponBase weapon)
-        {
-            for (int i = 0; i < weapon.Count; i++)
-            {
-                var obj = weapon.PoolerBase.GetObjectFromPool();
-                ShotgunAmmo.Add(obj);
-                obj.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
-            }
-
-            float spaceBetweenProjectiles = AttackDegree / (ShotgunAmmo.Count - 1);
-            int index = 0;
-
-            var count = ShotgunAmmo.Count;
-            for (int i = 0; i < count; i++)
-            {
-                float horizontal = GameManager.JoystickManager.GetHorizontal();
-                float vertical = GameManager.JoystickManager.GetVertical();
-
-                float initialRot = 0;
-
-                if (horizontal != 0 || vertical != 0)
-                {
-                    initialRot = GameManager.PlayerManager.CurrentPlayer.Angle - 90;
-                }
-                else if (horizontal == 0 && vertical == 0)
-                {
-                    initialRot = GameManager.PlayerManager.CurrentPlayer.LastAngle - 90;
-                }
-
-
-                float RotDeg = initialRot + (spaceBetweenProjectiles) * ((ShotgunAmmo.Count - 1) / 2) - (spaceBetweenProjectiles * index);
-                index++;
-
-                ShotgunAmmo[0].transform.rotation = Quaternion.Euler(new Vector3(0, 0, RotDeg));
-                ShotgunAmmo[0].GetComponent<WeaponBase>().SetStats();
-                ShotgunAmmo[0].GetComponent<WeaponBase>().SetSkill(GameManager.AIManager.EnemyList);
-                ShotgunAmmo.Remove(ShotgunAmmo[0]);
-            }
-
-            yield return new WaitForSeconds(weapon.Cooldown);
-            StartCoroutine(ShotgunSlotRoutine(weapon));
-        }
-
-        private IEnumerator AreaWeaponSlotRoutine(WeaponBase weapon)
-        {
-            weapon.IsActivated = true;
-            weapon.gameObject.SetActive(true);
-            yield return new WaitForSeconds(weapon.Cooldown);
-            weapon.IsActivated = false;
-            weapon.gameObject.SetActive(false);
-            StartCoroutine(AreaWeaponSlotRoutine(weapon));
-        }
-
-        private void OnLevelStart()
-        {
-            InvokeDefaultWeapon();
-        }
-        private void OnLevelFailed()
-        {
-            StopAllCoroutines();
-            CancelInvoke("InitializeDefaultWeapon");
-
-            mDefaultWeapon.IsInitialized = false;
-            for (int i = 0; i < ProjectileWeaponsInUse.Count; i++)
-            {
-                if (ProjectileWeaponsInUse[i].IsInitialized == true)
-                {
-                    ProjectileWeaponsInUse[i].IsInitialized = false;
-
-                }
-
-            }
-            for (int i = 0; i < BounceWeaponsInUse.Count; i++)
-            {
-                if (BounceWeaponsInUse[i].IsInitialized == true)
-                {
-                    BounceWeaponsInUse[i].IsInitialized = false;
-                }
-
-            }
-            for (int i = 0; i < YoyoWeaponsInUse.Count; i++)
-            {
-                if (YoyoWeaponsInUse[i].IsInitialized == true)
-                {
-                    YoyoWeaponsInUse[i].IsInitialized = false;
-                }
-            }
-            for (int i = 0; i < ShotgunWeaponsInUse.Count; i++)
-            {
-                if (ShotgunWeaponsInUse[i].IsInitialized == true)
-                {
-                    ShotgunWeaponsInUse[i].IsInitialized = false;
-                }
-            }
-            for (int i = 0; i < WhipWeaponsInUse.Count; i++)
-            {
-                if (WhipWeaponsInUse[i].IsInitialized == true)
-                {
-                    WhipWeaponsInUse[i].IsInitialized = false;
-                }
-            }
-            for (int i = 0; i < BombWeaponsInUse.Count; i++)
-            {
-                if (BombWeaponsInUse[i].IsInitialized == true)
-                {
-                    BombWeaponsInUse[i].IsInitialized = false;
-                }
-            }
-
-            for (int i = 0; i < SkunkGasWeaponsInUse.Count; i++)
-            {
-                if (SkunkGasWeaponsInUse[i].IsInitialized == true)
-                {
-                    SkunkGasWeaponsInUse[i].IsInitialized = false;
-                }
-            }
-
-            for (int i = 0; i < BananaWeaponsInUse.Count; i++)
-            {
-                if (BananaWeaponsInUse[i].IsInitialized == true)
-                {
-                    BananaWeaponsInUse[i].IsInitialized = false;
-                }
-        }
+        yield return new WaitForSeconds(weapon.Cooldown);
+        StartCoroutine(BombWeaponRoutine(weapon));
     }
 
-        private Transform GetClosestEnemy(List<Transform> enemies, WeaponBase weapon)
+    private IEnumerator ShotgunSlotRoutine(WeaponBase weapon)
+    {
+        for (int i = 0; i < weapon.Count; i++)
         {
-            Transform bestTarget = null;
-            float closestDistanceSqr = weapon.AttackRange;
-            Vector3 currentPosition = mPlayer.transform.position;
-            foreach (Transform potentialTarget in enemies)
+            var obj = weapon.PoolerBase.GetObjectFromPool();
+            ShotgunAmmo.Add(obj);
+            obj.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
+        }
+
+        float spaceBetweenProjectiles = AttackDegree / (ShotgunAmmo.Count - 1);
+        int index = 0;
+
+        var count = ShotgunAmmo.Count;
+        for (int i = 0; i < count; i++)
+        {
+            float horizontal = GameManager.JoystickManager.GetHorizontal();
+            float vertical = GameManager.JoystickManager.GetVertical();
+
+            float initialRot = 0;
+
+            if (horizontal != 0 || vertical != 0)
             {
-                Vector3 directionToTarget = potentialTarget.position - currentPosition;
-                float dSqrToTarget = directionToTarget.sqrMagnitude;
-                if (dSqrToTarget < closestDistanceSqr)
-                {
-                    closestDistanceSqr = dSqrToTarget;
-                    bestTarget = potentialTarget;
-                }
+                initialRot = GameManager.PlayerManager.CurrentPlayer.Angle - 90;
             }
-            return bestTarget;
+            else if (horizontal == 0 && vertical == 0)
+            {
+                initialRot = GameManager.PlayerManager.CurrentPlayer.LastAngle - 90;
+            }
+
+
+            float RotDeg = initialRot + (spaceBetweenProjectiles) * ((ShotgunAmmo.Count - 1) / 2) - (spaceBetweenProjectiles * index);
+            index++;
+
+            ShotgunAmmo[0].transform.rotation = Quaternion.Euler(new Vector3(0, 0, RotDeg));
+            ShotgunAmmo[0].GetComponent<WeaponBase>().SetStats();
+            ShotgunAmmo[0].GetComponent<WeaponBase>().SetSkill(GameManager.AIManager.EnemyList);
+            ShotgunAmmo.Remove(ShotgunAmmo[0]);
         }
 
-        private void OnDestroy()
-        {
-
-        }
+        yield return new WaitForSeconds(weapon.Cooldown);
+        StartCoroutine(ShotgunSlotRoutine(weapon));
     }
+
+    private IEnumerator AreaWeaponSlotRoutine(WeaponBase weapon)
+    {
+        weapon.IsActivated = true;
+        weapon.gameObject.SetActive(true);
+        yield return new WaitForSeconds(weapon.Cooldown);
+        weapon.IsActivated = false;
+        weapon.gameObject.SetActive(false);
+        StartCoroutine(AreaWeaponSlotRoutine(weapon));
+    }
+
+    private void OnLevelStart()
+    {
+        InvokeDefaultWeapon();
+    }
+    private void OnLevelFailed()
+    {
+        StopAllCoroutines();
+        CancelInvoke("InitializeDefaultWeapon");
+
+        mDefaultWeapon.IsInitialized = false;
+        for (int i = 0; i < ProjectileWeaponsInUse.Count; i++)
+        {
+            if (ProjectileWeaponsInUse[i].IsInitialized == true)
+            {
+                ProjectileWeaponsInUse[i].IsInitialized = false;
+
+            }
+
+        }
+        for (int i = 0; i < BounceWeaponsInUse.Count; i++)
+        {
+            if (BounceWeaponsInUse[i].IsInitialized == true)
+            {
+                BounceWeaponsInUse[i].IsInitialized = false;
+            }
+
+        }
+        for (int i = 0; i < YoyoWeaponsInUse.Count; i++)
+        {
+            if (YoyoWeaponsInUse[i].IsInitialized == true)
+            {
+                YoyoWeaponsInUse[i].IsInitialized = false;
+            }
+        }
+        for (int i = 0; i < ShotgunWeaponsInUse.Count; i++)
+        {
+            if (ShotgunWeaponsInUse[i].IsInitialized == true)
+            {
+                ShotgunWeaponsInUse[i].IsInitialized = false;
+            }
+        }
+        for (int i = 0; i < WhipWeaponsInUse.Count; i++)
+        {
+            if (WhipWeaponsInUse[i].IsInitialized == true)
+            {
+                WhipWeaponsInUse[i].IsInitialized = false;
+            }
+        }
+        for (int i = 0; i < BombWeaponsInUse.Count; i++)
+        {
+            if (BombWeaponsInUse[i].IsInitialized == true)
+            {
+                BombWeaponsInUse[i].IsInitialized = false;
+            }
+        }
+
+        for (int i = 0; i < SkunkGasWeaponsInUse.Count; i++)
+        {
+            if (SkunkGasWeaponsInUse[i].IsInitialized == true)
+            {
+                SkunkGasWeaponsInUse[i].IsInitialized = false;
+            }
+        }
+
+        for (int i = 0; i < BananaWeaponsInUse.Count; i++)
+        {
+            if (BananaWeaponsInUse[i].IsInitialized == true)
+            {
+                BananaWeaponsInUse[i].IsInitialized = false;
+            }
+        }
+
+        InUseUtilityList.Clear();
+        InUseWeaponList.Clear();
+        CoroutineList.Clear();
+    }
+
+    private Transform GetClosestEnemy(List<Transform> enemies, WeaponBase weapon)
+    {
+        Transform bestTarget = null;
+        float closestDistanceSqr = weapon.AttackRange;
+        Vector3 currentPosition = mPlayer.transform.position;
+        foreach (Transform potentialTarget in enemies)
+        {
+            Vector3 directionToTarget = potentialTarget.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if (dSqrToTarget < closestDistanceSqr)
+            {
+                closestDistanceSqr = dSqrToTarget;
+                bestTarget = potentialTarget;
+            }
+        }
+        return bestTarget;
+    }
+
+    private void OnDestroy()
+    {
+
+    }
+}
 
 
