@@ -626,6 +626,10 @@ public class WeaponBase :CustomBehaviour
     private void OnGameFailed()
     {
         IsActivated = false;
+        if(SkillSO.DamagePattern == DamagePattern.Yoyo)
+        {
+            CancelInvoke("InvokeAgain");
+        }
         PoolerBase.ReturnObjectToPool(gameObject);
         StopAllCoroutines();
         

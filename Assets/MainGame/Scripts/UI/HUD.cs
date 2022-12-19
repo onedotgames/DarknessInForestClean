@@ -10,6 +10,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using Assets.FantasyMonsters.Scripts;
 using System.Xml.Linq;
+using UnityEngine.Playables;
 
 public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
 {
@@ -56,6 +57,8 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
 
     private PlayerLevelManager playerLevelManager;
 
+    public TMP_Text FPSCounter;
+
     public override void Initialize(UIManager uIManager)
     {
         base.Initialize(uIManager);
@@ -95,13 +98,14 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
         WarningBool = false;
         EnemyWarningObject.SetActive(false);
     }
+
     public IEnumerator BossRoutine()
     {
-        WarningBool = true;
+        //WarningBool = true;
         BossWarningObject.SetActive(true);
         BossWarningText.transform.DOScale(1.05f, 0.2f).SetLoops(-1, LoopType.Yoyo).From(1f);
         yield return new WaitForSeconds(WarningDuration);
-        WarningBool = false;
+        //WarningBool = false;
         BossWarningObject.SetActive(false);
 
     }
@@ -145,6 +149,7 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
 
     private void Update()
     {
+        
         if (!GameManager.IsGamePaused)
         {
             if (!GameManager.IsBossTime)

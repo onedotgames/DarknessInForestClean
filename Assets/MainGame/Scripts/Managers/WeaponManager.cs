@@ -12,11 +12,10 @@ using UnityEngine.Windows;
 
 public class WeaponManager : CustomBehaviour
 {
-    //Kullan�labilecek t�m weaponlar. Sabit liste
     public List<WeaponBase> InitialWeaponList;
     public List<UtilityBase> InitialUtilityList;
     public bool isMiniGameDone = false;
-    //Initial liste klonu. De�i�iklik yap�lacak olan liste
+
     public List<WeaponBase> InUseWeaponList;
     public List<UtilityBase> InUseUtilityList;
 
@@ -750,8 +749,9 @@ public class WeaponManager : CustomBehaviour
                 ProjectileWeaponsInUse[i].IsInitialized = false;
 
             }
-
         }
+
+
         for (int i = 0; i < BounceWeaponsInUse.Count; i++)
         {
             if (BounceWeaponsInUse[i].IsInitialized == true)
@@ -760,6 +760,7 @@ public class WeaponManager : CustomBehaviour
             }
 
         }
+
         for (int i = 0; i < YoyoWeaponsInUse.Count; i++)
         {
             if (YoyoWeaponsInUse[i].IsInitialized == true)
@@ -767,6 +768,7 @@ public class WeaponManager : CustomBehaviour
                 YoyoWeaponsInUse[i].IsInitialized = false;
             }
         }
+
         for (int i = 0; i < ShotgunWeaponsInUse.Count; i++)
         {
             if (ShotgunWeaponsInUse[i].IsInitialized == true)
@@ -774,6 +776,7 @@ public class WeaponManager : CustomBehaviour
                 ShotgunWeaponsInUse[i].IsInitialized = false;
             }
         }
+
         for (int i = 0; i < WhipWeaponsInUse.Count; i++)
         {
             if (WhipWeaponsInUse[i].IsInitialized == true)
@@ -781,6 +784,7 @@ public class WeaponManager : CustomBehaviour
                 WhipWeaponsInUse[i].IsInitialized = false;
             }
         }
+
         for (int i = 0; i < BombWeaponsInUse.Count; i++)
         {
             if (BombWeaponsInUse[i].IsInitialized == true)
@@ -805,9 +809,29 @@ public class WeaponManager : CustomBehaviour
             }
         }
 
+        ClearLists();
+        
+    }
+
+    private void ClearLists()
+    {
+        ProjectileWeaponsInUse.Clear();
+        YoyoWeaponsInUse.Clear();
+        AreaWeaponsInUse.Clear();
+        ShotgunWeaponsInUse.Clear();
+        WhipWeaponsInUse.Clear();
+        BombWeaponsInUse.Clear();
+        BounceWeaponsInUse.Clear();
+        SkunkGasWeaponsInUse.Clear();
+        BananaWeaponsInUse.Clear();
+
         InUseUtilityList.Clear();
         InUseWeaponList.Clear();
         CoroutineList.Clear();
+
+        ActiveChestnuts.Clear();
+        ActiveBeeShots.Clear();
+        BeeIndex = 0;
     }
 
     private Transform GetClosestEnemy(List<Transform> enemies, WeaponBase weapon)

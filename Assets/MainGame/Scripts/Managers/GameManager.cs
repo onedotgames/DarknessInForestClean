@@ -115,6 +115,7 @@ public class GameManager : CustomBehaviour
         BarrelSystem.Initialize(this);
         SpawnerManager.Initialize(this);
         TimeManager.Initialize(this);
+        QuestManager.Initialize(this);
     }
     #endregion
 

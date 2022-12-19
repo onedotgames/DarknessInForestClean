@@ -592,7 +592,7 @@ MonoBehaviour:
   IsActivated: 0
   CanAttack: 1
   Player: {fileID: 0}
-  EnemyPoolerType: 1
+  EnemyPoolerType: 2
 --- !u!70 &8887864708766570936
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

@@ -9,6 +9,8 @@ public class ChestnutHammer : WeaponBase
     public bool mIsReturning = false;
     public GameObject Model;
     public float RotSpeed;
+    public BoxCollider2D bCol2D;
+    public SpriteRenderer spriteRenderer;
     public override void AttackMethod()
     {
         base.AttackMethod();
@@ -41,8 +43,8 @@ public class ChestnutHammer : WeaponBase
         {
             if (collision.CompareTag(TAGS.Player))
             {
-                GetComponent<BoxCollider2D>().enabled = false;
-                Model.GetComponent<SpriteRenderer>().enabled = false;
+                bCol2D.enabled = false;
+                spriteRenderer.enabled = false;
                 if(this == GameManager.WeaponManager.ActiveChestnuts[GameManager.WeaponManager.ActiveChestnuts.Count-1])
                 {
                     if (UpgradeLevel == 0)
@@ -65,8 +67,8 @@ public class ChestnutHammer : WeaponBase
     private void InvokeAgain()
     {
         GameManager.WeaponManager.YoyoWeaponSlotRoutine(this);
-        GetComponent<BoxCollider2D>().enabled = true;
-        GetComponent<SpriteRenderer>().enabled = true;
+        bCol2D.enabled = true;
+        spriteRenderer.enabled = true;
         PoolerBase.ReturnObjectToPool(gameObject);
     }
 

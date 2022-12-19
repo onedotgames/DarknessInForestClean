@@ -271,7 +271,7 @@ MonoBehaviour:
   IsActivated: 0
   CanAttack: 1
   Player: {fileID: 0}
-  EnemyPoolerType: 0
+  EnemyPoolerType: 1
 --- !u!1 &222346718923431658
 GameObject:
   m_ObjectHideFlags: 0
