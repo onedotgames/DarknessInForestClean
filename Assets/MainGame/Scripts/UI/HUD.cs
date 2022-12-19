@@ -18,7 +18,7 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
     public Slider KillSlider;
     public TMP_Text GameTime;
     
-    public float killCount = 0;
+    public int killCount = 0;
     [Title("INPUT")]
     public GuideTypes GuideType;// = GuideTypes.None;
     public List<GameObject> SwipeGuides;

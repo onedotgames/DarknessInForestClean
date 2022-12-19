@@ -18,6 +18,7 @@ TagManager:
   - PlayerProjectile
   - PoisonDart
   - HealthPotion
+  - NPC
   layers:
   - Default
   - TransparentFX
