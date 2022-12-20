@@ -19,6 +19,8 @@ TagManager:
   - PoisonDart
   - HealthPotion
   - NPC
+  - Tower
+  - Canvas
   layers:
   - Default
   - TransparentFX

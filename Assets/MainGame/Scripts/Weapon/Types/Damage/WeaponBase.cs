@@ -571,6 +571,11 @@ public class WeaponBase :CustomBehaviour
                 healthPot.transform.position = barrelPos;
             }
         }
+
+        if (collision.gameObject.CompareTag("Tower"))
+        {
+            collision.GetComponent<TowerSystem>().GetHitTower(BaseDamage);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

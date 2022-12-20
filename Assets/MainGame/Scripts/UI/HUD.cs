@@ -189,7 +189,6 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
         if (GameManager != null)
         {
             GameManager.OnStartGame += OnStartGame;
-            GameManager.OnGameFinished += OnGameFinished;
             GameManager.OnReturnToMainMenu += OnReturnToMainMenu;
             GameManager.OnLevelFailed += OnLevelFailed;
         }
@@ -277,7 +276,6 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
         if(GameManager != null)
         {
             GameManager.OnStartGame -= OnStartGame;
-            GameManager.OnGameFinished -= OnGameFinished;
             GameManager.OnReturnToMainMenu -= OnReturnToMainMenu;
             GameManager.OnLevelFailed -= OnLevelFailed;
         }

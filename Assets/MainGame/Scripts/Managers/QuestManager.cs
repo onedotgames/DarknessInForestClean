@@ -11,16 +11,25 @@ public class QuestManager : CustomBehaviour
     public bool canSpawnQuest = true;
     private float timer;
     private Vector3 questPos;
+    private Vector3 towerPos;
     public GameObject QuestNPC;
     public GameObject QuestPanel;
     public GameObject ArrowSign;
     public int HuntTarget;
     public int currentKillCount;
+    public GameObject Tower;
+    public TowerSystem TowerSystem;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
     }
-
+    private void Awake()
+    {
+        QuestNPC.SetActive(false);
+        Tower.SetActive(false);
+        ArrowSign.SetActive(false);
+        QuestPanel.SetActive(false);
+    }
 
     public void Update()
     {
@@ -32,7 +41,7 @@ public class QuestManager : CustomBehaviour
                 canSpawnQuest = false;
                 SpawnQuest();
             }
-            if (!canSpawnQuest)
+            if (!canSpawnQuest && !hasActiveQuest)
             {
                 var dir = questPos - ArrowSign.transform.position;
                 if(dir.magnitude < 5)
@@ -48,13 +57,12 @@ public class QuestManager : CustomBehaviour
             }
             if (hasActiveQuest)
             {
-                Debug.Log(hud.killCount - currentKillCount);
-                if(hud.killCount - currentKillCount == 50)
+                if(hud.killCount - currentKillCount == 50 || TowerSystem.isTowerDestroyed)
                 {
                     QuestSuccess();
                 }
-
             }
+            
         }    
     }
 
@@ -69,10 +77,11 @@ public class QuestManager : CustomBehaviour
     {
         hasActiveQuest = true;
         QuestPanel.SetActive(false);
-        //kale spawnla.
-        // indikatörü kaleye çevir.
-        //kale kırılırsa ödülü ver.
-        // quest sistemi baştan çalışsın.
+        Time.timeScale = 1f;
+        QuestNPC.SetActive(false);
+        towerPos = new Vector3(Random.Range(-40, 40) + GameManager.PlayerManager.CurrentPlayer.transform.position.x, Random.Range(-40, 40) + GameManager.PlayerManager.CurrentPlayer.transform.position.y, 0);
+        Tower.transform.position = towerPos;
+        Tower.SetActive(true);
     }
 
     public void Hunt()
@@ -82,8 +91,6 @@ public class QuestManager : CustomBehaviour
         Time.timeScale = 1f;
         currentKillCount = hud.killCount;
         QuestNPC.SetActive(false);
-        //avlayınca ödülü ver.
-        // quest sistemi baştan çalışsın.
 
     }
 

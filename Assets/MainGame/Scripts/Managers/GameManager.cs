@@ -35,8 +35,6 @@ public class GameManager : CustomBehaviour
 
     #region Actions
     public event Action OnStartGame;
-    public event Action OnCountdownFinished;
-    public event Action OnGameFinished;
     public event Action OnReturnToMainMenu;
     public event Action OnRestartGame;
     public event Action OnResumeGame;
