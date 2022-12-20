@@ -41,7 +41,7 @@ public class ChestnutHammer : WeaponBase
         base.OnTriggerEnter2D(collision);
         if (mIsReturning)
         {
-            if (collision.CompareTag(TAGS.Player))
+            if (collision.CompareTag("PlayerCombatLayer"))
             {
                 bCol2D.enabled = false;
                 spriteRenderer.enabled = false;

@@ -538,7 +538,7 @@ GameObject:
   - component: {fileID: 6880673971683967723}
   - component: {fileID: 8887864708766570936}
   - component: {fileID: 7966237982808226973}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BatRanged
   m_TagString: Enemy
   m_Icon: {fileID: 0}

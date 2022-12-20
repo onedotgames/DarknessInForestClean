@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 596549213406012457}
   - component: {fileID: 596549213406012462}
   - component: {fileID: 596549213406012463}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BombCol
   m_TagString: Bomb
   m_Icon: {fileID: 0}

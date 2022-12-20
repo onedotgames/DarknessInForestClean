@@ -18,6 +18,7 @@ TagManager:
   - PlayerProjectile
   - PoisonDart
   - HealthPotion
+  - PlayerCombatLayer
   layers:
   - Default
   - TransparentFX
@@ -28,11 +29,11 @@ TagManager:
   - ExpCollectingLayer
   - Boundary
   - WeaponBounce
-  - 
-  - 
-  - 
-  - 
-  - 
+  - OtherCombatLayer
+  - BossRing
+  - Player
+  - PlayerCombatLayer
+  - Collectable
   - 
   - 
   - 

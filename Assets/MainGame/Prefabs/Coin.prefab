@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3574612047707805849}
   - component: {fileID: 5091030106573864975}
   - component: {fileID: 9098598318022412791}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Coin
   m_TagString: Coin
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8.883047, y: 9.059999}
+    oldSize: {x: 8.88, y: 9.06}
     newSize: {x: 8.883047, y: 9.059999}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
