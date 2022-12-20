@@ -25,7 +25,7 @@ public class EnemySpawner : CustomBehaviour
     {
         if(timeManager.GetTimeValue() < 30f)
         {
-            EnemyPoolerToSpawn = GameManager.PoolingManager.EnemyPoolerList[(int)EnemyPoolerType.BasicEnemyPooler];
+            EnemyPoolerToSpawn = GameManager.PoolingManager.EnemyPoolerList[(int)EnemyPoolerType.BasicMeleeEnemyPoolerOne];
             var obj = EnemyPoolerToSpawn.GetObjectFromPool();
             obj.transform.position = transform.position;
             obj.GetComponent<EnemyBase>().ActivateEnemy();

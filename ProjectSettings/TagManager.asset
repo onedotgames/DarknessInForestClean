@@ -18,6 +18,7 @@ TagManager:
   - PlayerProjectile
   - PoisonDart
   - HealthPotion
+  - PlayerCombatLayer
   - NPC
   - Tower
   - Canvas
@@ -31,11 +32,11 @@ TagManager:
   - ExpCollectingLayer
   - Boundary
   - WeaponBounce
-  - 
-  - 
-  - 
-  - 
-  - 
+  - OtherCombatLayer
+  - BossRing
+  - Player
+  - PlayerCombatLayer
+  - Collectable
   - 
   - 
   - 

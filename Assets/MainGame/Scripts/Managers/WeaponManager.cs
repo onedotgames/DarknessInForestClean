@@ -12,11 +12,10 @@ using UnityEngine.Windows;
 
 public class WeaponManager : CustomBehaviour
 {
-    //Kullan�labilecek t�m weaponlar. Sabit liste
     public List<WeaponBase> InitialWeaponList;
     public List<UtilityBase> InitialUtilityList;
     public bool isMiniGameDone = false;
-    //Initial liste klonu. De�i�iklik yap�lacak olan liste
+
     public List<WeaponBase> InUseWeaponList;
     public List<UtilityBase> InUseUtilityList;
 
@@ -43,6 +42,7 @@ public class WeaponManager : CustomBehaviour
 
     private Player mPlayer;
     public HUD HUD;
+    public PausePanel PausePanel;
     public SelectSkill SelectSkillPanel;
     public List<WeaponBase> mWeaponList = new List<WeaponBase>();
     private List<UtilityBase> utilityBases = new List<UtilityBase>();
@@ -60,6 +60,7 @@ public class WeaponManager : CustomBehaviour
         base.Initialize(gameManager);
         mPlayer = gameManager.PlayerManager.CurrentPlayer;
         HUD = gameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
+        PausePanel = gameManager.UIManager.GetPanel(Panels.Pause).GetComponent<PausePanel>();
         SelectSkillPanel = gameManager.UIManager.GetPanel(Panels.SelectSkill).GetComponent<SelectSkill>();
 
         if (GameManager != null)
@@ -115,7 +116,27 @@ public class WeaponManager : CustomBehaviour
                 {
                     mDefaultWeapon.IsInitialized = true;
                     mDefaultWeapon.Initialize(GameManager);
+                    
                     StartCoroutine(WhipWeaponRoutine(mDefaultWeapon));
+                    
+                    bool contains = false;
+
+                    foreach (var item in PausePanel.WeaponIconsOnPause)
+                    {
+                        if (item.sprite.name == mDefaultWeapon.SkillSO.Icon.name)
+                        {
+                            contains = true;
+                        }
+                    }
+
+                    if (contains)
+                    {
+                        //Increase star level
+                    }
+                    else
+                    {
+                        PausePanel.UpdateWeaponIcons(mDefaultWeapon.SkillSO.Icon);
+                    }
                 }
                 break;
         }
@@ -133,7 +154,7 @@ public class WeaponManager : CustomBehaviour
 
             bool contains = false;
 
-            foreach (var item in GameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>().UtilIconsOnPause)
+            foreach (var item in PausePanel.UtilIconsOnPause)
             {
                 if (item.sprite.name == selectedUtilityData.Image.sprite.name)
                 {
@@ -147,7 +168,7 @@ public class WeaponManager : CustomBehaviour
             }
             else
             {
-                HUD.UpdateUtilIcons(selectedUtilityData.Image.sprite);
+                PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
             }
 
         }
@@ -160,7 +181,7 @@ public class WeaponManager : CustomBehaviour
 
             bool contains = false;
 
-            foreach (var item in GameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>().UtilIconsOnPause)
+            foreach (var item in PausePanel.UtilIconsOnPause)
             {
                 if (item.sprite.name == selectedUtilityData.Image.sprite.name)
                 {
@@ -174,7 +195,33 @@ public class WeaponManager : CustomBehaviour
             }
             else
             {
-                HUD.UpdateUtilIcons(selectedUtilityData.Image.sprite);
+                PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
+            }
+        }
+        else if (EventSystem.current.currentSelectedGameObject == SelectSkillPanel.ButtonDataList[2].Button.gameObject)
+        {
+            selectedUtilityData = SelectSkillPanel.ButtonDataList[2]; //Selected data daha sonra referens olarak kullan�lmak �zere belirlenir
+
+            selectedUtilityData.Utility.Initialize(GameManager);
+            selectedUtilityData.Utility.MakeUpgrade();
+
+            bool contains = false;
+
+            foreach (var item in PausePanel.UtilIconsOnPause)
+            {
+                if (item.sprite.name == selectedUtilityData.Image.sprite.name)
+                {
+                    contains = true;
+                }
+            }
+
+            if (contains)
+            {
+
+            }
+            else
+            {
+                PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
             }
         }
 
@@ -189,7 +236,7 @@ public class WeaponManager : CustomBehaviour
 
             bool contains = false;
 
-            foreach (var item in HUD.WeaponIconsOnPause)
+            foreach (var item in PausePanel.WeaponIconsOnPause)
             {
                 if (item.sprite.name == selectedWeaponData.Image.sprite.name)
                 {
@@ -203,8 +250,7 @@ public class WeaponManager : CustomBehaviour
             }
             else
             {
-                HUD.WeaponIconsOnPause[HUD.WeaponIndex].sprite = selectedWeaponData.Image.sprite;
-                HUD.WeaponIndex++;
+                PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
             }
 
             LevelUpWeapon();
@@ -215,7 +261,7 @@ public class WeaponManager : CustomBehaviour
 
             bool contains = false;
 
-            foreach (var item in HUD.WeaponIconsOnPause)
+            foreach (var item in PausePanel.WeaponIconsOnPause)
             {
                 if (item.sprite.name == selectedWeaponData.Image.sprite.name)
                 {
@@ -229,7 +275,7 @@ public class WeaponManager : CustomBehaviour
             }
             else
             {
-                HUD.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
+                PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
             }
 
             LevelUpWeapon();
@@ -240,7 +286,7 @@ public class WeaponManager : CustomBehaviour
 
             bool contains = false;
 
-            foreach (var item in HUD.WeaponIconsOnPause)
+            foreach (var item in PausePanel.WeaponIconsOnPause)
             {
                 if (item.sprite.name == selectedWeaponData.Image.sprite.name)
                 {
@@ -254,7 +300,7 @@ public class WeaponManager : CustomBehaviour
             }
             else
             {
-                HUD.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
+                PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
             }
 
             LevelUpWeapon();
@@ -750,8 +796,9 @@ public class WeaponManager : CustomBehaviour
                 ProjectileWeaponsInUse[i].IsInitialized = false;
 
             }
-
         }
+
+
         for (int i = 0; i < BounceWeaponsInUse.Count; i++)
         {
             if (BounceWeaponsInUse[i].IsInitialized == true)
@@ -760,6 +807,7 @@ public class WeaponManager : CustomBehaviour
             }
 
         }
+
         for (int i = 0; i < YoyoWeaponsInUse.Count; i++)
         {
             if (YoyoWeaponsInUse[i].IsInitialized == true)
@@ -767,6 +815,7 @@ public class WeaponManager : CustomBehaviour
                 YoyoWeaponsInUse[i].IsInitialized = false;
             }
         }
+
         for (int i = 0; i < ShotgunWeaponsInUse.Count; i++)
         {
             if (ShotgunWeaponsInUse[i].IsInitialized == true)
@@ -774,6 +823,7 @@ public class WeaponManager : CustomBehaviour
                 ShotgunWeaponsInUse[i].IsInitialized = false;
             }
         }
+
         for (int i = 0; i < WhipWeaponsInUse.Count; i++)
         {
             if (WhipWeaponsInUse[i].IsInitialized == true)
@@ -781,6 +831,7 @@ public class WeaponManager : CustomBehaviour
                 WhipWeaponsInUse[i].IsInitialized = false;
             }
         }
+
         for (int i = 0; i < BombWeaponsInUse.Count; i++)
         {
             if (BombWeaponsInUse[i].IsInitialized == true)
@@ -805,9 +856,29 @@ public class WeaponManager : CustomBehaviour
             }
         }
 
+        ClearLists();
+        
+    }
+
+    private void ClearLists()
+    {
+        ProjectileWeaponsInUse.Clear();
+        YoyoWeaponsInUse.Clear();
+        AreaWeaponsInUse.Clear();
+        ShotgunWeaponsInUse.Clear();
+        WhipWeaponsInUse.Clear();
+        BombWeaponsInUse.Clear();
+        BounceWeaponsInUse.Clear();
+        SkunkGasWeaponsInUse.Clear();
+        BananaWeaponsInUse.Clear();
+
         InUseUtilityList.Clear();
         InUseWeaponList.Clear();
         CoroutineList.Clear();
+
+        ActiveChestnuts.Clear();
+        ActiveBeeShots.Clear();
+        BeeIndex = 0;
     }
 
     private Transform GetClosestEnemy(List<Transform> enemies, WeaponBase weapon)

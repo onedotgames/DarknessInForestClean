@@ -308,6 +308,7 @@ public class BossBase : CustomBehaviour
     public void PlayDeathVFX()
     {
         GameManager.SpawnerManager.CacheMainSpawnRoutine();
+        GameManager.SpawnerManager.BossSpawner.BossRing.SetActive(false);
         //random range 0,1000 if 1 se gold else exp.
         var i = Random.Range(0, 1000);
         if (i == 1)

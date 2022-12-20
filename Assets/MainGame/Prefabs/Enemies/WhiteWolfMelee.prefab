@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 222346718785397671}
   - component: {fileID: 222346718785397670}
   - component: {fileID: 222346718785397669}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WhiteWolfMelee
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -271,7 +271,7 @@ MonoBehaviour:
   IsActivated: 0
   CanAttack: 1
   Player: {fileID: 0}
-  EnemyPoolerType: 0
+  EnemyPoolerType: 1
 --- !u!1 &222346718923431658
 GameObject:
   m_ObjectHideFlags: 0

@@ -212,8 +212,10 @@ public enum CollectablePoolerType
 
 public enum EnemyPoolerType
 {
-    BasicEnemyPooler = 0,
-    BasicRangedPooler = 1,
+    BasicMeleeEnemyPoolerOne = 0,
+    BasicMeleeEnemyPoolerTwo = 1,
+    BasicRangedEnemyPoolerOne = 2,
+    BasicRangedEnemyPoolerTwo = 3
 }
 
 public enum EnemyBulletPoolerType
