@@ -83,6 +83,10 @@ public class BirdBomb : WeaponBase
 
             enemy.GetHit(BaseDamage);
         }
+        if (collision.gameObject.CompareTag("Tower"))
+        {
+            collision.gameObject.GetComponent<TowerSystem>().GetHitTower(BaseDamage);
+        }
     }
 
     public void DestroyBomb()

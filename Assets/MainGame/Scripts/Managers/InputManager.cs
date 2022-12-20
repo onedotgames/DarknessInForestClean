@@ -39,7 +39,6 @@ public class InputManager : CustomBehaviour
         GameManager.OnRestartGame += OnRestartGame;
         GameManager.OnResumeGame += OnResumeGame;
         GameManager.OnReturnToMainMenu += OnReturnToMainMenu;
-        GameManager.OnCountdownFinished += OnCountdownFinished;
     }
 
     private void Update()
@@ -144,7 +143,6 @@ public class InputManager : CustomBehaviour
             GameManager.OnRestartGame -= OnRestartGame;
             GameManager.OnResumeGame -= OnResumeGame;
             GameManager.OnReturnToMainMenu -= OnReturnToMainMenu;
-            GameManager.OnCountdownFinished -= OnCountdownFinished;
         }        
     }
     #endregion

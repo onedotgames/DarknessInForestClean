@@ -162,6 +162,11 @@ public class Player : CustomBehaviour
             GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.HealthPotPooler].ReturnObjectToPool(collision.gameObject);
             GameManager.PlayerManager.CurrentPlayer.mCurrentHealth += 20;
         }
+        if (collision.CompareTag("NPC"))
+        {
+            GameManager.QuestManager.QuestPanel.SetActive(true);
+            Time.timeScale = 0f;
+        }
     }
     private void InitializeCustomOptions()
     {

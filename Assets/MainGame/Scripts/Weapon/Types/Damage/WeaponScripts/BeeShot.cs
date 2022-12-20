@@ -57,6 +57,10 @@ public class BeeShot : WeaponBase
 
             enemy.GetHit(BaseDamage);
         }
+        if (collision.gameObject.CompareTag("Tower"))
+        {
+            collision.gameObject.GetComponent<TowerSystem>().GetHitTower(BaseDamage);
+        }
     }
 
 

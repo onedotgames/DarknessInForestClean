@@ -19,7 +19,7 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
     public Slider KillSlider;
     public TMP_Text GameTime;
     
-    public float killCount = 0;
+    public int killCount = 0;
     [Title("INPUT")]
     public GuideTypes GuideType;// = GuideTypes.None;
     public List<GameObject> SwipeGuides;
@@ -167,7 +167,6 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
         if (GameManager != null)
         {
             GameManager.OnStartGame += OnStartGame;
-            GameManager.OnGameFinished += OnGameFinished;
             GameManager.OnReturnToMainMenu += OnReturnToMainMenu;
             GameManager.OnLevelFailed += OnLevelFailed;
         }
@@ -251,7 +250,6 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
         if(GameManager != null)
         {
             GameManager.OnStartGame -= OnStartGame;
-            GameManager.OnGameFinished -= OnGameFinished;
             GameManager.OnReturnToMainMenu -= OnReturnToMainMenu;
             GameManager.OnLevelFailed -= OnLevelFailed;
         }

@@ -79,6 +79,10 @@ public class IvyWhip : WeaponBase
             {
                 item.transform.GetComponent<BossBase>().GetHit(BaseDamage);
             }
+            if (item.transform.CompareTag("Tower"))
+            {
+                item.transform.GetComponent<TowerSystem>().GetHitTower(BaseDamage);
+            }
         }
     }
 
