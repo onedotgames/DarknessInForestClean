@@ -14,14 +14,23 @@ public class SpiderPoison : WeaponBase
 
     public override void OnTriggerEnter2D(Collider2D collision)
     {
-        var enemy = collision.GetComponent<EnemyBase>();
 
         if (collision.CompareTag("Enemy"))
         {
+            var enemy = collision.GetComponent<EnemyBase>();
+
             StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, 0.5f));
             Invoke("StopPoison", 0.5f);
             Invoke("ReturnPoison", PoisonDuration);
-        }        
+        }
+        if (collision.CompareTag("Boss"))
+        {
+            var boss = collision.GetComponent<BossBase>();
+
+            StartCoroutine(boss.GetAOEHit(PoisonAreaDamage, 0.5f));
+            Invoke("StopPoison", 0.5f);
+            Invoke("ReturnPoison", PoisonDuration);
+        }
     }
 
     private void ReturnPoison()

@@ -14,7 +14,9 @@ public sealed class ScoreCounter : MonoBehaviour
     public TextMeshProUGUI timerText;
     public GameManager GameManager;
     public int popCount = 0;
-    
+    public HUD HUD;
+
+
 
     private void Update()
     {
@@ -25,11 +27,12 @@ public sealed class ScoreCounter : MonoBehaviour
         {
             MiniGamePanel.SetActive(false);
             weaponManager.isMiniGameDone = true;
+            
         }
         if (weaponManager.isMiniGameDone)
         {
             GameManager.PoolingManager.WeaponPooler[(int)GameManager.WeaponManager.selectedWeaponData.Weapon.SkillSO.PoolerType].ObjectList.ForEach(x => x.GetComponent<WeaponBase>().UpdateWeapon());
-
+            HUD.OpenPanel();
             Time.timeScale = 1;
             weaponManager.isMiniGameDone = false;
             popCount = 0;

@@ -48,6 +48,8 @@ public class BossBase : CustomBehaviour
 
     public Coroutine AOEDamageRoutine;
 
+    public GameObject Hand;
+
     public bool IsActivated = false;
     public bool ShouldMove = false;
     public bool CanAttack = true;
@@ -86,7 +88,11 @@ public class BossBase : CustomBehaviour
         hud.SetBossFillValue(currentHP,BaseHealth);
         hud.SetBossFillText(currentHP, BaseHealth);
         gameManager.AIManager.EnemyList.Add(this.transform);
-        
+
+        Monster.ResetAttack();
+        Monster.ChangeAction(false);
+        Monster.SetState(MonsterState.Run);
+
     }
 
     private void Update()
@@ -148,97 +154,191 @@ public class BossBase : CustomBehaviour
 
     public void ChasePlayer()
     {
-        transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, BaseMoveSpeed * Time.deltaTime);
+        if (!GameManager.IsGamePaused)
+        {
+            if (Mathf.Abs(Vector3.Distance(transform.position, Player.transform.position)) < BaseRange)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, BaseMoveSpeed * Time.deltaTime);
+
+            }
+        }
+        
     }
 
     public IEnumerator ChargeAttack(float startDelay,int chargeCount, float chargeBuilUpTime, float chargeTime, float chargeCooldown, float timeBetweenCharges)
     {
-        yield return new WaitForSeconds(startDelay);
-        
-        for (int i = 0; i < chargeCount; i++)
+        if (!GameManager.IsGamePaused)
         {
-            if (ShouldMove)
+            if(CanAttack)
             {
-                ShouldMove = false;
-                Monster.SetState(MonsterState.Idle);
+                yield return new WaitForSeconds(StartDelay);
+                CanAttack = false;
             }
 
-            ShouldRotate = true;
-            ShouldIndicatorRotate = true;
-
-            ChargeIndicator.SetActive(true);
-            ChargeIndicator.transform.DOScaleY(7.5f, chargeBuilUpTime).OnComplete(() =>
+            for (int i = 0; i < chargeCount; i++)
             {
-                ShouldIndicatorRotate = false;
-
-                var temp = Destination.transform.position;
-                ChargeIndicator.SetActive(false);
-                ChargeIndicator.transform.localScale = new Vector3(2, 1, 1);
-                Monster.ChangeAction(true);
-                Monster.Attack();
-
-                gameObject.transform.DOMove(temp, chargeTime).OnComplete(() =>
+                if (ShouldMove)
                 {
-                    Monster.ChangeAction(false);
+                    ShouldMove = false;
+                    Monster.ResetAttack();
+                    Monster.SetState(MonsterState.Idle);
+                }
 
-                    Monster.SetState(MonsterState.Ready);
+                ShouldRotate = true;
+                ShouldIndicatorRotate = true;
 
+                ChargeIndicator.SetActive(true);
+                ChargeIndicator.transform.DOScaleY(7.5f, chargeBuilUpTime).OnComplete(() =>
+                {
+                    ShouldIndicatorRotate = false;
+
+                    var temp = Destination.transform.position;
+                    ChargeIndicator.SetActive(false);
+                    ChargeIndicator.transform.localScale = new Vector3(2, 1, 1);
+                    Monster.ChangeAction(true);
+                    Monster.Attack();
+
+                    gameObject.transform.DOMove(temp, chargeTime).OnComplete(() =>
+                    {
+                        Monster.ChangeAction(false);
+                        Monster.ResetAttack();
+                        Monster.SetState(MonsterState.Ready);
+
+                    });
                 });
-            });
-            yield return new WaitForSeconds(chargeTime);
-            yield return new WaitForSeconds(timeBetweenCharges);
+                yield return new WaitForSeconds(chargeTime);
+                yield return new WaitForSeconds(timeBetweenCharges);
+            }
+
+            yield return new WaitForSeconds(chargeCooldown);
+            ShouldMove = true;
+            Monster.ResetAttack();
+            Monster.ChangeAction(false);
+            Monster.SetState(MonsterState.Run);
+
+
+            StartCoroutine(ChargeAttack(StartDelay, ChargeCount, ChargeBuildUpTime, ChargeTime, BaseAttackCooldown, TimeBtwCharges));
         }
         
-        yield return new WaitForSeconds(chargeCooldown);
-        ShouldMove = true;
-        Monster.SetState(MonsterState.Run);
-
-        StartCoroutine(ChargeAttack(StartDelay, ChargeCount, ChargeBuildUpTime, ChargeTime, BaseAttackCooldown, TimeBtwCharges));
 
     }
 
     public IEnumerator ChargeAttackWithoutIndicatorFollow(float startDelay, int chargeCount, float chargeBuilUpTime, float chargeTime, float chargeCooldown, float timeBetweenCharges)
     {
-        ShouldIndicatorRotate = false;
-        yield return new WaitForSeconds(startDelay);
-
-        for (int i = 0; i < chargeCount; i++)
+        if (!GameManager.IsGamePaused)
         {
-            if (ShouldMove)
+            ShouldIndicatorRotate = false;
+            if (CanAttack)
             {
-                ShouldMove = false;
-                Monster.SetState(MonsterState.Idle);
+                yield return new WaitForSeconds(StartDelay);
+                CanAttack = false;
             }
 
-            ShouldRotate = true;
-            IndicatorRotation();
-
-            ChargeIndicator.SetActive(true);
-            ChargeIndicator.transform.DOScaleY(7.5f, chargeBuilUpTime).OnComplete(() =>
+            for (int i = 0; i < chargeCount; i++)
             {
-                var temp = Destination.transform.position;
-                ChargeIndicator.SetActive(false);
-                ChargeIndicator.transform.localScale = new Vector3(2, 1, 1);
-                Monster.ChangeAction(true);
-                Monster.Attack();
-
-                gameObject.transform.DOMove(temp, chargeTime).OnComplete(() =>
+                if (ShouldMove)
                 {
-                    Monster.ChangeAction(false);
+                    ShouldMove = false;
+                    Monster.ResetAttack();
+                    Monster.SetState(MonsterState.Idle);
+                }
 
-                    Monster.SetState(MonsterState.Ready);
+                ShouldRotate = true;
+                IndicatorRotation();
 
+                ChargeIndicator.SetActive(true);
+                ChargeIndicator.transform.DOScaleY(7.5f, chargeBuilUpTime).OnComplete(() =>
+                {
+                    var temp = Destination.transform.position;
+                    ChargeIndicator.SetActive(false);
+                    ChargeIndicator.transform.localScale = new Vector3(2, 1, 1);
+                    Monster.ChangeAction(true);
+                    Monster.Attack();
+
+                    gameObject.transform.DOMove(temp, chargeTime).OnComplete(() =>
+                    {
+                        Monster.ChangeAction(false);
+                        Monster.ResetAttack();
+                        Monster.SetState(MonsterState.Ready);
+
+                    });
                 });
-            });
-            yield return new WaitForSeconds(chargeTime);
-            yield return new WaitForSeconds(timeBetweenCharges);
+                yield return new WaitForSeconds(chargeTime);
+                yield return new WaitForSeconds(timeBetweenCharges);
+            }
+
+            yield return new WaitForSeconds(chargeCooldown);
+            ShouldMove = true;
+            Monster.ResetAttack();
+            Monster.ChangeAction(false);
+            Monster.SetState(MonsterState.Run);
+
+            StartCoroutine(ChargeAttackWithoutIndicatorFollow(StartDelay, ChargeCount, ChargeBuildUpTime, ChargeTime, BaseAttackCooldown, TimeBtwCharges));
         }
+        
+    }
 
-        yield return new WaitForSeconds(chargeCooldown);
-        ShouldMove = true;
-        Monster.SetState(MonsterState.Run);
+    protected IEnumerator RapidFire(float startDelay, int shotCount, float shotCooldown, float timeBetweenShots)
+    {
+        Debug.Log(shotCount + " ShotCount");
+        if (!GameManager.IsGamePaused)
+        {
+            if (CanAttack)
+            {
+                yield return new WaitForSeconds(StartDelay);
+                CanAttack = false;
+            }
+            for (int i = 0; i < shotCount; i++)
+            {
+                if (ShouldMove)
+                {
+                    ShouldMove = false;
+                    Monster.ChangeAction(true);
+                    Monster.Attack();
+                }
 
-        StartCoroutine(ChargeAttackWithoutIndicatorFollow(StartDelay, ChargeCount, ChargeBuildUpTime, ChargeTime, BaseAttackCooldown, TimeBtwCharges));
+                var bullet = GameManager.PoolingManager.EnemyBulletPoolerList[(int)EnemyBulletPoolerType.BossClub].GetObjectFromPool();
+                if(Hand != null)
+                {
+                    if(bullet != null)
+                    {
+                        bullet.transform.position = Hand.transform.position;
+
+                    }
+                    else
+                    {
+                        Debug.Log("NO Bullet");
+                    }
+
+                }
+                else
+                {
+                    bullet.transform.position = transform.position;
+
+                }
+
+                var bulletShot = bullet.GetComponent<BossRotatingProjectile>();
+
+                bulletShot.gm = GameManager;
+                GameManager.OnLevelFailed += bulletShot.OnGameFailed;
+
+                bulletShot.mDirection = Player.transform.position - transform.position;
+                bulletShot.DirectionNorm = bulletShot.mDirection.normalized;
+
+                bulletShot.PoolerBase = GameManager.PoolingManager.EnemyBulletPoolerList[(int)EnemyBulletPoolerType.BossClub];
+                bulletShot.isShotted = true;
+                bulletShot.damage = BaseDamage;
+                i++;
+                yield return new WaitForSeconds(timeBetweenShots);
+            }
+            ShouldMove = true;
+            Monster.ResetAttack();
+            Monster.ChangeAction(false);
+            Monster.SetState(MonsterState.Run);
+            yield return new WaitForSeconds(shotCooldown);
+            StartCoroutine(RapidFire(StartDelay, ChargeCount, BaseAttackCooldown, TimeBtwCharges));
+        }
+        
     }
 
     private void BossRotation()
@@ -309,6 +409,7 @@ public class BossBase : CustomBehaviour
     {
         GameManager.SpawnerManager.CacheMainSpawnRoutine();
         GameManager.SpawnerManager.BossSpawner.BossRing.SetActive(false);
+        Monster.Die();
         //random range 0,1000 if 1 se gold else exp.
         var i = Random.Range(0, 1000);
         if (i == 1)
@@ -319,18 +420,26 @@ public class BossBase : CustomBehaviour
         {
             Invoke("DropExp", Anim.GetCurrentAnimatorStateInfo(0).length);
         }
+        GameManager.IsBossTime = false;
     }
     private void DropExp()
     {
-
-        var exp = GameManager.PoolingManager.ExpPoolerList[(int)ExpPoolerType.SmallExperience].GetObjectFromPool();
-        exp.transform.position = transform.position;
+        if (!GameManager.IsDevelopmentModeOn)
+        {
+            var exp = GameManager.PoolingManager.ExpPoolerList[(int)ExpPoolerType.SmallExperience].GetObjectFromPool();
+            exp.transform.position = transform.position;
+        }
+        
         gameObject.SetActive(false);
     }
     private void DropCoin()
     {
-        var coin = GameManager.PoolingManager.CoinPoolerList[(int)CoinType.Small].GetObjectFromPool();
-        coin.transform.position = transform.position;
+        if (!GameManager.IsDevelopmentModeOn)
+        {
+            var coin = GameManager.PoolingManager.CoinPoolerList[(int)CoinType.Small].GetObjectFromPool();
+            coin.transform.position = transform.position;
+        }
+        
         gameObject.SetActive(false);
 
     }
@@ -338,7 +447,13 @@ public class BossBase : CustomBehaviour
     private void OnGameFailed()
     {
         gameObject.SetActive(false);
-    }
+        IsActivated = false;
+        ShouldMove = false;
+        CanAttack = true;
+        ShouldRotate = false;
+        ShouldIndicatorRotate = false;
+
+}
 
     private void OnDestroy()
     {

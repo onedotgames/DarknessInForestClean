@@ -18,6 +18,7 @@ public class WeaponBase :CustomBehaviour
     public bool isMiniGameComplete = false;
     public GameObject[] minigames;
     public GameObject[] bananas;
+    public SelectSkill SelectSkillPanel;
     #region Local Stats
     [HideInInspector]
     public PoolerBase PoolerBase;
@@ -54,6 +55,7 @@ public class WeaponBase :CustomBehaviour
             GameManager.OnLevelFailed += OnGameFailed;
 
         }
+        SelectSkillPanel = gameManager.UIManager.GetPanel(Panels.SelectSkill).GetComponent<SelectSkill>();
         mPlayer = gameManager.PlayerManager.CurrentPlayer;
         PoolerBase = gameManager.PoolingManager.WeaponPooler[(int)SkillSO.PoolerType];
         SetStats();        
@@ -399,6 +401,7 @@ public class WeaponBase :CustomBehaviour
     public void PlayMinigame(int gameIndex)
     {
         Time.timeScale = 0;
+        SelectSkillPanel.ClosePanel();
         Debug.Log(minigames[gameIndex]);
         minigames[gameIndex].SetActive(true);
     }

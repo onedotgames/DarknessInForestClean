@@ -127,6 +127,13 @@ public class Player : CustomBehaviour
             GetHit(collision.GetComponent<BulletShot>().damage);
             GameManager.PlayerHealthManager.SetHealthBar(mMaxHealth);
         }
+        if (collision.CompareTag("BossBullet"))
+        {
+            var proj = collision.GetComponent<BossRotatingProjectile>();
+            GetHit(proj.damage);
+            GameManager.PlayerHealthManager.SetHealthBar(mMaxHealth);
+            proj.PoolerBase.ReturnObjectToPool(proj.gameObject);
+        }
         if (collision.CompareTag("Magnet"))
         {
             var exps = Physics2D.OverlapCircleAll(transform.position, MagnetRadius);

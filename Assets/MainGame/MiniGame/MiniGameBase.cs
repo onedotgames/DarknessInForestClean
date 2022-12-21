@@ -19,6 +19,7 @@ public class MiniGameBase : MonoBehaviour
     public bool miniGameSucces = false;
     public WeaponManager weaponManager;
     public GameManager GameManager;
+    public HUD HUD;
 
     private void Start()
     {
@@ -50,6 +51,7 @@ public class MiniGameBase : MonoBehaviour
                 GameManager.WeaponManager.selectedWeaponData.Weapon.UpdateWeapon();
                 GameManager.PoolingManager.WeaponPooler[(int)GameManager.WeaponManager.selectedWeaponData.Weapon.SkillSO.PoolerType].ObjectList.ForEach(x => x.GetComponent<WeaponBase>().UpdateWeapon());
                 TargetImage = Weapons[Random.Range(0, Weapons.Count)];
+                HUD.OpenPanel();
                 Time.timeScale = 1;
             }
         }      

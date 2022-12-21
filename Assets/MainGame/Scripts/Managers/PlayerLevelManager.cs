@@ -52,7 +52,7 @@ public class PlayerLevelManager : CustomBehaviour
         {
             CurrentExp = CurrentExp - LevelRequirement;
             SetLevelRequirement();
-            if(PlayerLevel <= 1)
+            if(PlayerLevel <= 5)
             {
                 mSelectSkillPanel.AssignWeaponsToButtons();
             }
@@ -72,8 +72,6 @@ public class PlayerLevelManager : CustomBehaviour
             }
             
             LevelUp();
-            SetExp(CurrentExp);
-
         }
     }
 

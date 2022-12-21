@@ -22,6 +22,7 @@ TagManager:
   - NPC
   - Tower
   - Canvas
+  - BossBullet
   layers:
   - Default
   - TransparentFX
@@ -37,7 +38,7 @@ TagManager:
   - Player
   - PlayerCombatLayer
   - Collectable
-  - 
+  - EnemyProjectile
   - 
   - 
   - 

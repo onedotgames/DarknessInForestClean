@@ -115,17 +115,24 @@ public class EnemyBase : CustomBehaviour
     }
     private void DropExp()
     {
-       
-        var exp = GameManager.PoolingManager.ExpPoolerList[(int)ExpPoolerType.SmallExperience].GetObjectFromPool();
-        exp.transform.position = transform.position;
+        if (!GameManager.IsDevelopmentModeOn)
+        {
+            var exp = GameManager.PoolingManager.ExpPoolerList[(int)ExpPoolerType.SmallExperience].GetObjectFromPool();
+            exp.transform.position = transform.position;
+        }
+        
         GameManager.AIManager.EnemyList.Remove(transform);
         GameManager.AIManager.AIList.Remove(this);
         GameManager.PoolingManager.EnemyPoolerList[(int)EnemyPoolerType].ReturnObjectToPool(gameObject);
     }
     private void DropCoin()
     {
-        var coin = GameManager.PoolingManager.CoinPoolerList[(int)CoinType.Small].GetObjectFromPool();
-        coin.transform.position = transform.position;
+        if (!GameManager.IsDevelopmentModeOn)
+        {
+            var coin = GameManager.PoolingManager.CoinPoolerList[(int)CoinType.Small].GetObjectFromPool();
+            coin.transform.position = transform.position;
+        }
+        
         GameManager.AIManager.EnemyList.Remove(transform);
         GameManager.AIManager.AIList.Remove(this);
         GameManager.PoolingManager.EnemyPoolerList[(int)EnemyPoolerType].ReturnObjectToPool(gameObject);

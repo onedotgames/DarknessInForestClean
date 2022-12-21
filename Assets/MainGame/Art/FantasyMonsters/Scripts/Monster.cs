@@ -67,8 +67,13 @@ namespace Assets.FantasyMonsters.Scripts
         public void Attack()
         {
             Animator.SetTrigger("Attack");
+            SetHead(1);
         }
-
+        public void ResetAttack()
+        {
+            Animator.ResetTrigger("Attack");
+            SetHead(0);
+        }
         /// <summary>
         /// Play scale spring animation.
         /// </summary>
@@ -81,6 +86,7 @@ namespace Assets.FantasyMonsters.Scripts
         public void Die()
         {
             SetState(MonsterState.Death);
+            SetHead(2);
         }
 
         /// <summary>

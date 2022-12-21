@@ -33,6 +33,13 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
     public CustomButton PauseButton;
     public CustomButton ResumeButton;
 
+    public CustomToggle DevToggle;
+    public GameObject DevToggleOn;
+    public GameObject DevToggleOff;
+    public GameObject DevToolBTNS;
+
+    public CustomButton DevLevelUpBTN;
+
     public GameObject EnemyWarningObject;
     public GameObject BossWarningObject;
     public TMP_Text EnemyRushWarningText;
@@ -59,6 +66,8 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
         playerLevelManager = GameManager.PlayerLevelManager;
         PauseButton.Initialize(uIManager, PauseGame, true);
         ResumeButton.Initialize(uIManager, ResumeGame, true);
+        DevToggle.Initialize(uIManager, OnDevToggleClicked);
+        DevLevelUpBTN.Initialize(uIManager, DevLevelUp, true);
         SubscribeEvents();
         OpenCloseJoystick();
         ClosePanel();
@@ -103,13 +112,31 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
         BossWarningObject.SetActive(false);
 
     }
+    
+
+    private void ResetBossUI()
+    {
+        BossWarningText.transform.localScale = Vector3.one;
+        BossWarningObject.SetActive(false);
+        SetBossHPBarActivation(false);
+    }
     public void SetExpBarFillAmount()
     {
-        ExpText.SetText(playerLevelManager.GetCurrentExp().ToString() + "/" + playerLevelManager.GetLvlReq().ToString());
-        ExperienceBar.DOValue((playerLevelManager.GetCurrentExp() / playerLevelManager.GetLvlReq()), 1f).OnComplete(() =>
+        SetExpText();
+        if(ExperienceBar.value <= 1)
         {
-            playerLevelManager.CheckExp();
-        });
+            ExperienceBar.DOValue((playerLevelManager.GetCurrentExp() / playerLevelManager.GetLvlReq()), 0.5f).OnComplete(() =>
+            {
+                playerLevelManager.CheckExp();
+            });
+        }
+        
+
+    }
+
+    public void SetExpText()
+    {
+        ExpText.SetText(playerLevelManager.GetCurrentExp().ToString() + "/" + playerLevelManager.GetLvlReq().ToString());
 
     }
 
@@ -162,6 +189,11 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
             VariableJoystick.SetActive(false);
         }
     }
+    public void ToggleDevMode()
+    {
+        GameManager.IsDevelopmentModeOn = !GameManager.IsDevelopmentModeOn;
+    }
+
     private void SubscribeEvents()
     {
         if (GameManager != null)
@@ -216,6 +248,36 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
     {
         UIManager.GameManager.InputManager.TouchEnd(eventData);
     }
+    private void OnDevToggleClicked()
+    {
+        GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
+        ToggleDevMode();
+        SwithDevToggleBG();
+        Debug.Log("DevMode: " + GameManager.IsDevelopmentModeOn);
+    }
+
+    private void DevLevelUp()
+    {
+        GameManager.PlayerLevelManager.SetExp(GameManager.PlayerLevelManager.LevelRequirement);
+        SetExpBarFillAmount();
+    }
+
+    private void SwithDevToggleBG()
+    {
+        if (GameManager.IsDevelopmentModeOn)
+        {
+            DevToggleOn.SetActive(true);
+            DevToggleOff.SetActive(false);
+            DevToolBTNS.SetActive(true);
+        }
+        else if (!GameManager.IsDevelopmentModeOn)
+        {
+            DevToggleOn.SetActive(false);
+            DevToggleOff.SetActive(true);
+            DevToolBTNS.SetActive(false);
+
+        }
+    }
 
     private void OnStartGame()
     {
@@ -236,6 +298,7 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
     }
     private void OnLevelFailed()
     {
+        ResetBossUI();
         ClosePanel();
     }
 

@@ -92,6 +92,8 @@ public class BossSpawner : CustomBehaviour
     {
         TimePassed = 0;
         isBossWarningShowed = false;
+        GameManager.IsBossTime = false;
+        BossRing.SetActive(false);
         Boss1Spawned = false;
         Boss2Spawned = false;
         Boss3Spawned = false;

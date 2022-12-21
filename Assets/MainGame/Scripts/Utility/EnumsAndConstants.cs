@@ -220,7 +220,8 @@ public enum EnemyPoolerType
 
 public enum EnemyBulletPoolerType
 {
-    BasicBullet = 0
+    BasicBullet = 0,
+    BossClub = 1
 }
 
 public enum CoinType

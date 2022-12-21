@@ -24,7 +24,21 @@ public class PoisonDart : WeaponBase
             HitEffect.gameObject.SetActive(true);
             HitEffect.Play();
             StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, 0.5f));
-            Invoke("StopPoison", 0.5f);
+            Invoke("StopPoison", 0.2f);
+            Invoke("ReturnPoison", PoisonDuration);
+            //zehir býrakma buraya gelecek.
+
+        }
+        if (collision.CompareTag("Boss"))
+        {
+            var enemy = collision.GetComponent<BossBase>();
+            enemy.GetHit(BaseDamage);
+            PoisonVFX.gameObject.SetActive(true);
+            PoisonVFX.Play();
+            HitEffect.gameObject.SetActive(true);
+            HitEffect.Play();
+            StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, 0.5f));
+            Invoke("StopPoison", 0.2f);
             Invoke("ReturnPoison", PoisonDuration);
             //zehir býrakma buraya gelecek.
 

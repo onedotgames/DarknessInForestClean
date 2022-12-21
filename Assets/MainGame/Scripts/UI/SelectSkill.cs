@@ -67,6 +67,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
     public override void ClosePanel()
     {
         base.ClosePanel();
+        
     }
     public void CloseSkillPanelAndOpenHud()
     {
@@ -79,6 +80,9 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
         {
             Time.timeScale = 1;
         }
+        GameManager.PlayerLevelManager.CheckExp();
+        mHud.SetExpBarFillAmount();
+
     }
     #region Event Methods
     public void OnPointerDown(PointerEventData eventData)

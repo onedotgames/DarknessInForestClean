@@ -17,9 +17,19 @@ public class SpiderWeb : WeaponBase
     {
         if (collision.CompareTag("Enemy"))
         {
+            var enemy = collision.gameObject.GetComponent<EnemyBase>();
             //slow vercek bir süre
-            tempSpeed = collision.gameObject.GetComponent<EnemyBase>().mStats.BaseSpeed;
-            collision.gameObject.GetComponent<EnemyBase>().BaseSpeed -= SlowPower;
+            tempSpeed = enemy.mStats.BaseSpeed;
+            enemy.BaseSpeed -= SlowPower;
+            BaseSpeed = 0;
+            StartCoroutine(WebCoroutine());
+        }
+        if (collision.CompareTag("Boss"))
+        {
+            var boss = collision.GetComponent<BossBase>();
+            //slow vercek bir süre
+            tempSpeed = boss.BaseMoveSpeed;
+            boss.BaseMoveSpeed -= SlowPower;
             BaseSpeed = 0;
             StartCoroutine(WebCoroutine());
         }
@@ -29,8 +39,11 @@ public class SpiderWeb : WeaponBase
     {
         if (collision.CompareTag("Enemy"))
         {
-            Debug.Log(tempSpeed);
             collision.gameObject.GetComponent<EnemyBase>().BaseSpeed = tempSpeed;
+        }
+        if (collision.CompareTag("Boss"))
+        {
+            collision.gameObject.GetComponent<BossBase>().BaseMoveSpeed = tempSpeed;
         }
     }
   
