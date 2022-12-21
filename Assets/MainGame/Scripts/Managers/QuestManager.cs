@@ -14,7 +14,6 @@ public class QuestManager : CustomBehaviour
     private Vector3 towerPos;
     public GameObject QuestNPC;
     public GameObject QuestPanel;
-    public GameObject ArrowSign;
     public int HuntTarget;
     public int currentKillCount;
     public GameObject Tower;
@@ -27,7 +26,6 @@ public class QuestManager : CustomBehaviour
     {
         QuestNPC.SetActive(false);
         Tower.SetActive(false);
-        ArrowSign.SetActive(false);
         QuestPanel.SetActive(false);
     }
 
@@ -40,20 +38,6 @@ public class QuestManager : CustomBehaviour
             {
                 canSpawnQuest = false;
                 SpawnQuest();
-            }
-            if (!canSpawnQuest && !hasActiveQuest)
-            {
-                var dir = questPos - ArrowSign.transform.position;
-                if(dir.magnitude < 5)
-                {
-                    ArrowSign.SetActive(false);
-                }
-                else
-                {
-                    ArrowSign.SetActive(true);
-                    var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                    ArrowSign.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-                }
             }
             if (hasActiveQuest)
             {
