@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4985917313423641409}
   - component: {fileID: 8408727310264185732}
-  m_Layer: 0
+  - component: {fileID: 1979972391}
+  m_Layer: 13
   m_Name: NPC
   m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4985917313423641409
 Transform:
   m_ObjectHideFlags: 0
@@ -50,6 +51,23 @@ CapsuleCollider2D:
   m_Offset: {x: -0.6431481, y: 1.526964}
   m_Size: {x: 6.430448, y: 4.6479435}
   m_Direction: 1
+--- !u!114 &1979972391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937831773806669136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 411060de4483b5e4c9847cd3cbc18554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetColor: {r: 0, g: 1, b: 0.038576365, a: 1}
+  needBoxIndicator: 0
+  needArrowIndicator: 1
+  needDistanceText: 0
+  indicator: {fileID: 0}
 --- !u!1 &4060779210025236553
 GameObject:
   m_ObjectHideFlags: 0
