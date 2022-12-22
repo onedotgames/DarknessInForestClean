@@ -10,6 +10,9 @@ public class SpiderWeb : WeaponBase
     public override void AttackMethod()
     {
         base.AttackMethod();
+    }
+    public override void MovementMethod()
+    {
         transform.Translate(mDirection * Time.deltaTime * BaseSpeed);
     }
 
@@ -18,7 +21,7 @@ public class SpiderWeb : WeaponBase
         if (collision.CompareTag("Enemy"))
         {
             var enemy = collision.gameObject.GetComponent<EnemyBase>();
-            //slow vercek bir süre
+            //slow vercek bir s?re
             tempSpeed = enemy.mStats.BaseSpeed;
             enemy.BaseSpeed -= SlowPower;
             BaseSpeed = 0;
@@ -27,7 +30,7 @@ public class SpiderWeb : WeaponBase
         if (collision.CompareTag("Boss"))
         {
             var boss = collision.GetComponent<BossBase>();
-            //slow vercek bir süre
+            //slow vercek bir s?re
             tempSpeed = boss.BaseMoveSpeed;
             boss.BaseMoveSpeed -= SlowPower;
             BaseSpeed = 0;

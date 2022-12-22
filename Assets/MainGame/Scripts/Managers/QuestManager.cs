@@ -18,9 +18,15 @@ public class QuestManager : CustomBehaviour
     public int currentKillCount;
     public GameObject Tower;
     public TowerSystem TowerSystem;
+    public bool isTowerNear = false;
+    public bool canQuestsStart = false;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
+        if (gameManager != null)
+        {
+            GameManager.OnStartGame += OnGameStart;
+        }
     }
     private void Awake()
     {
@@ -29,12 +35,16 @@ public class QuestManager : CustomBehaviour
         QuestPanel.SetActive(false);
     }
 
+    public void OnGameStart()
+    {
+        canQuestsStart = true;
+    }
     public void Update()
     {
-        if (GameManager != null)
+        if (GameManager != null && canQuestsStart)
         {
             timer += Time.deltaTime;
-            if((int)timer == QuestSpawnRateSecond && !hasActiveQuest && canSpawnQuest)
+            if ((int)timer == QuestSpawnRateSecond && !hasActiveQuest && canSpawnQuest)
             {
                 canSpawnQuest = false;
                 SpawnQuest();
@@ -47,7 +57,15 @@ public class QuestManager : CustomBehaviour
                 }
             }
             
-        }    
+        }
+        if(Tower.activeInHierarchy && hasActiveQuest && GameManager.PlayerManager.CurrentPlayer.transform.position.magnitude - Tower.transform.position.magnitude < 5f)
+        {
+            isTowerNear = true;
+        }
+        else
+        {
+            isTowerNear = false;
+        }
     }
 
     public void SpawnQuest()
@@ -83,5 +101,13 @@ public class QuestManager : CustomBehaviour
         GameManager.PlayerManager.UpdateCoinCountData(50);
         hasActiveQuest = false;
         canSpawnQuest = true;
+    }
+
+    private void OnDestroy()
+    {
+        if(GameManager != null)
+        {
+            GameManager.OnStartGame -= OnGameStart;
+        }
     }
 }

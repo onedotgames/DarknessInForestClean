@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311915, g: 0.3807396, b: 0.35872662, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -24273,7 +24273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hud: {fileID: 7429275542549284746}
-  QuestSpawnRateSecond: 10
+  QuestSpawnRateSecond: 100
   QuestGoldReward: 100
   hasActiveQuest: 0
   canSpawnQuest: 1
@@ -24283,6 +24283,8 @@ MonoBehaviour:
   currentKillCount: 0
   Tower: {fileID: 1932212231}
   TowerSystem: {fileID: 1932212232}
+  isTowerNear: 0
+  canQuestsStart: 0
 --- !u!1 &1000729331
 GameObject:
   m_ObjectHideFlags: 0
@@ -31264,7 +31266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7694369702971679182, guid: 0e2a5606fe51a934b9c07596f76d0659, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.3250003
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7694369702971679182, guid: 0e2a5606fe51a934b9c07596f76d0659, type: 3}
       propertyPath: m_LocalPosition.z
@@ -31304,7 +31306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7694369702971679187, guid: 0e2a5606fe51a934b9c07596f76d0659, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7694369703013062253, guid: 0e2a5606fe51a934b9c07596f76d0659, type: 3}
       propertyPath: m_SortingOrder
@@ -45323,6 +45325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   screenBoundOffset: 0.9
+  questManager: {fileID: 1000319961}
 --- !u!114 &1790638773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50054,7 +50057,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1957899455}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.065, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
