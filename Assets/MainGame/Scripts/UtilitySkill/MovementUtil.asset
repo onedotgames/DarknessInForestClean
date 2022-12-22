@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Hermes' Sandals
   Description: Movement speed upgrade for player
-  Icon: {fileID: 21300014, guid: 47a58b39aad917f428cb4c03716e7387, type: 3}
+  Icon: {fileID: 21300000, guid: 6263e0a46400e4ccba97f5e5dafdfc50, type: 3}
   Cooldown: 0
+  Duration: 0
   Size: {x: 0, y: 0, z: 0}
   UtilityPattern: 0
   UpgradeUtilityDatas:

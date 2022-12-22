@@ -18,7 +18,10 @@ public class BossSpawner : CustomBehaviour
     public int BossTimeOne;
     public int BossTimeTwo;
     public int BossTimeThree;
-    private bool isBossWarningShowed = false;
+    public bool isBossWarningShowed1 = false;
+    public bool isBossWarningShowed2 = false;
+    public bool isBossWarningShowed3 = false;
+
 
     public GameObject BossRing;
     public GameObject BossSpawnLocation;
@@ -43,27 +46,99 @@ public class BossSpawner : CustomBehaviour
             {
                 TimePassed += Time.deltaTime;
 
-            }
-            if ((timeManager.GetTimeValue() > BossTimeOne - 5) && !isBossWarningShowed)
-            {
-                SetBossRing();
-                isBossWarningShowed = true;
-                StartCoroutine(hud.BossRoutine());
-                StopEnemySpawners();
-                ClearOtherEnemies();
-            }
-            if ((timeManager.GetTimeValue() > BossTimeOne) && !Boss1Spawned)
-            {
-                GameManager.IsBossTime = true;
+                if ((timeManager.GetTimeValue() > BossTimeOne - 5) && !isBossWarningShowed1)
+                {
+                    StartBossPreperation(1);
+                }
+                if ((timeManager.GetTimeValue() > BossTimeOne) && !Boss1Spawned)
+                {
+                    SpawnBoss(1);
+                }
 
-                Boss1Spawned = true;
-                Boss1.gameObject.transform.position = transform.position;
-                Boss1.gameObject.SetActive(true);
-                Boss1.Initialize(GameManager);
+                if ((timeManager.GetTimeValue() > BossTimeTwo - 5) && !isBossWarningShowed2)
+                {
+                    StartBossPreperation(2);
+                }
+                if ((timeManager.GetTimeValue() > BossTimeTwo) && !Boss2Spawned)
+                {
+                    SpawnBoss(2);
 
+                }
+
+                if ((timeManager.GetTimeValue() > BossTimeThree - 5) && !isBossWarningShowed3)
+                {
+                    StartBossPreperation(3);
+                }
+                if ((timeManager.GetTimeValue() > BossTimeThree) && !Boss3Spawned)
+                {
+                    SpawnBoss(3);
+
+                }
             }
 
+            
         }
+    }
+
+    private void StartBossPreperation(int bossNumber)
+    {
+        if (bossNumber == 1)
+        {
+            SetBossRing();
+            isBossWarningShowed1 = true;
+            StartCoroutine(hud.BossRoutine());
+            StopEnemySpawners();
+            ClearOtherEnemies();
+        }
+        if (bossNumber == 2)
+        {
+            SetBossRing();
+            isBossWarningShowed2 = true;
+            StartCoroutine(hud.BossRoutine());
+            StopEnemySpawners();
+            ClearOtherEnemies();
+        }
+        if (bossNumber == 3)
+        {
+            SetBossRing();
+            isBossWarningShowed3 = true;
+            StartCoroutine(hud.BossRoutine());
+            StopEnemySpawners();
+            ClearOtherEnemies();
+        }
+        
+    }
+
+    private void SpawnBoss(int bossNumber)
+    {
+        if(bossNumber == 1)
+        {
+            GameManager.IsBossTime = true;
+
+            Boss1Spawned = true;
+            Boss1.gameObject.transform.position = transform.position;
+            Boss1.gameObject.SetActive(true);
+            Boss1.Initialize(GameManager);
+        }
+        if (bossNumber == 2)
+        {
+            GameManager.IsBossTime = true;
+
+            Boss2Spawned = true;
+            Boss2.gameObject.transform.position = transform.position;
+            Boss2.gameObject.SetActive(true);
+            Boss2.Initialize(GameManager);
+        }
+        if (bossNumber == 3)
+        {
+            GameManager.IsBossTime = true;
+
+            Boss3Spawned = true;
+            Boss3.gameObject.transform.position = transform.position;
+            Boss3.gameObject.SetActive(true);
+            Boss3.Initialize(GameManager);
+        }
+
     }
 
     private void ClearOtherEnemies()
@@ -91,7 +166,9 @@ public class BossSpawner : CustomBehaviour
     private void GameStart()
     {
         TimePassed = 0;
-        isBossWarningShowed = false;
+        isBossWarningShowed1 = false;
+        isBossWarningShowed2 = false;
+        isBossWarningShowed3 = false;
         GameManager.IsBossTime = false;
         BossRing.SetActive(false);
         Boss1Spawned = false;

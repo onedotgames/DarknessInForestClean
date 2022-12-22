@@ -56,7 +56,7 @@ public sealed class Board : MonoBehaviour
         {
             Pop();
             scoreCounter.popCount++;
-            scoreCounter.scoreText.text = (scoreCounter.popCount + " / 3"); 
+            //scoreCounter.scoreText.text = (scoreCounter.popCount + " / 3"); 
         }
         else if(canSwap)
         {
@@ -131,7 +131,7 @@ public sealed class Board : MonoBehaviour
 
                 await deflateSequence.Play().AsyncWaitForCompletion();
 
-                ScoreCounter.Instance.Score += tile.Item.value * connectedTiles.Count;
+                //ScoreCounter.Instance.Score += tile.Item.value * connectedTiles.Count;
                 var inflateSequence = DOTween.Sequence();
                 inflateSequence.SetUpdate(true);
 

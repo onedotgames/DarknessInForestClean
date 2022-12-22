@@ -39,7 +39,6 @@ public class MiniGameBase : MonoBehaviour
     {
         if (gameObject.activeInHierarchy)
         {
-            Debug.Log("Helloooooo");
             if (BigCircle.GetComponent<Circle>().isTrueImage && MediumCircle.GetComponent<Circle>().isTrueImage && SmallCircle.GetComponent<Circle>().isTrueImage)
             {
                 gameObject.SetActive(false);

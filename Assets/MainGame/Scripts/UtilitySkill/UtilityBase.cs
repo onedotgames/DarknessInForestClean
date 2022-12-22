@@ -24,7 +24,7 @@ public class UtilityBase : CustomBehaviour
 
     public void MakeUpgrade()
     {
-        if(UpgradeLevel< UtilitySO.UpgradeUtilityDatas.Count)
+        if(UpgradeLevel< UtilitySO.UpgradeUtilityDatas.Count - 1)
         {
             switch (UtilityPattern)
             {
@@ -69,12 +69,12 @@ public class UtilityBase : CustomBehaviour
             }
 
             UpgradeLevel++;
+            if(UpgradeLevel == UtilitySO.UpgradeUtilityDatas.Count - 1)
+            {
+                GameManager.WeaponManager.InitialUtilityList.Remove(this);
+                GameManager.WeaponManager.UtilitiesInUse.Remove(this);
+            }
         }
-        else
-        {
-            GameManager.WeaponManager.InitialUtilityList.Remove(this);
-        }
-        
     }
 
     public void ShieldOn()

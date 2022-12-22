@@ -9,15 +9,20 @@ using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine.UIElements;
 using UnityEngine.Windows;
+using DG.Tweening.Core.Easing;
 
 public class WeaponManager : CustomBehaviour
 {
     public List<WeaponBase> InitialWeaponList;
     public List<UtilityBase> InitialUtilityList;
     public bool isMiniGameDone = false;
+    public bool WeaponLimitReached = false;
+    public bool UtilLimitReached = false;
 
-    public List<WeaponBase> InUseWeaponList;
-    public List<UtilityBase> InUseUtilityList;
+    public List<WeaponBase> TempWeaponList;
+    public List<WeaponBase> WeaponsInUse;
+    public List<UtilityBase> TempUtilList;
+    public List<UtilityBase> UtilitiesInUse;
 
     #region WeaponBases
     public List<WeaponBase> ProjectileWeaponsInUse;
@@ -44,8 +49,8 @@ public class WeaponManager : CustomBehaviour
     public HUD HUD;
     public PausePanel PausePanel;
     public SelectSkill SelectSkillPanel;
-    public List<WeaponBase> mWeaponList = new List<WeaponBase>();
-    private List<UtilityBase> utilityBases = new List<UtilityBase>();
+    public List<WeaponBase> WeaponBases = new List<WeaponBase>();
+    public List<UtilityBase> UtilityBases = new List<UtilityBase>();
 
     public ButtonData selectedWeaponData;
     public ButtonData selectedUtilityData;
@@ -58,11 +63,12 @@ public class WeaponManager : CustomBehaviour
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
-        mPlayer = gameManager.PlayerManager.CurrentPlayer;
-        HUD = gameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
-        PausePanel = gameManager.UIManager.GetPanel(Panels.Pause).GetComponent<PausePanel>();
-        SelectSkillPanel = gameManager.UIManager.GetPanel(Panels.SelectSkill).GetComponent<SelectSkill>();
+        AssignReferences();
+        SubscribeToEvents();   
+    }
 
+    private void SubscribeToEvents()
+    {
         if (GameManager != null)
         {
             GameManager.OnStartGame += OnLevelStart;
@@ -70,40 +76,77 @@ public class WeaponManager : CustomBehaviour
         }
     }
 
-    public void AssignUtilsToButtons()
+    private void AssignReferences()
     {
-        CopyInitialUtilList();
-        for (int i = 0; i < SelectSkillPanel.ButtonDataList.Count; i++)
-        {
-            UtilityBase util = InUseUtilityList[Random.Range(0, InUseUtilityList.Count)];
-            utilityBases.Add(util);
-            InUseUtilityList.Remove(util);
-
-            SelectSkillPanel.ButtonDataList[i].Button.Initialize(GameManager.UIManager, InvokeUtility, true);
-            SelectSkillPanel.ButtonDataList[i].Image.sprite = util.UtilitySO.Icon;
-            SelectSkillPanel.ButtonDataList[i].Text.SetText(util.UtilitySO.name);
-            SelectSkillPanel.ButtonDataList[i].Utility = util;
-        }
+        mPlayer = GameManager.PlayerManager.CurrentPlayer;
+        HUD = GameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
+        PausePanel = GameManager.UIManager.GetPanel(Panels.Pause).GetComponent<PausePanel>();
+        SelectSkillPanel = GameManager.UIManager.GetPanel(Panels.SelectSkill).GetComponent<SelectSkill>();
     }
 
-    public void CopyInitialWeaponList()
-    {
-        InUseWeaponList.Clear();
-        for (int i = 0; i < InitialWeaponList.Count; i++)
-        {
 
-            InUseWeaponList.Add(InitialWeaponList[i]);
+    public void CreateTempWeaponList()
+    {
+        if (!WeaponLimitReached)
+        {
+            TempWeaponList.Clear();
+            for (int i = 0; i < InitialWeaponList.Count; i++)
+            {
+                TempWeaponList.Add(InitialWeaponList[i]);
+            }
+            if (!mDefaultWeapon.IsEvolved)
+            {
+                TempWeaponList.Add(mDefaultWeapon);
+            }
         }
-        InUseWeaponList.Add(mDefaultWeapon);
+        else
+        {
+            TempWeaponList.Clear();
+            for (int i = 0; i < WeaponsInUse.Count; i++)
+            {
+
+                TempWeaponList.Add(WeaponsInUse[i]);
+            }
+            if (!mDefaultWeapon.IsEvolved)
+            {
+                TempWeaponList.Add(mDefaultWeapon);
+            }
+        }
+
     }
 
-    private void CopyInitialUtilList()
+    public void CreateTempUtilList()
     {
-        InUseUtilityList.Clear();
-        for (int i = 0; i < InitialUtilityList.Count; i++)
+        if (!UtilLimitReached)
         {
+            TempUtilList.Clear();
+            for (int i = 0; i < InitialUtilityList.Count; i++)
+            {
+                TempUtilList.Add(InitialUtilityList[i]);
+            }
+        }
+        else
+        {
+            TempUtilList.Clear();
+            for (int i = 0; i < UtilitiesInUse.Count; i++)
+            {
+                TempUtilList.Add(UtilitiesInUse[i]);
+            }
+        }
 
-            InUseUtilityList.Add(InitialUtilityList[i]);
+    }
+    public void CheckWeaponLimitReached()
+    {
+        if (WeaponsInUse.Count == PausePanel.WeaponIconsOnPause.Count)
+        {
+            WeaponLimitReached = true;
+        }
+    }
+    public void CheckUtilLimitReached()
+    {
+        if (UtilitiesInUse.Count == PausePanel.UtilIconsOnPause.Count)
+        {
+            UtilLimitReached = true;
         }
     }
 
@@ -136,13 +179,32 @@ public class WeaponManager : CustomBehaviour
                     else
                     {
                         PausePanel.UpdateWeaponIcons(mDefaultWeapon.SkillSO.Icon);
+                        WeaponsInUse.Add(mDefaultWeapon);
                     }
                 }
                 break;
         }
-            
     }
-    
+    public bool CheckContainsWeapon()
+    {
+        bool contains = false;
+        if (!PausePanel.WeaponIconsOnPause.IsNullOrEmpty())
+        {
+            foreach (var item in PausePanel.WeaponIconsOnPause)
+            {
+                if (item.sprite.name == selectedWeaponData.Image.sprite.name)
+                {
+                    contains = true;
+                }
+            }
+        }
+        else
+        {
+            contains = false;
+        }
+        return contains;
+    }
+
     public void InvokeUtility()
     {
         if (EventSystem.current.currentSelectedGameObject == SelectSkillPanel.ButtonDataList[0].Button.gameObject)
@@ -250,7 +312,9 @@ public class WeaponManager : CustomBehaviour
             }
             else
             {
-                PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
+                PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite); 
+                WeaponsInUse.Add(selectedWeaponData.Weapon);
+                CheckWeaponLimitReached();
             }
 
             LevelUpWeapon();
@@ -276,6 +340,9 @@ public class WeaponManager : CustomBehaviour
             else
             {
                 PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
+                WeaponsInUse.Add(selectedWeaponData.Weapon);
+                CheckWeaponLimitReached();
+
             }
 
             LevelUpWeapon();
@@ -301,6 +368,9 @@ public class WeaponManager : CustomBehaviour
             else
             {
                 PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
+                WeaponsInUse.Add(selectedWeaponData.Weapon);
+                CheckWeaponLimitReached();
+
             }
 
             LevelUpWeapon();
@@ -609,6 +679,7 @@ public class WeaponManager : CustomBehaviour
                 break;
 
         }
+        
     }
     private IEnumerator WeaponSlotRoutine(WeaponBase weapon) //Potionda Size artt�rma burada olacak.
     {
@@ -781,6 +852,8 @@ public class WeaponManager : CustomBehaviour
 
     private void OnLevelStart()
     {
+        WeaponLimitReached = false;
+        UtilLimitReached = false;
         InvokeDefaultWeapon();
     }
     private void OnLevelFailed()
@@ -857,7 +930,8 @@ public class WeaponManager : CustomBehaviour
         }
 
         ClearLists();
-        
+        WeaponLimitReached = false;
+        UtilLimitReached = false;
     }
 
     private void ClearLists()
@@ -872,8 +946,8 @@ public class WeaponManager : CustomBehaviour
         SkunkGasWeaponsInUse.Clear();
         BananaWeaponsInUse.Clear();
 
-        InUseUtilityList.Clear();
-        InUseWeaponList.Clear();
+        TempUtilList.Clear();
+        TempWeaponList.Clear();
         CoroutineList.Clear();
 
         ActiveChestnuts.Clear();

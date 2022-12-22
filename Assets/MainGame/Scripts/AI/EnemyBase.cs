@@ -1,4 +1,5 @@
 using Assets.FantasyMonsters.Scripts;
+using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,6 +49,9 @@ public class EnemyBase : CustomBehaviour
     {
         IsActivated = true;
         Collider2D.enabled = true;
+
+        GameManager.AIManager.EnemyList.Add(this.transform);
+        GameManager.AIManager.AIList.Add(this);
         SetStats();
     }
 

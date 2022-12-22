@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Athenas Shield
   Description: Damage reduction for player
-  Icon: {fileID: 21300000, guid: cc23a5e877180c940bfa40d8cf492d26, type: 3}
+  Icon: {fileID: 21300000, guid: aee8b472f34804516843ccda1e9a7233, type: 3}
   Cooldown: 0
+  Duration: 0
   Size: {x: 0, y: 0, z: 0}
   UtilityPattern: 2
   UpgradeUtilityDatas:

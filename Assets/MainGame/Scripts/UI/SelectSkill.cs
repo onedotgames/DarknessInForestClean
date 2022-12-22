@@ -32,22 +32,90 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
         mHud = uIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
         mWeaponManager = uIManager.GameManager.WeaponManager;
     }
-
-    public void AssignWeaponsToButtons()
+    public void AssignSkillSelectingButtons()
     {
-        mWeaponManager.CopyInitialWeaponList();
+        mWeaponManager.CheckWeaponLimitReached();
+        mWeaponManager.CreateTempWeaponList();
+        mWeaponManager.CreateTempUtilList();
 
         for (int i = 0; i < ButtonDataList.Count; i++)
         {
-            WeaponBase weapon = mWeaponManager.InUseWeaponList[Random.Range(0, mWeaponManager.InUseWeaponList.Count)];
-            mWeaponManager.mWeaponList.Add(weapon);
-            mWeaponManager.InUseWeaponList.Remove(weapon);
+            if (GameManager.PlayerLevelManager.PlayerLevel <= 5)
+            {
+                AssignWeapon(i);
+            }
+            else
+            {
+                //Pick weapon or Util
+                int j = Random.Range(0, 2);
+                Debug.Log("j: " + j);
 
-            ButtonDataList[i].Button.Initialize(GameManager.UIManager, mWeaponManager.InvokeWeapon, true);
-            ButtonDataList[i].Image.sprite = weapon.SkillSO.Icon;
-            ButtonDataList[i].Text.SetText(weapon.SkillSO.name);
-            ButtonDataList[i].Weapon = weapon;
+                if (j == 0)
+                {
+                    //Weapon
+                    if (i < mWeaponManager.TempWeaponList.Count)
+                    {
+                        AssignWeapon(i);
+                    }
+                    else
+                    {
+                        if (i < mWeaponManager.TempUtilList.Count)
+                        {
+                            AssignUtil(i);
+                        }
+                        else
+                        {
+                            Debug.Log("Nothing to assign");
+                        }
+                    }
+                }
+                else if (j == 1)
+                {
+                    //Util
+                    if(i < mWeaponManager.TempUtilList.Count)
+                    {
+                        AssignUtil(i);
+                    }
+                    else
+                    {
+                        if (i < mWeaponManager.TempWeaponList.Count)
+                        {
+                            AssignWeapon(i);
+                        }
+                        else
+                        {
+                            Debug.Log("Nothing to assign");
+                        }
+                    }
+                }
+
+            }
+
         }
+    }
+
+    public void AssignWeapon(int index)
+    {
+        WeaponBase weapon = mWeaponManager.TempWeaponList[Random.Range(0, mWeaponManager.TempWeaponList.Count)];
+        mWeaponManager.WeaponBases.Add(weapon);
+        mWeaponManager.TempWeaponList.Remove(weapon);
+
+        ButtonDataList[index].Button.Initialize(GameManager.UIManager, mWeaponManager.InvokeWeapon, true);
+        ButtonDataList[index].Image.sprite = weapon.SkillSO.Icon;
+        ButtonDataList[index].Text.SetText(weapon.SkillSO.name);
+        ButtonDataList[index].Weapon = weapon;
+    }
+
+    public void AssignUtil(int index)
+    {
+        UtilityBase util = mWeaponManager.TempUtilList[Random.Range(0, mWeaponManager.TempUtilList.Count)];
+        mWeaponManager.UtilityBases.Add(util);
+        mWeaponManager.TempUtilList.Remove(util);
+
+        ButtonDataList[index].Button.Initialize(GameManager.UIManager, mWeaponManager.InvokeUtility, true);
+        ButtonDataList[index].Image.sprite = util.UtilitySO.Icon;
+        ButtonDataList[index].Text.SetText(util.UtilitySO.name);
+        ButtonDataList[index].Utility = util;
     }
 
     private void SubscribeEvents()

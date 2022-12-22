@@ -158,6 +158,7 @@ public class SpawnerManager : CustomBehaviour
         if (MainSpawnerRoutine != null)
         {
             StopCoroutine(MainSpawnerRoutine);
+            StopAllCoroutines();
         }
     }
     public void AdditionalSpawnerRoutineStop()
@@ -165,6 +166,8 @@ public class SpawnerManager : CustomBehaviour
         if (AdditionalSpawnerRoutine != null)
         {
             StopCoroutine(AdditionalSpawnerRoutine);
+            StopAllCoroutines();
+
         }
     }
 

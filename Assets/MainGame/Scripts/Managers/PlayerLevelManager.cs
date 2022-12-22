@@ -51,25 +51,10 @@ public class PlayerLevelManager : CustomBehaviour
         if (CurrentExp / LevelRequirement >= 1)
         {
             CurrentExp = CurrentExp - LevelRequirement;
-            SetLevelRequirement();
-            if(PlayerLevel <= 5)
-            {
-                mSelectSkillPanel.AssignWeaponsToButtons();
-            }
-            else
-            {
-                int i = Random.Range(0, 2);
 
-                if (i == 0)
-                {
-                    mSelectSkillPanel.AssignWeaponsToButtons();
-                }
-                else if (i == 1)
-                {
-                    GameManager.WeaponManager.AssignUtilsToButtons();
-                }
-                
-            }
+            SetLevelRequirement();
+
+            mSelectSkillPanel.AssignSkillSelectingButtons();
             
             LevelUp();
         }

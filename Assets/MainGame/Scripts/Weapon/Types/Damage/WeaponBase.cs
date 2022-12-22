@@ -10,6 +10,7 @@ public class WeaponBase :CustomBehaviour
     public bool IsActivated = false;
     [HideInInspector]
     public bool IsInitialized = false;
+    public bool IsEvolved = false;
     [HideInInspector]
     public Transform Target;
     public Vector3 playerCurLook;
@@ -378,7 +379,9 @@ public class WeaponBase :CustomBehaviour
         this.StatList.Cooldown = Cooldown;
         this.StatList.AttackRange = AttackRange;
         this.StatList.Size = Size;
+        IsEvolved = true;
         GameManager.WeaponManager.InitialWeaponList.Remove(GameManager.WeaponManager.selectedWeaponData.Weapon);
+        GameManager.WeaponManager.WeaponsInUse.Remove(GameManager.WeaponManager.selectedWeaponData.Weapon);
     }
 
     public virtual void Update()
@@ -645,6 +648,7 @@ public class WeaponBase :CustomBehaviour
     private void OnGameStart()
     {
         UpgradeLevel = 0;
+        IsEvolved = false;
         SetStats();
 
     }

@@ -17,6 +17,10 @@ public class BeeShot : WeaponBase
     private void OnEnable()
     {
         moveDirection = GameManager.JoystickManager.variableJoystick.LastDirection.normalized;
+        if(GameManager.JoystickManager.variableJoystick.LastDirection == Vector2.zero)
+        {
+            moveDirection = Vector2.left;
+        }
         float addition = 0;
         if(index % 2 == 0)
         {
