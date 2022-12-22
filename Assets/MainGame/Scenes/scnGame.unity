@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311915, g: 0.3807396, b: 0.35872662, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8973,6 +8973,7 @@ MonoBehaviour:
   - {fileID: 2126409691}
   - {fileID: 541709019}
   bananas: []
+  SelectSkillPanel: {fileID: 0}
   PoolerBase: {fileID: 0}
   BarrelPooler: {fileID: 0}
   BaseDamage: 0
@@ -15368,8 +15369,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -17406,6 +17407,7 @@ MonoBehaviour:
   - {fileID: 2126409691}
   - {fileID: 541709019}
   bananas: []
+  SelectSkillPanel: {fileID: 0}
   PoolerBase: {fileID: 0}
   BarrelPooler: {fileID: 0}
   BaseDamage: 0
@@ -18749,6 +18751,7 @@ MonoBehaviour:
   - {fileID: 2126409691}
   - {fileID: 541709019}
   bananas: []
+  SelectSkillPanel: {fileID: 0}
   PoolerBase: {fileID: 0}
   BarrelPooler: {fileID: 0}
   BaseDamage: 0
@@ -19368,6 +19371,7 @@ MonoBehaviour:
   - {fileID: 541709019}
   - {fileID: 2126409691}
   bananas: []
+  SelectSkillPanel: {fileID: 0}
   PoolerBase: {fileID: 0}
   BarrelPooler: {fileID: 0}
   BaseDamage: 0
@@ -22427,7 +22431,6 @@ RectTransform:
   - {fileID: 276346956}
   m_Father: {fileID: 1438819251}
   m_RootOrder: 1
-  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -22444,8 +22447,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
@@ -22461,8 +22464,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
@@ -22600,8 +22603,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d3f2e2281e599c43be6a20784e49c36, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   WeaponIconsOnPause:
   - {fileID: 1715287412}
   - {fileID: 1044350943}
@@ -24263,7 +24266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hud: {fileID: 7429275542549284746}
-  QuestSpawnRateSecond: 10
+  QuestSpawnRateSecond: 100
   QuestGoldReward: 100
   hasActiveQuest: 0
   canSpawnQuest: 1
@@ -24273,6 +24276,8 @@ MonoBehaviour:
   currentKillCount: 0
   Tower: {fileID: 1932212231}
   TowerSystem: {fileID: 1932212232}
+  isTowerNear: 0
+  canQuestsStart: 0
 --- !u!1 &1000729331
 GameObject:
   m_ObjectHideFlags: 0
@@ -26482,6 +26487,7 @@ MonoBehaviour:
   - {fileID: 2126409691}
   - {fileID: 541709019}
   bananas: []
+  SelectSkillPanel: {fileID: 0}
   PoolerBase: {fileID: 0}
   BarrelPooler: {fileID: 0}
   BaseDamage: 0
@@ -31087,8 +31093,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aac92f2182a1ca34298ca3ec4e323c6a, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
     m_WrapAround: 0
@@ -31131,8 +31137,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -31566,8 +31572,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -31665,8 +31671,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9fcfd894a05b1a44832e92b3a059ee5, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   timer: 0
   refresh: 0.2
   avgFramerate: 0
@@ -32300,6 +32306,7 @@ MonoBehaviour:
   - {fileID: 541709019}
   - {fileID: 2126409691}
   bananas: []
+  SelectSkillPanel: {fileID: 0}
   PoolerBase: {fileID: 0}
   BarrelPooler: {fileID: 0}
   BaseDamage: 0
@@ -33179,6 +33186,7 @@ MonoBehaviour:
   - {fileID: 2126409691}
   - {fileID: 541709019}
   bananas: []
+  SelectSkillPanel: {fileID: 0}
   PoolerBase: {fileID: 0}
   BarrelPooler: {fileID: 0}
   BaseDamage: 0
@@ -34069,8 +34077,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0, b: 0, a: 0.34901962}
   m_RaycastTarget: 1
@@ -36872,8 +36880,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4cef46e534524f409738d58a0f082a6, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   Model: {fileID: 2137715596}
   ExperienceToDrop: {fileID: 4177186890511855414, guid: 3d7e954885131e44187dee31d34fb51b, type: 3}
   CoinToDrop: {fileID: 6539148964891237399, guid: 09fd3a5ee11d38644b28acc988f2427f, type: 3}
@@ -40214,8 +40222,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
@@ -41608,6 +41616,7 @@ MonoBehaviour:
   - {fileID: 2126409691}
   - {fileID: 541709019}
   bananas: []
+  SelectSkillPanel: {fileID: 0}
   PoolerBase: {fileID: 0}
   BarrelPooler: {fileID: 0}
   BaseDamage: 0
@@ -44149,6 +44158,7 @@ MonoBehaviour:
   - {fileID: 2126409691}
   - {fileID: 541709019}
   bananas: []
+  SelectSkillPanel: {fileID: 0}
   PoolerBase: {fileID: 0}
   BarrelPooler: {fileID: 0}
   BaseDamage: 0
@@ -44430,8 +44440,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
@@ -45267,7 +45277,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7429275540913863408}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -45284,8 +45294,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1e17d99117b96b4a83c4de029a16f3c, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   pooledObject: {fileID: 114082041123525444, guid: 09cefc679ac23c54aa919111d8f3fc40, type: 3}
   pooledAmount: 5
   willGrow: 1
@@ -45299,9 +45309,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26f609f7b5335654696f805a84f4c189, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   screenBoundOffset: 0.9
+  questManager: {fileID: 1000319961}
 --- !u!114 &1790638773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45312,8 +45323,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 0
@@ -45978,8 +45989,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cedcd8bae8839204892ac1353d2ace50, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   ObjectToPool: {fileID: 1119408927647522342, guid: 9c1c214cc7a34444da9655cdc840cb7d, type: 3}
   ObjectList: []
   TempList: []
@@ -49065,6 +49076,7 @@ GameObject:
   - component: {fileID: 1932212232}
   - component: {fileID: 1932212236}
   - component: {fileID: 1932212235}
+  - component: {fileID: 1932212237}
   m_Layer: 9
   m_Name: Tower
   m_TagString: Tower
@@ -49082,8 +49094,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90adc12ec51bf491e8de9cc84ace34d0, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   TowerHealth: 1000
   isTowerDestroyed: 0
 --- !u!212 &1932212233
@@ -49210,8 +49222,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 411060de4483b5e4c9847cd3cbc18554, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   targetColor: {r: 1, g: 0.11678028, b: 0, a: 1}
   needBoxIndicator: 1
   needArrowIndicator: 1
@@ -50002,6 +50014,7 @@ MonoBehaviour:
   - {fileID: 541709019}
   - {fileID: 2126409691}
   bananas: []
+  SelectSkillPanel: {fileID: 0}
   PoolerBase: {fileID: 0}
   BarrelPooler: {fileID: 0}
   BaseDamage: 0
@@ -54885,8 +54898,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62b9a7e211ea2074c83a96a2ab1e590f, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &2137715599 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 117150395161187365, guid: dce772e443df16443a5103f9fa7d1567, type: 3}
@@ -55228,7 +55241,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6006139959558284343, guid: 32882faa63699401b821d2dee7eb6f83, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value:
+      value: 
       objectReference: {fileID: 1000319961}
     - target: {fileID: 6006139959558284343, guid: 32882faa63699401b821d2dee7eb6f83, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -61165,8 +61178,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6e74d6b416e283478a3fe852ca149bf, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
     m_WrapAround: 0
@@ -65001,7 +65014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3200356936593116729, guid: 84e0fcdb31b994c81a44238931da99e7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value:
+      value: 
       objectReference: {fileID: 1000319961}
     - target: {fileID: 3200356936593116729, guid: 84e0fcdb31b994c81a44238931da99e7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState

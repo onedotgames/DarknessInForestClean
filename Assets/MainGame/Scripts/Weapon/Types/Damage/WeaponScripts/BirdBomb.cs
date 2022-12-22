@@ -20,7 +20,7 @@ public class BirdBomb : WeaponBase
 
         Model.SetActive(true);
         //movePosition = (Vector2)GameManager.PlayerManager.CurrentPlayer.transform.position + Random.insideUnitCircle * 15;
-        movePosition = new Vector2(Random.Range(-15, 0), Random.Range(15, 20)) + (Vector2)GameManager.PlayerManager.CurrentPlayer.transform.position;
+        movePosition = new Vector2(Random.Range(-10, 10), Random.Range(15, 20)) + (Vector2)GameManager.PlayerManager.CurrentPlayer.transform.position;
         transform.position = movePosition;
 
     }
@@ -91,7 +91,7 @@ public class BirdBomb : WeaponBase
 
     public void DestroyBomb()
     {
-        transform.DOMove(new Vector3(GameManager.PlayerManager.CurrentPlayer.transform.position.x + Random.Range(-5,5), GameManager.PlayerManager.CurrentPlayer.transform.position.y - Random.Range(-5,5), 0), 1f).OnComplete(() =>
+        transform.DOMove(new Vector3(transform.position.x, GameManager.PlayerManager.CurrentPlayer.transform.position.y - Random.Range(-5,5), 0), 1f).OnComplete(() =>
         {
             Model.SetActive(false);
             transform.GetComponent<CircleCollider2D>().enabled = true;

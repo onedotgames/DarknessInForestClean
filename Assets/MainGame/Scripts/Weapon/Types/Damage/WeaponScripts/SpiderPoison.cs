@@ -9,6 +9,10 @@ public class SpiderPoison : WeaponBase
     public override void AttackMethod()
     {
         base.AttackMethod();
+    }
+
+    public override void MovementMethod()
+    {
         transform.Translate(mDirection * Time.deltaTime * BaseSpeed);
     }
 

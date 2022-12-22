@@ -10,6 +10,9 @@ public class PoisonDart : WeaponBase
     public override void AttackMethod()
     {
         base.AttackMethod();
+    }
+    public override void MovementMethod()
+    {
         transform.Translate(mDirection * Time.deltaTime * BaseSpeed);
     }
 
@@ -26,7 +29,7 @@ public class PoisonDart : WeaponBase
             StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, 0.5f));
             Invoke("StopPoison", 0.2f);
             Invoke("ReturnPoison", PoisonDuration);
-            //zehir býrakma buraya gelecek.
+            //zehir b?rakma buraya gelecek.
 
         }
         if (collision.CompareTag("Boss"))
@@ -40,7 +43,7 @@ public class PoisonDart : WeaponBase
             StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, 0.5f));
             Invoke("StopPoison", 0.2f);
             Invoke("ReturnPoison", PoisonDuration);
-            //zehir býrakma buraya gelecek.
+            //zehir b?rakma buraya gelecek.
 
         }
     }

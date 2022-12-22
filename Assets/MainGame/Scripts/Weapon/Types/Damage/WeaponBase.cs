@@ -555,7 +555,7 @@ public class WeaponBase :CustomBehaviour
                 var bomb = bombPool.GetObjectFromPool();
                 bomb.transform.position = barrelPos;
             }
-            else if(k >= 3 && k > 6 )// magne?t
+            else if(k >= 3 && k < 6 )// magne?t
             {
                 var magnetPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.MagnetPooler];
                 var magnet = magnetPool.GetObjectFromPool();

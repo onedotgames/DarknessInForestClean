@@ -4,9 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-/// <summary>
-/// Attach the script to the off screen indicator panel.
-/// </summary>
 [DefaultExecutionOrder(-1)]
 public class OffScreenIndicator : MonoBehaviour
 {
@@ -19,7 +16,7 @@ public class OffScreenIndicator : MonoBehaviour
     private Vector3 screenBounds;
 
     private List<Target> targets = new List<Target>();
-
+    public QuestManager questManager;
     public static Action<Target, bool> TargetStateChanged;
 
     void Awake()
@@ -32,7 +29,10 @@ public class OffScreenIndicator : MonoBehaviour
 
     void LateUpdate()
     {
-        DrawIndicators();
+        if(!questManager.isTowerNear)
+        {
+            DrawIndicators();
+        }
     }
 
     /// <summary>
@@ -104,7 +104,7 @@ public class OffScreenIndicator : MonoBehaviour
     /// <returns></returns>
     private Indicator GetIndicator(ref Indicator indicator, IndicatorType type)
     {
-        if(indicator != null)
+        if(indicator != null && !questManager.isTowerNear)
         {
             if(indicator.Type != type)
             {
