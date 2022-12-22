@@ -24,6 +24,18 @@ public class MiniGameBase : MonoBehaviour
     private void Start()
     {
         PrepareMiniGame();
+        if(BigCircleImages[0].sprite == TargetImage)
+        {
+            BigCircle.GetComponent<Circle>().isTrueImage = true;
+        }
+        if(MediumCircleImages[0].sprite == TargetImage)
+        {
+            MediumCircle.GetComponent<Circle>().isTrueImage = true;
+        }
+        if(SmallCircleImages[0].sprite == TargetImage)
+        {
+            SmallCircle.GetComponent<Circle>().isTrueImage = true;
+        }
     }
     public void PrepareMiniGame()
     {
@@ -39,11 +51,11 @@ public class MiniGameBase : MonoBehaviour
     {
         if (gameObject.activeInHierarchy)
         {
-            Debug.Log("Helloooooo");
             if (BigCircle.GetComponent<Circle>().isTrueImage && MediumCircle.GetComponent<Circle>().isTrueImage && SmallCircle.GetComponent<Circle>().isTrueImage)
             {
                 gameObject.SetActive(false);
                 weaponManager.isMiniGameDone = true;
+                PrepareMiniGame();
             }
             if (weaponManager.isMiniGameDone)
             {
