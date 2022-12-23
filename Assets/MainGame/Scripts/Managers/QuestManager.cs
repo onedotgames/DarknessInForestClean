@@ -20,12 +20,15 @@ public class QuestManager : CustomBehaviour
     public TowerSystem TowerSystem;
     public bool isTowerNear = false;
     public bool canQuestsStart = false;
+    public bool isNpcNear = false;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
         if (gameManager != null)
         {
             GameManager.OnStartGame += OnGameStart;
+            GameManager.OnLevelCompleted += OnLevelCompleted;
+            GameManager.OnLevelFailed += OnLevelFailed;
         }
     }
     private void Awake()
@@ -38,6 +41,27 @@ public class QuestManager : CustomBehaviour
     public void OnGameStart()
     {
         canQuestsStart = true;
+    }
+
+    public void OnLevelCompleted()
+    {
+        QuestNPC.SetActive(false);
+        Tower.SetActive(false);
+        QuestPanel.SetActive(false);
+        canQuestsStart = false;
+        isTowerNear = false;
+        hasActiveQuest = false;
+        canSpawnQuest = true;
+    }
+    public void OnLevelFailed()
+    {
+        QuestNPC.SetActive(false);
+        Tower.SetActive(false);
+        QuestPanel.SetActive(false);
+        canQuestsStart = false;
+        isTowerNear = false;
+        hasActiveQuest = false;
+        canSpawnQuest = true;
     }
     public void Update()
     {
@@ -58,7 +82,15 @@ public class QuestManager : CustomBehaviour
             }
             
         }
-        if(Tower.activeInHierarchy && hasActiveQuest && GameManager.PlayerManager.CurrentPlayer.transform.position.magnitude - Tower.transform.position.magnitude < 5f)
+        if (QuestNPC.activeInHierarchy && Mathf.Abs(Vector3.Distance(QuestNPC.transform.position, GameManager.PlayerManager.CurrentPlayer.transform.position)) < 5f)
+        {
+            isNpcNear = true;
+        }
+        else
+        {
+            isNpcNear = false;
+        }
+        if (Tower.activeInHierarchy && hasActiveQuest && Mathf.Abs(Vector3.Distance(Tower.transform.position, GameManager.PlayerManager.CurrentPlayer.transform.position)) < 5f)
         {
             isTowerNear = true;
         }
@@ -108,6 +140,8 @@ public class QuestManager : CustomBehaviour
         if(GameManager != null)
         {
             GameManager.OnStartGame -= OnGameStart;
+            GameManager.OnLevelCompleted -= OnLevelCompleted;
+            GameManager.OnLevelFailed -= OnLevelFailed;
         }
     }
 }

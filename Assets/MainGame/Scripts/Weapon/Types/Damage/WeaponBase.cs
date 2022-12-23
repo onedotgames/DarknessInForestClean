@@ -40,6 +40,7 @@ public class WeaponBase :CustomBehaviour
     [HideInInspector]
     public int Guardian;
     public GameObject poisonArea;
+    private int controlInt = 0;
     #endregion
 
     protected Player mPlayer;
@@ -400,12 +401,31 @@ public class WeaponBase :CustomBehaviour
     private void OnMiniGame()
     {
         PlayMinigame(Random.Range(0, minigames.Length));
+
     }
     public void PlayMinigame(int gameIndex)
     {
         Time.timeScale = 0;
         SelectSkillPanel.ClosePanel();
         Debug.Log(minigames[gameIndex]);
+        if(gameIndex == 0)
+        {
+            minigames[gameIndex].GetComponent<MiniGameBase>().TargetImage = SkillSO.Icon;
+            minigames[gameIndex].GetComponent<MiniGameBase>().TargetBox.sprite = SkillSO.Icon;
+            for (int i = 0; i < minigames[gameIndex].GetComponent<MiniGameBase>().Weapons.Count; i++)
+            {
+                if(minigames[gameIndex].GetComponent<MiniGameBase>().Weapons[i].name == SkillSO.Icon.name)
+                {
+                    controlInt++;
+                }
+                
+            }
+            if(controlInt == 0)
+            {
+                //resim yoktur..
+                minigames[gameIndex].GetComponent<MiniGameBase>().Weapons[0] = SkillSO.Icon;
+            }
+        }
         minigames[gameIndex].SetActive(true);
     }
     public virtual void SetSkill(List<Transform> enemies)

@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Linq;
 using System.Threading.Tasks;
 using DG.Tweening;
-
+using UnityEngine.UI;
 public sealed class Board : MonoBehaviour
 {
     public static Board Instance { get; private set; }
@@ -55,8 +55,7 @@ public sealed class Board : MonoBehaviour
         if (CanPop() && canSwap)
         {
             Pop();
-            scoreCounter.popCount++;
-            //scoreCounter.scoreText.text = (scoreCounter.popCount + " / 3"); 
+            
         }
         else if(canSwap)
         {
@@ -141,6 +140,9 @@ public sealed class Board : MonoBehaviour
 
                     inflateSequence.Join(connectedTile.icon.transform.DOScale(Vector3.one, TweenDuration));
                 }
+
+                scoreCounter.popCount++;
+                scoreCounter.scoreText.text = (scoreCounter.popCount + " / 3");
 
                 await inflateSequence.Play().AsyncWaitForCompletion();
 

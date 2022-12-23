@@ -6,12 +6,9 @@ using TMPro;
 public sealed class ScoreCounter : MonoBehaviour
 {
     public static ScoreCounter Instance { get; private set; }
-    //public float targetTime = 60f;
-    //public int _score;
     public GameObject MiniGamePanel;
     public WeaponManager weaponManager;
-    //public TextMeshProUGUI scoreText;
-    //public TextMeshProUGUI timerText;
+    public TextMeshProUGUI scoreText;
     public GameManager GameManager;
     public int popCount = 0;
     public HUD HUD;
@@ -20,9 +17,6 @@ public sealed class ScoreCounter : MonoBehaviour
 
     private void Update()
     {
-        //targetTime -= Time.unscaledDeltaTime;
-        //timerText.SetText("Time: " + targetTime);
-
         if(popCount == 3)
         {
             MiniGamePanel.SetActive(false);
@@ -36,18 +30,9 @@ public sealed class ScoreCounter : MonoBehaviour
             Time.timeScale = 1;
             weaponManager.isMiniGameDone = false;
             popCount = 0;
+            scoreText.text = (popCount + " / 3");
         }
     }
-    //public int Score
-    //{
-    //    get  => _score;
-    //    set
-    //    {
-    //        if (_score == value) return;
-    //        _score = value;
-
-    //    }
-    //}
 
     private void Awake() => Instance = this;
 }
