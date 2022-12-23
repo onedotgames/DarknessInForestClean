@@ -2,14 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using DG.Tweening;
-using System;
 using Random = UnityEngine.Random;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
-using UnityEngine.UIElements;
-using UnityEngine.Windows;
-using DG.Tweening.Core.Easing;
+
 
 public class WeaponManager : CustomBehaviour
 {
@@ -73,6 +69,7 @@ public class WeaponManager : CustomBehaviour
         {
             GameManager.OnStartGame += OnLevelStart;
             GameManager.OnLevelFailed += OnLevelFailed;
+            GameManager.OnLevelCompleted += OnLevelCompleted;
         }
     }
 
@@ -683,6 +680,10 @@ public class WeaponManager : CustomBehaviour
     }
     private IEnumerator WeaponSlotRoutine(WeaponBase weapon) //Potionda Size artt�rma burada olacak.
     {
+        while (GameManager.IsGamePaused)
+        {
+            yield return null;
+        }
         if (GetClosestEnemy(GameManager.AIManager.EnemyList, weapon) != null)
         {
             for (int i = 0; i < weapon.Count; i++)
@@ -701,6 +702,10 @@ public class WeaponManager : CustomBehaviour
     }
     private IEnumerator BeeSlotRoutine(WeaponBase weapon) //Potionda Size artt�rma burada olacak.
     {
+        while (GameManager.IsGamePaused)
+        {
+            yield return null;
+        }
         if (ActiveBeeShots != null)
         {
             ActiveBeeShots.Clear();
@@ -743,6 +748,10 @@ public class WeaponManager : CustomBehaviour
 
     public IEnumerator WhipWeaponRoutine(WeaponBase weapon)
     {
+        while (GameManager.IsGamePaused)
+        {
+            yield return null;
+        }
         for (int i = 0; i < weapon.Count; i++)
         {
             var obj = weapon.PoolerBase.GetObjectFromPool();
@@ -758,6 +767,10 @@ public class WeaponManager : CustomBehaviour
 
     public IEnumerator SkunkGasWeaponRoutine(WeaponBase weapon)
     {
+        while (GameManager.IsGamePaused)
+        {
+            yield return null;
+        }
         for (int i = 0; i < weapon.Count; i++)
         {
             var obj = weapon.PoolerBase.GetObjectFromPool();
@@ -769,6 +782,10 @@ public class WeaponManager : CustomBehaviour
     }
     public IEnumerator BananaWeaponRoutine(WeaponBase weapon)
     {
+        while (GameManager.IsGamePaused)
+        {
+            yield return null;
+        }
         weapon.gameObject.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
         weapon.gameObject.SetActive(true);
         weapon.SetStats();
@@ -781,6 +798,10 @@ public class WeaponManager : CustomBehaviour
 
     public IEnumerator BombWeaponRoutine(WeaponBase weapon)
     {
+        while (GameManager.IsGamePaused)
+        {
+            yield return null;
+        }
         for (int i = 0; i < weapon.Count; i++)
         {
             var obj = weapon.PoolerBase.GetObjectFromPool();
@@ -799,6 +820,10 @@ public class WeaponManager : CustomBehaviour
 
     private IEnumerator ShotgunSlotRoutine(WeaponBase weapon)
     {
+        while (GameManager.IsGamePaused)
+        {
+            yield return null;
+        }
         for (int i = 0; i < weapon.Count; i++)
         {
             var obj = weapon.PoolerBase.GetObjectFromPool();
@@ -842,6 +867,10 @@ public class WeaponManager : CustomBehaviour
 
     private IEnumerator AreaWeaponSlotRoutine(WeaponBase weapon)
     {
+        while (GameManager.IsGamePaused)
+        {
+            yield return null;
+        }
         weapon.IsActivated = true;
         weapon.gameObject.SetActive(true);
         yield return new WaitForSeconds(weapon.Cooldown);
@@ -933,7 +962,83 @@ public class WeaponManager : CustomBehaviour
         WeaponLimitReached = false;
         UtilLimitReached = false;
     }
+    private void OnLevelCompleted()
+    {
+        StopAllCoroutines();
+        CancelInvoke("InitializeDefaultWeapon");
 
+        mDefaultWeapon.IsInitialized = false;
+        for (int i = 0; i < ProjectileWeaponsInUse.Count; i++)
+        {
+            if (ProjectileWeaponsInUse[i].IsInitialized == true)
+            {
+                ProjectileWeaponsInUse[i].IsInitialized = false;
+
+            }
+        }
+
+
+        for (int i = 0; i < BounceWeaponsInUse.Count; i++)
+        {
+            if (BounceWeaponsInUse[i].IsInitialized == true)
+            {
+                BounceWeaponsInUse[i].IsInitialized = false;
+            }
+
+        }
+
+        for (int i = 0; i < YoyoWeaponsInUse.Count; i++)
+        {
+            if (YoyoWeaponsInUse[i].IsInitialized == true)
+            {
+                YoyoWeaponsInUse[i].IsInitialized = false;
+            }
+        }
+
+        for (int i = 0; i < ShotgunWeaponsInUse.Count; i++)
+        {
+            if (ShotgunWeaponsInUse[i].IsInitialized == true)
+            {
+                ShotgunWeaponsInUse[i].IsInitialized = false;
+            }
+        }
+
+        for (int i = 0; i < WhipWeaponsInUse.Count; i++)
+        {
+            if (WhipWeaponsInUse[i].IsInitialized == true)
+            {
+                WhipWeaponsInUse[i].IsInitialized = false;
+            }
+        }
+
+        for (int i = 0; i < BombWeaponsInUse.Count; i++)
+        {
+            if (BombWeaponsInUse[i].IsInitialized == true)
+            {
+                BombWeaponsInUse[i].IsInitialized = false;
+            }
+        }
+
+        for (int i = 0; i < SkunkGasWeaponsInUse.Count; i++)
+        {
+            if (SkunkGasWeaponsInUse[i].IsInitialized == true)
+            {
+                SkunkGasWeaponsInUse[i].IsInitialized = false;
+            }
+        }
+
+        for (int i = 0; i < BananaWeaponsInUse.Count; i++)
+        {
+            if (BananaWeaponsInUse[i].IsInitialized == true)
+            {
+                BananaWeaponsInUse[i].IsInitialized = false;
+            }
+        }
+
+        ClearLists();
+        WeaponLimitReached = false;
+        UtilLimitReached = false;
+    }
     private void ClearLists()
     {
         ProjectileWeaponsInUse.Clear();
@@ -947,8 +1052,13 @@ public class WeaponManager : CustomBehaviour
         BananaWeaponsInUse.Clear();
 
         TempUtilList.Clear();
+        UtilitiesInUse.Clear();
         TempWeaponList.Clear();
+        WeaponsInUse.Clear();
         CoroutineList.Clear();
+
+        WeaponBases.Clear();
+        UtilityBases.Clear();
 
         ActiveChestnuts.Clear();
         ActiveBeeShots.Clear();

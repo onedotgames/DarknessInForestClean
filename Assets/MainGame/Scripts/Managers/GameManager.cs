@@ -118,6 +118,18 @@ public class GameManager : CustomBehaviour
     }
     #endregion
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            LevelFailed();
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            LevelCompleted();
+        }
+    }
+
     #region Event Methods
     public void StartGame()
     {

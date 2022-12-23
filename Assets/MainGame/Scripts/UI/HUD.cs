@@ -201,6 +201,7 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
             GameManager.OnStartGame += OnStartGame;
             GameManager.OnReturnToMainMenu += OnReturnToMainMenu;
             GameManager.OnLevelFailed += OnLevelFailed;
+            GameManager.OnLevelCompleted += OnLevelCompleted;
         }
     }
 
@@ -301,6 +302,11 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
         ResetBossUI();
         ClosePanel();
     }
+    private void OnLevelCompleted()
+    {
+        ResetBossUI();
+        ClosePanel();
+    }
 
     public void UpdateKillCountBar()
     {
@@ -315,6 +321,7 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
             GameManager.OnStartGame -= OnStartGame;
             GameManager.OnReturnToMainMenu -= OnReturnToMainMenu;
             GameManager.OnLevelFailed -= OnLevelFailed;
+            GameManager.OnLevelCompleted -= OnLevelCompleted;
         }
     }
 

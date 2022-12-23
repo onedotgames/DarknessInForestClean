@@ -113,6 +113,7 @@ public class InputManager : CustomBehaviour
         if (GameManager.GameOptions.UseCountdown) return;
 
         Interactable = true;
+        LastAngle = 0;
     }
 
     private void OnRestartGame()

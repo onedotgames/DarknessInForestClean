@@ -35,7 +35,7 @@ public class MainMenu : UIPanel, IPointerDownHandler, IPointerUpHandler
         BuyCoins.Initialize(uIManager, OnButtonClickedSettings, false);
         InitializeCustomOptions();
 
-        GameManager.OnReturnToMainMenu += OnReturnToMainMenu;
+        //GameManager.OnReturnToMainMenu += OnReturnToMainMenu;
     }
 
     private void InitializeCustomOptions()
@@ -151,10 +151,10 @@ public class MainMenu : UIPanel, IPointerDownHandler, IPointerUpHandler
     {
         UIManager.GameManager.InputManager.TouchEnd(eventData);
     }
-    private void OnReturnToMainMenu()
-    {
-        OpenPanel();
-    }
+    //private void OnReturnToMainMenu()
+    //{
+    //    OpenPanel();
+    //}
 
     private void OnSwiped()
     {

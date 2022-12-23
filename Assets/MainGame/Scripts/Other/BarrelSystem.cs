@@ -10,6 +10,10 @@ public class BarrelSystem : CustomBehaviour
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
+        if(GameManager != null)
+        {
+            GameManager.OnStartGame += LevelStart;
+        }
     }
     private void Update()
     {
@@ -33,5 +37,18 @@ public class BarrelSystem : CustomBehaviour
             barrelCount++;
         }
     }
-    //10 saniyede bir barrel spawn olacak. tek seferde max 10 tane bulunabilir.
+    
+    private void LevelStart()
+    {
+        timer = 0;
+        barrelCount = 0;
+    }
+
+    private void OnDestroy()
+    {
+        if (GameManager != null)
+        {
+            GameManager.OnStartGame -= LevelStart;
+        }
+    }
 }

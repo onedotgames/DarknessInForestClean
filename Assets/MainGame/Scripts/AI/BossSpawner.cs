@@ -31,16 +31,19 @@ public class BossSpawner : CustomBehaviour
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
+
         if (GameManager != null)
         {
             GameManager.OnStartGame += GameStart;
+            GameManager.OnLevelCompleted += LevelCompleted;
+            GameManager.OnLevelFailed += LevelFailed;
         }
         timeManager = GameManager.TimeManager;
         hud = gameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
     }
     private void Update()
     {
-        if (!GameManager.IsGamePaused)
+        if (!GameManager.IsGamePaused && GameManager.IsGameStarted)
         {
             if (!GameManager.IsBossTime)
             {
@@ -176,11 +179,38 @@ public class BossSpawner : CustomBehaviour
         Boss3Spawned = false;
     }
 
+    private void LevelCompleted()
+    {
+        TimePassed = 0;
+        isBossWarningShowed1 = false;
+        isBossWarningShowed2 = false;
+        isBossWarningShowed3 = false;
+        GameManager.IsBossTime = false;
+        BossRing.SetActive(false);
+        Boss1Spawned = false;
+        Boss2Spawned = false;
+        Boss3Spawned = false;
+    }
+    private void LevelFailed()
+    {
+        TimePassed = 0;
+        isBossWarningShowed1 = false;
+        isBossWarningShowed2 = false;
+        isBossWarningShowed3 = false;
+        GameManager.IsBossTime = false;
+        BossRing.SetActive(false);
+        Boss1Spawned = false;
+        Boss2Spawned = false;
+        Boss3Spawned = false;
+    }
+
     private void OnDestroy()
     {
         if(GameManager != null)
         {
             GameManager.OnStartGame -= GameStart;
+            GameManager.OnLevelCompleted -= LevelCompleted;
+            GameManager.OnLevelFailed -= LevelFailed;
         }
     }
 

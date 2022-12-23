@@ -34,6 +34,9 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
     }
     public void AssignSkillSelectingButtons()
     {
+        mWeaponManager.WeaponBases.Clear();
+        mWeaponManager.UtilityBases.Clear();
+
         mWeaponManager.CheckWeaponLimitReached();
         mWeaponManager.CreateTempWeaponList();
         mWeaponManager.CreateTempUtilList();
@@ -48,7 +51,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
             {
                 //Pick weapon or Util
                 int j = Random.Range(0, 2);
-                Debug.Log("j: " + j);
+
 
                 if (j == 0)
                 {

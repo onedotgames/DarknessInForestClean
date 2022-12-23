@@ -889,6 +889,7 @@ MonoBehaviour:
   CanAttack: 1
   Player: {fileID: 0}
   EnemyPoolerType: 3
+  ChaseRange: 1
 --- !u!1 &7247587181112917846
 GameObject:
   m_ObjectHideFlags: 0

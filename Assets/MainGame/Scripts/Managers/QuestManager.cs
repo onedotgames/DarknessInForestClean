@@ -37,7 +37,11 @@ public class QuestManager : CustomBehaviour
 
     public void OnGameStart()
     {
+        hasActiveQuest = false;
+        canSpawnQuest = true;
         canQuestsStart = true;
+        timer = 0;
+        currentKillCount = 0;
     }
     public void Update()
     {

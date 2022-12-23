@@ -21,6 +21,7 @@ public class Player : CustomBehaviour
     public GameObject Model;
     public Vector3 Velocity;
 
+    [Title("Stats & Variables")]
     #region Player Variables
     public float mForwardSpeed;
     private float mAcceleration;
@@ -29,6 +30,7 @@ public class Player : CustomBehaviour
     public float mCurrentHealth;
     public float DamageReduction = 1;
     #endregion
+
     public float MagnetRadius;
     #region ControlDelegates
     public delegate void ControlDelegate();
@@ -47,20 +49,21 @@ public class Player : CustomBehaviour
     public bool IsGameStarted = false;
     private bool IsGetHit = false;
 
-    [SerializeField] private float xAxisMin;
-    [SerializeField] private float xAxisMax;
-    [SerializeField] private Volume volume;
+    //[SerializeField] private float xAxisMin;
+    //[SerializeField] private float xAxisMax;
     private Vignette vignette;
 
+    [Title("References")]
     public ParticleSystem RechargableShieldOn;
     public ParticleSystem RechargableShieldOff;
     public bool IsShieldOn = false;
     public float ShieldValue = 0;
     public UtilityBase ShieldUtility;
     public GameObject Indicator;
-    public GameObject[] experiences;
+    private GameObject[] experiences;
     public Animator PlayerAnim;
     public ExpCollider ExpCollider;
+    [SerializeField] private Volume volume;
 
     public float Angle;
     public float LastAngle;
@@ -81,35 +84,41 @@ public class Player : CustomBehaviour
     }
     private void Update()
     {
-        if (IsGameStarted)
+        if (!GameManager.IsGamePaused)
         {
-            if (mControlMethod != null)
-                mControlMethod();
-            if (mRotationMethod != null)
-                mRotationMethod();
-        }
-
-        if (IsGetHit)
-        {
-            vignette.intensity.value = Mathf.PingPong(Time.time * 0.75f, .5f);
-            if(vignette.intensity.value <= 0.02f)
+            if (IsGameStarted)
             {
-                IsGetHit = false;
-                vignette.intensity.value = 0;
+                if (mControlMethod != null)
+                    mControlMethod();
+                if (mRotationMethod != null)
+                    mRotationMethod();
             }
+            if (IsGetHit)
+            {
+                vignette.intensity.value = Mathf.PingPong(Time.time * 0.75f, .5f);
+                if (vignette.intensity.value <= 0.02f)
+                {
+                    IsGetHit = false;
+                    vignette.intensity.value = 0;
+                }
+            }
+            oldPos = transform.position;
         }
-        oldPos = transform.position;
     }
     private void LateUpdate()
     {
-        pos = transform.position;
-        var temp = (pos - oldPos).normalized;
-
-        
-        if(temp != Vector3.zero)
+        if (!GameManager.IsGamePaused && IsGameStarted)
         {
-            Direction = temp;
+            pos = transform.position;
+            var temp = (pos - oldPos).normalized;
+
+
+            if (temp != Vector3.zero)
+            {
+                Direction = temp;
+            }
         }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -133,6 +142,12 @@ public class Player : CustomBehaviour
             GetHit(proj.damage);
             GameManager.PlayerHealthManager.SetHealthBar(mMaxHealth);
             proj.PoolerBase.ReturnObjectToPool(proj.gameObject);
+        }
+        if (collision.CompareTag("Boss"))
+        {
+            var boss = collision.GetComponent<BossBase>();
+            GetHit(boss.BaseDamage);
+            GameManager.PlayerHealthManager.SetHealthBar(mMaxHealth);
         }
         if (collision.CompareTag("Magnet"))
         {
@@ -232,7 +247,8 @@ public class Player : CustomBehaviour
         if (GameManager != null)
         {
             GameManager.OnStartGame += StartGame;
-            GameManager.OnLevelFailed += StopShield;
+            GameManager.OnLevelFailed += LevelFailed;
+            GameManager.OnLevelCompleted += LevelCompleted;
             GameManager.OnReturnToMainMenu += ReturnToMainMenu;
         }
     }
@@ -396,13 +412,25 @@ public class Player : CustomBehaviour
         PlayerAnim.SetBool("isMoving", false);
     }
 
+    private void LevelFailed()
+    {
+        PlayerAnim.SetBool("isMoving", false);
+        StopShield();
+    }
+    private void LevelCompleted()
+    {
+        PlayerAnim.SetBool("isMoving", false);
+        StopShield();
+    }
+
     private void OnDisable()
     {
         if (GameManager != null)
         {
             GameManager.OnStartGame -= StartGame;
             GameManager.OnReturnToMainMenu -= ReturnToMainMenu;
-            GameManager.OnLevelFailed -= StopShield;
+            GameManager.OnLevelFailed -= LevelFailed;
+            GameManager.OnLevelCompleted -= LevelCompleted;
         }
     }
 }

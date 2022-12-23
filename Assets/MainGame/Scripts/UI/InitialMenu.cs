@@ -47,6 +47,17 @@ public class InitialMenu : UIPanel
         HomeBTN.Initialize(uIManager, OnHomeBTNClicked);
         LevelsBTN.Initialize(uIManager, OnLevelsBTNClicked);
         LeaderBoardBTN.Initialize(uIManager, OnLeaderBoardBTNClicked);
+
+        SubEvents();
+
+    }
+
+    private void SubEvents()
+    {
+        if(GameManager != null)
+        {
+            GameManager.OnReturnToMainMenu += OnReturnToMainMenu;
+        }
     }
 
     private void OnCoopBTNClicked()
@@ -131,6 +142,16 @@ public class InitialMenu : UIPanel
         ClosePanel();
     }
 
+    private void OnReturnToMainMenu()
+    {
+        OpenPanel();
+    }
 
-
+    private void OnDestroy()
+    {
+        if(GameManager != null)
+        {
+            GameManager.OnReturnToMainMenu -= OnReturnToMainMenu;
+        }
+    }
 }

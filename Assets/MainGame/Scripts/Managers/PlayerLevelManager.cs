@@ -21,6 +21,7 @@ public class PlayerLevelManager : CustomBehaviour
         if (GameManager != null)
         {
             GameManager.OnLevelFailed += LevelFailed;
+            GameManager.OnLevelCompleted += LevelCompleted;
             GameManager.OnStartGame += GameStarted;
         }
         SetLevelRequirement();
@@ -117,7 +118,7 @@ public class PlayerLevelManager : CustomBehaviour
 
     private void LevelCompleted()
     {
-
+        mSelectSkillPanel.ClosePanel();
     }
 
     private void OnDestroy()
@@ -126,6 +127,7 @@ public class PlayerLevelManager : CustomBehaviour
         {
             GameManager.OnStartGame -= GameStarted;
             GameManager.OnLevelFailed -= LevelFailed;
+            GameManager.OnLevelCompleted -= LevelCompleted;
         }
     }
 }

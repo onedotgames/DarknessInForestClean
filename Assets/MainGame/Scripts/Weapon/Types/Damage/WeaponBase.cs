@@ -52,7 +52,7 @@ public class WeaponBase :CustomBehaviour
         {
             GameManager.OnMiniGame += OnMiniGame;
             GameManager.OnStartGame += OnGameStart;
-
+            GameManager.OnLevelCompleted += OnGameCompleted;
             GameManager.OnLevelFailed += OnGameFailed;
 
         }
@@ -542,8 +542,6 @@ public class WeaponBase :CustomBehaviour
             }
         }
 
-
-
         if (collision.CompareTag("Barrel"))
         {
             var barrelPos = collision.transform.position;
@@ -637,13 +635,30 @@ public class WeaponBase :CustomBehaviour
     private void OnGameFailed()
     {
         IsActivated = false;
-        if(SkillSO.DamagePattern == DamagePattern.Yoyo)
+        isMiniGameComplete = false;
+        IsInitialized = false;
+
+        if (SkillSO.DamagePattern == DamagePattern.Yoyo)
         {
             CancelInvoke("InvokeAgain");
         }
         PoolerBase.ReturnObjectToPool(gameObject);
         StopAllCoroutines();
         
+    }
+    private void OnGameCompleted()
+    {
+        IsActivated = false;
+        isMiniGameComplete = false;
+        IsInitialized = false;
+
+        if (SkillSO.DamagePattern == DamagePattern.Yoyo)
+        {
+            CancelInvoke("InvokeAgain");
+        }
+        PoolerBase.ReturnObjectToPool(gameObject);
+        StopAllCoroutines();
+
     }
     private void OnGameStart()
     {
@@ -666,6 +681,7 @@ public class WeaponBase :CustomBehaviour
         if(GameManager != null)
         {
             GameManager.OnLevelFailed -= OnGameFailed;
+            GameManager.OnLevelCompleted -= OnGameCompleted;
             GameManager.OnStartGame -= OnGameStart;
             GameManager.OnMiniGame -= OnMiniGame;
         }

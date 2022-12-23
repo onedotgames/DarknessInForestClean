@@ -46,6 +46,7 @@ public class SpawnerManager : CustomBehaviour
         if (gameManager != null)
         {
             gameManager.OnStartGame += OnLevelStart;
+            gameManager.OnLevelCompleted += OnLevelCompleted;
             gameManager.OnLevelFailed += OnLevelFailed;
         }
         InitializeOptions();
@@ -185,8 +186,13 @@ public class SpawnerManager : CustomBehaviour
         AdditionalSpawnerRoutineStop();
         AdditionalSpawnerHolder.SetActive(false);
     }
+    private void OnLevelCompleted()
+    {
+        MainSpawnerRoutineStop();
+        AdditionalSpawnerRoutineStop();
+        AdditionalSpawnerHolder.SetActive(false);
+    }
 
-    
 
     private void OnDestroy()
     {
@@ -195,6 +201,7 @@ public class SpawnerManager : CustomBehaviour
         {
             GameManager.OnStartGame -= OnLevelStart;
             GameManager.OnLevelFailed -= OnLevelFailed;
+            GameManager.OnLevelCompleted -= OnLevelCompleted;
         }
     }
     #endregion

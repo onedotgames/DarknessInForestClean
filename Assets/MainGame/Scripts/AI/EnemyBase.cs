@@ -36,6 +36,7 @@ public class EnemyBase : CustomBehaviour
         base.Initialize(gameManager);
         if(GameManager != null)
         {
+            GameManager.OnLevelCompleted += OnGameCompleted;
             GameManager.OnLevelFailed += OnGameFailed;
         }
         Player = gameManager.PlayerManager.CurrentPlayer;
@@ -215,12 +216,25 @@ public class EnemyBase : CustomBehaviour
         }
         
     }
+    private void OnGameCompleted()
+    {
+        if (gameObject.activeInHierarchy)
+        {
+            IsActivated = false;
+            Collider2D.enabled = false;
+            CancelInvoke("DropCoin");
+            CancelInvoke("DropExp");
+            GameManager.PoolingManager.EnemyPoolerList[(int)EnemyPoolerType].ReturnObjectToPool(gameObject);
+        }
+
+    }
 
     private void OnDestroy()
     {
         if(GameManager != null)
         {
             GameManager.OnLevelFailed -= OnGameFailed;
+            GameManager.OnLevelCompleted -= OnGameCompleted;
         }
     }
 }

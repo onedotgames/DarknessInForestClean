@@ -70,11 +70,13 @@ public class BossBase : CustomBehaviour
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
-        if (GameManager != null)
+        if (gameManager != null)
         {            
-            GameManager.OnLevelFailed += OnGameFailed;
+            
+            gameManager.OnLevelCompleted += OnGameSuccess;
+            gameManager.OnLevelFailed += OnGameFailed;
         }
-        hud = GameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
+        hud = gameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
         Player = gameManager.PlayerManager.CurrentPlayer;
         SetStats();
         IsActivated = true;
@@ -97,31 +99,34 @@ public class BossBase : CustomBehaviour
 
     private void Update()
     {
-        if (IsActivated)
+        if (!GameManager.IsGamePaused)
         {
-            if (ShouldRotate)
+            if (IsActivated)
             {
-                BossRotation();
-            }
-
-            if (ShouldIndicatorRotate)
-            {
-                IndicatorRotation();
-            }
-
-            if (ShouldMove)
-            {
-                if(MovementMethod1 != null)
+                if (ShouldRotate)
                 {
-                    MovementMethod1();
+                    BossRotation();
                 }
-                if (MovementMethod2 != null)
+
+                if (ShouldIndicatorRotate)
                 {
-                    MovementMethod2();
+                    IndicatorRotation();
                 }
-                if (MovementMethod3 != null)
+
+                if (ShouldMove)
                 {
-                    MovementMethod3();
+                    if (MovementMethod1 != null)
+                    {
+                        MovementMethod1();
+                    }
+                    if (MovementMethod2 != null)
+                    {
+                        MovementMethod2();
+                    }
+                    if (MovementMethod3 != null)
+                    {
+                        MovementMethod3();
+                    }
                 }
             }
         } 
@@ -167,178 +172,179 @@ public class BossBase : CustomBehaviour
 
     public IEnumerator ChargeAttack(float startDelay,int chargeCount, float chargeBuilUpTime, float chargeTime, float chargeCooldown, float timeBetweenCharges)
     {
-        if (!GameManager.IsGamePaused)
+        while (GameManager.IsGamePaused)
         {
-            if(CanAttack)
-            {
-                yield return new WaitForSeconds(StartDelay);
-                CanAttack = false;
-            }
-
-            for (int i = 0; i < chargeCount; i++)
-            {
-                if (ShouldMove)
-                {
-                    ShouldMove = false;
-                    Monster.ResetAttack();
-                    Monster.SetState(MonsterState.Idle);
-                }
-
-                ShouldRotate = true;
-                ShouldIndicatorRotate = true;
-
-                ChargeIndicator.SetActive(true);
-                ChargeIndicator.transform.DOScaleY(7.5f, chargeBuilUpTime).OnComplete(() =>
-                {
-                    ShouldIndicatorRotate = false;
-
-                    var temp = Destination.transform.position;
-                    ChargeIndicator.SetActive(false);
-                    ChargeIndicator.transform.localScale = new Vector3(2, 1, 1);
-                    Monster.ChangeAction(true);
-                    Monster.Attack();
-
-                    gameObject.transform.DOMove(temp, chargeTime).OnComplete(() =>
-                    {
-                        Monster.ChangeAction(false);
-                        Monster.ResetAttack();
-                        Monster.SetState(MonsterState.Ready);
-
-                    });
-                });
-                yield return new WaitForSeconds(chargeTime);
-                yield return new WaitForSeconds(timeBetweenCharges);
-            }
-
-            yield return new WaitForSeconds(chargeCooldown);
-            ShouldMove = true;
-            Monster.ResetAttack();
-            Monster.ChangeAction(false);
-            Monster.SetState(MonsterState.Run);
-
-
-            StartCoroutine(ChargeAttack(StartDelay, ChargeCount, ChargeBuildUpTime, ChargeTime, BaseAttackCooldown, TimeBtwCharges));
+            yield return null;
         }
-        
+        if (CanAttack)
+        {
+            yield return new WaitForSeconds(StartDelay);
+            CanAttack = false;
+        }
 
+        for (int i = 0; i < chargeCount; i++)
+        {
+            if (ShouldMove)
+            {
+                ShouldMove = false;
+                Monster.ResetAttack();
+                Monster.SetState(MonsterState.Idle);
+            }
+
+            ShouldRotate = true;
+            ShouldIndicatorRotate = true;
+
+            ChargeIndicator.SetActive(true);
+            ChargeIndicator.transform.DOScaleY(7.5f, chargeBuilUpTime).OnComplete(() =>
+            {
+                ShouldIndicatorRotate = false;
+
+                var temp = Destination.transform.position;
+                ChargeIndicator.SetActive(false);
+                ChargeIndicator.transform.localScale = new Vector3(2, 1, 1);
+                Monster.ChangeAction(true);
+                Monster.Attack();
+
+                gameObject.transform.DOMove(temp, chargeTime).OnComplete(() =>
+                {
+                    Monster.ChangeAction(false);
+                    Monster.ResetAttack();
+                    Monster.SetState(MonsterState.Ready);
+
+                });
+            });
+            yield return new WaitForSeconds(chargeTime);
+            yield return new WaitForSeconds(timeBetweenCharges);
+        }
+
+        yield return new WaitForSeconds(chargeCooldown);
+        ShouldMove = true;
+        Monster.ResetAttack();
+        Monster.ChangeAction(false);
+        Monster.SetState(MonsterState.Run);
+
+
+        StartCoroutine(ChargeAttack(StartDelay, ChargeCount, ChargeBuildUpTime, ChargeTime, BaseAttackCooldown, TimeBtwCharges));
     }
 
     public IEnumerator ChargeAttackWithoutIndicatorFollow(float startDelay, int chargeCount, float chargeBuilUpTime, float chargeTime, float chargeCooldown, float timeBetweenCharges)
     {
-        if (!GameManager.IsGamePaused)
+        while (GameManager.IsGamePaused)
         {
-            ShouldIndicatorRotate = false;
-            if (CanAttack)
-            {
-                yield return new WaitForSeconds(StartDelay);
-                CanAttack = false;
-            }
-
-            for (int i = 0; i < chargeCount; i++)
-            {
-                if (ShouldMove)
-                {
-                    ShouldMove = false;
-                    Monster.ResetAttack();
-                    Monster.SetState(MonsterState.Idle);
-                }
-
-                ShouldRotate = true;
-                IndicatorRotation();
-
-                ChargeIndicator.SetActive(true);
-                ChargeIndicator.transform.DOScaleY(7.5f, chargeBuilUpTime).OnComplete(() =>
-                {
-                    var temp = Destination.transform.position;
-                    ChargeIndicator.SetActive(false);
-                    ChargeIndicator.transform.localScale = new Vector3(2, 1, 1);
-                    Monster.ChangeAction(true);
-                    Monster.Attack();
-
-                    gameObject.transform.DOMove(temp, chargeTime).OnComplete(() =>
-                    {
-                        Monster.ChangeAction(false);
-                        Monster.ResetAttack();
-                        Monster.SetState(MonsterState.Ready);
-
-                    });
-                });
-                yield return new WaitForSeconds(chargeTime);
-                yield return new WaitForSeconds(timeBetweenCharges);
-            }
-
-            yield return new WaitForSeconds(chargeCooldown);
-            ShouldMove = true;
-            Monster.ResetAttack();
-            Monster.ChangeAction(false);
-            Monster.SetState(MonsterState.Run);
-
-            StartCoroutine(ChargeAttackWithoutIndicatorFollow(StartDelay, ChargeCount, ChargeBuildUpTime, ChargeTime, BaseAttackCooldown, TimeBtwCharges));
+            yield return null;
         }
-        
+        ShouldIndicatorRotate = false;
+        if (CanAttack)
+        {
+            yield return new WaitForSeconds(StartDelay);
+            CanAttack = false;
+        }
+
+        for (int i = 0; i < chargeCount; i++)
+        {
+            if (ShouldMove)
+            {
+                ShouldMove = false;
+                Monster.ResetAttack();
+                Monster.SetState(MonsterState.Idle);
+            }
+
+            ShouldRotate = true;
+            IndicatorRotation();
+
+            ChargeIndicator.SetActive(true);
+            ChargeIndicator.transform.DOScaleY(7.5f, chargeBuilUpTime).OnComplete(() =>
+            {
+                var temp = Destination.transform.position;
+                ChargeIndicator.SetActive(false);
+                ChargeIndicator.transform.localScale = new Vector3(2, 1, 1);
+                Monster.ChangeAction(true);
+                Monster.Attack();
+
+                gameObject.transform.DOMove(temp, chargeTime).OnComplete(() =>
+                {
+                    Monster.ChangeAction(false);
+                    Monster.ResetAttack();
+                    Monster.SetState(MonsterState.Ready);
+
+                });
+            });
+            yield return new WaitForSeconds(chargeTime);
+            yield return new WaitForSeconds(timeBetweenCharges);
+        }
+
+        yield return new WaitForSeconds(chargeCooldown);
+        ShouldMove = true;
+        Monster.ResetAttack();
+        Monster.ChangeAction(false);
+        Monster.SetState(MonsterState.Run);
+
+        StartCoroutine(ChargeAttackWithoutIndicatorFollow(StartDelay, ChargeCount, ChargeBuildUpTime, ChargeTime, BaseAttackCooldown, TimeBtwCharges));
     }
 
     protected IEnumerator RapidFire(float startDelay, int shotCount, float shotCooldown, float timeBetweenShots)
     {
-        Debug.Log(shotCount + " ShotCount");
-        if (!GameManager.IsGamePaused)
+        while (GameManager.IsGamePaused)
         {
-            if (CanAttack)
+            yield return null;
+        }
+        if (CanAttack)
+        {
+            yield return new WaitForSeconds(StartDelay);
+            CanAttack = false;
+        }
+        for (int i = 0; i < shotCount; i++)
+        {
+            if (ShouldMove)
             {
-                yield return new WaitForSeconds(StartDelay);
-                CanAttack = false;
+                ShouldMove = false;
+                Monster.ChangeAction(true);
+                Monster.Attack();
             }
-            for (int i = 0; i < shotCount; i++)
+
+            var bullet = GameManager.PoolingManager.EnemyBulletPoolerList[(int)EnemyBulletPoolerType.BossClub].GetObjectFromPool();
+            if(Hand != null)
             {
-                if (ShouldMove)
+                if(bullet != null)
                 {
-                    ShouldMove = false;
-                    Monster.ChangeAction(true);
-                    Monster.Attack();
-                }
-
-                var bullet = GameManager.PoolingManager.EnemyBulletPoolerList[(int)EnemyBulletPoolerType.BossClub].GetObjectFromPool();
-                if(Hand != null)
-                {
-                    if(bullet != null)
-                    {
-                        bullet.transform.position = Hand.transform.position;
-
-                    }
-                    else
-                    {
-                        Debug.Log("NO Bullet");
-                    }
+                    bullet.transform.position = Hand.transform.position;
 
                 }
                 else
                 {
-                    bullet.transform.position = transform.position;
-
+                    Debug.Log("NO Bullet");
                 }
 
-                var bulletShot = bullet.GetComponent<BossRotatingProjectile>();
-
-                bulletShot.gm = GameManager;
-                GameManager.OnLevelFailed += bulletShot.OnGameFailed;
-
-                bulletShot.mDirection = Player.transform.position - transform.position;
-                bulletShot.DirectionNorm = bulletShot.mDirection.normalized;
-
-                bulletShot.PoolerBase = GameManager.PoolingManager.EnemyBulletPoolerList[(int)EnemyBulletPoolerType.BossClub];
-                bulletShot.isShotted = true;
-                bulletShot.damage = BaseDamage;
-                i++;
-                yield return new WaitForSeconds(timeBetweenShots);
             }
-            ShouldMove = true;
-            Monster.ResetAttack();
-            Monster.ChangeAction(false);
-            Monster.SetState(MonsterState.Run);
-            yield return new WaitForSeconds(shotCooldown);
-            StartCoroutine(RapidFire(StartDelay, ChargeCount, BaseAttackCooldown, TimeBtwCharges));
+            else
+            {
+                bullet.transform.position = transform.position;
+
+            }
+
+            var bulletShot = bullet.GetComponent<BossRotatingProjectile>();
+
+            bulletShot.gm = GameManager;
+            GameManager.OnLevelFailed += bulletShot.OnGameFailed;
+
+            bulletShot.mDirection = Player.transform.position - transform.position;
+            bulletShot.DirectionNorm = bulletShot.mDirection.normalized;
+            if(bulletShot.DirectionNorm == Vector3.zero)
+            {
+                bulletShot.DirectionNorm = Vector3.down;
+            }
+            bulletShot.PoolerBase = GameManager.PoolingManager.EnemyBulletPoolerList[(int)EnemyBulletPoolerType.BossClub];
+            bulletShot.isShotted = true;
+            bulletShot.damage = BaseDamage;
+            i++;
+            yield return new WaitForSeconds(timeBetweenShots);
         }
-        
+        ShouldMove = true;
+        Monster.ResetAttack();
+        Monster.ChangeAction(false);
+        Monster.SetState(MonsterState.Run);
+        yield return new WaitForSeconds(shotCooldown);
+        StartCoroutine(RapidFire(StartDelay, ChargeCount, BaseAttackCooldown, TimeBtwCharges));
     }
 
     private void BossRotation()
@@ -395,7 +401,13 @@ public class BossBase : CustomBehaviour
 
     public virtual IEnumerator GetAOEHit(float damageToTake, float interval)
     {
-        BaseHealth -= damageToTake;
+        while (GameManager.IsGamePaused)
+        {
+            yield return null;
+        }
+        currentHP -= damageToTake;
+        hud.SetBossFillValue(currentHP, BaseHealth);
+        hud.SetBossFillText(currentHP, BaseHealth);
         CheckDeath();
         if (IsActivated && gameObject.activeInHierarchy)
         {
@@ -429,9 +441,11 @@ public class BossBase : CustomBehaviour
             var exp = GameManager.PoolingManager.ExpPoolerList[(int)ExpPoolerType.SmallExperience].GetObjectFromPool();
             exp.transform.position = transform.position;
         }
-        
+
+        CheckIfLastBoss();
         gameObject.SetActive(false);
     }
+
     private void DropCoin()
     {
         if (!GameManager.IsDevelopmentModeOn)
@@ -439,9 +453,17 @@ public class BossBase : CustomBehaviour
             var coin = GameManager.PoolingManager.CoinPoolerList[(int)CoinType.Small].GetObjectFromPool();
             coin.transform.position = transform.position;
         }
-        
-        gameObject.SetActive(false);
 
+        CheckIfLastBoss();
+        gameObject.SetActive(false);
+    }
+
+    private void CheckIfLastBoss()
+    {
+        if(GameManager.SpawnerManager.BossSpawner.Boss3 == this)
+        {
+            GameManager.LevelCompleted();
+        }
     }
 
     private void OnGameFailed()
@@ -452,14 +474,27 @@ public class BossBase : CustomBehaviour
         CanAttack = true;
         ShouldRotate = false;
         ShouldIndicatorRotate = false;
+        StopAllCoroutines();
 
-}
+    }
+    private void OnGameSuccess()
+    {
+        Debug.Log("Success");
+        gameObject.SetActive(false);
+        IsActivated = false;
+        ShouldMove = false;
+        CanAttack = true;
+        ShouldRotate = false;
+        ShouldIndicatorRotate = false;
+        StopAllCoroutines();
+    }
 
     private void OnDestroy()
     {
         if (GameManager != null)
         {
             GameManager.OnLevelFailed -= OnGameFailed;
+            GameManager.OnLevelCompleted -= OnGameSuccess;
         }
     }
 }

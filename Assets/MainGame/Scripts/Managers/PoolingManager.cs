@@ -46,36 +46,4 @@ public class PoolingManager : CustomBehaviour
     {
         return WeaponPooler[index];
     }
-
-    private void LevelFailed()
-    {
-
-    }
-
-    private void SubEvents()
-    {
-        if (GameManager != null)
-        {
-            GameManager.OnLevelFailed += LevelFailed;
-        }
-    }
-
-    private void UnSubEvents()
-    {
-        if (GameManager != null)
-        {
-            GameManager.OnLevelFailed -= LevelFailed;
-
-        }
-    }
-
-    //private void OnDisable()
-    //{
-    //    UnSubEvents();
-    //}
-
-    //private void OnDestroy()
-    //{
-    //    UnSubEvents();
-    //}
 }

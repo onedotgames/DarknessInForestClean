@@ -16,11 +16,15 @@ public class BossRotatingProjectile : MonoBehaviour
     public GameObject Model;
     private void Update()
     {
-        if (isShotted)
+        if (!gm.IsGamePaused)
         {
-            Shot();
-            Model.transform.Rotate(RotSpeed * Time.deltaTime * Vector3.forward);
+            if (isShotted)
+            {
+                Shot();
+                Model.transform.Rotate(RotSpeed * Time.deltaTime * Vector3.forward);
+            }
         }
+        
     }
 
     public void Shot()

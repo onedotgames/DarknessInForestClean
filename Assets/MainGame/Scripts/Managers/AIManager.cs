@@ -16,8 +16,12 @@ public class AIManager : CustomBehaviour
     {
         DisableEnemies();
     }
+    private void LevelCompleted()
+    {
+        DisableEnemies();
+    }
 
-    private void DisableEnemies()
+    public void DisableEnemies()
     {
         GameManager.SpawnerManager.MainSpawnerRoutineStop();
         GameManager.SpawnerManager.AdditionalSpawnerRoutineStop();
@@ -38,6 +42,7 @@ public class AIManager : CustomBehaviour
         if(GameManager != null)
         {
             GameManager.OnLevelFailed += LevelFailed;
+            GameManager.OnLevelCompleted += LevelCompleted;
         }
     }
 
@@ -46,6 +51,7 @@ public class AIManager : CustomBehaviour
         if (GameManager != null)
         {
             GameManager.OnLevelFailed -= LevelFailed;
+            GameManager.OnLevelCompleted -= LevelCompleted;
 
         }
     }

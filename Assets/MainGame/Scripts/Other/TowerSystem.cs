@@ -8,7 +8,12 @@ public class TowerSystem : CustomBehaviour
     public bool isTowerDestroyed = false;
     public override void Initialize(GameManager gameManager)
     {
-        base.Initialize(gameManager);
+        base.Initialize(gameManager); 
+        if (GameManager != null)
+        {
+            GameManager.OnLevelFailed += LevelFailed;
+            GameManager.OnLevelCompleted += LevelCompleted;
+        }
     }
 
     private void Update()
@@ -23,6 +28,25 @@ public class TowerSystem : CustomBehaviour
     public void GetHitTower(float hitPower)
     {
         TowerHealth -= hitPower;
-        Debug.Log(TowerHealth);
+    }
+
+    private void LevelFailed()
+    {
+        isTowerDestroyed = false;
+    }
+
+    private void LevelCompleted()
+    {
+        isTowerDestroyed = false;
+
+    }
+
+    private void OnDestroy()
+    {
+        if(GameManager != null)
+        {
+            GameManager.OnLevelFailed -= LevelFailed;
+            GameManager.OnLevelCompleted -= LevelCompleted;
+        }
     }
 }

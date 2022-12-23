@@ -13,6 +13,7 @@ public class PlayerHealthManager : CustomBehaviour
     public bool IsRegenActive;
     public UtilityBase HpReg;
 
+
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -22,10 +23,19 @@ public class PlayerHealthManager : CustomBehaviour
     
     void EventSubs()
     {
-        GameManager.OnReturnToMainMenu += ReturnToMainMenu;
+        if(GameManager != null)
+        {
+            GameManager.OnReturnToMainMenu += ReturnToMainMenu;
+            GameManager.OnStartGame += StartGame;
+        }
     }
 
     public void ReturnToMainMenu()
+    {
+        Player.mCurrentHealth = Player.mMaxHealth;
+        SetHealthBar(Player.mMaxHealth);
+    }
+    public void StartGame()
     {
         Player.mCurrentHealth = Player.mMaxHealth;
         SetHealthBar(Player.mMaxHealth);
@@ -54,6 +64,7 @@ public class PlayerHealthManager : CustomBehaviour
         if (GameManager != null)
         {
             GameManager.OnReturnToMainMenu -= ReturnToMainMenu;
+            GameManager.OnStartGame -= StartGame;
         }
     }
 

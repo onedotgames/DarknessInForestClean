@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class RangedEnemy : EnemyBase
 {
+    public float ChaseRange;
     public override void AttackMethod()
     {
         base.AttackMethod();
@@ -31,7 +32,7 @@ public class RangedEnemy : EnemyBase
     public override void MovementMethod()
     {
         base.MovementMethod();
-        if (Mathf.Abs(Vector3.Distance(Player.transform.position, transform.position)) > MeleeRange)
+        if (Mathf.Abs(Vector3.Distance(Player.transform.position, transform.position)) > ChaseRange)
         {
             if (!Monster.GetAction())
             {
@@ -43,5 +44,6 @@ public class RangedEnemy : EnemyBase
                 transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, BaseSpeed * Time.deltaTime);
             }
         }
+        
     }
 }
