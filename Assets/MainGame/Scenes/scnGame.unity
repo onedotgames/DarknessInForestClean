@@ -8904,8 +8904,8 @@ MonoBehaviour:
   HitEffect: {fileID: 0}
   isMiniGameComplete: 0
   minigames:
-  - {fileID: 2126409691}
   - {fileID: 541709019}
+  - {fileID: 2126409691}
   bananas: []
   SelectSkillPanel: {fileID: 0}
   PoolerBase: {fileID: 0}
@@ -13205,7 +13205,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 00e39863ad622fc4c9d98d54c4540a45, type: 3}
   - {fileID: 21300000, guid: 89d43928fa4ba7849afba5a2fe1262b0, type: 3}
   - {fileID: 21300000, guid: 2c63ea10cfb925d41bb998c79cc844f2, type: 3}
-  - {fileID: 21300000, guid: 5ca50699b74f19045bcb41dfd27e35ca, type: 3}
+  - {fileID: 21300000, guid: ed4998c891fc19741b4ecff6a0e7aa54, type: 3}
   - {fileID: 21300000, guid: 76638aa4aacec214cbce0eaf97af469f, type: 3}
   - {fileID: 21300000, guid: c651986f1e989af4ba5bc3acc428709a, type: 3}
   - {fileID: 21300000, guid: 2449e722b5a7a1142ac575167b76d94c, type: 3}
@@ -17339,8 +17339,8 @@ MonoBehaviour:
   HitEffect: {fileID: 0}
   isMiniGameComplete: 0
   minigames:
-  - {fileID: 2126409691}
   - {fileID: 541709019}
+  - {fileID: 2126409691}
   bananas: []
   SelectSkillPanel: {fileID: 0}
   PoolerBase: {fileID: 0}
@@ -18614,8 +18614,8 @@ MonoBehaviour:
   HitEffect: {fileID: 0}
   isMiniGameComplete: 0
   minigames:
-  - {fileID: 2126409691}
   - {fileID: 541709019}
+  - {fileID: 2126409691}
   bananas: []
   SelectSkillPanel: {fileID: 0}
   PoolerBase: {fileID: 0}
@@ -24136,6 +24136,7 @@ MonoBehaviour:
   TowerSystem: {fileID: 1932212232}
   isTowerNear: 0
   canQuestsStart: 0
+  isNpcNear: 0
 --- !u!1 &1000729331
 GameObject:
   m_ObjectHideFlags: 0
@@ -26343,8 +26344,8 @@ MonoBehaviour:
   HitEffect: {fileID: 260038914}
   isMiniGameComplete: 0
   minigames:
-  - {fileID: 2126409691}
   - {fileID: 541709019}
+  - {fileID: 2126409691}
   bananas: []
   SelectSkillPanel: {fileID: 0}
   PoolerBase: {fileID: 0}
@@ -32996,8 +32997,8 @@ MonoBehaviour:
   HitEffect: {fileID: 0}
   isMiniGameComplete: 0
   minigames:
-  - {fileID: 2126409691}
   - {fileID: 541709019}
+  - {fileID: 2126409691}
   bananas: []
   SelectSkillPanel: {fileID: 0}
   PoolerBase: {fileID: 0}
@@ -38052,6 +38053,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MiniGamePanel: {fileID: 2126409691}
   weaponManager: {fileID: 1251001069}
+  scoreText: {fileID: 1492808282}
   GameManager: {fileID: 1958668536}
   popCount: 0
   HUD: {fileID: 7429275542549284746}
@@ -41423,8 +41425,8 @@ MonoBehaviour:
   HitEffect: {fileID: 565894369}
   isMiniGameComplete: 0
   minigames:
-  - {fileID: 2126409691}
   - {fileID: 541709019}
+  - {fileID: 2126409691}
   bananas: []
   SelectSkillPanel: {fileID: 0}
   PoolerBase: {fileID: 0}
@@ -43966,8 +43968,8 @@ MonoBehaviour:
   HitEffect: {fileID: 0}
   isMiniGameComplete: 0
   minigames:
-  - {fileID: 2126409691}
   - {fileID: 541709019}
+  - {fileID: 2126409691}
   bananas: []
   SelectSkillPanel: {fileID: 0}
   PoolerBase: {fileID: 0}

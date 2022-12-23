@@ -39,13 +39,17 @@ public class MiniGameBase : MonoBehaviour
     }
     public void PrepareMiniGame()
     {
-        TargetImage = Weapons[Random.Range(0, Weapons.Count)];
-        TargetBox.sprite = TargetImage;
+        //TargetImage = Weapons[Random.Range(0, Weapons.Count)];
+        //TargetBox.sprite = TargetImage;
         for (int i = 0; i < Weapons.Count; i++)
         {
             TempWeapons.Add(Weapons[i]);
         }
         SetImages();
+        BigCircle.GetComponent<Circle>().isTrueImage = false;
+        MediumCircle.GetComponent<Circle>().isTrueImage = false;
+        SmallCircle.GetComponent<Circle>().isTrueImage = false;
+
     }
     private void Update()
     {

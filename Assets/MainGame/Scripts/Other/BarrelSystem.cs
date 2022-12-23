@@ -6,6 +6,7 @@ public class BarrelSystem : CustomBehaviour
 {
     public int barrelCount;
     public float timer = 0;
+    private bool canBarrelSystemStart = false;
 
     public override void Initialize(GameManager gameManager)
     {
@@ -15,13 +16,17 @@ public class BarrelSystem : CustomBehaviour
             GameManager.OnStartGame += LevelStart;
         }
     }
+
     private void Update()
     {
-        timer += Time.deltaTime;
-        if (timer >= 10)
+        if (canBarrelSystemStart)
         {
-            timer = 0;
-            SpawnBarrel();
+            timer += Time.deltaTime;
+            if (timer >= 10)
+            {
+                timer = 0;
+                SpawnBarrel();
+            }
         }
     }
 
@@ -37,9 +42,11 @@ public class BarrelSystem : CustomBehaviour
             barrelCount++;
         }
     }
-    
+    //10 saniyede bir barrel spawn olacak. tek seferde max 10 tane bulunabilir.
+
     private void LevelStart()
     {
+        canBarrelSystemStart = true;
         timer = 0;
         barrelCount = 0;
     }
