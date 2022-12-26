@@ -26,7 +26,8 @@ public class GameManager : CustomBehaviour
     public BarrelSystem BarrelSystem;
     public SpawnerManager SpawnerManager;
     public TimeManager TimeManager;
-    public QuestManager QuestManager; 
+    public QuestManager QuestManager;
+    public HolyFountain HolyFountain;
     #endregion
 
     public bool IsGameStarted = false;
@@ -115,6 +116,7 @@ public class GameManager : CustomBehaviour
         SpawnerManager.Initialize(this);
         TimeManager.Initialize(this);
         QuestManager.Initialize(this);
+        HolyFountain.Initialize(this);
     }
     #endregion
 
@@ -179,7 +181,6 @@ public class GameManager : CustomBehaviour
         {
             //GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, PlayerManager.GetLevelNumber().ToString());
             IsGameStarted = false;
-
             OnLevelCompleted();
         }
     }
@@ -189,9 +190,7 @@ public class GameManager : CustomBehaviour
         {
             //GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, PlayerManager.GetLevelNumber().ToString());
             IsGameStarted = false;
-            OnLevelFailed();
-            
-
+            OnLevelFailed();     
         }
     }
     public void TutorialCompleted()

@@ -23,6 +23,7 @@ TagManager:
   - Tower
   - Canvas
   - BossBullet
+  - HolyFountain
   layers:
   - Default
   - TransparentFX

@@ -189,6 +189,16 @@ public class Player : CustomBehaviour
             GameManager.QuestManager.QuestPanel.SetActive(true);
             Time.timeScale = 0f;
         }
+        if (collision.CompareTag("HolyFountain"))
+        {
+            if (!GameManager.HolyFountain.isFountainTaken)
+            {
+                Debug.Log("Çeşmeye değdim");
+                GameManager.HolyFountain.isFountainTaken = true;
+                mCurrentHealth = mMaxHealth;
+                GameManager.PlayerHealthManager.SetHealthBar(mCurrentHealth);
+            }
+        }
     }
     private void InitializeCustomOptions()
     {
@@ -416,11 +426,13 @@ public class Player : CustomBehaviour
     {
         PlayerAnim.SetBool("isMoving", false);
         StopShield();
+        SetPlayerStats();
     }
     private void LevelCompleted()
     {
         PlayerAnim.SetBool("isMoving", false);
         StopShield();
+        SetPlayerStats();
     }
 
     private void OnDisable()

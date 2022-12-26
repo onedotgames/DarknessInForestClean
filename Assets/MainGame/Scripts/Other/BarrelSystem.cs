@@ -14,6 +14,8 @@ public class BarrelSystem : CustomBehaviour
         if(GameManager != null)
         {
             GameManager.OnStartGame += LevelStart;
+            GameManager.OnLevelCompleted += LevelCompleted;
+            GameManager.OnLevelFailed += LevelFailed;
         }
     }
 
@@ -29,6 +31,21 @@ public class BarrelSystem : CustomBehaviour
             }
         }
     }
+
+    private void LevelCompleted()
+    {
+        canBarrelSystemStart = false;
+        timer = 0;
+        barrelCount = 0;
+    }
+
+    private void LevelFailed()
+    {
+        canBarrelSystemStart = false;
+        timer = 0;
+        barrelCount = 0;
+    }
+
 
     void SpawnBarrel()
     {
@@ -56,6 +73,8 @@ public class BarrelSystem : CustomBehaviour
         if (GameManager != null)
         {
             GameManager.OnStartGame -= LevelStart;
+            GameManager.OnLevelCompleted -= LevelCompleted;
+            GameManager.OnLevelFailed -= LevelFailed;
         }
     }
 }

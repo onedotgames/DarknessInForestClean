@@ -61,6 +61,7 @@ public class UtilityBase : CustomBehaviour
                     break;
 
                 case UtilityPattern.HealthRegen:
+                    GameManager.PlayerHealthManager.IsRegenActive = true;
                     GameManager.PlayerHealthManager.HpRegen();
                     break;
 

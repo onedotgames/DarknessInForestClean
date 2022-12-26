@@ -228,6 +228,7 @@ public class WeaponManager : CustomBehaviour
             else
             {
                 PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
+                UtilitiesInUse.Add(selectedUtilityData.Utility);
             }
 
         }
@@ -255,6 +256,8 @@ public class WeaponManager : CustomBehaviour
             else
             {
                 PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
+                UtilitiesInUse.Add(selectedUtilityData.Utility);
+
             }
         }
         else if (EventSystem.current.currentSelectedGameObject == SelectSkillPanel.ButtonDataList[2].Button.gameObject)
@@ -281,6 +284,7 @@ public class WeaponManager : CustomBehaviour
             else
             {
                 PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
+                UtilitiesInUse.Add(selectedUtilityData.Utility);
             }
         }
 
@@ -413,7 +417,6 @@ public class WeaponManager : CustomBehaviour
                 ShotgunWeaponsInUse[i].Initialize(GameManager);
 
                 CoroutineList.Add(ShotgunSlotRoutine(ShotgunWeaponsInUse[i]));
-                //StartCoroutine(CoroutineList[i]);
             }
         }
         for (int i = 0; i < WhipWeaponsInUse.Count; i++)

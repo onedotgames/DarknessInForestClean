@@ -80,7 +80,6 @@ public class PlayerManager : CustomBehaviour
 
     public int GetTotalCoinCount()
     {
-        
         return GameManager.JsonConverter.PlayerData.CoinCount;
     }
 

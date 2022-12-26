@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerLevelManager : CustomBehaviour
 {
@@ -13,6 +14,14 @@ public class PlayerLevelManager : CustomBehaviour
     private SelectSkill mSelectSkillPanel;
     public int PlayerLevel = 0;
 
+    [Header("Select Skill Panel")]
+    public Slider experienceSlider;
+    public TMP_Text experienceText;
+    public Slider killCountSlider;
+    public TMP_Text coinText;
+    public TMP_Text playerLevelText;
+    public List<Image> WeaponImages;
+    public List<Image> UtilityImages;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -95,6 +104,7 @@ public class PlayerLevelManager : CustomBehaviour
 
     private void LevelUp()
     {
+        UpdateSkillPanel();
         mSelectSkillPanel.OpenPanel();
         PlayerLevel++;
         mHud.UpdateLevelText();
@@ -102,6 +112,32 @@ public class PlayerLevelManager : CustomBehaviour
         Time.timeScale = 0;
     }
 
+    private void UpdateSkillPanel()
+    {
+        coinText.text = GameManager.PlayerManager.GetTotalCoinCount().ToString();
+        playerLevelText.text = (PlayerLevel + 1).ToString();
+        killCountSlider.value = (mHud.killCount / (mHud.killCount + 100));
+        experienceSlider.value = (GetCurrentExp() / GetLvlReq());
+        experienceText.text = GetCurrentExp().ToString() + " / " + GetLvlReq().ToString();
+        UpdateWeapons();
+        UpdateUtils();
+    }
+
+    private void UpdateWeapons()
+    {
+        for (int i = 0; i < GameManager.WeaponManager.WeaponsInUse.Count; i++)
+        {
+            WeaponImages[i].sprite = GameManager.WeaponManager.WeaponsInUse[i].SkillSO.Icon;
+        }
+    }
+
+    private void UpdateUtils()
+    {
+        for (int i = 0; i < GameManager.WeaponManager.UtilitiesInUse.Count; i++)
+        {
+            UtilityImages[i].sprite = GameManager.WeaponManager.UtilitiesInUse[i].UtilitySO.Icon;
+        }
+    }
     private void GameStarted()
     {
         CurrentExp = 0;
