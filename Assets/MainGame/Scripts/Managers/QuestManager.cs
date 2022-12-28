@@ -13,6 +13,7 @@ public class QuestManager : CustomBehaviour
     private Vector3 questPos;
     private Vector3 towerPos;
     public GameObject QuestNPC;
+    public GameObject TargetObj;
     public GameObject QuestPanel;
     public int HuntTarget;
     public int currentKillCount;
@@ -109,6 +110,7 @@ public class QuestManager : CustomBehaviour
         questPos = new Vector3(Random.Range(-80, 80) + GameManager.PlayerManager.CurrentPlayer.transform.position.x, Random.Range(-80, 80) + GameManager.PlayerManager.CurrentPlayer.transform.position.y, 0);
         QuestNPC.transform.position = questPos;
         QuestNPC.SetActive(true);
+        TargetObj.SetActive(true);
     }
 
     public void SearchAndDestroy()

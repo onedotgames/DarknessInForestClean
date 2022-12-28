@@ -29,10 +29,7 @@ public class OffScreenIndicator : MonoBehaviour
 
     void LateUpdate()
     {
-        if(!questManager.isTowerNear || !questManager.isNpcNear)
-        {
-            DrawIndicators();
-        }
+        DrawIndicators();
     }
 
     /// <summary>
@@ -104,7 +101,7 @@ public class OffScreenIndicator : MonoBehaviour
     /// <returns></returns>
     private Indicator GetIndicator(ref Indicator indicator, IndicatorType type)
     {
-        if(indicator != null && !questManager.isTowerNear && questManager.Tower.activeInHierarchy)
+        if(indicator != null)
         {
             if(indicator.Type != type)
             {

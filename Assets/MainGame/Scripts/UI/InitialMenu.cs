@@ -37,7 +37,7 @@ public class InitialMenu : UIPanel
     public CustomButton[] MenuButtonArray;
 
     public RectTransform Content;
-
+    public RectTransform MidGroup;
     public override void Initialize(UIManager uIManager)
     {
         base.Initialize(uIManager);
@@ -47,9 +47,9 @@ public class InitialMenu : UIPanel
         HomeBTN.Initialize(uIManager, OnHomeBTNClicked);
         LevelsBTN.Initialize(uIManager, OnLevelsBTNClicked);
         LeaderBoardBTN.Initialize(uIManager, OnLeaderBoardBTNClicked);
-
+        Content.sizeDelta = new Vector2(Screen.height * 5, 0);
+        MidGroup.sizeDelta = new Vector2(Screen.height * 5, Screen.width);
         SubEvents();
-
     }
 
     private void SubEvents()
@@ -64,16 +64,14 @@ public class InitialMenu : UIPanel
     {
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
         AdjustMenuButtonScales();
-
-        Content.DOLocalMoveX(2484f, MenuSwipeSpeed);
+        Content.DOLocalMoveX(Screen.height * 2, MenuSwipeSpeed);
         
     }
     private void OnEquipmentBTNClicked()
     {
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click); 
         AdjustMenuButtonScales();
-        Content.DOLocalMoveX(1242f, MenuSwipeSpeed);
-
+        Content.DOLocalMoveX(Screen.height, MenuSwipeSpeed);
 
     }
     private void OnHomeBTNClicked()
@@ -82,23 +80,19 @@ public class InitialMenu : UIPanel
         AdjustMenuButtonScales();
         Content.DOLocalMoveX(0, MenuSwipeSpeed);
 
-
     }
     private void OnLevelsBTNClicked()
     {
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
         AdjustMenuButtonScales();
-        Content.DOLocalMoveX(-1242, MenuSwipeSpeed);
-
+        Content.DOLocalMoveX(-Screen.height, MenuSwipeSpeed);
 
     }
     private void OnLeaderBoardBTNClicked()
     {
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click); 
         AdjustMenuButtonScales();
-        Content.DOLocalMoveX(-2484f, MenuSwipeSpeed);
-        
-
+        Content.DOLocalMoveX(-Screen.height * 2, MenuSwipeSpeed);    
     }
 
     private void AdjustMenuButtonScales()
@@ -114,7 +108,6 @@ public class InitialMenu : UIPanel
                 if(btn.transform.localScale.x != 1)
                 {
                     btn.transform.DOScale(1f, ButtonAnimationSpeed);
-
                 }
             }
         }
