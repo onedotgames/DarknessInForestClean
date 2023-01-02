@@ -12,10 +12,13 @@ public class LevelFinished : UIPanel
     [Title("Fail Group")]
     public CustomButton ReplayButton;
     public CanvasGroup FailCanvas;
-
+    public Animator FailAnimator;
+    public GameObject FailImg;
     [Title("Success Group")]
     public CustomButton ContinueButton;
     public CanvasGroup SuccessCanvas;
+    public Animator SuccessAnimator;
+    public GameObject SuccessImg;
 
     public GameObject BoxVolumeParent;
     private int mDiamondReward;
@@ -92,8 +95,8 @@ public class LevelFinished : UIPanel
 
         SuccessCanvas.Open();
         SuccessCanvas.gameObject.SetActive(true);
-
         OpenPanel();
+        SuccessImg.GetComponent<PlayAnimation>().Play();
     }
     private void ReturnToMain()
     {
@@ -118,6 +121,7 @@ public class LevelFinished : UIPanel
         FailCanvas.gameObject.SetActive(true);
 
         OpenPanel();
+        FailImg.GetComponent<PlayAnimation>().Play();
     }
 
 

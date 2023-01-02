@@ -28,7 +28,7 @@ public class InitialMenu : UIPanel
 
 
     [Title("BottomGroup")]
-    public CustomButton Coop;
+    public CustomButton CoopBTN;
     public CustomButton EquipmentBTN;
     public CustomButton HomeBTN;
     public CustomButton LevelsBTN;
@@ -38,11 +38,16 @@ public class InitialMenu : UIPanel
 
     public RectTransform Content;
     public RectTransform MidGroup;
+    public RectTransform Coop;
+    public RectTransform Equipment;
+    public RectTransform Home;
+    public RectTransform Levels;
+    public RectTransform LeaderBoard;
     public override void Initialize(UIManager uIManager)
     {
         base.Initialize(uIManager);
         Play.Initialize(uIManager, OnPlayButtonClicked);
-        Coop.Initialize(uIManager, OnCoopBTNClicked);
+        CoopBTN.Initialize(uIManager, OnCoopBTNClicked);
         EquipmentBTN.Initialize(uIManager, OnEquipmentBTNClicked);
         HomeBTN.Initialize(uIManager, OnHomeBTNClicked);
         LevelsBTN.Initialize(uIManager, OnLevelsBTNClicked);
@@ -63,54 +68,59 @@ public class InitialMenu : UIPanel
     private void OnCoopBTNClicked()
     {
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
-        AdjustMenuButtonScales();
+        //AdjustMenuButtonScales();
         Content.DOLocalMoveX(Screen.height * 2, MenuSwipeSpeed);
-        
+        Coop.DOScale(Vector3.one * 2, 0.4f);
+        Equipment.DOScale(Vector3.one, 0.4f);
+        Home.DOScale(Vector3.one, 0.4f);
+        Levels.DOScale(Vector3.one, 0.4f);
+        LeaderBoard.DOScale(Vector3.one, 0.4f);
+
     }
     private void OnEquipmentBTNClicked()
     {
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click); 
-        AdjustMenuButtonScales();
+        //AdjustMenuButtonScales();
         Content.DOLocalMoveX(Screen.height, MenuSwipeSpeed);
-
+        Equipment.DOScale(Vector3.one * 2, 0.4f);
+        Coop.DOScale(Vector3.one, 0.4f);
+        Home.DOScale(Vector3.one, 0.4f);
+        Levels.DOScale(Vector3.one, 0.4f);
+        LeaderBoard.DOScale(Vector3.one, 0.4f);
     }
     private void OnHomeBTNClicked()
     {
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click); 
-        AdjustMenuButtonScales();
+        //AdjustMenuButtonScales();
         Content.DOLocalMoveX(0, MenuSwipeSpeed);
+        Home.DOScale(Vector3.one * 2, 0.4f);
+        Equipment.DOScale(Vector3.one, 0.4f);
+        Coop.DOScale(Vector3.one, 0.4f);
+        Levels.DOScale(Vector3.one, 0.4f);
+        LeaderBoard.DOScale(Vector3.one, 0.4f);
 
     }
     private void OnLevelsBTNClicked()
     {
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
-        AdjustMenuButtonScales();
+        //AdjustMenuButtonScales();
         Content.DOLocalMoveX(-Screen.height, MenuSwipeSpeed);
-
+        Levels.DOScale(Vector3.one * 2, 0.4f);
+        Equipment.DOScale(Vector3.one, 0.4f);
+        Home.DOScale(Vector3.one, 0.4f);
+        Coop.DOScale(Vector3.one, 0.4f);
+        LeaderBoard.DOScale(Vector3.one, 0.4f);
     }
     private void OnLeaderBoardBTNClicked()
     {
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click); 
-        AdjustMenuButtonScales();
+        //AdjustMenuButtonScales();
         Content.DOLocalMoveX(-Screen.height * 2, MenuSwipeSpeed);    
-    }
-
-    private void AdjustMenuButtonScales()
-    {
-        foreach (var btn in MenuButtonArray)
-        {
-            if(EventSystem.current.currentSelectedGameObject.name == btn.name)
-            {
-                btn.transform.DOScale(1.3f, ButtonAnimationSpeed);
-            }
-            else
-            {
-                if(btn.transform.localScale.x != 1)
-                {
-                    btn.transform.DOScale(1f, ButtonAnimationSpeed);
-                }
-            }
-        }
+        LeaderBoard.DOScale(Vector3.one * 2, 0.4f);
+        Equipment.DOScale(Vector3.one, 0.4f);
+        Home.DOScale(Vector3.one, 0.4f);
+        Levels.DOScale(Vector3.one, 0.4f);
+        Coop.DOScale(Vector3.one, 0.4f);
     }
 
     private void SetCanvas(CanvasGroup canvas)
