@@ -63,6 +63,8 @@ public class WeaponManager : CustomBehaviour
         SubscribeToEvents();   
     }
 
+   
+
     private void SubscribeToEvents()
     {
         if (GameManager != null)
@@ -437,7 +439,7 @@ public class WeaponManager : CustomBehaviour
 
         for (int i = 0; i < SkunkGasWeaponsInUse.Count; i++)
         {
-            if(SkunkGasWeaponsInUse[i].IsInitialized == false)
+            if (SkunkGasWeaponsInUse[i].IsInitialized == false)
             {
                 SkunkGasWeaponsInUse[i].IsInitialized = true;
                 SkunkGasWeaponsInUse[i].Initialize(GameManager);
@@ -445,9 +447,9 @@ public class WeaponManager : CustomBehaviour
             }
         }
 
-        for(int i = 0; i< BananaWeaponsInUse.Count; i++)
+        for (int i = 0; i < BananaWeaponsInUse.Count; i++)
         {
-            if(BananaWeaponsInUse[i].IsInitialized == false)
+            if (BananaWeaponsInUse[i].IsInitialized == false)
             {
                 BananaWeaponsInUse[i].IsInitialized = true;
                 BananaWeaponsInUse[i].Initialize(GameManager);
@@ -713,15 +715,30 @@ public class WeaponManager : CustomBehaviour
         }
         for (int i = 0; i < weapon.Count; i++)
         {
-            var obj = weapon.PoolerBase.GetObjectFromPool();
-            ActiveBeeShots.Add(obj.GetComponent<BeeShot>());
-            obj.GetComponent<BeeShot>().index = BeeIndex;
+            //var obj = weapon.PoolerBase.GetObjectFromPool();
+            //ActiveBeeShots.Add(obj.GetComponent<BeeShot>());
+            //obj.GetComponent<BeeShot>().index = BeeIndex;
+            //BeeIndex++;
+            //obj.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
+            //obj.GetComponent<WeaponBase>().SetStats();
+            //obj.GetComponent<WeaponBase>().SetSkill(GameManager.AIManager.EnemyList);
+            //yield return new WaitForSeconds(0.25f);
+
+            var pooler = GameManager.PoolingManager.WeaponPoolerListV2[(int)weapon.SkillSO.DamagePattern - 1];
+            var obj = pooler.GetFromPool();
+            var beeShot = obj.gameObject.GetComponent<BeeShot>();
+            //beeShot.Initialize(GameManager);
+            beeShot.GetDirection();
+            ActiveBeeShots.Add(beeShot);
+            beeShot.index = BeeIndex;
             BeeIndex++;
             obj.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
-            obj.GetComponent<WeaponBase>().SetStats();
-            obj.GetComponent<WeaponBase>().SetSkill(GameManager.AIManager.EnemyList);
+            //obj.GetComponent<WeaponBase>().SetStats();
+            beeShot.SetStats();
+            //obj.GetComponent<WeaponBase>().SetSkill(GameManager.AIManager.EnemyList);
+            beeShot.SetSkill(GameManager.AIManager.EnemyList);
+            beeShot.gameObject.SetActive(true);
             yield return new WaitForSeconds(0.25f);
-
         }
         yield return new WaitForSeconds(weapon.transform.GetComponent<BeeShot>().Duration);
         ActiveBeeShots.ForEach(x => x.PoolerBase.ReturnObjectToPool(x.gameObject));
@@ -754,11 +771,21 @@ public class WeaponManager : CustomBehaviour
         }
         for (int i = 0; i < weapon.Count; i++)
         {
-            var obj = weapon.PoolerBase.GetObjectFromPool();
+            //var obj = weapon.PoolerBase.GetObjectFromPool();
+            //obj.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
+            //obj.GetComponent<WeaponBase>().SetStats();
+            ////obj.GetComponent<WeaponBase>().SetSkill(GameManager.AIManager.EnemyList);
+            //obj.GetComponent<IvyWhip>().WhipAttack();
+
+
+            var pooler = GameManager.PoolingManager.WeaponPoolerListV2[(int)weapon.SkillSO.PoolerType];
+            var obj = pooler.GetFromPool();
             obj.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
-            obj.GetComponent<WeaponBase>().SetStats();
-            //obj.GetComponent<WeaponBase>().SetSkill(GameManager.AIManager.EnemyList);
-            obj.GetComponent<IvyWhip>().WhipAttack();
+            obj.BehaviourToInit.SetStats();
+            Debug.Log(obj.name);
+            obj.gameObject.SetActive(true);
+            obj.objectTransform.gameObject.GetComponent<IvyWhip>().WhipAttack();
+
             yield return new WaitForSeconds(0.25f);
         }
         yield return new WaitForSeconds(weapon.Cooldown);

@@ -10,6 +10,7 @@ public class IvyWhip : WeaponBase
 
     public void WhipAttack()
     {
+        Debug.Log("Whip attack çalışıyor");
         float horizontal = GameManager.JoystickManager.GetHorizontal();
         float vertical = GameManager.JoystickManager.GetVertical();
 

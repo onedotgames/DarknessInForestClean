@@ -56,6 +56,7 @@ public class PlayerLevelManager : CustomBehaviour
             SetLevelRequirement();
 
             mSelectSkillPanel.AssignSkillSelectingButtons();
+            //mSelectSkillPanel.AssignSkillButtonsV2();
             
             LevelUp();
         }

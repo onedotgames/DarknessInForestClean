@@ -26,7 +26,8 @@ public class GameManager : CustomBehaviour
     public BarrelSystem BarrelSystem;
     public SpawnerManager SpawnerManager;
     public TimeManager TimeManager;
-    public QuestManager QuestManager; 
+    public QuestManager QuestManager;
+    public SkillManager SkillManager;
     #endregion
 
     public bool IsGameStarted = false;
@@ -115,6 +116,7 @@ public class GameManager : CustomBehaviour
         SpawnerManager.Initialize(this);
         TimeManager.Initialize(this);
         QuestManager.Initialize(this);
+        SkillManager.Initialize(this);
     }
     #endregion
 

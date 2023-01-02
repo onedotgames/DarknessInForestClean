@@ -7,7 +7,9 @@ using Sirenix.OdinInspector;
 public class SpawnerManager : CustomBehaviour
 {
     public List<EnemySpawner> MainSpawners;
+    public List<MainEnemySpawner> MainSpawnersV2;
     public List<EnemySpawner> AdditionalSpawners;
+    public List<MainEnemySpawner> AdditionalSpawnersV2;
 
     public GameObject MainSpawnerHolder;
     public IEnumerator MainSpawnerRoutine;
@@ -28,7 +30,7 @@ public class SpawnerManager : CustomBehaviour
     public float RushOneSpawnTime = 3.5f;
     public float RushTwoSpawnTime = 3f;
     public float RushThreeSpawnTime = 2.5f;
-
+    private float timeValue;
     public float RotationSpeed;
 
     public int RushTimeOneStart;
@@ -38,7 +40,7 @@ public class SpawnerManager : CustomBehaviour
     public int RushTimeTwoEnd;
     public int RushTimeThreeEnd;
     
-
+    
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -59,55 +61,60 @@ public class SpawnerManager : CustomBehaviour
 
         BossSpawner.Initialize(GameManager);
         MainSpawners.ForEach(x => x.Initialize(GameManager));
+        MainSpawnersV2.ForEach(x => x.Initialize(GameManager));
         AdditionalSpawners.ForEach(x => x.Initialize(GameManager));
+        AdditionalSpawnersV2.ForEach(x => x.Initialize(GameManager));
     }
 
     private void Update()
     {
-        if (GameManager.IsGameStarted)
+        if (GameManager.IsGameStarted && !GameManager.IsGamePaused && !GameManager.IsBossTime)
         {
-            if (!GameManager.IsGamePaused)
+            timeValue += Time.deltaTime;
+            if(timeValue>= activeSpawnTime)
             {
-                if (!GameManager.IsBossTime)
+                timeValue = 0;
+                //SpawnAllMain();
+                SpawnAllMainV2();
+                if (MainSpawnerHolder.activeInHierarchy)
                 {
-                    if (MainSpawnerHolder.activeInHierarchy)
-                    {
-                        MainSpawnerHolder.transform.position = player.transform.position;
-                        MainSpawnerHolder.transform.Rotate(Time.deltaTime * RotationSpeed * Vector3.forward);
-                    }
+                    MainSpawnerHolder.transform.position = player.transform.position;
+                    MainSpawnerHolder.transform.Rotate(Time.deltaTime * RotationSpeed * Vector3.forward);
+                }
 
-                    if (MainSpawnerHolder.activeInHierarchy)
-                    {
-                        AdditionalSpawnerHolder.transform.position = player.transform.position;
-                        AdditionalSpawnerHolder.transform.Rotate(Time.deltaTime * RotationSpeed * Vector3.forward);
-                    }
+                if (AdditionalSpawnerHolder.activeInHierarchy)
+                {
+                    AdditionalSpawnerHolder.transform.position = player.transform.position;
+                    AdditionalSpawnerHolder.transform.Rotate(Time.deltaTime * RotationSpeed * Vector3.forward);
+                }
 
-                    if (timeManager.GetTimeValue() > RushTimeOneStart - 5)
+                if (timeManager.GetTimeValue() > RushTimeOneStart - 5)
+                {
+                    if (!WarningStarted)
                     {
-                        if (!WarningStarted)
-                        {
-                            WarningStarted = true;
-                            StartCoroutine(hud.RushRoutine());
-                        }
+                        WarningStarted = true;
+                        StartCoroutine(hud.RushRoutine());
                     }
-                    if (timeManager.GetTimeValue() > RushTimeOneStart && timeManager.GetTimeValue() < RushTimeOneEnd)
+                }
+                if (timeManager.GetTimeValue() > RushTimeOneStart && timeManager.GetTimeValue() < RushTimeOneEnd)
+                {
+                    if (!IsFirstEnemyRushActive)
                     {
-                        if (!IsFirstEnemyRushActive)
-                        {
-                            IsFirstEnemyRushActive = true;
-                            GameManager.CameraManager.MainCamera.DOOrthoSize(10f, 3f);
-                            AdditionalSpawnerHolder.SetActive(true);
-                            CacheAdditionalSpawnRoutine();
-                            activeSpawnTime = RushOneSpawnTime;
-                        }
+                        IsFirstEnemyRushActive = true;
+                        GameManager.CameraManager.MainCamera.DOOrthoSize(10f, 3f);
+                        AdditionalSpawnerHolder.SetActive(true);
+                        //CacheAdditionalSpawnRoutine();
+
+                        activeSpawnTime = RushOneSpawnTime;
                     }
-                    if (timeManager.GetTimeValue() > RushTimeOneEnd)
-                    {
-                        AdditionalSpawnerRoutineStop();
-                        GameManager.CameraManager.MainCamera.DOOrthoSize(7.5f, 3f);
-                        AdditionalSpawnerHolder.SetActive(false);
-                        activeSpawnTime = NormalSpawnTime;
-                    }
+                    SpawnAllAdditionalsV2();
+                }
+                if (timeManager.GetTimeValue() > RushTimeOneEnd)
+                {
+                    //AdditionalSpawnerRoutineStop();
+                    GameManager.CameraManager.MainCamera.DOOrthoSize(7.5f, 3f);
+                    AdditionalSpawnerHolder.SetActive(false);
+                    activeSpawnTime = NormalSpawnTime;
                 }
             }
         }
@@ -140,6 +147,24 @@ public class SpawnerManager : CustomBehaviour
         }
 
     }
+
+    private void SpawnAllMain()
+    {
+        MainSpawners.ForEach(x => x.SpawnEnemy());
+    }
+    private void SpawnAllMainV2()
+    {
+        MainSpawnersV2.ForEach(x => x.SpawnEnemyV2());
+    }
+    private void SpawnAllAdditionals()
+    {
+        AdditionalSpawners.ForEach(x => x.SpawnEnemy());
+    }
+    private void SpawnAllAdditionalsV2()
+    {
+        AdditionalSpawnersV2.ForEach(x => x.SpawnEnemyV2());
+    }
+
     public IEnumerator AdditionalSpawnRoutineStart()
     {
         if (GameManager != null)
@@ -177,7 +202,8 @@ public class SpawnerManager : CustomBehaviour
     private void OnLevelStart()
     {
         activeSpawnTime = NormalSpawnTime;
-        CacheMainSpawnRoutine();
+        //CacheMainSpawnRoutine();
+        timeValue = activeSpawnTime;
     }
 
     private void OnLevelFailed()

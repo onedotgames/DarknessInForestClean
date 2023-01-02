@@ -24,6 +24,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
 
     private HUD mHud;
     private WeaponManager mWeaponManager;
+    private SkillManager mSkillManager;
 
     public override void Initialize(UIManager uIManager)
     {
@@ -96,6 +97,72 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
 
         }
     }
+    public void AssignSkillButtonsV2()
+    {
+        mSkillManager.AllWeapons.Clear();
+        mSkillManager.AllUtils.Clear();
+
+        mSkillManager.CheckWeaponLimitReached();
+        mSkillManager.CreateTempWeaponList();
+        mSkillManager.CreateTempUtilList();
+
+        for (int i = 0; i < ButtonDataList.Count; i++)
+        {
+            if (GameManager.PlayerLevelManager.PlayerLevel <= 5)
+            {
+                AssignWeaponV2(i);
+            }
+            else
+            {
+                //Pick weapon or Util
+                int j = Random.Range(0, 2);
+
+
+                if (j == 0)
+                {
+                    //Weapon
+                    if (i < mSkillManager.TempWeapons.Count)
+                    {
+                        //AssignWeapon(i);
+                        AssignWeaponV2(i);
+                    }
+                    else
+                    {
+                        if (i < mSkillManager.TempUtils.Count)
+                        {
+                            //AssignUtil(i);
+                            AssignUtilV2(i);
+                        }
+                        else
+                        {
+                            Debug.Log("Nothing to assign");
+                        }
+                    }
+                }
+                else if (j == 1)
+                {
+                    //Util
+                    if (i < mSkillManager.TempUtils.Count)
+                    {
+                        AssignUtilV2(i);
+                    }
+                    else
+                    {
+                        if (i < mSkillManager.TempWeapons.Count)
+                        {
+                            AssignWeaponV2(i);
+                        }
+                        else
+                        {
+                            Debug.Log("Nothing to assign");
+                        }
+                    }
+                }
+
+            }
+
+        }
+    }
 
     public void AssignWeapon(int index)
     {
@@ -108,6 +175,17 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
         ButtonDataList[index].Text.SetText(weapon.SkillSO.name);
         ButtonDataList[index].Weapon = weapon;
     }
+    public void AssignWeaponV2(int index)
+    {
+        WeaponBase weapon = mSkillManager.TempWeapons[Random.Range(0, mSkillManager.TempWeapons.Count)];
+        mSkillManager.WeaponBases.Add(weapon);
+        mSkillManager.TempWeapons.Remove(weapon);
+
+        ButtonDataList[index].Button.Initialize(GameManager.UIManager, mSkillManager.InvokeWeapon, true);
+        ButtonDataList[index].Image.sprite = weapon.SkillSO.Icon;
+        ButtonDataList[index].Text.SetText(weapon.SkillSO.name);
+        ButtonDataList[index].Weapon = weapon;
+    }
 
     public void AssignUtil(int index)
     {
@@ -116,6 +194,17 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
         mWeaponManager.TempUtilList.Remove(util);
 
         ButtonDataList[index].Button.Initialize(GameManager.UIManager, mWeaponManager.InvokeUtility, true);
+        ButtonDataList[index].Image.sprite = util.UtilitySO.Icon;
+        ButtonDataList[index].Text.SetText(util.UtilitySO.name);
+        ButtonDataList[index].Utility = util;
+    }
+    public void AssignUtilV2(int index)
+    {
+        UtilityBase util = mSkillManager.TempUtils[Random.Range(0, mSkillManager.TempUtils.Count)];
+        mSkillManager.UtilityBases.Add(util);
+        mSkillManager.TempUtils.Remove(util);
+
+        ButtonDataList[index].Button.Initialize(GameManager.UIManager, mSkillManager.InvokeUtility, true);
         ButtonDataList[index].Image.sprite = util.UtilitySO.Icon;
         ButtonDataList[index].Text.SetText(util.UtilitySO.name);
         ButtonDataList[index].Utility = util;

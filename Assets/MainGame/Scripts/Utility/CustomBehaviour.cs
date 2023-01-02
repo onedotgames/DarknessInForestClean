@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class CustomBehaviour : MonoBehaviour
 {
     public GameManager GameManager { get; set; }
-
+    
     #region Components
     private Transform mTransform;
     public Transform Transform
