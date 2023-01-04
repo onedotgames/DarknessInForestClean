@@ -52,6 +52,7 @@ public class InitialMenu : UIPanel
         HomeBTN.Initialize(uIManager, OnHomeBTNClicked);
         LevelsBTN.Initialize(uIManager, OnLevelsBTNClicked);
         LeaderBoardBTN.Initialize(uIManager, OnLeaderBoardBTNClicked);
+
         Content.sizeDelta = new Vector2(Screen.height * 5, 0);
         MidGroup.sizeDelta = new Vector2(Screen.height * 5, Screen.width);
         SubEvents();
@@ -70,6 +71,7 @@ public class InitialMenu : UIPanel
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
         //AdjustMenuButtonScales();
         Content.DOLocalMoveX(Screen.height * 2, MenuSwipeSpeed);
+
         Coop.DOScale(Vector3.one * 2, 0.4f);
         Equipment.DOScale(Vector3.one, 0.4f);
         Home.DOScale(Vector3.one, 0.4f);
@@ -82,6 +84,7 @@ public class InitialMenu : UIPanel
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click); 
         //AdjustMenuButtonScales();
         Content.DOLocalMoveX(Screen.height, MenuSwipeSpeed);
+
         Equipment.DOScale(Vector3.one * 2, 0.4f);
         Coop.DOScale(Vector3.one, 0.4f);
         Home.DOScale(Vector3.one, 0.4f);
@@ -93,6 +96,7 @@ public class InitialMenu : UIPanel
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click); 
         //AdjustMenuButtonScales();
         Content.DOLocalMoveX(0, MenuSwipeSpeed);
+
         Home.DOScale(Vector3.one * 2, 0.4f);
         Equipment.DOScale(Vector3.one, 0.4f);
         Coop.DOScale(Vector3.one, 0.4f);
@@ -105,6 +109,7 @@ public class InitialMenu : UIPanel
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
         //AdjustMenuButtonScales();
         Content.DOLocalMoveX(-Screen.height, MenuSwipeSpeed);
+
         Levels.DOScale(Vector3.one * 2, 0.4f);
         Equipment.DOScale(Vector3.one, 0.4f);
         Home.DOScale(Vector3.one, 0.4f);
@@ -116,6 +121,7 @@ public class InitialMenu : UIPanel
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click); 
         //AdjustMenuButtonScales();
         Content.DOLocalMoveX(-Screen.height * 2, MenuSwipeSpeed);    
+
         LeaderBoard.DOScale(Vector3.one * 2, 0.4f);
         Equipment.DOScale(Vector3.one, 0.4f);
         Home.DOScale(Vector3.one, 0.4f);
