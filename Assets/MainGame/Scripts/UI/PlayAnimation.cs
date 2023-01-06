@@ -7,7 +7,9 @@ public class PlayAnimation : MonoBehaviour
 {
     public List<Sprite> Images;
     public Image BaseImage;
-
+    public float Time;
+    private Coroutine coroutineLoop;
+    private Coroutine coroutine;
     public void Play()
     {
         StartCoroutine(Delay());
@@ -17,9 +19,31 @@ public class PlayAnimation : MonoBehaviour
     {
         for (int i = 0; i < Images.Count; i++)
         {
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(Time);
             BaseImage.sprite = Images[i];
         }
         
+    }
+
+    public void PlayLoop()
+    {
+        coroutineLoop = StartCoroutine(DelayLoop());
+        Debug.Log("Play: " + coroutineLoop);
+    }
+
+    public IEnumerator DelayLoop()
+    {
+        for (int i = 0; i < Images.Count; i++)
+        {
+            yield return new WaitForSecondsRealtime(Time);
+            BaseImage.sprite = Images[i];
+        }
+        StartCoroutine(DelayLoop());
+    }
+
+    public void StopLoop()
+    {
+        StopCoroutine(coroutineLoop);
+        Debug.Log("Stop: " + coroutineLoop);
     }
 }

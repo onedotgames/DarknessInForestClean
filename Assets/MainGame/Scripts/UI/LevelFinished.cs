@@ -6,7 +6,8 @@ using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using System;
 using UnityEngine.Video;
-
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 public class LevelFinished : UIPanel
 {
     [Title("Fail Group")]
@@ -21,8 +22,11 @@ public class LevelFinished : UIPanel
     public GameObject SuccessImg;
 
     public GameObject BoxVolumeParent;
-    private int mDiamondReward;
+    private Volume volume;
+    private ColorAdjustments colorAdjustments;
 
+
+    private int mDiamondReward;
     private HUD hud;
 
     public override void Initialize(UIManager uIManager)
@@ -32,6 +36,12 @@ public class LevelFinished : UIPanel
         ContinueButton.Initialize(uIManager, OnContinueButtonClicked);
         InitializeEvents();
         hud = uIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
+        volume = BoxVolumeParent.GetComponent<Volume>();
+
+        if(volume.profile.TryGet<ColorAdjustments>(out var colorAd))
+        {
+            colorAdjustments = colorAd;
+        }
     }
 
     private void OnContinueButtonClicked()
@@ -77,6 +87,7 @@ public class LevelFinished : UIPanel
 
         FailCanvas.Close();
         FailCanvas.gameObject.SetActive(false);
+        colorAdjustments.saturation.value = 0;
     }
 
     public override void UpdateUIElements()
@@ -89,7 +100,6 @@ public class LevelFinished : UIPanel
     {
         BoxVolumeParent.SetActive(true);
         mDiamondReward = ConstantDatas.LEVEL_COMPLETE_REWARD;
-
         FailCanvas.Close();
         FailCanvas.gameObject.SetActive(false);
 
@@ -97,6 +107,7 @@ public class LevelFinished : UIPanel
         SuccessCanvas.gameObject.SetActive(true);
         OpenPanel();
         SuccessImg.GetComponent<PlayAnimation>().Play();
+        WinSaturation();
     }
     private void ReturnToMain()
     {
@@ -113,7 +124,6 @@ public class LevelFinished : UIPanel
     {
         BoxVolumeParent.SetActive(true);
         mDiamondReward = ConstantDatas.LEVEL_FAIL_REWARD;
-
         SuccessCanvas.Close();
         SuccessCanvas.gameObject.SetActive(false);
 
@@ -122,8 +132,30 @@ public class LevelFinished : UIPanel
 
         OpenPanel();
         FailImg.GetComponent<PlayAnimation>().Play();
+        LoseSaturation();
     }
 
+    public void WinSaturation()
+    {
+        colorAdjustments.saturation.value = -100;
+        StartCoroutine(SaturationRoutine(10f));
+    }
+
+    public void LoseSaturation()
+    {
+        colorAdjustments.saturation.value = 100;
+        StartCoroutine(SaturationRoutine(-10f));
+    }
+
+    private IEnumerator SaturationRoutine(float add)
+    {
+        yield return new WaitForSecondsRealtime(0.1f);
+        colorAdjustments.saturation.value += add;
+        if(colorAdjustments.saturation.value != 100f)
+        {
+            StartCoroutine(SaturationRoutine(add));
+        }
+    }
 
     private void OnDestroy()
     {

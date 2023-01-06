@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class PlayerLevelManager : CustomBehaviour
 {
     private float CurrentExp;
+    public PlayAnimation LevelUpText;
     public float LevelRequirement;
     [SerializeField] private float InitialLevelRequirement;
     private HUD mHud;
@@ -106,6 +107,7 @@ public class PlayerLevelManager : CustomBehaviour
     {
         UpdateSkillPanel();
         mSelectSkillPanel.OpenPanel();
+        LevelUpText.PlayLoop();
         PlayerLevel++;
         mHud.UpdateLevelText();
 

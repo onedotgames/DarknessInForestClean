@@ -24,6 +24,7 @@ TagManager:
   - Canvas
   - BossBullet
   - HolyFountain
+  - BossRing
   layers:
   - Default
   - TransparentFX

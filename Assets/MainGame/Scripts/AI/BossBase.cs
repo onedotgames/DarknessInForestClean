@@ -47,7 +47,6 @@ public class BossBase : CustomBehaviour
     public Transform MomentaryPlayerTransform;
 
     public Coroutine AOEDamageRoutine;
-
     public GameObject Hand;
 
     public bool IsActivated = false;
@@ -66,6 +65,7 @@ public class BossBase : CustomBehaviour
     public Sprite AttackHead;
     public Sprite RunHead;
 
+    public GameObject BossWeapon;
     private HUD hud;
     public override void Initialize(GameManager gameManager)
     {
@@ -336,7 +336,7 @@ public class BossBase : CustomBehaviour
             bulletShot.PoolerBase = GameManager.PoolingManager.EnemyBulletPoolerList[(int)EnemyBulletPoolerType.BossClub];
             bulletShot.isShotted = true;
             bulletShot.damage = BaseDamage;
-            i++;
+            //i++;
             yield return new WaitForSeconds(timeBetweenShots);
         }
         ShouldMove = true;
@@ -352,17 +352,20 @@ public class BossBase : CustomBehaviour
         if (transform.position.x - GameManager.PlayerManager.CurrentPlayer.transform.position.x <= 0)
         {
             Model.transform.eulerAngles = new Vector3(0, 180, 0);
+            BossWeapon.transform.eulerAngles = Vector3.zero;
+            BossWeapon.transform.position = Vector3.zero;
         }
         else
         {
             Model.transform.eulerAngles = Vector3.zero;
+            BossWeapon.transform.eulerAngles = Vector3.zero;
+            BossWeapon.transform.position = Vector3.zero;
         }
     }
 
     private void IndicatorRotation()
     {
         Vector2 direction = Player.transform.position - transform.position;
-
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         ChargeIndicatorParent.transform.eulerAngles = new Vector3(0, 0, angle + 90);
     }
