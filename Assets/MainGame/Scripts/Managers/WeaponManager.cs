@@ -151,38 +151,39 @@ public class WeaponManager : CustomBehaviour
 
     private void InvokeDefaultWeapon()
     {
-        switch (mDefaultWeapon.SkillSO.DamagePattern)
-        {
-            case DamagePattern.Whip:
-                if (mDefaultWeapon.IsInitialized == false)
-                {
-                    mDefaultWeapon.IsInitialized = true;
-                    mDefaultWeapon.Initialize(GameManager);
-                    
-                    StartCoroutine(WhipWeaponRoutine(mDefaultWeapon));
-                    
-                    bool contains = false;
+        //switch (mDefaultWeapon.SkillSO.DamagePattern)
+        //{
+        //    case DamagePattern.Whip:
+        //        if (mDefaultWeapon.IsInitialized == false)
+        //        {
+        //            mDefaultWeapon.IsInitialized = true;
+        //            mDefaultWeapon.Initialize(GameManager);
 
-                    foreach (var item in PausePanel.WeaponIconsOnPause)
-                    {
-                        if (item.sprite.name == mDefaultWeapon.SkillSO.Icon.name)
-                        {
-                            contains = true;
-                        }
-                    }
+        //            StartCoroutine(WhipWeaponRoutine(mDefaultWeapon));
 
-                    if (contains)
-                    {
-                        //Increase star level
-                    }
-                    else
-                    {
-                        PausePanel.UpdateWeaponIcons(mDefaultWeapon.SkillSO.Icon);
-                        WeaponsInUse.Add(mDefaultWeapon);
-                    }
-                }
-                break;
-        }
+        //            bool contains = false;
+
+        //            foreach (var item in PausePanel.WeaponIconsOnPause)
+        //            {
+        //                if (item.sprite.name == mDefaultWeapon.SkillSO.Icon.name)
+        //                {
+        //                    contains = true;
+        //                }
+        //            }
+
+        //            if (contains)
+        //            {
+        //                //Increase star level
+        //            }
+        //            else
+        //            {
+        //                PausePanel.UpdateWeaponIcons(mDefaultWeapon.SkillSO.Icon);
+        //                WeaponsInUse.Add(mDefaultWeapon);
+        //            }
+        //        }
+        //        break;
+        //}
+        GameManager.SkillManager.ActivateDefaultWeapon();
     }
     public bool CheckContainsWeapon()
     {
@@ -312,11 +313,11 @@ public class WeaponManager : CustomBehaviour
             else
             {
                 PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite); 
-                WeaponsInUse.Add(selectedWeaponData.Weapon);
+                //WeaponsInUse.Add(selectedWeaponData.Weapon);
                 CheckWeaponLimitReached();
             }
 
-            LevelUpWeapon();
+            //LevelUpWeapon();
         }
         else if (EventSystem.current.currentSelectedGameObject == SelectSkillPanel.ButtonDataList[1].Button.gameObject)
         {
@@ -339,12 +340,12 @@ public class WeaponManager : CustomBehaviour
             else
             {
                 PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
-                WeaponsInUse.Add(selectedWeaponData.Weapon);
+                //WeaponsInUse.Add(selectedWeaponData.Weapon);
                 CheckWeaponLimitReached();
 
             }
 
-            LevelUpWeapon();
+            //LevelUpWeapon();
         }
         else if (EventSystem.current.currentSelectedGameObject == SelectSkillPanel.ButtonDataList[2].Button.gameObject)
         {
@@ -367,12 +368,12 @@ public class WeaponManager : CustomBehaviour
             else
             {
                 PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
-                WeaponsInUse.Add(selectedWeaponData.Weapon);
+                //WeaponsInUse.Add(selectedWeaponData.Weapon);
                 CheckWeaponLimitReached();
 
             }
 
-            LevelUpWeapon();
+            //LevelUpWeapon();
         }
 
         for (int i = 0; i < ProjectileWeaponsInUse.Count; i++)
@@ -386,17 +387,18 @@ public class WeaponManager : CustomBehaviour
             }
 
         }
-        for (int i = 0; i < BounceWeaponsInUse.Count; i++)
-        {
-            if (BounceWeaponsInUse[i].IsInitialized == false)
-            {
-                BounceWeaponsInUse[i].IsInitialized = true;
-                BounceWeaponsInUse[i].Initialize(GameManager);
+        //for (int i = 0; i < BounceWeaponsInUse.Count; i++)
+        //{
+        //    if (BounceWeaponsInUse[i].IsInitialized == false)
+        //    {
+        //        BounceWeaponsInUse[i].IsInitialized = true;
+        //        BounceWeaponsInUse[i].Initialize(GameManager);
 
-                StartCoroutine(BeeSlotRoutine(BounceWeaponsInUse[i]));
-            }
+        //        StartCoroutine(BeeSlotRoutine(BounceWeaponsInUse[i]));
+        //    }
 
-        }
+        //}
+        //GameManager.SkillManager.ActivateWeapon();
         for (int i = 0; i < YoyoWeaponsInUse.Count; i++)
         {
             if (YoyoWeaponsInUse[i].IsInitialized == false)
@@ -462,224 +464,224 @@ public class WeaponManager : CustomBehaviour
         }
     }
     
-    private void LevelUpWeapon()
-    {
-        switch (selectedWeaponData.Weapon.SkillSO.DamagePattern)
-        {
-            case DamagePattern.Projectile:
+    //private void LevelUpWeapon()
+    //{
+    //    switch (selectedWeaponData.Weapon.SkillSO.DamagePattern)
+    //    {
+    //        case DamagePattern.Projectile:
 
-                if (ProjectileWeaponsInUse.Contains(selectedWeaponData.Weapon))
-                {
-                    ProjectileWeaponsInUse.Remove(selectedWeaponData.Weapon);
+    //            if (ProjectileWeaponsInUse.Contains(selectedWeaponData.Weapon))
+    //            {
+    //                ProjectileWeaponsInUse.Remove(selectedWeaponData.Weapon);
 
-                    if (selectedWeaponData.Weapon.UpgradeLevel == 1)
-                    {
-                        selectedWeaponData.Weapon.PlayMinigame(Random.Range(0, selectedWeaponData.Weapon.minigames.Length));
+    //                if (selectedWeaponData.Weapon.UpgradeLevel == 1)
+    //                {
+    //                    selectedWeaponData.Weapon.PlayMinigame(Random.Range(0, selectedWeaponData.Weapon.minigames.Length));
 
-                    }
-                    else
-                    {
-                        selectedWeaponData.Weapon.UpdateWeapon();
-                        GameManager.PoolingManager.WeaponPooler[(int)selectedWeaponData.Weapon.SkillSO.PoolerType].ObjectList.ForEach(x => x.GetComponent<WeaponBase>().UpdateWeapon());
-                        SelectSkillPanel.CloseSkillPanelAndOpenHud();
-                    }
+    //                }
+    //                else
+    //                {
+    //                    selectedWeaponData.Weapon.UpdateWeapon();
+    //                    GameManager.PoolingManager.WeaponPooler[(int)selectedWeaponData.Weapon.SkillSO.PoolerType].ObjectList.ForEach(x => x.GetComponent<WeaponBase>().UpdateWeapon());
+    //                    SelectSkillPanel.CloseSkillPanelAndOpenHud();
+    //                }
 
-                    ProjectileWeaponsInUse.Add(selectedWeaponData.Weapon);
-                }
-                else
-                {
-                    ProjectileWeaponsInUse.Add(selectedWeaponData.Weapon);
-                    SelectSkillPanel.CloseSkillPanelAndOpenHud();
-                }
-                break;
+    //                ProjectileWeaponsInUse.Add(selectedWeaponData.Weapon);
+    //            }
+    //            else
+    //            {
+    //                ProjectileWeaponsInUse.Add(selectedWeaponData.Weapon);
+    //                SelectSkillPanel.CloseSkillPanelAndOpenHud();
+    //            }
+    //            break;
 
-            case DamagePattern.Area:
-                break;
+    //        case DamagePattern.Area:
+    //            break;
 
-            case DamagePattern.Shotgun:
-                if (ShotgunWeaponsInUse.Contains(selectedWeaponData.Weapon))
-                {
-                    ShotgunWeaponsInUse.Remove(selectedWeaponData.Weapon);
-                    if (selectedWeaponData.Weapon.UpgradeLevel == 1)
-                    {
-                        selectedWeaponData.Weapon.PlayMinigame(Random.Range(0, selectedWeaponData.Weapon.minigames.Length));
-                    }
-                    else
-                    {
-                        selectedWeaponData.Weapon.UpdateWeapon();
-                        GameManager.PoolingManager.WeaponPooler[(int)selectedWeaponData.Weapon.SkillSO.PoolerType].ObjectList.ForEach(x => x.GetComponent<WeaponBase>().UpdateWeapon());
-                        SelectSkillPanel.CloseSkillPanelAndOpenHud();
-                    }
+    //        case DamagePattern.Shotgun:
+    //            if (ShotgunWeaponsInUse.Contains(selectedWeaponData.Weapon))
+    //            {
+    //                ShotgunWeaponsInUse.Remove(selectedWeaponData.Weapon);
+    //                if (selectedWeaponData.Weapon.UpgradeLevel == 1)
+    //                {
+    //                    selectedWeaponData.Weapon.PlayMinigame(Random.Range(0, selectedWeaponData.Weapon.minigames.Length));
+    //                }
+    //                else
+    //                {
+    //                    selectedWeaponData.Weapon.UpdateWeapon();
+    //                    GameManager.PoolingManager.WeaponPooler[(int)selectedWeaponData.Weapon.SkillSO.PoolerType].ObjectList.ForEach(x => x.GetComponent<WeaponBase>().UpdateWeapon());
+    //                    SelectSkillPanel.CloseSkillPanelAndOpenHud();
+    //                }
 
-                    ShotgunWeaponsInUse.Add(selectedWeaponData.Weapon);
-                }
-                else
-                {
-                    ShotgunWeaponsInUse.Add(selectedWeaponData.Weapon);
-                    SelectSkillPanel.CloseSkillPanelAndOpenHud();
+    //                ShotgunWeaponsInUse.Add(selectedWeaponData.Weapon);
+    //            }
+    //            else
+    //            {
+    //                ShotgunWeaponsInUse.Add(selectedWeaponData.Weapon);
+    //                SelectSkillPanel.CloseSkillPanelAndOpenHud();
                     
-                }
-                break;
+    //            }
+    //            break;
 
-            case DamagePattern.Yoyo:
-                if (YoyoWeaponsInUse.Contains(selectedWeaponData.Weapon))
-                {
-                    YoyoWeaponsInUse.Remove(selectedWeaponData.Weapon);
-                    if (/*selectedWeaponData.Weapon.UpgradeLevel == 1*/
-                        selectedWeaponData.Weapon.SkillSO.UpgradeDatas[selectedWeaponData.Weapon.UpgradeLevel].PropertyToChange
-                        == PropertyToChange.Evolve)
-                    {
-                        selectedWeaponData.Weapon.PlayMinigame(Random.Range(0, selectedWeaponData.Weapon.minigames.Length));
-                    }
-                    else
-                    {
-                        selectedWeaponData.Weapon.UpdateWeapon();
-                        GameManager.PoolingManager.WeaponPooler[(int)selectedWeaponData.Weapon.SkillSO.PoolerType].ObjectList.ForEach(x => x.GetComponent<WeaponBase>().UpdateWeapon());
-                        SelectSkillPanel.CloseSkillPanelAndOpenHud();
-                    }
+    //        case DamagePattern.Yoyo:
+    //            if (YoyoWeaponsInUse.Contains(selectedWeaponData.Weapon))
+    //            {
+    //                YoyoWeaponsInUse.Remove(selectedWeaponData.Weapon);
+    //                if (/*selectedWeaponData.Weapon.UpgradeLevel == 1*/
+    //                    selectedWeaponData.Weapon.SkillSO.UpgradeDatas[selectedWeaponData.Weapon.UpgradeLevel].PropertyToChange
+    //                    == PropertyToChange.Evolve)
+    //                {
+    //                    selectedWeaponData.Weapon.PlayMinigame(Random.Range(0, selectedWeaponData.Weapon.minigames.Length));
+    //                }
+    //                else
+    //                {
+    //                    selectedWeaponData.Weapon.UpdateWeapon();
+    //                    GameManager.PoolingManager.WeaponPooler[(int)selectedWeaponData.Weapon.SkillSO.PoolerType].ObjectList.ForEach(x => x.GetComponent<WeaponBase>().UpdateWeapon());
+    //                    SelectSkillPanel.CloseSkillPanelAndOpenHud();
+    //                }
 
-                    YoyoWeaponsInUse.Add(selectedWeaponData.Weapon);
-                }
-                else
-                {
-                    YoyoWeaponsInUse.Add(selectedWeaponData.Weapon);
-                    SelectSkillPanel.CloseSkillPanelAndOpenHud();
+    //                YoyoWeaponsInUse.Add(selectedWeaponData.Weapon);
+    //            }
+    //            else
+    //            {
+    //                YoyoWeaponsInUse.Add(selectedWeaponData.Weapon);
+    //                SelectSkillPanel.CloseSkillPanelAndOpenHud();
 
-                }
-                break;
+    //            }
+    //            break;
 
-            case DamagePattern.Whip:
-                if (WhipWeaponsInUse.Contains(selectedWeaponData.Weapon))
-                {
-                    WhipWeaponsInUse.Remove(selectedWeaponData.Weapon);
-                    if (selectedWeaponData.Weapon.SkillSO.UpgradeDatas[selectedWeaponData.Weapon.UpgradeLevel].PropertyToChange == PropertyToChange.Evolve)
-                    {
-                        selectedWeaponData.Weapon.PlayMinigame(Random.Range(0, selectedWeaponData.Weapon.minigames.Length));
+    //        case DamagePattern.Whip:
+    //            if (WhipWeaponsInUse.Contains(selectedWeaponData.Weapon))
+    //            {
+    //                WhipWeaponsInUse.Remove(selectedWeaponData.Weapon);
+    //                if (selectedWeaponData.Weapon.SkillSO.UpgradeDatas[selectedWeaponData.Weapon.UpgradeLevel].PropertyToChange == PropertyToChange.Evolve)
+    //                {
+    //                    selectedWeaponData.Weapon.PlayMinigame(Random.Range(0, selectedWeaponData.Weapon.minigames.Length));
 
-                    }
-                    else
-                    {
-                        selectedWeaponData.Weapon.UpdateWeapon();
-                        GameManager.PoolingManager.WeaponPooler[(int)selectedWeaponData.Weapon.SkillSO.PoolerType].ObjectList.ForEach(x => x.GetComponent<WeaponBase>().UpdateWeapon());
-                        SelectSkillPanel.CloseSkillPanelAndOpenHud();
-                    }
+    //                }
+    //                else
+    //                {
+    //                    selectedWeaponData.Weapon.UpdateWeapon();
+    //                    GameManager.PoolingManager.WeaponPooler[(int)selectedWeaponData.Weapon.SkillSO.PoolerType].ObjectList.ForEach(x => x.GetComponent<WeaponBase>().UpdateWeapon());
+    //                    SelectSkillPanel.CloseSkillPanelAndOpenHud();
+    //                }
 
-                    WhipWeaponsInUse.Add(selectedWeaponData.Weapon);
-                }
-                else
-                {
-                    WhipWeaponsInUse.Add(selectedWeaponData.Weapon);
-                    SelectSkillPanel.CloseSkillPanelAndOpenHud();
-                }
-                break;
+    //                WhipWeaponsInUse.Add(selectedWeaponData.Weapon);
+    //            }
+    //            else
+    //            {
+    //                WhipWeaponsInUse.Add(selectedWeaponData.Weapon);
+    //                SelectSkillPanel.CloseSkillPanelAndOpenHud();
+    //            }
+    //            break;
 
-            case DamagePattern.Bomb:
-                if (BombWeaponsInUse.Contains(selectedWeaponData.Weapon))
-                {
-                    BombWeaponsInUse.Remove(selectedWeaponData.Weapon);
-                    if (selectedWeaponData.Weapon.SkillSO.UpgradeDatas[selectedWeaponData.Weapon.UpgradeLevel].PropertyToChange == PropertyToChange.Evolve)
-                    {
-                        selectedWeaponData.Weapon.PlayMinigame(Random.Range(0, selectedWeaponData.Weapon.minigames.Length));
+    //        case DamagePattern.Bomb:
+    //            if (BombWeaponsInUse.Contains(selectedWeaponData.Weapon))
+    //            {
+    //                BombWeaponsInUse.Remove(selectedWeaponData.Weapon);
+    //                if (selectedWeaponData.Weapon.SkillSO.UpgradeDatas[selectedWeaponData.Weapon.UpgradeLevel].PropertyToChange == PropertyToChange.Evolve)
+    //                {
+    //                    selectedWeaponData.Weapon.PlayMinigame(Random.Range(0, selectedWeaponData.Weapon.minigames.Length));
 
-                    }
-                    else
-                    {
-                        selectedWeaponData.Weapon.UpdateWeapon();
-                        GameManager.PoolingManager.WeaponPooler[(int)selectedWeaponData.Weapon.SkillSO.PoolerType].ObjectList.ForEach(x => x.GetComponent<WeaponBase>().UpdateWeapon());
-                        SelectSkillPanel.CloseSkillPanelAndOpenHud();
-                    }
+    //                }
+    //                else
+    //                {
+    //                    selectedWeaponData.Weapon.UpdateWeapon();
+    //                    GameManager.PoolingManager.WeaponPooler[(int)selectedWeaponData.Weapon.SkillSO.PoolerType].ObjectList.ForEach(x => x.GetComponent<WeaponBase>().UpdateWeapon());
+    //                    SelectSkillPanel.CloseSkillPanelAndOpenHud();
+    //                }
 
-                    BombWeaponsInUse.Add(selectedWeaponData.Weapon);
-                }
-                else
-                {
-                    BombWeaponsInUse.Add(selectedWeaponData.Weapon);
-                    SelectSkillPanel.CloseSkillPanelAndOpenHud();
-                }
-                break;
+    //                BombWeaponsInUse.Add(selectedWeaponData.Weapon);
+    //            }
+    //            else
+    //            {
+    //                BombWeaponsInUse.Add(selectedWeaponData.Weapon);
+    //                SelectSkillPanel.CloseSkillPanelAndOpenHud();
+    //            }
+    //            break;
 
-            case DamagePattern.Bounce:
-                if (BounceWeaponsInUse.Contains(selectedWeaponData.Weapon))
-                {
-                    BounceWeaponsInUse.Remove(selectedWeaponData.Weapon);
+    //        case DamagePattern.Bounce:
+    //            if (BounceWeaponsInUse.Contains(selectedWeaponData.Weapon))
+    //            {
+    //                BounceWeaponsInUse.Remove(selectedWeaponData.Weapon);
 
-                    if (selectedWeaponData.Weapon.SkillSO.UpgradeDatas[selectedWeaponData.Weapon.UpgradeLevel].PropertyToChange == PropertyToChange.Evolve)
-                    {
-                        selectedWeaponData.Weapon.PlayMinigame(Random.Range(0, selectedWeaponData.Weapon.minigames.Length));
+    //                if (selectedWeaponData.Weapon.SkillSO.UpgradeDatas[selectedWeaponData.Weapon.UpgradeLevel].PropertyToChange == PropertyToChange.Evolve)
+    //                {
+    //                    selectedWeaponData.Weapon.PlayMinigame(Random.Range(0, selectedWeaponData.Weapon.minigames.Length));
 
-                    }
-                    else
-                    {
-                        selectedWeaponData.Weapon.UpdateWeapon();
-                        GameManager.PoolingManager.WeaponPooler[(int)selectedWeaponData.Weapon.SkillSO.PoolerType].ObjectList.ForEach(x => x.GetComponent<WeaponBase>().UpdateWeapon());
-                        SelectSkillPanel.CloseSkillPanelAndOpenHud();
-                    }
+    //                }
+    //                else
+    //                {
+    //                    selectedWeaponData.Weapon.UpdateWeapon();
+    //                    GameManager.PoolingManager.WeaponPooler[(int)selectedWeaponData.Weapon.SkillSO.PoolerType].ObjectList.ForEach(x => x.GetComponent<WeaponBase>().UpdateWeapon());
+    //                    SelectSkillPanel.CloseSkillPanelAndOpenHud();
+    //                }
 
 
-                    BounceWeaponsInUse.Add(selectedWeaponData.Weapon);
-                }
-                else
-                {
-                    BounceWeaponsInUse.Add(selectedWeaponData.Weapon);
-                    SelectSkillPanel.CloseSkillPanelAndOpenHud();
+    //                BounceWeaponsInUse.Add(selectedWeaponData.Weapon);
+    //            }
+    //            else
+    //            {
+    //                BounceWeaponsInUse.Add(selectedWeaponData.Weapon);
+    //                SelectSkillPanel.CloseSkillPanelAndOpenHud();
 
-                }
-                break;
+    //            }
+    //            break;
 
-            case DamagePattern.SkunkGas:
-                if (SkunkGasWeaponsInUse.Contains(selectedWeaponData.Weapon))
-                {
-                    SkunkGasWeaponsInUse.Remove(selectedWeaponData.Weapon);
+    //        case DamagePattern.SkunkGas:
+    //            if (SkunkGasWeaponsInUse.Contains(selectedWeaponData.Weapon))
+    //            {
+    //                SkunkGasWeaponsInUse.Remove(selectedWeaponData.Weapon);
 
-                    if (selectedWeaponData.Weapon.SkillSO.UpgradeDatas[selectedWeaponData.Weapon.UpgradeLevel].PropertyToChange == PropertyToChange.Evolve)
-                    {
-                        selectedWeaponData.Weapon.PlayMinigame(Random.Range(0, selectedWeaponData.Weapon.minigames.Length));
+    //                if (selectedWeaponData.Weapon.SkillSO.UpgradeDatas[selectedWeaponData.Weapon.UpgradeLevel].PropertyToChange == PropertyToChange.Evolve)
+    //                {
+    //                    selectedWeaponData.Weapon.PlayMinigame(Random.Range(0, selectedWeaponData.Weapon.minigames.Length));
 
-                    }
-                    else
-                    {
-                        selectedWeaponData.Weapon.UpdateWeapon();
-                        GameManager.PoolingManager.WeaponPooler[(int)selectedWeaponData.Weapon.SkillSO.PoolerType].ObjectList.ForEach(x => x.GetComponent<WeaponBase>().UpdateWeapon());
-                        SelectSkillPanel.CloseSkillPanelAndOpenHud();
-                    }
+    //                }
+    //                else
+    //                {
+    //                    selectedWeaponData.Weapon.UpdateWeapon();
+    //                    GameManager.PoolingManager.WeaponPooler[(int)selectedWeaponData.Weapon.SkillSO.PoolerType].ObjectList.ForEach(x => x.GetComponent<WeaponBase>().UpdateWeapon());
+    //                    SelectSkillPanel.CloseSkillPanelAndOpenHud();
+    //                }
 
-                    SkunkGasWeaponsInUse.Add(selectedWeaponData.Weapon);
-                }
-                else
-                {
-                    SkunkGasWeaponsInUse.Add(selectedWeaponData.Weapon);
-                    SelectSkillPanel.CloseSkillPanelAndOpenHud();
-                }
-                break;
+    //                SkunkGasWeaponsInUse.Add(selectedWeaponData.Weapon);
+    //            }
+    //            else
+    //            {
+    //                SkunkGasWeaponsInUse.Add(selectedWeaponData.Weapon);
+    //                SelectSkillPanel.CloseSkillPanelAndOpenHud();
+    //            }
+    //            break;
 
-            case DamagePattern.BananaGuardian:
-                if (BananaWeaponsInUse.Contains(selectedWeaponData.Weapon))
-                {
-                    BananaWeaponsInUse.Remove(selectedWeaponData.Weapon);
-                    if (selectedWeaponData.Weapon.SkillSO.UpgradeDatas[selectedWeaponData.Weapon.UpgradeLevel].PropertyToChange == PropertyToChange.Evolve)
-                    {
-                        selectedWeaponData.Weapon.PlayMinigame(Random.Range(0, selectedWeaponData.Weapon.minigames.Length));
+    //        case DamagePattern.BananaGuardian:
+    //            if (BananaWeaponsInUse.Contains(selectedWeaponData.Weapon))
+    //            {
+    //                BananaWeaponsInUse.Remove(selectedWeaponData.Weapon);
+    //                if (selectedWeaponData.Weapon.SkillSO.UpgradeDatas[selectedWeaponData.Weapon.UpgradeLevel].PropertyToChange == PropertyToChange.Evolve)
+    //                {
+    //                    selectedWeaponData.Weapon.PlayMinigame(Random.Range(0, selectedWeaponData.Weapon.minigames.Length));
 
-                    }
-                    else
-                    {
-                        selectedWeaponData.Weapon.UpdateWeapon();
-                        SelectSkillPanel.CloseSkillPanelAndOpenHud();
-                        //GameManager.PoolingManager.WeaponPooler[(int)selectedWeaponData.Weapon.SkillSO.PoolerType].ObjectList.ForEach(x => x.GetComponent<WeaponBase>().UpdateWeapon());
-                    }
+    //                }
+    //                else
+    //                {
+    //                    selectedWeaponData.Weapon.UpdateWeapon();
+    //                    SelectSkillPanel.CloseSkillPanelAndOpenHud();
+    //                    //GameManager.PoolingManager.WeaponPooler[(int)selectedWeaponData.Weapon.SkillSO.PoolerType].ObjectList.ForEach(x => x.GetComponent<WeaponBase>().UpdateWeapon());
+    //                }
 
-                    BananaWeaponsInUse.Add(selectedWeaponData.Weapon);
-                }
-                else
-                {
-                    BananaWeaponsInUse.Add(selectedWeaponData.Weapon);
-                    SelectSkillPanel.CloseSkillPanelAndOpenHud();
-                }
-                break;
+    //                BananaWeaponsInUse.Add(selectedWeaponData.Weapon);
+    //            }
+    //            else
+    //            {
+    //                BananaWeaponsInUse.Add(selectedWeaponData.Weapon);
+    //                SelectSkillPanel.CloseSkillPanelAndOpenHud();
+    //            }
+    //            break;
 
-        }
+    //    }
         
-    }
+    //}
     private IEnumerator WeaponSlotRoutine(WeaponBase weapon) //Potionda Size artt�rma burada olacak.
     {
         while (GameManager.IsGamePaused)
@@ -715,27 +717,15 @@ public class WeaponManager : CustomBehaviour
         }
         for (int i = 0; i < weapon.Count; i++)
         {
-            //var obj = weapon.PoolerBase.GetObjectFromPool();
-            //ActiveBeeShots.Add(obj.GetComponent<BeeShot>());
-            //obj.GetComponent<BeeShot>().index = BeeIndex;
-            //BeeIndex++;
-            //obj.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
-            //obj.GetComponent<WeaponBase>().SetStats();
-            //obj.GetComponent<WeaponBase>().SetSkill(GameManager.AIManager.EnemyList);
-            //yield return new WaitForSeconds(0.25f);
-
             var pooler = GameManager.PoolingManager.WeaponPoolerListV2[(int)weapon.SkillSO.DamagePattern - 1];
             var obj = pooler.GetFromPool();
             var beeShot = obj.gameObject.GetComponent<BeeShot>();
-            //beeShot.Initialize(GameManager);
             beeShot.GetDirection();
             ActiveBeeShots.Add(beeShot);
             beeShot.index = BeeIndex;
             BeeIndex++;
             obj.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
-            //obj.GetComponent<WeaponBase>().SetStats();
             beeShot.SetStats();
-            //obj.GetComponent<WeaponBase>().SetSkill(GameManager.AIManager.EnemyList);
             beeShot.SetSkill(GameManager.AIManager.EnemyList);
             beeShot.gameObject.SetActive(true);
             yield return new WaitForSeconds(0.25f);
@@ -771,17 +761,10 @@ public class WeaponManager : CustomBehaviour
         }
         for (int i = 0; i < weapon.Count; i++)
         {
-            //var obj = weapon.PoolerBase.GetObjectFromPool();
-            //obj.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
-            //obj.GetComponent<WeaponBase>().SetStats();
-            ////obj.GetComponent<WeaponBase>().SetSkill(GameManager.AIManager.EnemyList);
-            //obj.GetComponent<IvyWhip>().WhipAttack();
-
-
             var pooler = GameManager.PoolingManager.WeaponPoolerListV2[(int)weapon.SkillSO.PoolerType];
             var obj = pooler.GetFromPool();
             obj.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
-            obj.BehaviourToInit.SetStats();
+            //obj.BehaviourToInit.SetStats();
             Debug.Log(obj.name);
             obj.gameObject.SetActive(true);
             obj.objectTransform.gameObject.GetComponent<IvyWhip>().WhipAttack();

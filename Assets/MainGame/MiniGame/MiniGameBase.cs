@@ -64,7 +64,7 @@ public class MiniGameBase : MonoBehaviour
             if (weaponManager.isMiniGameDone)
             {
                 weaponManager.isMiniGameDone = false;
-                GameManager.WeaponManager.selectedWeaponData.Weapon.UpdateWeapon();
+                //GameManager.WeaponManager.selectedWeaponData.Weapon.UpdateWeapon();
                 GameManager.PoolingManager.WeaponPooler[(int)GameManager.WeaponManager.selectedWeaponData.Weapon.SkillSO.PoolerType].ObjectList.ForEach(x => x.GetComponent<WeaponBase>().UpdateWeapon());
                 TargetImage = Weapons[Random.Range(0, Weapons.Count)];
                 HUD.OpenPanel();

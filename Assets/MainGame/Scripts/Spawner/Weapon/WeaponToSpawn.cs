@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponToSpawn : CustomBehaviour
 {
-    public WeaponBase BehaviourToInit; 
+    public WeaponSpawner BehaviourToInit; 
     private ParticleSystem ClearSystem;
     public Transform objectTransform;
     public delegate void OnDisableWeaponCallBack(WeaponToSpawn Instance);

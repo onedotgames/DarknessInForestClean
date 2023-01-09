@@ -4,11 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class SkillManager : CustomBehaviour
 {
     [Space(10), Title("Weapon Bases")]
     public WeaponBase DefaultWeapon;
+    public WeaponBaseV2 DefaultWeaponV2;
     public WeaponBase BeeShot;
     public WeaponBase BirdBomb;
     public WeaponBase CHammer;
@@ -33,15 +35,18 @@ public class SkillManager : CustomBehaviour
 
     [Space(10), Title("All Skills")]
     public List<WeaponBase> AllWeapons;
+    public List<WeaponBaseV2> AllWeaponsV2;
     public List<UtilityBase> AllUtils;
 
     [HideInInspector, Title("Temporary Skill Lists")]
     public List<UtilityBase> TempUtils;
     public List<WeaponBase> TempWeapons;
+    public List<WeaponBaseV2> TempWeaponsV2;
 
 
     [Space(10), Title("Skills In Use")]
     public List<WeaponBase> WeaponsInUse;
+    public List<WeaponBaseV2> WeaponsInUseV2;
     public List<UtilityBase> UtilitiesInUse;
 
     [Space(10), Title("Booleans")]
@@ -61,6 +66,7 @@ public class SkillManager : CustomBehaviour
     public ButtonData selectedUtilityData;
 
     public List<WeaponBase> WeaponBases = new List<WeaponBase>();
+    public List<WeaponBaseV2> WeaponBasesV2 = new List<WeaponBaseV2>();
     public List<UtilityBase> UtilityBases = new List<UtilityBase>();
 
     [ReadOnly,Title("Attack Methods")]
@@ -74,94 +80,105 @@ public class SkillManager : CustomBehaviour
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
+        AssignReferences();
     }
-
-    private void Update()
+    private void AssignReferences()
     {
-        if(GameManager.IsGameStarted && !GameManager.IsGamePaused && !GameManager.IsBossTime)
+        //mPlayer = GameManager.PlayerManager.CurrentPlayer;
+        //HUD = GameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
+        PausePanel = GameManager.UIManager.GetPanel(Panels.Pause).GetComponent<PausePanel>();
+        SelectSkillPanel = GameManager.UIManager.GetPanel(Panels.SelectSkill).GetComponent<SelectSkill>();
+    }
+    public void ActivateDefaultWeapon()
+    {
+        AllWeaponsV2[1].Initialize(GameManager);
+        AllWeaponsV2[1].gameObject.SetActive(true);
+    }
+    public void ActivateWeapon(int index)
+    {
+        if (AllWeaponsV2[index].IsActivated)
         {
-            if (Weapon1Active)
-            {
-                CurrentWeaponCooldown1 += Time.deltaTime;
-                if (CurrentWeaponCooldown1 >= TargetWeaponCooldown1)
-                {
-                    CurrentWeaponCooldown1 = 0;
-                    if(FireWeapon1 != null)
-                    {
-                        FireWeapon1();
-                    }
-                }
-            }
-
-            if (Weapon2Active)
-            {
-                CurrentWeaponCooldown2 += Time.deltaTime;
-                if (CurrentWeaponCooldown2 >= TargetWeaponCooldown1)
-                {
-                    CurrentWeaponCooldown2 = 0;
-                    if (FireWeapon2 != null)
-                    {
-                        FireWeapon2();
-                    }
-                }
-            }
-
-            if (Weapon3Active)
-            {
-                CurrentWeaponCooldown3 += Time.deltaTime;
-                if (CurrentWeaponCooldown3 >= TargetWeaponCooldown1)
-                {
-                    CurrentWeaponCooldown3 = 0;
-                    if (FireWeapon3 != null)
-                    {
-                        FireWeapon3();
-                    }
-                }
-            }
-
-            if (Weapon4Active)
-            {
-                CurrentWeaponCooldown4 += Time.deltaTime;
-                if (CurrentWeaponCooldown4 >= TargetWeaponCooldown1)
-                {
-                    CurrentWeaponCooldown4 = 0;
-                    if (FireWeapon4 != null)
-                    {
-                        FireWeapon4();
-                    }
-                }
-            }
-            
-            if (Weapon5Active)
-            {
-                CurrentWeaponCooldown5 += Time.deltaTime;
-                if (CurrentWeaponCooldown5 >= TargetWeaponCooldown1)
-                {
-                    CurrentWeaponCooldown5 = 0;
-                    if (FireWeapon5 != null)
-                    {
-                        FireWeapon5();
-                    }
-                }
-            }
+            Debug.Log("UPGRADE");
+            AllWeaponsV2[index].UpdateWeapon();
+        }
+        {
+            AllWeaponsV2[index].Initialize(GameManager);
+            AllWeaponsV2[index].gameObject.SetActive(true);
         }
         
     }
 
-    private void BeeShotAtc()
-    {
+    //private void Update()
+    //{
+    //    if(GameManager.IsGameStarted && !GameManager.IsGamePaused && !GameManager.IsBossTime)
+    //    {
+    //        if (Weapon1Active)
+    //        {
+    //            CurrentWeaponCooldown1 += Time.deltaTime;
+    //            if (CurrentWeaponCooldown1 >= TargetWeaponCooldown1)
+    //            {
+    //                CurrentWeaponCooldown1 = 0;
+    //                if(FireWeapon1 != null)
+    //                {
+    //                    FireWeapon1();
+    //                }
+    //            }
+    //        }
+
+    //        if (Weapon2Active)
+    //        {
+    //            CurrentWeaponCooldown2 += Time.deltaTime;
+    //            if (CurrentWeaponCooldown2 >= TargetWeaponCooldown1)
+    //            {
+    //                CurrentWeaponCooldown2 = 0;
+    //                if (FireWeapon2 != null)
+    //                {
+    //                    FireWeapon2();
+    //                }
+    //            }
+    //        }
+
+    //        if (Weapon3Active)
+    //        {
+    //            CurrentWeaponCooldown3 += Time.deltaTime;
+    //            if (CurrentWeaponCooldown3 >= TargetWeaponCooldown1)
+    //            {
+    //                CurrentWeaponCooldown3 = 0;
+    //                if (FireWeapon3 != null)
+    //                {
+    //                    FireWeapon3();
+    //                }
+    //            }
+    //        }
+
+    //        if (Weapon4Active)
+    //        {
+    //            CurrentWeaponCooldown4 += Time.deltaTime;
+    //            if (CurrentWeaponCooldown4 >= TargetWeaponCooldown1)
+    //            {
+    //                CurrentWeaponCooldown4 = 0;
+    //                if (FireWeapon4 != null)
+    //                {
+    //                    FireWeapon4();
+    //                }
+    //            }
+    //        }
+            
+    //        if (Weapon5Active)
+    //        {
+    //            CurrentWeaponCooldown5 += Time.deltaTime;
+    //            if (CurrentWeaponCooldown5 >= TargetWeaponCooldown1)
+    //            {
+    //                CurrentWeaponCooldown5 = 0;
+    //                if (FireWeapon5 != null)
+    //                {
+    //                    FireWeapon5();
+    //                }
+    //            }
+    //        }
+    //    }
         
-    }
-
-    private void BirdBombAtc()
-    {
-
-    }
-
-    private void ChestnutAtc()
-    {
-
-    }
+    //}
 
     private void WhipAtc()
     {
@@ -180,14 +197,10 @@ public class SkillManager : CustomBehaviour
         }
     }
 
-    private void SkunkAtc()
-    {
-
-    }
-
     public void CheckWeaponLimitReached()
     {
-        if (WeaponsInUse.Count == PausePanel.WeaponIconsOnPause.Count)
+        Debug.Log("Weapon limit check");
+        if (WeaponsInUseV2.Count == PausePanel.WeaponIconsOnPause.Count)
         {
             WeaponLimitReached = true;
         }
@@ -202,29 +215,31 @@ public class SkillManager : CustomBehaviour
     }
     public void CreateTempWeaponList()
     {
+        Debug.Log("Creating temp list");
+        Debug.Log("Limit Reached: " + WeaponLimitReached);
         if (!WeaponLimitReached)
         {
-            TempWeapons.Clear();
-            for (int i = 0; i < AllWeapons.Count; i++)
+            TempWeaponsV2.Clear();
+            for (int i = 0; i < AllWeaponsV2.Count; i++)
             {
-                TempWeapons.Add(AllWeapons[i]);
+                TempWeaponsV2.Add(AllWeaponsV2[i]);
             }
-            if (!DefaultWeapon.IsEvolved)
-            {
-                TempWeapons.Add(DefaultWeapon);
-            }
+            //if (!DefaultWeapon.IsEvolved)
+            //{
+            //    TempWeaponsV2.Add(AllWeaponsV2[0]);
+            //}
         }
         else
         {
-            TempWeapons.Clear();
-            for (int i = 0; i < WeaponsInUse.Count; i++)
+            TempWeaponsV2.Clear();
+            for (int i = 0; i < WeaponsInUseV2.Count; i++)
             {
 
-                TempWeapons.Add(WeaponsInUse[i]);
+                TempWeaponsV2.Add(WeaponsInUseV2[i]);
             }
             if (!DefaultWeapon.IsEvolved)
             {
-                TempWeapons.Add(DefaultWeapon);
+                TempWeaponsV2.Add(AllWeaponsV2[0]);
             }
         }
 
@@ -275,32 +290,97 @@ public class SkillManager : CustomBehaviour
                         break;
                 }
                 break;
-            case DamagePattern.Yoyo:
-                switch (ActiveWeaponIndex)
-                {
-                    case 0:
-                        FireWeapon1 = ChestnutAtc;
-                        break;
-                    case 1:
-                        FireWeapon2 = ChestnutAtc;
-                        break;
-                    case 2:
-                        FireWeapon3 = ChestnutAtc;
-                        break;
-                    case 3:
-                        FireWeapon4 = ChestnutAtc;
-                        break;
-                    case 4:
-                        FireWeapon5 = ChestnutAtc;
-                        break;
-                }
-                break;
         }
     }
-    
 
+    //public void InvokeWeapon()
+    //{
+    //    if (EventSystem.current.currentSelectedGameObject == SelectSkillPanel.ButtonDataList[0].Button.gameObject)
+    //    {
+    //        selectedWeaponData = SelectSkillPanel.ButtonDataList[0]; //Selected data daha sonra referens olarak kullan�lmak �zere belirlenir
 
-    public void InvokeWeapon()
+    //        bool contains = false;
+
+    //        foreach (var item in PausePanel.WeaponIconsOnPause)
+    //        {
+    //            if (item.sprite.name == selectedWeaponData.Image.sprite.name)
+    //            {
+    //                contains = true;
+    //            }
+    //        }
+
+    //        if (contains)
+    //        {
+    //            //Increase star level
+    //        }
+    //        else
+    //        {
+    //            PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
+    //            WeaponsInUse.Add(selectedWeaponData.Weapon);
+    //            CheckWeaponLimitReached();
+    //        }
+
+    //        //LevelUpWeapon();
+    //    }
+    //    else if (EventSystem.current.currentSelectedGameObject == SelectSkillPanel.ButtonDataList[1].Button.gameObject)
+    //    {
+    //        selectedWeaponData = SelectSkillPanel.ButtonDataList[1]; //Selected data daha sonra referens olarak kullan�lmak �zere belirlenir
+
+    //        bool contains = false;
+
+    //        foreach (var item in PausePanel.WeaponIconsOnPause)
+    //        {
+    //            if (item.sprite.name == selectedWeaponData.Image.sprite.name)
+    //            {
+    //                contains = true;
+    //            }
+    //        }
+
+    //        if (contains)
+    //        {
+
+    //        }
+    //        else
+    //        {
+    //            PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
+    //            WeaponsInUse.Add(selectedWeaponData.Weapon);
+    //            CheckWeaponLimitReached();
+
+    //        }
+
+    //        //LevelUpWeapon();
+    //    }
+    //    else if (EventSystem.current.currentSelectedGameObject == SelectSkillPanel.ButtonDataList[2].Button.gameObject)
+    //    {
+    //        selectedWeaponData = SelectSkillPanel.ButtonDataList[2]; //Selected data daha sonra referens olarak kullan�lmak �zere belirlenir
+
+    //        bool contains = false;
+
+    //        foreach (var item in PausePanel.WeaponIconsOnPause)
+    //        {
+    //            if (item.sprite.name == selectedWeaponData.Image.sprite.name)
+    //            {
+    //                contains = true;
+    //            }
+    //        }
+
+    //        if (contains)
+    //        {
+
+    //        }
+    //        else
+    //        {
+    //            PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
+    //            WeaponsInUse.Add(selectedWeaponData.Weapon);
+    //            CheckWeaponLimitReached();
+
+    //        }
+
+    //        //LevelUpWeapon();
+    //    }       
+    //}
+
+    public void InvokeWeaponV2()
     {
         if (EventSystem.current.currentSelectedGameObject == SelectSkillPanel.ButtonDataList[0].Button.gameObject)
         {
@@ -323,7 +403,7 @@ public class SkillManager : CustomBehaviour
             else
             {
                 PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
-                WeaponsInUse.Add(selectedWeaponData.Weapon);
+                WeaponsInUseV2.Add(selectedWeaponData.Weapon);
                 CheckWeaponLimitReached();
             }
 
@@ -350,7 +430,7 @@ public class SkillManager : CustomBehaviour
             else
             {
                 PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
-                WeaponsInUse.Add(selectedWeaponData.Weapon);
+                WeaponsInUseV2.Add(selectedWeaponData.Weapon);
                 CheckWeaponLimitReached();
 
             }
@@ -378,13 +458,17 @@ public class SkillManager : CustomBehaviour
             else
             {
                 PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
-                WeaponsInUse.Add(selectedWeaponData.Weapon);
+                WeaponsInUseV2.Add(selectedWeaponData.Weapon);
                 CheckWeaponLimitReached();
 
             }
 
             //LevelUpWeapon();
-        }       
+        }
+
+        ActivateWeapon((int)selectedWeaponData.Weapon.SkillSO.PoolerType);
+        SelectSkillPanel.CloseSkillPanelAndOpenHud();
+
     }
     public void InvokeUtility()
     {

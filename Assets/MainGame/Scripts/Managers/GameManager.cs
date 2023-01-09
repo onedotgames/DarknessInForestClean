@@ -140,6 +140,7 @@ public class GameManager : CustomBehaviour
             OnStartGame();
             //GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, PlayerManager.GetLevelNumber().ToString());
             IsGameStarted = true;
+
         }
     }
 

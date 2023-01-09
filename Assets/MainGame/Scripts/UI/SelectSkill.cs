@@ -31,6 +31,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
         base.Initialize(uIManager);
         SubscribeEvents();
         mHud = uIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
+        mSkillManager = uIManager.GameManager.SkillManager;
         mWeaponManager = uIManager.GameManager.WeaponManager;
     }
     public void AssignSkillSelectingButtons()
@@ -99,8 +100,9 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
     }
     public void AssignSkillButtonsV2()
     {
-        mSkillManager.AllWeapons.Clear();
-        mSkillManager.AllUtils.Clear();
+        Debug.Log("Assigning to: " + mSkillManager.name);
+        mSkillManager.WeaponBasesV2.Clear();
+        mSkillManager.UtilityBases.Clear();
 
         mSkillManager.CheckWeaponLimitReached();
         mSkillManager.CreateTempWeaponList();
@@ -110,7 +112,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
         {
             if (GameManager.PlayerLevelManager.PlayerLevel <= 5)
             {
-                AssignWeaponV2(i);
+                AssignWeaponV3(i);
             }
             else
             {
@@ -124,7 +126,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
                     if (i < mSkillManager.TempWeapons.Count)
                     {
                         //AssignWeapon(i);
-                        AssignWeaponV2(i);
+                        AssignWeaponV3(i);
                     }
                     else
                     {
@@ -150,7 +152,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
                     {
                         if (i < mSkillManager.TempWeapons.Count)
                         {
-                            AssignWeaponV2(i);
+                            AssignWeaponV3(i);
                         }
                         else
                         {
@@ -173,15 +175,16 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
         ButtonDataList[index].Button.Initialize(GameManager.UIManager, mWeaponManager.InvokeWeapon, true);
         ButtonDataList[index].Image.sprite = weapon.SkillSO.Icon;
         ButtonDataList[index].Text.SetText(weapon.SkillSO.name);
-        ButtonDataList[index].Weapon = weapon;
+        //ButtonDataList[index].Weapon = weapon;
     }
-    public void AssignWeaponV2(int index)
-    {
-        WeaponBase weapon = mSkillManager.TempWeapons[Random.Range(0, mSkillManager.TempWeapons.Count)];
-        mSkillManager.WeaponBases.Add(weapon);
-        mSkillManager.TempWeapons.Remove(weapon);
 
-        ButtonDataList[index].Button.Initialize(GameManager.UIManager, mSkillManager.InvokeWeapon, true);
+    public void AssignWeaponV3(int index)
+    {
+        WeaponBaseV2 weapon = mSkillManager.TempWeaponsV2[Random.Range(0, mSkillManager.TempWeaponsV2.Count)];
+        mSkillManager.WeaponBasesV2.Add(weapon);
+        mSkillManager.TempWeaponsV2.Remove(weapon);
+
+        ButtonDataList[index].Button.Initialize(GameManager.UIManager, mSkillManager.InvokeWeaponV2, true);
         ButtonDataList[index].Image.sprite = weapon.SkillSO.Icon;
         ButtonDataList[index].Text.SetText(weapon.SkillSO.name);
         ButtonDataList[index].Weapon = weapon;
@@ -281,6 +284,7 @@ public class ButtonData
     public CustomButton Button;
     public Image Image;
     public TMP_Text Text;
-    public WeaponBase Weapon;
+    //public WeaponBase Weapon;
+    public WeaponBaseV2 Weapon;
     public UtilityBase Utility;
 }

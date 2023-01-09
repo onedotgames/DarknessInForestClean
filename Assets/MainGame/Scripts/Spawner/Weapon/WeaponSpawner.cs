@@ -24,7 +24,7 @@ public class WeaponSpawner : CustomBehaviour
         return instance;
     }
 
-    private void ReturnObjectToPool(WeaponToSpawn Instance)
+    public void ReturnObjectToPool(WeaponToSpawn Instance)
     {
         Pool.Release(Instance);
     }
@@ -62,6 +62,6 @@ public class WeaponSpawner : CustomBehaviour
     private void SpawnObject(WeaponToSpawn Instance)
     {
         Instance.transform.position = transform.position;
-        Instance.BehaviourToInit.Initialize(GameManager);
+        //Instance.BehaviourToInit.Initialize(GameManager);
     }
 }

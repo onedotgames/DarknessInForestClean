@@ -381,8 +381,8 @@ public class WeaponBase :CustomBehaviour
         this.StatList.AttackRange = AttackRange;
         this.StatList.Size = Size;
         IsEvolved = true;
-        GameManager.WeaponManager.InitialWeaponList.Remove(GameManager.WeaponManager.selectedWeaponData.Weapon);
-        GameManager.WeaponManager.WeaponsInUse.Remove(GameManager.WeaponManager.selectedWeaponData.Weapon);
+        //GameManager.WeaponManager.InitialWeaponList.Remove(GameManager.WeaponManager.selectedWeaponData.Weapon);
+        //GameManager.WeaponManager.WeaponsInUse.Remove(GameManager.WeaponManager.selectedWeaponData.Weapon);
     }
 
     public virtual void Update()

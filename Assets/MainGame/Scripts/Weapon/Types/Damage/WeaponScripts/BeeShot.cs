@@ -12,28 +12,7 @@ public class BeeShot : WeaponBase
     public ContactPoint2D[] point2D;
     public float Duration;
     public int index;
-    
 
-    //private void OnEnable()
-    //{
-    //    moveDirection = GameManager.JoystickManager.variableJoystick.LastDirection.normalized;
-    //    if(GameManager.JoystickManager.variableJoystick.LastDirection == Vector2.zero)
-    //    {
-    //        moveDirection = Vector2.left;
-    //    }
-    //    float addition = 0;
-    //    if(index % 2 == 0)
-    //    {
-    //        addition = Random.Range(25, 45);
-    //    }else if(index % 2 == 1)
-    //    {
-    //        addition = -Random.Range(25, 45);
-    //    }
-    //    Quaternion rot = Quaternion.identity;
-    //    rot.eulerAngles = new Vector3(0, 0, (Mathf.Atan2(-moveDirection.y, -moveDirection.x) * Mathf.Rad2Deg + addition * index));
-    //    Model.transform.rotation = rot;
-
-    //}
     public void GetDirection()
     {
         moveDirection = GameManager.JoystickManager.variableJoystick.LastDirection.normalized;

@@ -16,7 +16,7 @@ MonoBehaviour:
   Description: Default weapon of Player
   Icon: {fileID: 21300000, guid: 00e39863ad622fc4c9d98d54c4540a45, type: 3}
   Cooldown: 1.5
-  AttackRange: 20
+  AttackRange: 50
   BaseDamage: 100
   BaseSpeed: 5
   Count: 1

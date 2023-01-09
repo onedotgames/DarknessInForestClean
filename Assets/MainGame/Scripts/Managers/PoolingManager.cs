@@ -7,6 +7,7 @@ public class PoolingManager : CustomBehaviour
 {
     public List<WeaponPooler> WeaponPooler;
     public List<WeaponSpawner> WeaponPoolerListV2;
+    public List<ProjectileSpawner> ProjectileSpawners;
     public List<EnemyPooler> EnemyPoolerList;
     public List<ExperiencePooler> ExpPoolerList;
     public List<PoolerBase> EnemyBulletPoolerList;
@@ -49,6 +50,7 @@ public class PoolingManager : CustomBehaviour
     {
         EnemyPoolerListV2.ForEach(x => x.Initialize(GameManager));
         WeaponPoolerListV2.ForEach(x => x.Initialize(GameManager));
+        ProjectileSpawners.ForEach(x => x.Initialize(GameManager));
     }
 
     public PoolerBase GetPool(int index)
