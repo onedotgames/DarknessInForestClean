@@ -8,6 +8,7 @@ public class ProjectileBase : CustomBehaviour
     public bool IsAoE = false;
     public ProjectileSpawner Pooler;
     public ParticleSystem MovementVFX;
+    public ParticleSystem HitVFX;
     public float RotSpeed;
     public float Speed;
     public float Damage;
@@ -37,6 +38,18 @@ public class ProjectileBase : CustomBehaviour
     }
 
     protected void ContinueuslyPlayVFX(ParticleSystem vfx)
+    {
+        if (!vfx.gameObject.activeInHierarchy)
+        {
+            vfx.gameObject.SetActive(true);
+        }
+        if (!vfx.isPlaying)
+        {
+            vfx.Play();
+        }
+    }
+
+    protected void OneTimePlayVFX(ParticleSystem vfx)
     {
         if (!vfx.gameObject.activeInHierarchy)
         {

@@ -50,6 +50,7 @@ public class SkillManager : CustomBehaviour
     public List<UtilityBase> UtilitiesInUse;
 
     [Space(10), Title("Booleans")]
+    public bool IsMiniGameDone = false;
     public bool WeaponLimitReached = false;
     public bool UtilitiesLimitReached = false;
     public bool Weapon1Active = false;
@@ -61,7 +62,7 @@ public class SkillManager : CustomBehaviour
     [Space(10), Title("References")]
     public PausePanel PausePanel;
     public SelectSkill SelectSkillPanel;
-
+    public GameObject[] Minigames;
     public ButtonData selectedWeaponData;
     public ButtonData selectedUtilityData;
 
@@ -199,7 +200,7 @@ public class SkillManager : CustomBehaviour
 
     public void CheckWeaponLimitReached()
     {
-        Debug.Log("Weapon limit check");
+
         if (WeaponsInUseV2.Count == PausePanel.WeaponIconsOnPause.Count)
         {
             WeaponLimitReached = true;
@@ -215,8 +216,7 @@ public class SkillManager : CustomBehaviour
     }
     public void CreateTempWeaponList()
     {
-        Debug.Log("Creating temp list");
-        Debug.Log("Limit Reached: " + WeaponLimitReached);
+
         if (!WeaponLimitReached)
         {
             TempWeaponsV2.Clear();

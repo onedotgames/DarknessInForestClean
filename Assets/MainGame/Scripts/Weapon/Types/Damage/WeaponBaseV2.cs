@@ -125,6 +125,7 @@ public class WeaponBaseV2 : CustomBehaviour
         if (_target != null)
         {
             mDirection = Vector3.Normalize(_target.position - transform.position);
+
         }
         else
         {
@@ -137,6 +138,13 @@ public class WeaponBaseV2 : CustomBehaviour
             var x = UnityEngine.Random.Range(-1f, 1f);
             var y = UnityEngine.Random.Range(-1f, 1f);
             mDirection = (new Vector3(x, y)).normalized;
+        }
+        if (this.SkillSO.PoolerType == PoolerType.BeeShotPooler)
+        {
+            //var x = UnityEngine.Random.Range(-1f, 1f);
+            //var y = UnityEngine.Random.Range(-1f, 1f);
+            //mDirection = (new Vector3(x, y)).normalized;
+            mDirection = Vector2.left;
         }
     }
     
@@ -165,11 +173,19 @@ public class WeaponBaseV2 : CustomBehaviour
 
     public void UpdateWeapon()
     {
-
-        if (UpgradeLevel < 4)
+        if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyToChange == PropertyToChange.Evolve)
         {
-            MakePropertyReadyForChange(SkillSO.UpgradeDatas[UpgradeLevel].PropertyToChange);
+            Debug.Log("Should play minigame");
+            PlayMinigame(UnityEngine.Random.Range(0, GameManager.SkillManager.Minigames.Length));
         }
+        else
+        {
+            if (UpgradeLevel < 4)
+            {
+                MakePropertyReadyForChange(SkillSO.UpgradeDatas[UpgradeLevel].PropertyToChange);
+            }
+        }
+        
     }
 
     private void UpdateStats()
@@ -194,6 +210,32 @@ public class WeaponBaseV2 : CustomBehaviour
         {
             Time.timeScale = 1;
         }
+    }
+    public void PlayMinigame(int gameIndex)
+    {
+        //Time.timeScale = 0;
+        //SelectSkillPanel.ClosePanel();
+        var miniGameObject = GameManager.SkillManager.Minigames[gameIndex];
+        var miniGame = miniGameObject.GetComponent<MiniGameBase>();
+        if (gameIndex == 0)
+        {
+            miniGame.TargetImage = SkillSO.Icon;
+            miniGame.TargetBox.sprite = SkillSO.Icon;
+            for (int i = 0; i < miniGame.Weapons.Count; i++)
+            {
+                if (miniGame.Weapons[i].name == SkillSO.Icon.name)
+                {
+                    controlInt++;
+                }
+
+            }
+            if (controlInt == 0)
+            {
+                //resim yoktur..
+                miniGame.Weapons[0] = SkillSO.Icon;
+            }
+        }
+        miniGameObject.SetActive(true);
     }
     public void MakePropertyReadyForChange(PropertyToChange propertyToChange)
     {
@@ -367,8 +409,8 @@ public class WeaponBaseV2 : CustomBehaviour
         UpdateStats();
 
         IsEvolved = true;
-        GameManager.SkillManager.AllWeaponsV2.Remove(GameManager.SkillManager.selectedWeaponData.Weapon);
-        GameManager.SkillManager.AllWeaponsV2.Remove(GameManager.SkillManager.selectedWeaponData.Weapon);
+        GameManager.SkillManager.AllWeaponsV2.Remove(this);
+        GameManager.SkillManager.AllWeaponsV2.Remove(this);
     }
     private async Task SetAttackMethod()
     {
@@ -468,7 +510,6 @@ public class WeaponBaseV2 : CustomBehaviour
         {
             for (int i = 0; i < Count; i++)
             {
-                Debug.Log("Clover fired");
                 var obj = Pooler.GetFromPool();
                 obj.transform.position = this.transform.position;
 
@@ -498,7 +539,6 @@ public class WeaponBaseV2 : CustomBehaviour
         BeeIndex = 0;
         for (int i = 0; i < Count; i++)
         {
-            Debug.Log("Bee fired:  " + BeeIndex);
             var obj = Pooler.GetFromPool();
             obj.transform.position = this.transform.position;
 
@@ -506,6 +546,10 @@ public class WeaponBaseV2 : CustomBehaviour
             var mBeeShot = obj.gameObject.GetComponent<BeeShotProjectile>();
             //SetSkill(GameManager.AIManager.EnemyList);
             mDirection = GameManager.JoystickManager.variableJoystick.LastDirection.normalized;
+            if(mDirection == Vector3.zero)
+            {
+                SetSkill(GameManager.AIManager.EnemyList);
+            }
             ActiveBeeShots.Add(mBeeShot);
             mBeeShot.index = BeeIndex;
             BeeIndex++;
@@ -557,18 +601,23 @@ public class WeaponBaseV2 : CustomBehaviour
     private Transform GetClosestEnemy(List<Transform> enemies)
     {
         //Transform bestTarget = null;
+        
         float closestDistanceSqr = AttackRange;
         Vector3 currentPosition = mPlayer.transform.position;
         foreach (Transform potentialTarget in enemies)
         {
-            Vector3 directionToTarget = potentialTarget.position - currentPosition;
-            float dSqrToTarget = directionToTarget.sqrMagnitude;
-            if (dSqrToTarget < closestDistanceSqr)
+            if (potentialTarget.gameObject.activeInHierarchy)
             {
-                closestDistanceSqr = dSqrToTarget;
-                
-                _target = potentialTarget;
+                Vector3 directionToTarget = potentialTarget.position - currentPosition;
+                float dSqrToTarget = directionToTarget.sqrMagnitude;
+                if (dSqrToTarget < closestDistanceSqr)
+                {
+                    closestDistanceSqr = dSqrToTarget;
+
+                    _target = potentialTarget;
+                }
             }
+            
         }
 
         return _target;

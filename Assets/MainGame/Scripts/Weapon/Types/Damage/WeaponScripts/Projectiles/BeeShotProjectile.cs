@@ -26,7 +26,6 @@ public class BeeShotProjectile : ProjectileBase
 
     private void OnEnable()
     {
-        Debug.Log("Return?");
         Invoke("Return", _duration);
     }
 
@@ -36,9 +35,11 @@ public class BeeShotProjectile : ProjectileBase
     }
     public void GetDirection(Vector3 direction)
     {
-        if (GameManager.JoystickManager.variableJoystick.LastDirection == Vector2.zero)
+        if (GameManager.JoystickManager.variableJoystick.LastDirection.normalized == Vector2.zero)
         {
+            //Debug.Log("ZEROOOOO");
             direction = Vector2.left;
+            Debug.Log(Direction);
         }
         float addition = 0;
 
