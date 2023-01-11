@@ -37,7 +37,6 @@ public class BeeShotProjectile : ProjectileBase
     {
         if (GameManager.JoystickManager.variableJoystick.LastDirection.normalized == Vector2.zero)
         {
-            //Debug.Log("ZEROOOOO");
             direction = Vector2.left;
             Debug.Log(Direction);
         }

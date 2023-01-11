@@ -102,6 +102,7 @@ public class SkillManager : CustomBehaviour
             Debug.Log("UPGRADE");
             AllWeaponsV2[index].UpdateWeapon();
         }
+        else
         {
             AllWeaponsV2[index].Initialize(GameManager);
             AllWeaponsV2[index].gameObject.SetActive(true);
@@ -467,7 +468,7 @@ public class SkillManager : CustomBehaviour
         }
 
         ActivateWeapon((int)selectedWeaponData.Weapon.SkillSO.PoolerType);
-        SelectSkillPanel.CloseSkillPanelAndOpenHud();
+        //SelectSkillPanel.CloseSkillPanelAndOpenHud();
 
     }
     public void InvokeUtility()

@@ -38,21 +38,10 @@ public class MiniGameBase : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        Time.timeScale = 0;
-    }
-
-    private void OnDisable()
-    {
-        Time.timeScale = 1;
-
-    }
+    
 
     public void PrepareMiniGame()
     {
-        //TargetImage = Weapons[Random.Range(0, Weapons.Count)];
-        //TargetBox.sprite = TargetImage;
         for (int i = 0; i < Weapons.Count; i++)
         {
             TempWeapons.Add(Weapons[i]);
@@ -76,12 +65,9 @@ public class MiniGameBase : MonoBehaviour
             if (skillManager.IsMiniGameDone)
             {
                 skillManager.IsMiniGameDone = false;
-                //GameManager.WeaponManager.selectedWeaponData.Weapon.UpdateWeapon();
-                //GameManager.PoolingManager.WeaponPooler[(int)GameManager.SkillManager.selectedWeaponData.Weapon.SkillSO.PoolerType].());
-                GameManager.SkillManager.ActivateWeapon((int)GameManager.SkillManager.selectedWeaponData.Weapon.SkillSO.PoolerType);
+                GameManager.SkillManager.AllWeaponsV2[(int)GameManager.SkillManager.selectedWeaponData.Weapon.SkillSO.PoolerType].EvolveWeapon();
 
                 TargetImage = Weapons[Random.Range(0, Weapons.Count)];
-                HUD.OpenPanel();
                 Time.timeScale = 1;
             }
         }      

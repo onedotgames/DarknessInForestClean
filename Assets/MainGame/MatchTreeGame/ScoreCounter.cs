@@ -25,10 +25,11 @@ public sealed class ScoreCounter : MonoBehaviour
 
         if (skillManager.IsMiniGameDone)
         {
-            GameManager.SkillManager.ActivateWeapon((int)GameManager.SkillManager.selectedWeaponData.Weapon.SkillSO.PoolerType);
-            HUD.OpenPanel();
-            Time.timeScale = 1;
             skillManager.IsMiniGameDone = false;
+
+            GameManager.SkillManager.AllWeaponsV2[(int)GameManager.SkillManager.selectedWeaponData.Weapon.SkillSO.PoolerType].EvolveWeapon();
+
+            Time.timeScale = 1;
             popCount = 0;
             scoreText.text = (popCount + " / 3");
         }

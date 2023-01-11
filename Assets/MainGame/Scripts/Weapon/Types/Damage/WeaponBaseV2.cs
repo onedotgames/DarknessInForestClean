@@ -16,9 +16,9 @@ public class WeaponBaseV2 : CustomBehaviour
     private bool _timerOn;
     private List<Task> _tasks;
     private Transform _target = null;
-    private List<ChestnutHammer> ActiveChestnuts;
+    public List<CHammerProjectile> ActiveChestnuts { get; private set; }
     private List<BeeShotProjectile> ActiveBeeShots;
-
+    private HUD mHud;
     public int BeeIndex = 0;
 
     public SkillSO SkillSO;
@@ -74,15 +74,17 @@ public class WeaponBaseV2 : CustomBehaviour
 
         }
         SelectSkillPanel = gameManager.UIManager.GetPanel(Panels.SelectSkill).GetComponent<SelectSkill>();
+        mHud = gameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
         mPlayer = gameManager.PlayerManager.CurrentPlayer;
-        PoolerBase = gameManager.PoolingManager.WeaponPooler[(int)SkillSO.PoolerType]; 
-        Pooler = GameManager.PoolingManager.ProjectileSpawners[(int)SkillSO.PoolerType];
-        Debug.Log(Pooler.gameObject.name);
+        //PoolerBase = gameManager.PoolingManager.WeaponPooler[(int)SkillSO.PoolerType]; 
+        Pooler = gameManager.PoolingManager.ProjectileSpawners[(int)SkillSO.PoolerType];
+        //Debug.Log(Pooler.gameObject.name);
         SetStats();
-        mWait = new WaitForSeconds(Cooldown);
+        //mWait = new WaitForSeconds(Cooldown);
         _tasks = new List<Task>(1);
         IsActivated = true;
         //SetAttackMethod();
+        CloseSkillPanel();
     }
     private async void OnEnable()
     {
@@ -139,7 +141,8 @@ public class WeaponBaseV2 : CustomBehaviour
             var y = UnityEngine.Random.Range(-1f, 1f);
             mDirection = (new Vector3(x, y)).normalized;
         }
-        if (this.SkillSO.PoolerType == PoolerType.BeeShotPooler)
+        if (this.SkillSO.PoolerType == PoolerType.BeeShotPooler
+            || this.SkillSO.PoolerType == PoolerType.PoisonDartPooler)
         {
             //var x = UnityEngine.Random.Range(-1f, 1f);
             //var y = UnityEngine.Random.Range(-1f, 1f);
@@ -176,16 +179,14 @@ public class WeaponBaseV2 : CustomBehaviour
         if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyToChange == PropertyToChange.Evolve)
         {
             Debug.Log("Should play minigame");
+            CloseSkillPanel();
             PlayMinigame(UnityEngine.Random.Range(0, GameManager.SkillManager.Minigames.Length));
         }
         else
         {
-            if (UpgradeLevel < 4)
-            {
-                MakePropertyReadyForChange(SkillSO.UpgradeDatas[UpgradeLevel].PropertyToChange);
-            }
+            MakePropertyReadyForChange(SkillSO.UpgradeDatas[UpgradeLevel].PropertyToChange);
         }
-        
+
     }
 
     private void UpdateStats()
@@ -206,14 +207,17 @@ public class WeaponBaseV2 : CustomBehaviour
         {
             SelectSkillPanel.ClosePanel();
         }
+        mHud.OpenPanel();
         if (Time.timeScale != 1)
         {
             Time.timeScale = 1;
         }
+        GameManager.PlayerLevelManager.CheckExp();
+        mHud.SetExpBarFillAmount();
     }
     public void PlayMinigame(int gameIndex)
     {
-        //Time.timeScale = 0;
+        Time.timeScale = 0;
         //SelectSkillPanel.ClosePanel();
         var miniGameObject = GameManager.SkillManager.Minigames[gameIndex];
         var miniGame = miniGameObject.GetComponent<MiniGameBase>();
@@ -358,6 +362,7 @@ public class WeaponBaseV2 : CustomBehaviour
     }
     public virtual void EvolveWeapon()
     {
+        Debug.Log("Evolving: " + gameObject.name);
         if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Multiplication)
         {
             if (this.SkillSO.DamagePattern == DamagePattern.SkunkGas)
@@ -410,26 +415,30 @@ public class WeaponBaseV2 : CustomBehaviour
 
         IsEvolved = true;
         GameManager.SkillManager.AllWeaponsV2.Remove(this);
-        GameManager.SkillManager.AllWeaponsV2.Remove(this);
+        GameManager.SkillManager.WeaponsInUseV2.Remove(this);
     }
-    private async Task SetAttackMethod()
+
+    public async Task SetAttackMethod()
     {
         switch (SkillSO.PoolerType)
         {
             case PoolerType.ChestnutPooler:
+                ActiveChestnuts = new List<CHammerProjectile>(Count);
 
+                await WallnutHammer();
                 break;
             case PoolerType.CloverPooler:
                 await Clover();
+                _timerOn = true;
                 break;
             case PoolerType.PoisonDartPooler:
-
+                await PoisonDart();
+                _timerOn = true;
                 break;
             case PoolerType.SlingPooler:
 
                 break;
             case PoolerType.WhipPooler:
-                mAttackRoutine = StartCoroutine(IvyWhip());
                 break;
             case PoolerType.SpiderWebPooler:
 
@@ -442,6 +451,7 @@ public class WeaponBaseV2 : CustomBehaviour
                 ActiveBeeShots = new List<BeeShotProjectile>(Count);
 
                 await BeeShot();
+                _timerOn = true;
                 break;
             case PoolerType.BirdBomb:
 
@@ -453,7 +463,7 @@ public class WeaponBaseV2 : CustomBehaviour
 
                 break;
         }
-        _timerOn = true;
+        //_timerOn = true;
 
     }
     /*private IEnumerator Clover()
@@ -517,7 +527,7 @@ public class WeaponBaseV2 : CustomBehaviour
                 var clover = obj.gameObject.GetComponent<CloverProjectile>();
                 SetSkill(GameManager.AIManager.EnemyList);
 
-                SetProjectile(clover);
+                SetProjectile(clover,false);
 
                 obj.gameObject.SetActive(true);
                 GameManager.AIManager.EnemyList.Remove(_target);
@@ -554,11 +564,62 @@ public class WeaponBaseV2 : CustomBehaviour
             mBeeShot.index = BeeIndex;
             BeeIndex++;
 
-            SetProjectile(mBeeShot);
+            SetProjectile(mBeeShot,false);
             mBeeShot.GetDirection(mBeeShot.Direction);
                 
             obj.gameObject.SetActive(true);
             //GameManager.AIManager.EnemyList.Remove(_target);
+            await Delay(0.25f);
+        }
+    }
+    private async Task PoisonDart()
+    {
+        for (int i = 0; i < Count; i++)
+        {
+            var obj = Pooler.GetFromPool();
+            obj.transform.position = this.transform.position;
+
+
+            var dart = obj.gameObject.GetComponent<PoisonDartProjectile>();
+            //SetSkill(GameManager.AIManager.EnemyList);
+            mDirection = GameManager.JoystickManager.variableJoystick.LastDirection.normalized;
+            if (mDirection == Vector3.zero)
+            {
+                SetSkill(GameManager.AIManager.EnemyList);
+            }
+
+            SetProjectile(dart,true);
+            dart.GetDirection(dart.Direction);
+
+            obj.gameObject.SetActive(true);
+            //GameManager.AIManager.EnemyList.Remove(_target);
+            await Delay(0.25f);
+        }
+    }
+    private async Task WallnutHammer()
+    {
+        Debug.Log("Wallnut çaðýrýldý");
+        for (int i = 0; i < Count; i++)
+        {
+            if (ActiveChestnuts != null)
+            {
+                ActiveChestnuts.Clear();
+            }
+
+            var obj = Pooler.GetFromPool();
+            obj.transform.position = this.transform.position;
+
+            var wallnutHammer = obj.gameObject.GetComponent<CHammerProjectile>();
+            ActiveChestnuts.Add(wallnutHammer);
+
+            SetSkill(GameManager.AIManager.EnemyList);
+
+            SetProjectile(wallnutHammer,false);
+            Debug.Log(mDirection);
+            wallnutHammer.Range = AttackRange;
+            wallnutHammer.WeaponBaseV2 = this;
+            obj.gameObject.SetActive(true);
+            GameManager.AIManager.EnemyList.Remove(_target);
             await Delay(0.25f);
         }
     }
@@ -569,33 +630,15 @@ public class WeaponBaseV2 : CustomBehaviour
         await Task.Delay(mDelay);
         return mDelay;
     }
-    private void SetProjectile(ProjectileBase projectileBase)
+    private void SetProjectile(ProjectileBase projectileBase, bool isAoE)
     {
         projectileBase.Initialize(GameManager);
         projectileBase.Pooler = Pooler;
         projectileBase.Speed = BaseSpeed;
         projectileBase.Damage = BaseDamage;
         projectileBase.Direction = mDirection;
-        projectileBase.IsAoE = false;
+        projectileBase.IsAoE = isAoE;
         projectileBase.IsReady = true;
-    }
-    private IEnumerator IvyWhip()
-    {
-        //while(!GameManager.IsGamePaused && GameManager.IsGameStarted)
-        //{
-        //    for (int i = 0; i < Count; i++)
-        //    {
-        //        var obj = Pooler.GetFromPool();
-        //        obj.transform.position = this.transform.position;
-
-        //        Debug.Log(obj.name);
-        //        obj.gameObject.SetActive(true);
-        //        obj.objectTransform.gameObject.GetComponent<IvyWhip>().WhipAttack();
-
-               yield return new WaitForSeconds(0.25f);
-        //    }
-
-        //}
     }
 
     private Transform GetClosestEnemy(List<Transform> enemies)

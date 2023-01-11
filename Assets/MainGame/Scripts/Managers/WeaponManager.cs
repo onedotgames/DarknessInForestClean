@@ -294,7 +294,7 @@ public class WeaponManager : CustomBehaviour
     {
         if (EventSystem.current.currentSelectedGameObject == SelectSkillPanel.ButtonDataList[0].Button.gameObject)
         {
-            selectedWeaponData = SelectSkillPanel.ButtonDataList[0]; //Selected data daha sonra referens olarak kullan�lmak �zere belirlenir
+            selectedWeaponData = SelectSkillPanel.ButtonDataList[0]; 
 
             bool contains = false;
 

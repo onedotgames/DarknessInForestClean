@@ -21,7 +21,7 @@ public class ProjectileBase : CustomBehaviour
         base.Initialize(gameManager);
         ProjectileToSpawn = gameObject.GetComponent<ProjectileToSpawn>();
     }
-    protected void Return()
+    protected virtual void Return()
     {
         IsReady = false;
         Pooler.ReturnObjectToPool(ProjectileToSpawn);
