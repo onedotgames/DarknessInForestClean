@@ -25,22 +25,22 @@ MonoBehaviour:
   DamagePattern: 2
   PoolerType: 1
   UpgradeDatas:
-  - Description: "Level 1 - 2 \t\t"
-    UpgradeType: 0
-    PropertyToChange: 3
-    PropertyChangeType: 0
-    ChangeAmount: 0.8
-  - Description: Level 2 - 3
-    UpgradeType: 0
-    PropertyToChange: 2
-    PropertyChangeType: 0
-    ChangeAmount: 2
-  - Description: Level 3-4
+  - Description: Level 1 -> 2
     UpgradeType: 0
     PropertyToChange: 4
     PropertyChangeType: 1
     ChangeAmount: 1
-  - Description: Level 4-5
+  - Description: Level 2 -> 3
+    UpgradeType: 0
+    PropertyToChange: 4
+    PropertyChangeType: 1
+    ChangeAmount: 1
+  - Description: Level 3 -> 4
+    UpgradeType: 0
+    PropertyToChange: 6
+    PropertyChangeType: 1
+    ChangeAmount: 5
+  - Description: Level 4 -> 5
     UpgradeType: 0
     PropertyToChange: 7
     PropertyChangeType: 0

@@ -18,8 +18,10 @@ public class WeaponBaseV2 : CustomBehaviour
     private Transform _target = null;
     public List<CHammerProjectile> ActiveChestnuts { get; private set; }
     private List<BeeShotProjectile> ActiveBeeShots;
+    private List<SlingBaseProjectile> SlingProjectileList;
     private HUD mHud;
     public int BeeIndex = 0;
+    private float AttackDegree = 30;
 
     public SkillSO SkillSO;
     public int UpgradeLevel = 0;
@@ -142,7 +144,8 @@ public class WeaponBaseV2 : CustomBehaviour
             mDirection = (new Vector3(x, y)).normalized;
         }
         if (this.SkillSO.PoolerType == PoolerType.BeeShotPooler
-            || this.SkillSO.PoolerType == PoolerType.PoisonDartPooler)
+            || this.SkillSO.PoolerType == PoolerType.PoisonDartPooler
+            || this.SkillSO.PoolerType == PoolerType.SlingPooler)
         {
             //var x = UnityEngine.Random.Range(-1f, 1f);
             //var y = UnityEngine.Random.Range(-1f, 1f);
@@ -424,28 +427,37 @@ public class WeaponBaseV2 : CustomBehaviour
         {
             case PoolerType.ChestnutPooler:
                 ActiveChestnuts = new List<CHammerProjectile>(Count);
-
                 await WallnutHammer();
                 break;
+
             case PoolerType.CloverPooler:
                 await Clover();
                 _timerOn = true;
                 break;
+
             case PoolerType.PoisonDartPooler:
                 await PoisonDart();
                 _timerOn = true;
                 break;
-            case PoolerType.SlingPooler:
 
+            case PoolerType.SlingPooler:
+                SlingProjectileList = new List<SlingBaseProjectile>(Count);
+                await Sling();
+                _timerOn = true;
                 break;
+
             case PoolerType.WhipPooler:
+                await Whip();
+                _timerOn = true;
                 break;
+
             case PoolerType.SpiderWebPooler:
 
                 break;
             case PoolerType.SpiderPoisonPooler:
 
                 break;
+
             case PoolerType.BeeShotPooler:
 
                 ActiveBeeShots = new List<BeeShotProjectile>(Count);
@@ -453,12 +465,15 @@ public class WeaponBaseV2 : CustomBehaviour
                 await BeeShot();
                 _timerOn = true;
                 break;
+
             case PoolerType.BirdBomb:
 
                 break;
+
             case PoolerType.SkunGasPooler:
 
                 break;
+
             case PoolerType.BananaPooler:
 
                 break;
@@ -512,6 +527,34 @@ public class WeaponBaseV2 : CustomBehaviour
             }
         }
     }*/
+    private async Task WallnutHammer()
+    {
+        Debug.Log("Wallnut çaðýrýldý");
+        for (int i = 0; i < Count; i++)
+        {
+            if (ActiveChestnuts != null)
+            {
+                ActiveChestnuts.Clear();
+            }
+
+            var obj = Pooler.GetFromPool();
+            obj.transform.position = this.transform.position;
+
+            var wallnutHammer = obj.gameObject.GetComponent<CHammerProjectile>();
+            ActiveChestnuts.Add(wallnutHammer);
+
+            SetSkill(GameManager.AIManager.EnemyList);
+
+            SetProjectile(wallnutHammer, false);
+            Debug.Log(mDirection);
+            wallnutHammer.Range = AttackRange;
+            wallnutHammer.WeaponBaseV2 = this;
+            obj.gameObject.SetActive(true);
+            GameManager.AIManager.EnemyList.Remove(_target);
+            await Delay(0.25f);
+        }
+    }
+
     private async Task Clover()
     {
         GetClosestEnemy(GameManager.AIManager.EnemyList);
@@ -541,7 +584,102 @@ public class WeaponBaseV2 : CustomBehaviour
         _target = null;
     }
 
-    
+    private async Task PoisonDart()
+    {
+        for (int i = 0; i < Count; i++)
+        {
+            var obj = Pooler.GetFromPool();
+            obj.transform.position = this.transform.position;
+
+
+            var dart = obj.gameObject.GetComponent<PoisonDartProjectile>();
+            //SetSkill(GameManager.AIManager.EnemyList);
+            mDirection = GameManager.JoystickManager.variableJoystick.LastDirection.normalized;
+            if (mDirection == Vector3.zero)
+            {
+                SetSkill(GameManager.AIManager.EnemyList);
+            }
+
+            SetProjectile(dart, true);
+            dart.GetDirection(dart.Direction);
+
+            obj.gameObject.SetActive(true);
+            //GameManager.AIManager.EnemyList.Remove(_target);
+            await Delay(0.25f);
+        }
+    }
+
+    private async Task Sling()
+    {
+        GetClosestEnemy(GameManager.AIManager.EnemyList);
+
+        if (_target != null)
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                var obj = Pooler.GetFromPool();
+                obj.transform.position = this.transform.position;
+
+                var slingProjectile = obj.gameObject.GetComponent<SlingBaseProjectile>();
+                SlingProjectileList.Add(slingProjectile);
+            }
+
+            var firstCount = SlingProjectileList.Count;
+
+            float spaceBetweenProjectiles = AttackDegree / (SlingProjectileList.Count - 1);
+            int index = 0;
+            var count = SlingProjectileList.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                float horizontal = GameManager.JoystickManager.GetHorizontal();
+                float vertical = GameManager.JoystickManager.GetVertical();
+
+                float initialRot = 0;
+                if (horizontal != 0 || vertical != 0)
+                {
+                    initialRot = GameManager.PlayerManager.CurrentPlayer.Angle - 90;
+                }
+                else if (horizontal == 0 && vertical == 0)
+                {
+                    initialRot = GameManager.PlayerManager.CurrentPlayer.LastAngle - 90;
+                }
+
+                float RotDeg = initialRot + (spaceBetweenProjectiles) * 
+                    ((firstCount - 1) / 2) - (spaceBetweenProjectiles * index);
+                index++;
+
+                SetProjectile(SlingProjectileList[0], false);
+
+                SlingProjectileList[0].transform.rotation = Quaternion.Euler(new Vector3(0, 0, RotDeg));
+
+                SlingProjectileList[0].gameObject.SetActive(true);
+
+                SlingProjectileList.Remove(SlingProjectileList[0]);
+            }
+        }
+        else
+        {
+            await Task.Yield();
+        }
+        _target = null;
+    }
+
+    private async Task Whip()
+    {
+        for (int i = 0; i < Count; i++)
+        {
+            var obj = Pooler.GetFromPool();
+            obj.transform.position = this.transform.position;
+
+            var whip = obj.gameObject.GetComponent<WhipProjetile>();
+            SetProjectile(whip, false);
+
+            obj.gameObject.SetActive(true);
+            whip.WhipAttack();
+            await Delay(0.25f);
+        }
+    }
 
     private async Task BeeShot()
     {
@@ -572,57 +710,8 @@ public class WeaponBaseV2 : CustomBehaviour
             await Delay(0.25f);
         }
     }
-    private async Task PoisonDart()
-    {
-        for (int i = 0; i < Count; i++)
-        {
-            var obj = Pooler.GetFromPool();
-            obj.transform.position = this.transform.position;
-
-
-            var dart = obj.gameObject.GetComponent<PoisonDartProjectile>();
-            //SetSkill(GameManager.AIManager.EnemyList);
-            mDirection = GameManager.JoystickManager.variableJoystick.LastDirection.normalized;
-            if (mDirection == Vector3.zero)
-            {
-                SetSkill(GameManager.AIManager.EnemyList);
-            }
-
-            SetProjectile(dart,true);
-            dart.GetDirection(dart.Direction);
-
-            obj.gameObject.SetActive(true);
-            //GameManager.AIManager.EnemyList.Remove(_target);
-            await Delay(0.25f);
-        }
-    }
-    private async Task WallnutHammer()
-    {
-        Debug.Log("Wallnut çaðýrýldý");
-        for (int i = 0; i < Count; i++)
-        {
-            if (ActiveChestnuts != null)
-            {
-                ActiveChestnuts.Clear();
-            }
-
-            var obj = Pooler.GetFromPool();
-            obj.transform.position = this.transform.position;
-
-            var wallnutHammer = obj.gameObject.GetComponent<CHammerProjectile>();
-            ActiveChestnuts.Add(wallnutHammer);
-
-            SetSkill(GameManager.AIManager.EnemyList);
-
-            SetProjectile(wallnutHammer,false);
-            Debug.Log(mDirection);
-            wallnutHammer.Range = AttackRange;
-            wallnutHammer.WeaponBaseV2 = this;
-            obj.gameObject.SetActive(true);
-            GameManager.AIManager.EnemyList.Remove(_target);
-            await Delay(0.25f);
-        }
-    }
+    
+    
 
     async Task<int> Delay(float delay)
     {
