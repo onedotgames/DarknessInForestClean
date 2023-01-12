@@ -81,7 +81,7 @@ public class BossBase : CustomBehaviour
         SetStats();
         IsActivated = true;
         BossHeadRenderer.sprite = RunHead;
-        Anim.SetInteger("State", 0);
+        Anim.SetInteger("State", 0); //animasyon buradan değişiyor.
         Anim.SetBool("Action", false);
         SetMovementPattern();
         SetAttackPattern();
@@ -257,7 +257,7 @@ public class BossBase : CustomBehaviour
             {
                 var temp = Destination.transform.position;
                 ChargeIndicator.SetActive(false);
-                ChargeIndicator.transform.localScale = new Vector3(2, 1, 1);
+                ChargeIndicator.transform.localScale = new Vector3(1, 2, 1);
                 Monster.ChangeAction(true);
                 Monster.Attack();
 
@@ -352,14 +352,20 @@ public class BossBase : CustomBehaviour
         if (transform.position.x - GameManager.PlayerManager.CurrentPlayer.transform.position.x <= 0)
         {
             Model.transform.eulerAngles = new Vector3(0, 180, 0);
-            BossWeapon.transform.eulerAngles = Vector3.zero;
-            BossWeapon.transform.position = Vector3.zero;
+            if (BossWeapon != null)
+            {
+                BossWeapon.transform.eulerAngles = Vector3.zero;
+                BossWeapon.transform.position = Vector3.zero;
+            }
         }
         else
         {
             Model.transform.eulerAngles = Vector3.zero;
-            BossWeapon.transform.eulerAngles = Vector3.zero;
-            BossWeapon.transform.position = Vector3.zero;
+            if (BossWeapon != null)
+            {
+                BossWeapon.transform.eulerAngles = Vector3.zero;
+                BossWeapon.transform.position = Vector3.zero;
+            }
         }
     }
 

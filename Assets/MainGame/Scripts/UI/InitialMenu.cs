@@ -45,7 +45,6 @@ public class InitialMenu : UIPanel
     public RectTransform LeaderBoard;
 
     public GameObject PlayerImg;
-    private PlayAnimation playerAnim;
     public override void Initialize(UIManager uIManager)
     {
         base.Initialize(uIManager);
@@ -58,7 +57,6 @@ public class InitialMenu : UIPanel
 
         Content.sizeDelta = new Vector2(Screen.height * 5, 0);
         MidGroup.sizeDelta = new Vector2(Screen.height * 5, Screen.width);
-        playerAnim = PlayerImg.GetComponent<PlayAnimation>();
         SubEvents();
     }
 
@@ -75,7 +73,8 @@ public class InitialMenu : UIPanel
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
         //AdjustMenuButtonScales();
         Content.DOLocalMoveX(Screen.height * 2, MenuSwipeSpeed);
-        PlayerImg.SetActive(false);
+        PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
+
         Coop.DOScale(Vector3.one * 2, 0.4f);
         Equipment.DOScale(Vector3.one, 0.4f);
         Home.DOScale(Vector3.one, 0.4f);
@@ -88,8 +87,8 @@ public class InitialMenu : UIPanel
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click); 
         //AdjustMenuButtonScales();
         Content.DOLocalMoveX(Screen.height, MenuSwipeSpeed);
-        PlayerImg.SetActive(true);
-        playerAnim.StopLoop();
+        PlayerImg.GetComponent<SpriteRenderer>().enabled = true;
+
         Equipment.DOScale(Vector3.one * 2, 0.4f);
         Coop.DOScale(Vector3.one, 0.4f);
         Home.DOScale(Vector3.one, 0.4f);
@@ -101,9 +100,8 @@ public class InitialMenu : UIPanel
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click); 
         //AdjustMenuButtonScales();
         Content.DOLocalMoveX(0, MenuSwipeSpeed);
-        PlayerImg.SetActive(true);
+        PlayerImg.GetComponent<SpriteRenderer>().enabled = true;
 
-        playerAnim.PlayLoop();
         Home.DOScale(Vector3.one * 2, 0.4f);
         Equipment.DOScale(Vector3.one, 0.4f);
         Coop.DOScale(Vector3.one, 0.4f);
@@ -116,7 +114,8 @@ public class InitialMenu : UIPanel
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
         //AdjustMenuButtonScales();
         Content.DOLocalMoveX(-Screen.height, MenuSwipeSpeed);
-        PlayerImg.SetActive(false);
+        PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
+
 
         Levels.DOScale(Vector3.one * 2, 0.4f);
         Equipment.DOScale(Vector3.one, 0.4f);
@@ -129,7 +128,8 @@ public class InitialMenu : UIPanel
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click); 
         //AdjustMenuButtonScales();
         Content.DOLocalMoveX(-Screen.height * 2, MenuSwipeSpeed);
-        PlayerImg.SetActive(false);
+        PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
+
 
         LeaderBoard.DOScale(Vector3.one * 2, 0.4f);
         Equipment.DOScale(Vector3.one, 0.4f);

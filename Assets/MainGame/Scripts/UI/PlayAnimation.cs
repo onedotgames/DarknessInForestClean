@@ -28,7 +28,6 @@ public class PlayAnimation : MonoBehaviour
     public void PlayLoop()
     {
         coroutineLoop = StartCoroutine(DelayLoop());
-        Debug.Log("Play: " + coroutineLoop);
     }
 
     public IEnumerator DelayLoop()
@@ -43,7 +42,9 @@ public class PlayAnimation : MonoBehaviour
 
     public void StopLoop()
     {
-        StopCoroutine(coroutineLoop);
-        Debug.Log("Stop: " + coroutineLoop);
+        if(coroutineLoop != null)
+        {
+            StopCoroutine(coroutineLoop);
+        }
     }
 }

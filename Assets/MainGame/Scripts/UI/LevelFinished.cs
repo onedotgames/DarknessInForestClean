@@ -24,7 +24,8 @@ public class LevelFinished : UIPanel
     public GameObject BoxVolumeParent;
     private Volume volume;
     private ColorAdjustments colorAdjustments;
-
+    private Coroutine mLoseRout;
+    private Coroutine mWinRout;
 
     private int mDiamondReward;
     private HUD hud;
@@ -107,6 +108,7 @@ public class LevelFinished : UIPanel
         SuccessCanvas.gameObject.SetActive(true);
         OpenPanel();
         SuccessImg.GetComponent<PlayAnimation>().Play();
+        colorAdjustments.saturation.value = 0;
         WinSaturation();
     }
     private void ReturnToMain()
@@ -132,29 +134,36 @@ public class LevelFinished : UIPanel
 
         OpenPanel();
         FailImg.GetComponent<PlayAnimation>().Play();
+        colorAdjustments.saturation.value = 0;
         LoseSaturation();
     }
 
     public void WinSaturation()
     {
-        colorAdjustments.saturation.value = -100;
-        StartCoroutine(SaturationRoutine(10f));
+        mWinRout = StartCoroutine(SaturationRoutine(5f));
     }
 
     public void LoseSaturation()
     {
-        colorAdjustments.saturation.value = 100;
-        StartCoroutine(SaturationRoutine(-10f));
+        mLoseRout = StartCoroutine(SaturationRoutine(-5f));
     }
 
     private IEnumerator SaturationRoutine(float add)
     {
-        yield return new WaitForSecondsRealtime(0.1f);
-        colorAdjustments.saturation.value += add;
-        if(colorAdjustments.saturation.value != 100f)
+        while (colorAdjustments.saturation.value != 100 || colorAdjustments.saturation.value != -100)
         {
-            StartCoroutine(SaturationRoutine(add));
+            yield return new WaitForSecondsRealtime(0.1f);
+            colorAdjustments.saturation.value += add;
         }
+        //if(colorAdjustments.saturation.value != 100 || colorAdjustments.saturation.value != -100)
+        //{
+            //yield return new WaitForSecondsRealtime(0.1f);
+            //colorAdjustments.saturation.value += add;
+            //if (colorAdjustments.saturation.value != 100f)
+            //{
+              //  StartCoroutine(SaturationRoutine(add));
+            //}
+        //}
     }
 
     private void OnDestroy()

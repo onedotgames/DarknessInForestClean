@@ -24,6 +24,7 @@ public class InputManager : CustomBehaviour
 
     private RaycastHit mHit;
     private Ray mRay;
+    public bool isSwipeStart = false;
     #endregion
 
     public override void Initialize(GameManager gameManager)

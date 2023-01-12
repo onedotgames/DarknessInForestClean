@@ -3,11 +3,15 @@ using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using DG.Tweening;
 
 public class EnemyBase : CustomBehaviour
 {
+    public List<SpriteRenderer> EnemySprites = new List<SpriteRenderer>();
+    public List<SpriteRenderer> CleanSprites = new List<SpriteRenderer>();
     public GameObject CleanModel;
-    public GameObject SymbiotModel;
+    public GameObject DirtyModel;
     public GameObject Experience;
     public GameObject Coin;
 
@@ -31,6 +35,8 @@ public class EnemyBase : CustomBehaviour
     public EnemyPoolerType EnemyPoolerType;
     public Coroutine AOEDamageRoutine;
     private HUD hud;
+    public Color TempColor;
+    private bool isDirtyOver = false;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -48,16 +54,24 @@ public class EnemyBase : CustomBehaviour
 
     public void ActivateEnemy()
     {
+        
         IsActivated = true;
+
         Collider2D.enabled = true;
 
         GameManager.AIManager.EnemyList.Add(this.transform);
         GameManager.AIManager.AIList.Add(this);
         SetStats();
+        for (int i = 0; i < EnemySprites.Count; i++)
+        {
+            EnemySprites[i].color = TempColor;
+            CleanSprites[i].color = Color.white;
+        }
     }
 
     public virtual void Update()
     {
+        DirtyModel.GetComponent<SortingGroup>().sortingOrder = 1;
         if(GameManager != null)
         {
             if (!GameManager.IsGamePaused)
@@ -78,12 +92,9 @@ public class EnemyBase : CustomBehaviour
                             AttackCooldown = mStats.AttackCooldown;
                         }
                     }
-
                 }
             }
-        }
-       
-        
+        }  
     }
 
     private void SetStats()
@@ -118,6 +129,34 @@ public class EnemyBase : CustomBehaviour
             Invoke("DropExp", 0.4f);
         }
     }
+
+    public void EnemyDeathAnim() //oncomplete e clean modeli açmak için script yaz.
+    {
+        for (int j = 0; j < EnemySprites.Count; j++)
+        {
+            EnemySprites[j].DOColor(Color.clear, 0.3f).OnComplete(() => CleanAnim());
+        }
+    }
+
+    public void CleanAnim()
+    {
+        for (int k = 0; k < CleanSprites.Count; k++)
+        {
+            CleanSprites[k].DOColor(Color.clear, 0.3f);
+        }
+        var i = Random.Range(0, 1000);
+        if (i == 1)
+        {
+            //Invoke("DropCoin", DeathVFX.main.duration);
+            Invoke("DropCoin", 0.7f);
+        }
+        else
+        {
+            //Invoke("DropExp", DeathVFX.main.duration);
+            Invoke("DropExp", 0.7f);
+        }
+    }
+
     private void DropExp()
     {
         if (!GameManager.IsDevelopmentModeOn)
@@ -183,7 +222,8 @@ public class EnemyBase : CustomBehaviour
 
     public virtual void OnDeath()
     {
-        PlayDeathVFX();
+        //PlayDeathVFX();
+        EnemyDeathAnim();
         Collider2D.enabled = false;
     }
 
