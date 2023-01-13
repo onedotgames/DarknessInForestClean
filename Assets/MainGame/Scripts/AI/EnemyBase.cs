@@ -1,25 +1,27 @@
 using Assets.FantasyMonsters.Scripts;
+using DG.Tweening;
 using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using DG.Tweening;
 
 public class EnemyBase : CustomBehaviour
 {
     public List<SpriteRenderer> EnemySprites = new List<SpriteRenderer>();
     public List<SpriteRenderer> CleanSprites = new List<SpriteRenderer>();
     public GameObject CleanModel;
-    public GameObject DirtyModel;
+    public GameObject SymbiotModel;
     public GameObject Experience;
     public GameObject Coin;
-
+    public ObjectSpawnerV2 Pooler;
+    public ObjectToPool ObjectToPool;
     public ParticleSystem DeathVFX;
 
     public EnemyStats mStats;
     public Collider2D Collider2D;
     public Monster Monster;
+    public Monster MonsterClean;
 
     public float BaseHealth;
     public float BaseSpeed;
@@ -34,7 +36,7 @@ public class EnemyBase : CustomBehaviour
 
     public EnemyPoolerType EnemyPoolerType;
     public Coroutine AOEDamageRoutine;
-    private HUD hud;
+    private HUD hud; 
     public Color TempColor;
     private bool isDirtyOver = false;
     public override void Initialize(GameManager gameManager)
@@ -44,6 +46,8 @@ public class EnemyBase : CustomBehaviour
         {
             GameManager.OnLevelCompleted += OnGameCompleted;
             GameManager.OnLevelFailed += OnGameFailed;
+            GameManager.OnBossSpawn += OnBossSpawn;
+
         }
         Player = gameManager.PlayerManager.CurrentPlayer;
 
@@ -54,25 +58,24 @@ public class EnemyBase : CustomBehaviour
 
     public void ActivateEnemy()
     {
-        
-        IsActivated = true;
-
         Collider2D.enabled = true;
 
         GameManager.AIManager.EnemyList.Add(this.transform);
         GameManager.AIManager.AIList.Add(this);
-        SetStats();
+        SetStats(); 
         for (int i = 0; i < EnemySprites.Count; i++)
         {
             EnemySprites[i].color = TempColor;
             CleanSprites[i].color = Color.white;
         }
+        IsActivated = true;
+
     }
 
     public virtual void Update()
     {
-        DirtyModel.GetComponent<SortingGroup>().sortingOrder = 1;
-        if(GameManager != null)
+        SymbiotModel.GetComponent<SortingGroup>().sortingOrder = 1;
+        if (GameManager != null)
         {
             if (!GameManager.IsGamePaused)
             {
@@ -92,9 +95,12 @@ public class EnemyBase : CustomBehaviour
                             AttackCooldown = mStats.AttackCooldown;
                         }
                     }
+
                 }
             }
-        }  
+        }
+       
+        
     }
 
     private void SetStats()
@@ -129,14 +135,36 @@ public class EnemyBase : CustomBehaviour
             Invoke("DropExp", 0.4f);
         }
     }
-
-    public void EnemyDeathAnim() //oncomplete e clean modeli aÃ§mak iÃ§in script yaz.
+    public void EnemyDeathAnim() //oncomplete e clean modeli açmak için script yaz.
     {
+        CleanSprites.ForEach(x => x.DOFade(1, 0.1f));
         for (int j = 0; j < EnemySprites.Count; j++)
         {
             EnemySprites[j].DOColor(Color.clear, 0.3f).OnComplete(() => CleanAnim());
         }
     }
+    private void DropExp()
+    {
+        if (!GameManager.IsDevelopmentModeOn)
+        {
+            var exp = GameManager.PoolingManager.ExpPoolerList[(int)ExpPoolerType.SmallExperience].GetObjectFromPool();
+            exp.transform.position = transform.position;
+        }
+
+        Return();
+    }
+    private void DropCoin()
+    {
+        if (!GameManager.IsDevelopmentModeOn)
+        {
+            var coin = GameManager.PoolingManager.CoinPoolerList[(int)CoinType.Small].GetObjectFromPool();
+            coin.transform.position = transform.position;
+        }
+
+
+        Return();
+    }
+    
 
     public void CleanAnim()
     {
@@ -156,31 +184,6 @@ public class EnemyBase : CustomBehaviour
             Invoke("DropExp", 0.7f);
         }
     }
-
-    private void DropExp()
-    {
-        if (!GameManager.IsDevelopmentModeOn)
-        {
-            var exp = GameManager.PoolingManager.ExpPoolerList[(int)ExpPoolerType.SmallExperience].GetObjectFromPool();
-            exp.transform.position = transform.position;
-        }
-        
-        GameManager.AIManager.EnemyList.Remove(transform);
-        GameManager.AIManager.AIList.Remove(this);
-        GameManager.PoolingManager.EnemyPoolerList[(int)EnemyPoolerType].ReturnObjectToPool(gameObject);
-    }
-    private void DropCoin()
-    {
-        if (!GameManager.IsDevelopmentModeOn)
-        {
-            var coin = GameManager.PoolingManager.CoinPoolerList[(int)CoinType.Small].GetObjectFromPool();
-            coin.transform.position = transform.position;
-        }
-        
-        GameManager.AIManager.EnemyList.Remove(transform);
-        GameManager.AIManager.AIList.Remove(this);
-        GameManager.PoolingManager.EnemyPoolerList[(int)EnemyPoolerType].ReturnObjectToPool(gameObject);
-    }
     public virtual void GetHit(float damageToTake)
     {
         if (IsActivated)
@@ -190,7 +193,7 @@ public class EnemyBase : CustomBehaviour
         }
         
     }
-
+    
     public virtual IEnumerator GetAOEHit(float damageToTake, float interval)
     {
         
@@ -222,7 +225,6 @@ public class EnemyBase : CustomBehaviour
 
     public virtual void OnDeath()
     {
-        //PlayDeathVFX();
         EnemyDeathAnim();
         Collider2D.enabled = false;
     }
@@ -244,7 +246,7 @@ public class EnemyBase : CustomBehaviour
         
     }
 
-    private void OnGameFailed()
+    private void Return()
     {
         if (gameObject.activeInHierarchy)
         {
@@ -252,21 +254,26 @@ public class EnemyBase : CustomBehaviour
             Collider2D.enabled = false;
             CancelInvoke("DropCoin");
             CancelInvoke("DropExp");
-            GameManager.PoolingManager.EnemyPoolerList[(int)EnemyPoolerType].ReturnObjectToPool(gameObject);
+            GameManager.AIManager.EnemyList.Remove(transform);
+            GameManager.AIManager.AIList.Remove(this);
+            Pooler.ReturnObjectToPool(ObjectToPool);
         }
         
     }
+
+    private void OnGameFailed()
+    {
+        Return();
+    }
     private void OnGameCompleted()
     {
-        if (gameObject.activeInHierarchy)
-        {
-            IsActivated = false;
-            Collider2D.enabled = false;
-            CancelInvoke("DropCoin");
-            CancelInvoke("DropExp");
-            GameManager.PoolingManager.EnemyPoolerList[(int)EnemyPoolerType].ReturnObjectToPool(gameObject);
-        }
+        Return();
 
+    }
+
+    private void OnBossSpawn()
+    {
+        Return();
     }
 
     private void OnDestroy()
@@ -275,6 +282,7 @@ public class EnemyBase : CustomBehaviour
         {
             GameManager.OnLevelFailed -= OnGameFailed;
             GameManager.OnLevelCompleted -= OnGameCompleted;
+            GameManager.OnBossSpawn -= OnBossSpawn;
         }
     }
 }

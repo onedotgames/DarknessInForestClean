@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -146,10 +147,7 @@ public class BossSpawner : CustomBehaviour
 
     private void ClearOtherEnemies()
     {
-        GameManager.AIManager.AIList.ForEach(x =>
-        {
-            GameManager.PoolingManager.EnemyPoolerList[(int)x.EnemyPoolerType].ReturnObjectToPool(x.gameObject);
-        });
+        GameManager.BossSpawn();
         GameManager.AIManager.AIList.Clear();
     }
 

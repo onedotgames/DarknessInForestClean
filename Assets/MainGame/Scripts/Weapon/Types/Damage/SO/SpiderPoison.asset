@@ -21,6 +21,7 @@ MonoBehaviour:
   BaseSpeed: 2
   Count: 1
   Size: {x: 1, y: 1, z: 1}
+  Guardian: 0
   DamagePattern: 2
   PoolerType: 6
   UpgradeDatas:

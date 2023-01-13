@@ -12,7 +12,9 @@ public class RangedEnemy : EnemyBase
         if(Mathf.Abs(Vector3.Distance(Player.transform.position, transform.position)) <= MeleeRange)
         {
             Monster.ChangeAction(true);
+            MonsterClean.ChangeAction(true);
             Monster.Attack();
+            MonsterClean.Attack();
             //mermi gidicek rakibe deðerse get hit çalýþacak.
             var bullet = GameManager.PoolingManager.EnemyBulletPoolerList[(int)EnemyBulletPoolerType.BasicBullet].GetObjectFromPool();
             var bulletShot = bullet.GetComponent<BulletShot>();
@@ -26,6 +28,7 @@ public class RangedEnemy : EnemyBase
             bulletShot.damage = BaseDamage;
             CanAttack = false;
             Monster.ChangeAction(false);
+            MonsterClean.ChangeAction(false);
 
         }
     }
@@ -39,7 +42,9 @@ public class RangedEnemy : EnemyBase
                 if (Monster.GetState() != (int)MonsterState.Run)
                 {
                     Monster.SetState(MonsterState.Run);
+                    MonsterClean.SetState(MonsterState.Run);
                     Monster.ChangeAction(false);
+                    MonsterClean.ChangeAction(false);
                 }
                 transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, BaseSpeed * Time.deltaTime);
             }

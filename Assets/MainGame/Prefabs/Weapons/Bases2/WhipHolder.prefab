@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8849717794197011972
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8849717794197011973}
+  - component: {fileID: 8849717794197011974}
+  m_Layer: 11
+  m_Name: WhipHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8849717794197011973
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8849717794197011972}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8849717794197011974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8849717794197011972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d763486c2b3d84c428c3145770b42126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkillSO: {fileID: 0}
+  UpgradeLevel: 0
+  IsActivated: 0
+  IsInitialized: 0
+  IsEvolved: 0
+  Target: {fileID: 0}
+  playerCurLook: {x: 0, y: 0, z: 0}
+  HitEffect: {fileID: 0}
+  isMiniGameComplete: 0
+  minigames: []
+  bananas: []
+  SelectSkillPanel: {fileID: 0}
+  PoolerBase: {fileID: 0}
+  BarrelPooler: {fileID: 0}
+  BaseDamage: 0
+  BaseSpeed: 0
+  AttackRange: 0
+  Cooldown: 0
+  Count: 0
+  Size: {x: 0, y: 0, z: 0}
+  Guardian: 0
+  poisonArea: {fileID: 0}
+  StatList:
+    BaseDamage: 0
+    BaseSpeed: 0
+    AttackRange: 0
+    Cooldown: 0
+    Count: 0
+    Size: {x: 0, y: 0, z: 0}
+    Guardian: 0
+  IvySlash: {fileID: 0}
+  contactFilter2:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0

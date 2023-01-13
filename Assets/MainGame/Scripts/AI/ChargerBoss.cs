@@ -14,8 +14,7 @@ public class ChargerBoss : BossBase
     protected override void SetAttackPattern()
     {
         base.SetAttackPattern();
-        StartCoroutine(ChargeAttack(StartDelay,ChargeCount,ChargeBuildUpTime,ChargeTime,BaseAttackCooldown,TimeBtwCharges));
-        
+        StartCoroutine(ChargeAttackWithoutIndicatorFollow(StartDelay,ChargeCount,ChargeBuildUpTime,ChargeTime,BaseAttackCooldown,TimeBtwCharges));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

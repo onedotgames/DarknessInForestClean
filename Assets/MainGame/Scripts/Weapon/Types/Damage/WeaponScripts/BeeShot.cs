@@ -12,20 +12,20 @@ public class BeeShot : WeaponBase
     public ContactPoint2D[] point2D;
     public float Duration;
     public int index;
-    
 
-    private void OnEnable()
+    public void GetDirection()
     {
         moveDirection = GameManager.JoystickManager.variableJoystick.LastDirection.normalized;
-        if(GameManager.JoystickManager.variableJoystick.LastDirection == Vector2.zero)
+        if (GameManager.JoystickManager.variableJoystick.LastDirection == Vector2.zero)
         {
             moveDirection = Vector2.left;
         }
         float addition = 0;
-        if(index % 2 == 0)
+        if (index % 2 == 0)
         {
             addition = Random.Range(25, 45);
-        }else if(index % 2 == 1)
+        }
+        else if (index % 2 == 1)
         {
             addition = -Random.Range(25, 45);
         }
@@ -34,7 +34,7 @@ public class BeeShot : WeaponBase
         Model.transform.rotation = rot;
 
     }
-    
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("ScreenBound"))

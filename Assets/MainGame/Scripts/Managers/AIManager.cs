@@ -25,10 +25,10 @@ public class AIManager : CustomBehaviour
     {
         GameManager.SpawnerManager.MainSpawnerRoutineStop();
         GameManager.SpawnerManager.AdditionalSpawnerRoutineStop();
-        AIList.ForEach(x =>
-        {
-            GameManager.PoolingManager.EnemyPoolerList[(int)x.EnemyPoolerType].ReturnObjectToPool(x.gameObject);
-        });
+        //AIList.ForEach(x =>
+        //{
+        //    GameManager.PoolingManager.EnemyPoolerListV2[(int)x.EnemyPoolerType].(x.gameObject);
+        //});
         ClearEnemyList();
     }
 

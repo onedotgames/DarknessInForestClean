@@ -59,7 +59,7 @@ public class WeaponBase :CustomBehaviour
         }
         SelectSkillPanel = gameManager.UIManager.GetPanel(Panels.SelectSkill).GetComponent<SelectSkill>();
         mPlayer = gameManager.PlayerManager.CurrentPlayer;
-        PoolerBase = gameManager.PoolingManager.WeaponPooler[(int)SkillSO.PoolerType];
+        //PoolerBase = gameManager.PoolingManager.WeaponPooler[(int)SkillSO.PoolerType];
         SetStats();        
     }
 
@@ -381,8 +381,8 @@ public class WeaponBase :CustomBehaviour
         this.StatList.AttackRange = AttackRange;
         this.StatList.Size = Size;
         IsEvolved = true;
-        GameManager.WeaponManager.InitialWeaponList.Remove(GameManager.WeaponManager.selectedWeaponData.Weapon);
-        GameManager.WeaponManager.WeaponsInUse.Remove(GameManager.WeaponManager.selectedWeaponData.Weapon);
+        //GameManager.WeaponManager.InitialWeaponList.Remove(GameManager.WeaponManager.selectedWeaponData.Weapon);
+        //GameManager.WeaponManager.WeaponsInUse.Remove(GameManager.WeaponManager.selectedWeaponData.Weapon);
     }
 
     public virtual void Update()
@@ -641,15 +641,12 @@ public class WeaponBase :CustomBehaviour
         Vector3 currentPosition = mPlayer.transform.position;
         foreach (Transform potentialTarget in enemies)
         {
-            if (potentialTarget.gameObject.activeInHierarchy)
+            Vector3 directionToTarget = potentialTarget.position - currentPosition;
+            float dSqrToTarget = directionToTarget.sqrMagnitude;
+            if (dSqrToTarget < closestDistanceSqr)
             {
-                Vector3 directionToTarget = potentialTarget.position - currentPosition;
-                float dSqrToTarget = directionToTarget.sqrMagnitude;
-                if (dSqrToTarget < closestDistanceSqr)
-                {
-                    closestDistanceSqr = dSqrToTarget;
-                    bestTarget = potentialTarget;
-                }
+                closestDistanceSqr = dSqrToTarget;
+                bestTarget = potentialTarget;
             }
         }
         return bestTarget;

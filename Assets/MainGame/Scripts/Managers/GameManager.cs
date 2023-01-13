@@ -28,6 +28,7 @@ public class GameManager : CustomBehaviour
     public TimeManager TimeManager;
     public QuestManager QuestManager;
     public HolyFountain HolyFountain;
+    public SkillManager SkillManager;
     #endregion
 
     public bool IsGameStarted = false;
@@ -44,6 +45,7 @@ public class GameManager : CustomBehaviour
     public event Action OnTutorialCompleted;
     public event Action OnLevelFailed;
     public event Action OnMiniGame;
+    public event Action OnBossSpawn;
     #endregion
 
     #region Methods
@@ -117,6 +119,7 @@ public class GameManager : CustomBehaviour
         TimeManager.Initialize(this);
         QuestManager.Initialize(this);
         HolyFountain.Initialize(this);
+        SkillManager.Initialize(this);
     }
     #endregion
 
@@ -191,6 +194,14 @@ public class GameManager : CustomBehaviour
             //GameAnalytics.NewProgressionEvent(GAProgressionStatus.Fail, PlayerManager.GetLevelNumber().ToString());
             IsGameStarted = false;
             OnLevelFailed();     
+        }
+    }
+
+    public void BossSpawn()
+    {
+        if(OnBossSpawn != null)
+        {
+            OnBossSpawn();
         }
     }
     public void TutorialCompleted()

@@ -13,11 +13,13 @@ public class PlayerHealthManager : CustomBehaviour
     public bool IsRegenActive;
     public UtilityBase HpReg;
 
+
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
         EventSubs();
     }
+
     
     void EventSubs()
     {
@@ -25,8 +27,6 @@ public class PlayerHealthManager : CustomBehaviour
         {
             GameManager.OnReturnToMainMenu += ReturnToMainMenu;
             GameManager.OnStartGame += StartGame;
-            GameManager.OnLevelCompleted += LevelCompleted;
-            GameManager.OnLevelFailed += LevelFailed;
         }
     }
 
@@ -35,26 +35,15 @@ public class PlayerHealthManager : CustomBehaviour
         Player.mCurrentHealth = Player.mMaxHealth;
         SetHealthBar(Player.mMaxHealth);
     }
-
     public void StartGame()
     {
         Player.mCurrentHealth = Player.mMaxHealth;
         SetHealthBar(Player.mMaxHealth);
     }
 
-    public void LevelCompleted()
-    {
-        IsRegenActive = false;
-    }
-
-    public void LevelFailed()
-    {
-        IsRegenActive = false;
-    }
-
     public void HpRegen()
     {
-        if (Player.mCurrentHealth < Player.mMaxHealth && IsRegenActive)
+        if (Player.mCurrentHealth < Player.mMaxHealth)
         {
             Player.mCurrentHealth += HpReg.UtilitySO.UpgradeUtilityDatas[HpReg.UpgradeLevel].ChangeAmount;
             if(Player.mCurrentHealth > Player.mMaxHealth)
@@ -76,8 +65,8 @@ public class PlayerHealthManager : CustomBehaviour
         {
             GameManager.OnReturnToMainMenu -= ReturnToMainMenu;
             GameManager.OnStartGame -= StartGame;
-            GameManager.OnLevelCompleted -= LevelCompleted;
-            GameManager.OnLevelFailed -= LevelFailed;
         }
     }
+
+    
 }

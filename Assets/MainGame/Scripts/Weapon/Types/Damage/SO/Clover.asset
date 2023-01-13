@@ -16,7 +16,7 @@ MonoBehaviour:
   Description: Default weapon of Player
   Icon: {fileID: 21300000, guid: 00e39863ad622fc4c9d98d54c4540a45, type: 3}
   Cooldown: 1.5
-  AttackRange: 20
+  AttackRange: 50
   BaseDamage: 100
   BaseSpeed: 5
   Count: 1
@@ -25,22 +25,22 @@ MonoBehaviour:
   DamagePattern: 2
   PoolerType: 1
   UpgradeDatas:
-  - Description: "Level 1 - 2 \t\t"
-    UpgradeType: 0
-    PropertyToChange: 3
-    PropertyChangeType: 0
-    ChangeAmount: 0.8
-  - Description: Level 2 - 3
-    UpgradeType: 0
-    PropertyToChange: 2
-    PropertyChangeType: 0
-    ChangeAmount: 2
-  - Description: Level 3-4
+  - Description: Level 1 -> 2
     UpgradeType: 0
     PropertyToChange: 4
     PropertyChangeType: 1
     ChangeAmount: 1
-  - Description: Level 4-5
+  - Description: Level 2 -> 3
+    UpgradeType: 0
+    PropertyToChange: 4
+    PropertyChangeType: 1
+    ChangeAmount: 1
+  - Description: Level 3 -> 4
+    UpgradeType: 0
+    PropertyToChange: 6
+    PropertyChangeType: 1
+    ChangeAmount: 5
+  - Description: Level 4 -> 5
     UpgradeType: 0
     PropertyToChange: 7
     PropertyChangeType: 0

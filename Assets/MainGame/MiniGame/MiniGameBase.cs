@@ -17,7 +17,7 @@ public class MiniGameBase : MonoBehaviour
     public GameObject MediumCircle;
     public GameObject SmallCircle;
     public bool miniGameSucces = false;
-    public WeaponManager weaponManager;
+    [SerializeField] private SkillManager skillManager;
     public GameManager GameManager;
     public HUD HUD;
 
@@ -37,10 +37,11 @@ public class MiniGameBase : MonoBehaviour
             SmallCircle.GetComponent<Circle>().isTrueImage = true;
         }
     }
+
+    
+
     public void PrepareMiniGame()
     {
-        //TargetImage = Weapons[Random.Range(0, Weapons.Count)];
-        //TargetBox.sprite = TargetImage;
         for (int i = 0; i < Weapons.Count; i++)
         {
             TempWeapons.Add(Weapons[i]);
@@ -58,16 +59,15 @@ public class MiniGameBase : MonoBehaviour
             if (BigCircle.GetComponent<Circle>().isTrueImage && MediumCircle.GetComponent<Circle>().isTrueImage && SmallCircle.GetComponent<Circle>().isTrueImage)
             {
                 gameObject.SetActive(false);
-                weaponManager.isMiniGameDone = true;
+                skillManager.IsMiniGameDone = true;
                 PrepareMiniGame();
             }
-            if (weaponManager.isMiniGameDone)
+            if (skillManager.IsMiniGameDone)
             {
-                weaponManager.isMiniGameDone = false;
-                GameManager.WeaponManager.selectedWeaponData.Weapon.UpdateWeapon();
-                GameManager.PoolingManager.WeaponPooler[(int)GameManager.WeaponManager.selectedWeaponData.Weapon.SkillSO.PoolerType].ObjectList.ForEach(x => x.GetComponent<WeaponBase>().UpdateWeapon());
+                skillManager.IsMiniGameDone = false;
+                GameManager.SkillManager.AllWeaponsV2[(int)GameManager.SkillManager.selectedWeaponData.Weapon.SkillSO.PoolerType].EvolveWeapon();
+
                 TargetImage = Weapons[Random.Range(0, Weapons.Count)];
-                HUD.OpenPanel();
                 Time.timeScale = 1;
             }
         }      

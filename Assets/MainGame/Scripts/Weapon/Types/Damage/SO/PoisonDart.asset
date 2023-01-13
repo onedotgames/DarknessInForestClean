@@ -18,7 +18,7 @@ MonoBehaviour:
   Cooldown: 3
   AttackRange: 20
   BaseDamage: 50
-  BaseSpeed: 2
+  BaseSpeed: 4
   Count: 1
   Size: {x: 2, y: 2, z: 2}
   Guardian: 0

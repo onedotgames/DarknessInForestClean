@@ -61,7 +61,6 @@ public class UtilityBase : CustomBehaviour
                     break;
 
                 case UtilityPattern.HealthRegen:
-                    GameManager.PlayerHealthManager.IsRegenActive = true;
                     GameManager.PlayerHealthManager.HpRegen();
                     break;
 
@@ -70,10 +69,13 @@ public class UtilityBase : CustomBehaviour
             }
 
             UpgradeLevel++;
+            Debug.Log(gameObject.name + " Upgrade Level: " + UpgradeLevel);
             if(UpgradeLevel == UtilitySO.UpgradeUtilityDatas.Count - 1)
             {
-                GameManager.WeaponManager.InitialUtilityList.Remove(this);
-                GameManager.WeaponManager.UtilitiesInUse.Remove(this);
+                GameManager.SkillManager.AllUtils.Remove(this);
+                GameManager.SkillManager.UtilitiesInUse.Remove(this);
+                Debug.Log(gameObject.name + " Çýkarýldý");
+
             }
         }
     }

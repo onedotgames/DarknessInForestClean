@@ -13,35 +13,35 @@ public class EnemySpawner : CustomBehaviour
         timeManager = GameManager.TimeManager;
     }
 
-    public void SpawnEnemy()
-    {
-        if (!GameManager.IsGamePaused)
-        {
-            Spawn();
-        }
-    }
+    //public void SpawnEnemy()
+    //{
+    //    if (!GameManager.IsGamePaused)
+    //    {
+    //        Spawn();
+    //    }
+    //}
 
-    private void Spawn()
-    {
-        if(timeManager.GetTimeValue() < 30f)
-        {
-            EnemyPoolerToSpawn = GameManager.PoolingManager.EnemyPoolerList[(int)EnemyPoolerType.BasicMeleeEnemyPoolerOne];
-            var obj = EnemyPoolerToSpawn.GetObjectFromPool();
-            obj.transform.position = transform.position;
-            obj.GetComponent<EnemyBase>().ActivateEnemy();
-        }
-        else
-        {
-            var index = Random.Range(0, GameManager.PoolingManager.EnemyPoolerList.Count);
-            EnemyPoolerToSpawn = GameManager.PoolingManager.EnemyPoolerList[index];
-            var obj = EnemyPoolerToSpawn.GetObjectFromPool();
-            obj.transform.position = transform.position;
-            obj.GetComponent<EnemyBase>().ActivateEnemy();
-        }
+    //private void Spawn()
+    //{
+    //    //if(timeManager.GetTimeValue() < 30f)
+    //    //{
+    //    //    EnemyPoolerToSpawn = GameManager.PoolingManager.EnemyPoolerList[(int)EnemyPoolerType.BasicMeleeEnemyPoolerOne];
+    //    //    var obj = EnemyPoolerToSpawn.GetObjectFromPool();
+    //    //    obj.transform.position = transform.position;
+    //    //    obj.GetComponent<EnemyBase>().ActivateEnemy();
+    //    //}
+    //    //else
+    //    //{
+    //    //    var index = Random.Range(0, GameManager.PoolingManager.EnemyPoolerList.Count);
+    //    //    EnemyPoolerToSpawn = GameManager.PoolingManager.EnemyPoolerList[index];
+    //    //    var obj = EnemyPoolerToSpawn.GetObjectFromPool();
+    //    //    obj.transform.position = transform.position;
+    //    //    obj.GetComponent<EnemyBase>().ActivateEnemy();
+    //    //}
 
-        if(timeManager.GetTimeValue() > 60f)
-        {
+    //    //if(timeManager.GetTimeValue() > 60f)
+    //    //{
 
-        }
-    }
+    //    //}
+    //}
 }
