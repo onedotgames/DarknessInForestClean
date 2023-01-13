@@ -16,6 +16,9 @@ public class ProjectileBase : CustomBehaviour
     public GameObject Model;
     public Vector3 Direction;
     public ProjectileToSpawn ProjectileToSpawn;
+    [HideInInspector]
+    public PoolerBase BarrelPooler;
+
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);

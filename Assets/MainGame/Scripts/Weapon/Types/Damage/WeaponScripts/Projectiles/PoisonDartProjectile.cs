@@ -22,7 +22,7 @@ public class PoisonDartProjectile : ProjectileBase
     {
         if (!GameManager.IsGamePaused && GameManager.IsGameStarted)
         {
-            ContinueuslyPlayVFX(MovementVFX);
+            //ContinueuslyPlayVFX(MovementVFX);
             //RotateModel();
             if (_shouldMove)
             {
@@ -52,7 +52,7 @@ public class PoisonDartProjectile : ProjectileBase
             {
                 enemy.GetHit(Damage);
 
-                enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(Damage, AoETickInterval));
+                enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval));
 
                 if(!PoisonVFX.isPlaying)
                     PoisonVFX.Play();
@@ -74,7 +74,7 @@ public class PoisonDartProjectile : ProjectileBase
             {
                 enemy.GetHit(Damage);
 
-                enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(Damage, AoETickInterval));
+                enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval));
 
                 if (!PoisonVFX.isPlaying)
                     PoisonVFX.Play();

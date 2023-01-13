@@ -8,11 +8,11 @@ public class ProjectileSpawner : CustomBehaviour
     public Transform Parent;
     public ProjectileToSpawn Obj;
     public int SpawnCooldown;
-
+    [SerializeField] private int _objectCount;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
-        Pool = new ObjectPool<ProjectileToSpawn>(CreateObject, OnTakeFromPool, OnReturnToPool, OnDestroyObject, false, 200);
+        Pool = new ObjectPool<ProjectileToSpawn>(CreateObject, OnTakeFromPool, OnReturnToPool, OnDestroyObject, false, _objectCount);
         Debug.Log("Object Spawner set: " + gameObject.name);
     }
 
@@ -32,8 +32,11 @@ public class ProjectileSpawner : CustomBehaviour
     private void OnTakeFromPool(ProjectileToSpawn Instance)
     {
         //Instance.gameObject.SetActive(true);
+        if(Instance != null)
+        {
+            Instance.transform.SetParent(Parent, true);
 
-        Instance.transform.SetParent(Parent, true);
+        }
         //Instance.BehaviourToInit.Initialize(GameManager);
     }
 

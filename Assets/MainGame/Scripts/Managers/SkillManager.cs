@@ -66,7 +66,6 @@ public class SkillManager : CustomBehaviour
     public ButtonData selectedWeaponData;
     public ButtonData selectedUtilityData;
 
-    public List<WeaponBase> WeaponBases = new List<WeaponBase>();
     public List<WeaponBaseV2> WeaponBasesV2 = new List<WeaponBaseV2>();
     public List<UtilityBase> UtilityBases = new List<UtilityBase>();
 
@@ -93,13 +92,13 @@ public class SkillManager : CustomBehaviour
     public void ActivateDefaultWeapon()
     {
         AllWeaponsV2[1].Initialize(GameManager);
+        PausePanel.UpdateWeaponIcons(AllWeaponsV2[1].SkillSO.Icon);
         AllWeaponsV2[1].gameObject.SetActive(true);
     }
     public void ActivateWeapon(int index)
     {
         if (AllWeaponsV2[index].IsActivated)
         {
-            Debug.Log("UPGRADE");
             AllWeaponsV2[index].UpdateWeapon();
         }
         else
@@ -215,9 +214,9 @@ public class SkillManager : CustomBehaviour
             UtilitiesLimitReached = true;
         }
     }
+
     public void CreateTempWeaponList()
     {
-
         if (!WeaponLimitReached)
         {
             TempWeaponsV2.Clear();
@@ -225,10 +224,6 @@ public class SkillManager : CustomBehaviour
             {
                 TempWeaponsV2.Add(AllWeaponsV2[i]);
             }
-            //if (!DefaultWeapon.IsEvolved)
-            //{
-            //    TempWeaponsV2.Add(AllWeaponsV2[0]);
-            //}
         }
         else
         {
@@ -237,10 +232,6 @@ public class SkillManager : CustomBehaviour
             {
 
                 TempWeaponsV2.Add(WeaponsInUseV2[i]);
-            }
-            if (!DefaultWeapon.IsEvolved)
-            {
-                TempWeaponsV2.Add(AllWeaponsV2[0]);
             }
         }
 
@@ -266,120 +257,6 @@ public class SkillManager : CustomBehaviour
         }
 
     }
-
-    private void AssignSlots(DamagePattern damagePattern)
-    {
-        switch (damagePattern)
-        {
-            case DamagePattern.Whip:
-                switch (ActiveWeaponIndex)
-                {
-                    case 0:
-                        FireWeapon1 = WhipAtc;
-                        break;
-                    case 1:
-                        FireWeapon2 = WhipAtc;
-                        break;
-                    case 2:
-                        FireWeapon3 = WhipAtc;
-                        break;
-                    case 3:
-                        FireWeapon4 = WhipAtc;
-                        break;
-                    case 4:
-                        FireWeapon5 = WhipAtc;
-                        break;
-                }
-                break;
-        }
-    }
-
-    //public void InvokeWeapon()
-    //{
-    //    if (EventSystem.current.currentSelectedGameObject == SelectSkillPanel.ButtonDataList[0].Button.gameObject)
-    //    {
-    //        selectedWeaponData = SelectSkillPanel.ButtonDataList[0]; //Selected data daha sonra referens olarak kullan�lmak �zere belirlenir
-
-    //        bool contains = false;
-
-    //        foreach (var item in PausePanel.WeaponIconsOnPause)
-    //        {
-    //            if (item.sprite.name == selectedWeaponData.Image.sprite.name)
-    //            {
-    //                contains = true;
-    //            }
-    //        }
-
-    //        if (contains)
-    //        {
-    //            //Increase star level
-    //        }
-    //        else
-    //        {
-    //            PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
-    //            WeaponsInUse.Add(selectedWeaponData.Weapon);
-    //            CheckWeaponLimitReached();
-    //        }
-
-    //        //LevelUpWeapon();
-    //    }
-    //    else if (EventSystem.current.currentSelectedGameObject == SelectSkillPanel.ButtonDataList[1].Button.gameObject)
-    //    {
-    //        selectedWeaponData = SelectSkillPanel.ButtonDataList[1]; //Selected data daha sonra referens olarak kullan�lmak �zere belirlenir
-
-    //        bool contains = false;
-
-    //        foreach (var item in PausePanel.WeaponIconsOnPause)
-    //        {
-    //            if (item.sprite.name == selectedWeaponData.Image.sprite.name)
-    //            {
-    //                contains = true;
-    //            }
-    //        }
-
-    //        if (contains)
-    //        {
-
-    //        }
-    //        else
-    //        {
-    //            PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
-    //            WeaponsInUse.Add(selectedWeaponData.Weapon);
-    //            CheckWeaponLimitReached();
-
-    //        }
-
-    //        //LevelUpWeapon();
-    //    }
-    //    else if (EventSystem.current.currentSelectedGameObject == SelectSkillPanel.ButtonDataList[2].Button.gameObject)
-    //    {
-    //        selectedWeaponData = SelectSkillPanel.ButtonDataList[2]; //Selected data daha sonra referens olarak kullan�lmak �zere belirlenir
-
-    //        bool contains = false;
-
-    //        foreach (var item in PausePanel.WeaponIconsOnPause)
-    //        {
-    //            if (item.sprite.name == selectedWeaponData.Image.sprite.name)
-    //            {
-    //                contains = true;
-    //            }
-    //        }
-
-    //        if (contains)
-    //        {
-
-    //        }
-    //        else
-    //        {
-    //            PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
-    //            WeaponsInUse.Add(selectedWeaponData.Weapon);
-    //            CheckWeaponLimitReached();
-
-    //        }
-
-    //        //LevelUpWeapon();
-    //    }       
-    //}
 
     public void InvokeWeaponV2()
     {
@@ -497,6 +374,8 @@ public class SkillManager : CustomBehaviour
             else
             {
                 PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
+                UtilitiesInUse.Add(selectedUtilityData.Utility);
+                CheckUtilLimitReached();
             }
 
         }
@@ -524,6 +403,8 @@ public class SkillManager : CustomBehaviour
             else
             {
                 PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
+                UtilitiesInUse.Add(selectedUtilityData.Utility);
+                CheckUtilLimitReached();
             }
         }
         else if (EventSystem.current.currentSelectedGameObject == SelectSkillPanel.ButtonDataList[2].Button.gameObject)
@@ -550,13 +431,11 @@ public class SkillManager : CustomBehaviour
             else
             {
                 PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
+                UtilitiesInUse.Add(selectedUtilityData.Utility);
+                CheckUtilLimitReached();
             }
         }
 
         SelectSkillPanel.CloseSkillPanelAndOpenHud();
-    }
-    private void OnLevelStart()
-    {
-        AssignSlots(DefaultWeapon.SkillSO.DamagePattern);
     }
 }

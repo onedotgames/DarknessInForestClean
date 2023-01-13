@@ -8,7 +8,6 @@ public class WhipProjetile : ProjectileBase
     public ContactFilter2D contactFilter2;
     public void WhipAttack()
     {
-        Debug.Log("Whip attack çalýþýyor");
         float horizontal = GameManager.JoystickManager.GetHorizontal();
         float vertical = GameManager.JoystickManager.GetVertical();
 

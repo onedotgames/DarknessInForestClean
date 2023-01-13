@@ -80,6 +80,7 @@ public class WeaponBaseV2 : CustomBehaviour
         mPlayer = gameManager.PlayerManager.CurrentPlayer;
         //PoolerBase = gameManager.PoolingManager.WeaponPooler[(int)SkillSO.PoolerType]; 
         Pooler = gameManager.PoolingManager.ProjectileSpawners[(int)SkillSO.PoolerType];
+        BarrelPooler = gameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.MagnetPooler];
         //Debug.Log(Pooler.gameObject.name);
         SetStats();
         //mWait = new WaitForSeconds(Cooldown);
@@ -452,10 +453,12 @@ public class WeaponBaseV2 : CustomBehaviour
                 break;
 
             case PoolerType.SpiderWebPooler:
-
+                await SpiderWeb();
+                _timerOn = true;
                 break;
             case PoolerType.SpiderPoisonPooler:
-
+                await SpiderPoisonWeb();
+                _timerOn = true;
                 break;
 
             case PoolerType.BeeShotPooler:
@@ -467,11 +470,12 @@ public class WeaponBaseV2 : CustomBehaviour
                 break;
 
             case PoolerType.BirdBomb:
-
+                await BirdBomb();
+                _timerOn = true;
                 break;
 
             case PoolerType.SkunGasPooler:
-
+                SkunkGas();
                 break;
 
             case PoolerType.BananaPooler:
@@ -529,7 +533,6 @@ public class WeaponBaseV2 : CustomBehaviour
     }*/
     private async Task WallnutHammer()
     {
-        Debug.Log("Wallnut çaðýrýldý");
         for (int i = 0; i < Count; i++)
         {
             if (ActiveChestnuts != null)
@@ -546,7 +549,6 @@ public class WeaponBaseV2 : CustomBehaviour
             SetSkill(GameManager.AIManager.EnemyList);
 
             SetProjectile(wallnutHammer, false);
-            Debug.Log(mDirection);
             wallnutHammer.Range = AttackRange;
             wallnutHammer.WeaponBaseV2 = this;
             obj.gameObject.SetActive(true);
@@ -681,6 +683,38 @@ public class WeaponBaseV2 : CustomBehaviour
         }
     }
 
+    private async Task SpiderWeb()
+    {
+        for (int i = 0; i < Count; i++)
+        {
+            var obj = Pooler.GetFromPool();
+            obj.transform.position = this.transform.position;
+
+            var web = obj.gameObject.GetComponent<SpiderWebProjectile>();
+            SetSkill(GameManager.AIManager.EnemyList);
+
+            SetProjectile(web, false);
+            obj.gameObject.SetActive(true);
+            GameManager.AIManager.EnemyList.Remove(_target);
+            await Delay(0.25f);
+        }
+    }
+    private async Task SpiderPoisonWeb()
+    {
+        for (int i = 0; i < Count; i++)
+        {
+            var obj = Pooler.GetFromPool();
+            obj.transform.position = this.transform.position;
+
+            var web = obj.gameObject.GetComponent<SpiderPoisonProjectile>();
+            SetSkill(GameManager.AIManager.EnemyList);
+
+            SetProjectile(web, false);
+            obj.gameObject.SetActive(true);
+            GameManager.AIManager.EnemyList.Remove(_target);
+            await Delay(0.25f);
+        }
+    }
     private async Task BeeShot()
     {
         ActiveBeeShots.Clear();
@@ -711,7 +745,30 @@ public class WeaponBaseV2 : CustomBehaviour
         }
     }
     
+    private async Task BirdBomb()
+    {
+        for (int i = 0; i < Count; i++)
+        {
+            var obj = Pooler.GetFromPool();
+            obj.transform.position = this.transform.position;
+
+            var mBomb = obj.gameObject.GetComponent<BirdBombProjectile>();
+            SetProjectile(mBomb, false);
+            obj.gameObject.SetActive(true);
+            mBomb.Drop();
+            await Delay(0.25f);
+        }
+    }
     
+    private void SkunkGas()
+    {
+        var obj = Pooler.GetFromPool();
+        obj.transform.position = this.transform.position;
+        var mSkunk = obj.gameObject.GetComponent<SkunkGasProjectile>();
+        mSkunk.Player = mPlayer;
+        SetProjectile(mSkunk, true);
+        obj.gameObject.SetActive(true);
+    }
 
     async Task<int> Delay(float delay)
     {

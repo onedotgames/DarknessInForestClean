@@ -34,77 +34,17 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
         mSkillManager = uIManager.GameManager.SkillManager;
         mWeaponManager = uIManager.GameManager.WeaponManager;
     }
-    public void AssignSkillSelectingButtons()
-    {
-        mWeaponManager.WeaponBases.Clear();
-        mWeaponManager.UtilityBases.Clear();
-
-        mWeaponManager.CheckWeaponLimitReached();
-        mWeaponManager.CreateTempWeaponList();
-        mWeaponManager.CreateTempUtilList();
-
-        for (int i = 0; i < ButtonDataList.Count; i++)
-        {
-            if (GameManager.PlayerLevelManager.PlayerLevel <= 5)
-            {
-                AssignWeapon(i);
-            }
-            else
-            {
-                //Pick weapon or Util
-                int j = Random.Range(0, 2);
-
-
-                if (j == 0)
-                {
-                    //Weapon
-                    if (i < mWeaponManager.TempWeaponList.Count)
-                    {
-                        AssignWeapon(i);
-                    }
-                    else
-                    {
-                        if (i < mWeaponManager.TempUtilList.Count)
-                        {
-                            AssignUtil(i);
-                        }
-                        else
-                        {
-                            Debug.Log("Nothing to assign");
-                        }
-                    }
-                }
-                else if (j == 1)
-                {
-                    //Util
-                    if(i < mWeaponManager.TempUtilList.Count)
-                    {
-                        AssignUtil(i);
-                    }
-                    else
-                    {
-                        if (i < mWeaponManager.TempWeaponList.Count)
-                        {
-                            AssignWeapon(i);
-                        }
-                        else
-                        {
-                            Debug.Log("Nothing to assign");
-                        }
-                    }
-                }
-
-            }
-
-        }
-    }
+    
     public void AssignSkillButtonsV2()
     {
-        Debug.Log("Assigning to: " + mSkillManager.name);
+        //CLear the lists of objects
         mSkillManager.WeaponBasesV2.Clear();
         mSkillManager.UtilityBases.Clear();
 
+        //Check if they reached their limits
         mSkillManager.CheckWeaponLimitReached();
+        mSkillManager.CheckUtilLimitReached();
+
         mSkillManager.CreateTempWeaponList();
         mSkillManager.CreateTempUtilList();
 
@@ -119,11 +59,10 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
                 //Pick weapon or Util
                 int j = Random.Range(0, 2);
 
-
                 if (j == 0)
                 {
                     //Weapon
-                    if (i < mSkillManager.TempWeapons.Count)
+                    if (i < mSkillManager.TempWeaponsV2.Count)
                     {
                         //AssignWeapon(i);
                         AssignWeaponV3(i);
@@ -150,7 +89,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
                     }
                     else
                     {
-                        if (i < mSkillManager.TempWeapons.Count)
+                        if (i < mSkillManager.TempWeaponsV2.Count)
                         {
                             AssignWeaponV3(i);
                         }
@@ -180,6 +119,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
 
     public void AssignWeaponV3(int index)
     {
+        mSkillManager.WeaponBasesV2 = new List<WeaponBaseV2>();
         WeaponBaseV2 weapon = mSkillManager.TempWeaponsV2[Random.Range(0, mSkillManager.TempWeaponsV2.Count)];
         mSkillManager.WeaponBasesV2.Add(weapon);
         mSkillManager.TempWeaponsV2.Remove(weapon);
@@ -190,19 +130,10 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
         ButtonDataList[index].Weapon = weapon;
     }
 
-    public void AssignUtil(int index)
-    {
-        UtilityBase util = mWeaponManager.TempUtilList[Random.Range(0, mWeaponManager.TempUtilList.Count)];
-        mWeaponManager.UtilityBases.Add(util);
-        mWeaponManager.TempUtilList.Remove(util);
-
-        ButtonDataList[index].Button.Initialize(GameManager.UIManager, mWeaponManager.InvokeUtility, true);
-        ButtonDataList[index].Image.sprite = util.UtilitySO.Icon;
-        ButtonDataList[index].Text.SetText(util.UtilitySO.name);
-        ButtonDataList[index].Utility = util;
-    }
     public void AssignUtilV2(int index)
     {
+        mSkillManager.UtilityBases = new List<UtilityBase>();
+
         UtilityBase util = mSkillManager.TempUtils[Random.Range(0, mSkillManager.TempUtils.Count)];
         mSkillManager.UtilityBases.Add(util);
         mSkillManager.TempUtils.Remove(util);

@@ -19,7 +19,8 @@ Material:
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2999
-  stringTagMap: {}
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -153,7 +154,7 @@ Material:
     - _RandomSh1Mult: 1
     - _RandomSh2Mult: 1
     - _RandomSh3Mult: 1
-    - _RenderingMode: 5
+    - _RenderingMode: 3
     - _RimAddAmount: 1
     - _RimBias: 0
     - _RimErodesAlpha: 0
@@ -206,7 +207,7 @@ Material:
     - _ShapeDistortXSpeed: 0.1
     - _ShapeDistortYSpeed: 0.1
     - _ShapeRotationOffset: 0
-    - _ShapeRotationSpeed: 0
+    - _ShapeRotationSpeed: 1.52
     - _ShapeXSpeed: 0
     - _ShapeYSpeed: 0
     - _SoftFactor: 0.5

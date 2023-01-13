@@ -10,6 +10,6 @@ public class SkunkGas : WeaponBase
     }
     public override void MovementMethod()
     {
-        transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
+        
     }
 }

@@ -51,7 +51,6 @@ public class PlayerLevelManager : CustomBehaviour
     {
         if (CurrentExp / LevelRequirement >= 1)
         {
-            Debug.Log("Check?");
             CurrentExp = CurrentExp - LevelRequirement;
 
             SetLevelRequirement();
@@ -97,7 +96,6 @@ public class PlayerLevelManager : CustomBehaviour
 
     private void LevelUp()
     {
-        Debug.Log("LEVEL UP!!!");
         mSelectSkillPanel.OpenPanel();
         PlayerLevel++;
         mHud.UpdateLevelText();
