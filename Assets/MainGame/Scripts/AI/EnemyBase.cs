@@ -135,7 +135,7 @@ public class EnemyBase : CustomBehaviour
             Invoke("DropExp", 0.4f);
         }
     }
-    public void EnemyDeathAnim() //oncomplete e clean modeli açmak için script yaz.
+    public void EnemyDeathAnim() //oncomplete e clean modeli a?mak i?in script yaz.
     {
         CleanSprites.ForEach(x => x.DOFade(1, 0.1f));
         for (int j = 0; j < EnemySprites.Count; j++)
