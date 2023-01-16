@@ -63,4 +63,25 @@ public class ProjectileBase : CustomBehaviour
             vfx.Play();
         }
     }
+    protected void PlayHitVFX()
+    {
+        if (!HitVFX.gameObject.activeInHierarchy)
+        {
+            HitVFX.gameObject.SetActive(true);
+        }
+        if (!HitVFX.isPlaying)
+        {
+            HitVFX.Play();
+        }
+        Invoke("StopHitVfx", HitVFX.main.duration);
+
+    }
+
+    private void StopHitVfx()
+    {
+        if (HitVFX.gameObject.activeInHierarchy)
+        {
+            HitVFX.gameObject.SetActive(false);
+        }
+    }
 }

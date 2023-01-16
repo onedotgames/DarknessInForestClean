@@ -28,7 +28,8 @@ public class CHammerProjectile : ProjectileBase
     {
         if (!GameManager.IsGamePaused && GameManager.IsGameStarted && IsReady)
         {
-            //ContinueuslyPlayVFX(MovementVFX);
+            
+            ContinueuslyPlayVFX(MovementVFX);
             RotateModel();
             ChammerMovement();
         }
@@ -63,6 +64,7 @@ public class CHammerProjectile : ProjectileBase
             {
 
                 enemy.GetHit(Damage);
+                PlayHitVFX();
                 //Return();
             }
         }
@@ -76,6 +78,7 @@ public class CHammerProjectile : ProjectileBase
             else
             {
                 enemy.GetHit(Damage);
+                PlayHitVFX();
                 //Return();
             }
         }
@@ -91,6 +94,7 @@ public class CHammerProjectile : ProjectileBase
                 }
                 else
                 {
+                    
                     Return();
                 }
 
