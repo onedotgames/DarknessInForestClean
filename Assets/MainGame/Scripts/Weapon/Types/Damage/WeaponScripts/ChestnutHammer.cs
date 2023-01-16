@@ -36,41 +36,41 @@ public class ChestnutHammer : WeaponBase
     }
 
 
-    public override void OnTriggerEnter2D(Collider2D collision)
-    {
-        base.OnTriggerEnter2D(collision);
-        if (mIsReturning)
-        {
-            if (collision.CompareTag("PlayerCombatLayer"))
-            {
-                bCol2D.enabled = false;
-                spriteRenderer.enabled = false;
-                if(this == GameManager.WeaponManager.ActiveChestnuts[GameManager.WeaponManager.ActiveChestnuts.Count-1])
-                {
-                    if (UpgradeLevel == 0)
-                    {
-                        Invoke("InvokeAgain", SkillSO.Cooldown);
-                    }
-                    else
-                    {
-                        Invoke("InvokeAgain", StatList.Cooldown);
-                    }
+    //public override void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    base.OnTriggerEnter2D(collision);
+    //    if (mIsReturning)
+    //    {
+    //        if (collision.CompareTag("PlayerCombatLayer"))
+    //        {
+    //            bCol2D.enabled = false;
+    //            spriteRenderer.enabled = false;
+    //            if(this == GameManager.WeaponManager.ActiveChestnuts[GameManager.WeaponManager.ActiveChestnuts.Count-1])
+    //            {
+    //                if (UpgradeLevel == 0)
+    //                {
+    //                    Invoke("InvokeAgain", SkillSO.Cooldown);
+    //                }
+    //                else
+    //                {
+    //                    Invoke("InvokeAgain", StatList.Cooldown);
+    //                }
                     
-                }
+    //            }
                 
                 
-            }
-        }
+    //        }
+    //    }
         
-    }
+    //}
 
-    private void InvokeAgain()
-    {
-        GameManager.WeaponManager.YoyoWeaponSlotRoutine(this);
-        bCol2D.enabled = true;
-        spriteRenderer.enabled = true;
-        PoolerBase.ReturnObjectToPool(gameObject);
-    }
+    //private void InvokeAgain()
+    //{
+    //    GameManager.WeaponManager.YoyoWeaponSlotRoutine(this);
+    //    bCol2D.enabled = true;
+    //    spriteRenderer.enabled = true;
+    //    PoolerBase.ReturnObjectToPool(gameObject);
+    //}
 
     
 }

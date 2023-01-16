@@ -9,43 +9,19 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 public class SkillManager : CustomBehaviour
 {
     [Space(10), Title("Weapon Bases")]
-    public WeaponBase DefaultWeapon;
     public WeaponBaseV2 DefaultWeaponV2;
-    public WeaponBase BeeShot;
-    public WeaponBase BirdBomb;
-    public WeaponBase CHammer;
-    public WeaponBase Whip;
     public int ActiveWeaponIndex = 0;
 
-    [Space(10), Title("Target Weapon Cooldowns")]
-    public float TargetWeaponCooldown1;
-    public float TargetWeaponCooldown2;
-    public float TargetWeaponCooldown3;
-    public float TargetWeaponCooldown4;
-    public float TargetWeaponCooldown5;
-    private float timeValue;
-
-    [Space(10), Title("Target Weapon Cooldowns")]
-    public float CurrentWeaponCooldown1;
-    public float CurrentWeaponCooldown2;
-    public float CurrentWeaponCooldown3;
-    public float CurrentWeaponCooldown4;
-    public float CurrentWeaponCooldown5;
-
-
     [Space(10), Title("All Skills")]
-    public List<WeaponBase> AllWeapons;
     public List<WeaponBaseV2> AllWeaponsV2;
     public List<UtilityBase> AllUtils;
 
     [HideInInspector, Title("Temporary Skill Lists")]
     public List<UtilityBase> TempUtils;
-    public List<WeaponBase> TempWeapons;
     public List<WeaponBaseV2> TempWeaponsV2;
 
 
     [Space(10), Title("Skills In Use")]
-    public List<WeaponBase> WeaponsInUse;
     public List<WeaponBaseV2> WeaponsInUseV2;
     public List<UtilityBase> UtilitiesInUse;
 
@@ -53,11 +29,6 @@ public class SkillManager : CustomBehaviour
     public bool IsMiniGameDone = false;
     public bool WeaponLimitReached = false;
     public bool UtilitiesLimitReached = false;
-    public bool Weapon1Active = false;
-    public bool Weapon2Active = false;
-    public bool Weapon3Active = false;
-    public bool Weapon4Active = false;
-    public bool Weapon5Active = false;
 
     [Space(10), Title("References")]
     public PausePanel PausePanel;
@@ -69,29 +40,27 @@ public class SkillManager : CustomBehaviour
     public List<WeaponBaseV2> WeaponBasesV2 = new List<WeaponBaseV2>();
     public List<UtilityBase> UtilityBases = new List<UtilityBase>();
 
-    [ReadOnly,Title("Attack Methods")]
-    public delegate void AttackDelegate();
-    protected AttackDelegate FireWeapon1;
-    protected AttackDelegate FireWeapon2;
-    protected AttackDelegate FireWeapon3;
-    protected AttackDelegate FireWeapon4;
-    protected AttackDelegate FireWeapon5;
-
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
         AssignReferences();
+
     }
     private void AssignReferences()
     {
-        //mPlayer = GameManager.PlayerManager.CurrentPlayer;
-        //HUD = GameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
+        if (GameManager != null)
+        {
+            GameManager.OnStartGame += OnLevelStart;
+        }
+
         PausePanel = GameManager.UIManager.GetPanel(Panels.Pause).GetComponent<PausePanel>();
         SelectSkillPanel = GameManager.UIManager.GetPanel(Panels.SelectSkill).GetComponent<SelectSkill>();
     }
     public void ActivateDefaultWeapon()
     {
         AllWeaponsV2[1].Initialize(GameManager);
+        WeaponsInUseV2.Add(AllWeaponsV2[1]);
+
         PausePanel.UpdateWeaponIcons(AllWeaponsV2[1].SkillSO.Icon);
         AllWeaponsV2[1].gameObject.SetActive(true);
     }
@@ -348,5 +317,18 @@ public class SkillManager : CustomBehaviour
         }
 
         SelectSkillPanel.CloseSkillPanelAndOpenHud();
+    }
+
+    private void OnLevelStart()
+    {
+        ActivateDefaultWeapon();
+    }
+
+    private void OnDisable()
+    {
+        if (GameManager != null)
+        {
+            GameManager.OnStartGame -= OnLevelStart;
+        }
     }
 }

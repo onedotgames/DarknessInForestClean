@@ -183,7 +183,7 @@ public class WeaponManager : CustomBehaviour
         //        }
         //        break;
         //}
-        GameManager.SkillManager.ActivateDefaultWeapon();
+        //GameManager.SkillManager.ActivateDefaultWeapon();
     }
     public bool CheckContainsWeapon()
     {

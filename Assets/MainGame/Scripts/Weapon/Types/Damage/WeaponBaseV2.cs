@@ -88,6 +88,7 @@ public class WeaponBaseV2 : CustomBehaviour
         _tasks = new List<Task>(1);
         IsActivated = true;
         //SetAttackMethod();
+        
         CloseSkillPanel();
     }
     private async void OnEnable()

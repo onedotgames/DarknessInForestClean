@@ -22,7 +22,7 @@ public class GameManager : CustomBehaviour
     public PlayerLevelManager PlayerLevelManager;
     public PlayerHealthManager PlayerHealthManager;
     public PoolingManager PoolingManager;
-    public WeaponManager WeaponManager;
+    //public WeaponManager WeaponManager;
     public BarrelSystem BarrelSystem;
     public SpawnerManager SpawnerManager;
     public TimeManager TimeManager;
@@ -113,7 +113,7 @@ public class GameManager : CustomBehaviour
         PlayerLevelManager.Initialize(this);
         PlayerHealthManager.Initialize(this);
         PoolingManager.Initialize(this);
-        WeaponManager.Initialize(this);
+        //WeaponManager.Initialize(this);
         BarrelSystem.Initialize(this);
         SpawnerManager.Initialize(this);
         TimeManager.Initialize(this);

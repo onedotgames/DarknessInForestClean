@@ -64,7 +64,15 @@ public class ProjectileSpawner : CustomBehaviour
 
     private void SpawnObject(ProjectileToSpawn Instance)
     {
-        Instance.transform.position = transform.position;
+        if(Instance != null)
+        {
+            Instance.transform.position = transform.position;
+
+        }
+        else
+        {
+            Debug.Log("Instance null");
+        }
         //Instance.BehaviourToInit.Initialize(GameManager);
     }
 }

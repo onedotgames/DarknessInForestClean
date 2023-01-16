@@ -18,7 +18,7 @@ public class ProjectileBase : CustomBehaviour
     public ProjectileToSpawn ProjectileToSpawn;
     [HideInInspector]
     public PoolerBase BarrelPooler;
-
+    public ParticlePooler ParticlePooler;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -77,7 +77,7 @@ public class ProjectileBase : CustomBehaviour
 
     }
 
-    private void StopHitVfx()
+    public void StopHitVfx()
     {
         if (HitVFX.gameObject.activeInHierarchy)
         {

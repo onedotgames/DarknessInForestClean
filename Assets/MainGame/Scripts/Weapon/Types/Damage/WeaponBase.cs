@@ -88,20 +88,20 @@ public class WeaponBase :CustomBehaviour
 
     }
 
-    public void UpdateWeapon()
-    {
+    //public void UpdateWeapon()
+    //{
 
-        if(UpgradeLevel < 4)
-        {
-            switch (SkillSO.UpgradeDatas[UpgradeLevel].UpgradeType)
-            {
-                case UpgradeType.PropertyChange:
-                    MakePropertyReadyForChange(SkillSO.UpgradeDatas[UpgradeLevel].PropertyToChange);
-                    break;
-            }
+    //    if(UpgradeLevel < 4)
+    //    {
+    //        switch (SkillSO.UpgradeDatas[UpgradeLevel].UpgradeType)
+    //        {
+    //            case UpgradeType.PropertyChange:
+    //                MakePropertyReadyForChange(SkillSO.UpgradeDatas[UpgradeLevel].PropertyToChange);
+    //                break;
+    //        }
 
-        }
-    }
+    //    }
+    //}
 
     public void ChangeProperty(float propertyToChange, PropertyChangeType propertyChangeType, float changeAmount)
     {
@@ -115,275 +115,275 @@ public class WeaponBase :CustomBehaviour
         }
     }
 
-    public void MakePropertyReadyForChange(PropertyToChange propertyToChange)
-    {
-        switch (propertyToChange)
-        { 
-            case PropertyToChange.Damage:
-                if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Multiplication)
-                {
-                    BaseDamage *=  (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                }
-                else if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Addition)
-                {
-                    BaseDamage += (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                }
+    //public void MakePropertyReadyForChange(PropertyToChange propertyToChange)
+    //{
+    //    switch (propertyToChange)
+    //    { 
+    //        case PropertyToChange.Damage:
+    //            if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Multiplication)
+    //            {
+    //                BaseDamage *=  (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            }
+    //            else if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Addition)
+    //            {
+    //                BaseDamage += (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            }
 
-                StatList.BaseDamage = BaseDamage;
-                StatList.BaseSpeed = BaseSpeed;
-                StatList.Count = Count;
-                StatList.Cooldown = Cooldown;
-                StatList.AttackRange = AttackRange;
-                StatList.Size = Size;
-                StatList.Guardian = Guardian;
+    //            StatList.BaseDamage = BaseDamage;
+    //            StatList.BaseSpeed = BaseSpeed;
+    //            StatList.Count = Count;
+    //            StatList.Cooldown = Cooldown;
+    //            StatList.AttackRange = AttackRange;
+    //            StatList.Size = Size;
+    //            StatList.Guardian = Guardian;
 
-                if (GameManager.WeaponManager.SelectSkillPanel.gameObject.activeInHierarchy)
-                {
-                    GameManager.WeaponManager.SelectSkillPanel.ClosePanel();
-                }
-                if (Time.timeScale != 1)
-                {
-                    Time.timeScale = 1;
-                }
+    //            if (GameManager.WeaponManager.SelectSkillPanel.gameObject.activeInHierarchy)
+    //            {
+    //                GameManager.WeaponManager.SelectSkillPanel.ClosePanel();
+    //            }
+    //            if (Time.timeScale != 1)
+    //            {
+    //                Time.timeScale = 1;
+    //            }
 
-                break;
-            case PropertyToChange.Speed:
-                if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Multiplication)
-                {
-                    BaseSpeed *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                }
-                else if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Addition)
-                {
-                    BaseSpeed += (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                }
+    //            break;
+    //        case PropertyToChange.Speed:
+    //            if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Multiplication)
+    //            {
+    //                BaseSpeed *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            }
+    //            else if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Addition)
+    //            {
+    //                BaseSpeed += (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            }
 
-                StatList.BaseDamage = BaseDamage;
-                StatList.BaseSpeed = BaseSpeed;
-                StatList.Count = Count;
-                StatList.Cooldown = Cooldown;
-                StatList.AttackRange = AttackRange;
-                StatList.Size = Size;
-                StatList.Guardian = Guardian;
+    //            StatList.BaseDamage = BaseDamage;
+    //            StatList.BaseSpeed = BaseSpeed;
+    //            StatList.Count = Count;
+    //            StatList.Cooldown = Cooldown;
+    //            StatList.AttackRange = AttackRange;
+    //            StatList.Size = Size;
+    //            StatList.Guardian = Guardian;
 
-                if (GameManager.WeaponManager.SelectSkillPanel.gameObject.activeInHierarchy)
-                {
-                    GameManager.WeaponManager.SelectSkillPanel.ClosePanel();
-                }
-                if (Time.timeScale != 1)
-                {
-                    Time.timeScale = 1;
-                }
+    //            if (GameManager.WeaponManager.SelectSkillPanel.gameObject.activeInHierarchy)
+    //            {
+    //                GameManager.WeaponManager.SelectSkillPanel.ClosePanel();
+    //            }
+    //            if (Time.timeScale != 1)
+    //            {
+    //                Time.timeScale = 1;
+    //            }
 
-                break;
-            case PropertyToChange.Count:
-                if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Multiplication)
-                {
-                    Count *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                }
-                else if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Addition)
-                {
-                    Count += (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                }
+    //            break;
+    //        case PropertyToChange.Count:
+    //            if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Multiplication)
+    //            {
+    //                Count *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            }
+    //            else if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Addition)
+    //            {
+    //                Count += (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            }
 
-                StatList.BaseDamage = BaseDamage;
-                StatList.BaseSpeed = BaseSpeed;
-                StatList.Count = Count;
-                StatList.Cooldown = Cooldown;
-                StatList.AttackRange = AttackRange;
-                StatList.Size = Size;
-                StatList.Guardian = Guardian;
+    //            StatList.BaseDamage = BaseDamage;
+    //            StatList.BaseSpeed = BaseSpeed;
+    //            StatList.Count = Count;
+    //            StatList.Cooldown = Cooldown;
+    //            StatList.AttackRange = AttackRange;
+    //            StatList.Size = Size;
+    //            StatList.Guardian = Guardian;
 
-                if (GameManager.WeaponManager.SelectSkillPanel.gameObject.activeInHierarchy)
-                {
-                    GameManager.WeaponManager.SelectSkillPanel.ClosePanel();
-                }
-                if (Time.timeScale != 1)
-                {
-                    Time.timeScale = 1;
-                }
+    //            if (GameManager.WeaponManager.SelectSkillPanel.gameObject.activeInHierarchy)
+    //            {
+    //                GameManager.WeaponManager.SelectSkillPanel.ClosePanel();
+    //            }
+    //            if (Time.timeScale != 1)
+    //            {
+    //                Time.timeScale = 1;
+    //            }
 
-                break;
-            case PropertyToChange.Cooldown:
-                if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Multiplication)
-                {
-                    Cooldown *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                }
-                else if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Addition)
-                {
-                    Cooldown += (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                }
+    //            break;
+    //        case PropertyToChange.Cooldown:
+    //            if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Multiplication)
+    //            {
+    //                Cooldown *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            }
+    //            else if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Addition)
+    //            {
+    //                Cooldown += (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            }
 
-                StatList.BaseDamage = BaseDamage;
-                StatList.BaseSpeed = BaseSpeed;
-                StatList.Count = Count;
-                StatList.Cooldown = Cooldown;
-                StatList.AttackRange = AttackRange;
-                StatList.Size = Size;
-                StatList.Guardian = Guardian;
+    //            StatList.BaseDamage = BaseDamage;
+    //            StatList.BaseSpeed = BaseSpeed;
+    //            StatList.Count = Count;
+    //            StatList.Cooldown = Cooldown;
+    //            StatList.AttackRange = AttackRange;
+    //            StatList.Size = Size;
+    //            StatList.Guardian = Guardian;
 
-                if (GameManager.WeaponManager.SelectSkillPanel.gameObject.activeInHierarchy)
-                {
-                    GameManager.WeaponManager.SelectSkillPanel.ClosePanel();
-                }
-                if (Time.timeScale != 1)
-                {
-                    Time.timeScale = 1;
-                }
+    //            if (GameManager.WeaponManager.SelectSkillPanel.gameObject.activeInHierarchy)
+    //            {
+    //                GameManager.WeaponManager.SelectSkillPanel.ClosePanel();
+    //            }
+    //            if (Time.timeScale != 1)
+    //            {
+    //                Time.timeScale = 1;
+    //            }
 
-                break;
-            case PropertyToChange.Range:
-                if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Multiplication)
-                {
-                    AttackRange *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                }
-                else if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Addition)
-                {
-                    AttackRange += (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                }
+    //            break;
+    //        case PropertyToChange.Range:
+    //            if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Multiplication)
+    //            {
+    //                AttackRange *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            }
+    //            else if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Addition)
+    //            {
+    //                AttackRange += (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            }
 
-                StatList.BaseDamage = BaseDamage;
-                StatList.BaseSpeed = BaseSpeed;
-                StatList.Count = Count;
-                StatList.Cooldown = Cooldown;
-                StatList.AttackRange = AttackRange;
-                StatList.Size = Size;
-                StatList.Guardian = Guardian;
+    //            StatList.BaseDamage = BaseDamage;
+    //            StatList.BaseSpeed = BaseSpeed;
+    //            StatList.Count = Count;
+    //            StatList.Cooldown = Cooldown;
+    //            StatList.AttackRange = AttackRange;
+    //            StatList.Size = Size;
+    //            StatList.Guardian = Guardian;
 
-                if (GameManager.WeaponManager.SelectSkillPanel.gameObject.activeInHierarchy)
-                {
-                    GameManager.WeaponManager.SelectSkillPanel.ClosePanel();
-                }
-                if (Time.timeScale != 1)
-                {
-                    Time.timeScale = 1;
-                }
+    //            if (GameManager.WeaponManager.SelectSkillPanel.gameObject.activeInHierarchy)
+    //            {
+    //                GameManager.WeaponManager.SelectSkillPanel.ClosePanel();
+    //            }
+    //            if (Time.timeScale != 1)
+    //            {
+    //                Time.timeScale = 1;
+    //            }
 
-                break;
-            case PropertyToChange.Size:
-                if(SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Multiplication)
-                {
-                    Size *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                }
-                else if(SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Addition)
-                {
-                    Size *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                }
-                StatList.BaseDamage = BaseDamage;
-                StatList.BaseSpeed = BaseSpeed;
-                StatList.Count = Count;
-                StatList.Cooldown = Cooldown;
-                StatList.AttackRange = AttackRange;
-                StatList.Size = Size;
-                StatList.Guardian = Guardian;
+    //            break;
+    //        case PropertyToChange.Size:
+    //            if(SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Multiplication)
+    //            {
+    //                Size *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            }
+    //            else if(SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Addition)
+    //            {
+    //                Size *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            }
+    //            StatList.BaseDamage = BaseDamage;
+    //            StatList.BaseSpeed = BaseSpeed;
+    //            StatList.Count = Count;
+    //            StatList.Cooldown = Cooldown;
+    //            StatList.AttackRange = AttackRange;
+    //            StatList.Size = Size;
+    //            StatList.Guardian = Guardian;
 
-                if (poisonArea != null)
-                    poisonArea.transform.localScale = Size;
+    //            if (poisonArea != null)
+    //                poisonArea.transform.localScale = Size;
 
-                if (GameManager.WeaponManager.SelectSkillPanel.gameObject.activeInHierarchy)
-                {
-                    GameManager.WeaponManager.SelectSkillPanel.ClosePanel();
-                }
-                if (Time.timeScale != 1)
-                {
-                    Time.timeScale = 1;
-                }
+    //            if (GameManager.WeaponManager.SelectSkillPanel.gameObject.activeInHierarchy)
+    //            {
+    //                GameManager.WeaponManager.SelectSkillPanel.ClosePanel();
+    //            }
+    //            if (Time.timeScale != 1)
+    //            {
+    //                Time.timeScale = 1;
+    //            }
 
-                break;
-            case PropertyToChange.Evolve:
-                EvolveWeapon();
-                break;
-            case PropertyToChange.Guardian:
-                if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Multiplication)
-                {
-                    Guardian *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                }
-                else if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Addition)
-                {
-                    Guardian += (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                }
-                StatList.BaseDamage = BaseDamage;
-                StatList.BaseSpeed = BaseSpeed;
-                StatList.Count = Count;
-                StatList.Cooldown = Cooldown;
-                StatList.AttackRange = AttackRange;
-                StatList.Size = Size;
-                StatList.Guardian = Guardian;
-                //Guardian da yeni bir muz a?.
-                for (int i = 0; i <= StatList.Guardian; i++)
-                {
-                    bananas[i].SetActive(true);
-                }
+    //            break;
+    //        case PropertyToChange.Evolve:
+    //            EvolveWeapon();
+    //            break;
+    //        case PropertyToChange.Guardian:
+    //            if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Multiplication)
+    //            {
+    //                Guardian *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            }
+    //            else if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Addition)
+    //            {
+    //                Guardian += (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            }
+    //            StatList.BaseDamage = BaseDamage;
+    //            StatList.BaseSpeed = BaseSpeed;
+    //            StatList.Count = Count;
+    //            StatList.Cooldown = Cooldown;
+    //            StatList.AttackRange = AttackRange;
+    //            StatList.Size = Size;
+    //            StatList.Guardian = Guardian;
+    //            //Guardian da yeni bir muz a?.
+    //            for (int i = 0; i <= StatList.Guardian; i++)
+    //            {
+    //                bananas[i].SetActive(true);
+    //            }
 
-                if (GameManager.WeaponManager.SelectSkillPanel.gameObject.activeInHierarchy)
-                {
-                    GameManager.WeaponManager.SelectSkillPanel.ClosePanel();
-                }
-                if (Time.timeScale != 1)
-                {
-                    Time.timeScale = 1;
-                }
-                break;
-        }
-        UpgradeLevel++;
+    //            if (GameManager.WeaponManager.SelectSkillPanel.gameObject.activeInHierarchy)
+    //            {
+    //                GameManager.WeaponManager.SelectSkillPanel.ClosePanel();
+    //            }
+    //            if (Time.timeScale != 1)
+    //            {
+    //                Time.timeScale = 1;
+    //            }
+    //            break;
+    //    }
+    //    UpgradeLevel++;
 
-    }
+    //}
 
-    public virtual void EvolveWeapon()
-    {
-        if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Multiplication)
-        {
-            if (this.SkillSO.DamagePattern == DamagePattern.SkunkGas)
-            {
-                this.Size *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                this.BaseDamage *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                this.Cooldown /= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-            }
-            else if (this.SkillSO.DamagePattern == DamagePattern.BananaGuardian)
-            {
-                this.BaseDamage *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                this.Cooldown /= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-            }
-            else
-            {
-                this.AttackRange *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                this.Count *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                this.Cooldown /= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-            }
+    //public virtual void EvolveWeapon()
+    //{
+    //    if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Multiplication)
+    //    {
+    //        if (this.SkillSO.DamagePattern == DamagePattern.SkunkGas)
+    //        {
+    //            this.Size *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            this.BaseDamage *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            this.Cooldown /= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //        }
+    //        else if (this.SkillSO.DamagePattern == DamagePattern.BananaGuardian)
+    //        {
+    //            this.BaseDamage *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            this.Cooldown /= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //        }
+    //        else
+    //        {
+    //            this.AttackRange *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            this.Count *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            this.Cooldown /= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //        }
 
-        }
-        else if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Addition)
-        {
-            if (this.SkillSO.DamagePattern == DamagePattern.SkunkGas)
-            {
-                this.Size *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                this.BaseDamage *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                this.Cooldown /= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                GameManager.WeaponManager.InitialWeaponList.Remove(this);
-            }
-            else if (this.SkillSO.DamagePattern == DamagePattern.BananaGuardian)
-            {
-                this.BaseDamage *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                this.Cooldown /= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                GameManager.WeaponManager.InitialWeaponList.Remove(this);
-            }
-            else
-            {
-                this.AttackRange *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                this.Count *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                this.Cooldown /= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
-                GameManager.WeaponManager.InitialWeaponList.Remove(this);
-            }
-        }
-        this.StatList.BaseDamage = BaseDamage;
-        this.StatList.BaseSpeed = BaseSpeed;
-        this.StatList.Count = Count;
-        this.StatList.Cooldown = Cooldown;
-        this.StatList.AttackRange = AttackRange;
-        this.StatList.Size = Size;
-        IsEvolved = true;
-        //GameManager.WeaponManager.InitialWeaponList.Remove(GameManager.WeaponManager.selectedWeaponData.Weapon);
-        //GameManager.WeaponManager.WeaponsInUse.Remove(GameManager.WeaponManager.selectedWeaponData.Weapon);
-    }
+    //    }
+    //    else if (SkillSO.UpgradeDatas[UpgradeLevel].PropertyChangeType == PropertyChangeType.Addition)
+    //    {
+    //        if (this.SkillSO.DamagePattern == DamagePattern.SkunkGas)
+    //        {
+    //            this.Size *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            this.BaseDamage *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            this.Cooldown /= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            GameManager.WeaponManager.InitialWeaponList.Remove(this);
+    //        }
+    //        else if (this.SkillSO.DamagePattern == DamagePattern.BananaGuardian)
+    //        {
+    //            this.BaseDamage *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            this.Cooldown /= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            GameManager.WeaponManager.InitialWeaponList.Remove(this);
+    //        }
+    //        else
+    //        {
+    //            this.AttackRange *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            this.Count *= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            this.Cooldown /= (int)SkillSO.UpgradeDatas[UpgradeLevel].ChangeAmount;
+    //            GameManager.WeaponManager.InitialWeaponList.Remove(this);
+    //        }
+    //    }
+    //    this.StatList.BaseDamage = BaseDamage;
+    //    this.StatList.BaseSpeed = BaseSpeed;
+    //    this.StatList.Count = Count;
+    //    this.StatList.Cooldown = Cooldown;
+    //    this.StatList.AttackRange = AttackRange;
+    //    this.StatList.Size = Size;
+    //    IsEvolved = true;
+    //    //GameManager.WeaponManager.InitialWeaponList.Remove(GameManager.WeaponManager.selectedWeaponData.Weapon);
+    //    //GameManager.WeaponManager.WeaponsInUse.Remove(GameManager.WeaponManager.selectedWeaponData.Weapon);
+    //}
 
     public virtual void Update()
     {

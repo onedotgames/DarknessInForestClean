@@ -6,9 +6,9 @@ using Sirenix.OdinInspector;
 
 public class SpawnerManager : CustomBehaviour
 {
-    public List<EnemySpawner> MainSpawners;
+    //public List<EnemySpawner> MainSpawners;
     public List<MainEnemySpawner> MainSpawnersV2;
-    public List<EnemySpawner> AdditionalSpawners;
+    //public List<EnemySpawner> AdditionalSpawners;
     public List<MainEnemySpawner> AdditionalSpawnersV2;
 
     public GameObject MainSpawnerHolder;
@@ -60,9 +60,9 @@ public class SpawnerManager : CustomBehaviour
         timeManager = GameManager.TimeManager;
 
         BossSpawner.Initialize(GameManager);
-        MainSpawners.ForEach(x => x.Initialize(GameManager));
+        //MainSpawners.ForEach(x => x.Initialize(GameManager));
         MainSpawnersV2.ForEach(x => x.Initialize(GameManager));
-        AdditionalSpawners.ForEach(x => x.Initialize(GameManager));
+        //AdditionalSpawners.ForEach(x => x.Initialize(GameManager));
         AdditionalSpawnersV2.ForEach(x => x.Initialize(GameManager));
     }
 

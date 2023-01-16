@@ -23,7 +23,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
     public List<ButtonData> ButtonDataList;
 
     private HUD mHud;
-    private WeaponManager mWeaponManager;
+    //private WeaponManager mWeaponManager;
     private SkillManager mSkillManager;
 
     public override void Initialize(UIManager uIManager)
@@ -32,7 +32,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
         SubscribeEvents();
         mHud = uIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
         mSkillManager = uIManager.GameManager.SkillManager;
-        mWeaponManager = uIManager.GameManager.WeaponManager;
+        //mWeaponManager = uIManager.GameManager.WeaponManager;
     }
 
     public void AssignSkillButtonsV2()
@@ -50,7 +50,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
 
         for (int i = 0; i < ButtonDataList.Count; i++)
         {
-            if (GameManager.PlayerLevelManager.PlayerLevel <= 5)
+            if (GameManager.PlayerLevelManager.PlayerLevel < 5)
             {
                 AssignWeaponV3(i);
             }
@@ -103,18 +103,6 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
             }
 
         }
-    }
-
-    public void AssignWeapon(int index)
-    {
-        WeaponBase weapon = mWeaponManager.TempWeaponList[Random.Range(0, mWeaponManager.TempWeaponList.Count)];
-        mWeaponManager.WeaponBases.Add(weapon);
-        mWeaponManager.TempWeaponList.Remove(weapon);
-
-        ButtonDataList[index].Button.Initialize(GameManager.UIManager, mWeaponManager.InvokeWeapon, true);
-        ButtonDataList[index].Image.sprite = weapon.SkillSO.Icon;
-        ButtonDataList[index].Text.SetText(weapon.SkillSO.name);
-        //ButtonDataList[index].Weapon = weapon;
     }
 
     public void AssignWeaponV3(int index)

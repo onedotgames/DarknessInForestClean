@@ -29,7 +29,7 @@ public class CHammerProjectile : ProjectileBase
         if (!GameManager.IsGamePaused && GameManager.IsGameStarted && IsReady)
         {
             
-            ContinueuslyPlayVFX(MovementVFX);
+            //ContinueuslyPlayVFX(MovementVFX);
             RotateModel();
             ChammerMovement();
         }
@@ -62,9 +62,15 @@ public class CHammerProjectile : ProjectileBase
             }
             else
             {
-
+                if(ParticlePooler != null && ParticlePooler.isActiveAndEnabled)
+                {
+                    var obj = ParticlePooler.Pool.Get();
+                    obj.gameObject.transform.position = enemy.transform.position;
+                }
+                
                 enemy.GetHit(Damage);
-                PlayHitVFX();
+                //PlayHitVFX();
+                
                 //Return();
             }
         }
@@ -90,6 +96,7 @@ public class CHammerProjectile : ProjectileBase
                 IsReady = false;
                 if (this == WeaponBaseV2.ActiveChestnuts[WeaponBaseV2.ActiveChestnuts.Count - 1])
                 {
+                    StopHitVfx();
                     Invoke("CallAgain", _duration);
                 }
                 else
