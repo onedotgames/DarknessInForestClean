@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 222346718619279121}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.95, y: 0.1, z: 0}
+  m_LocalPosition: {x: -1.89, y: -0.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 25
-  m_Sprite: {fileID: -7252215782646672311, guid: 37f1d95cdb4f69041a7c8401a73ab258, type: 3}
+  m_Sprite: {fileID: 1023874323, guid: 281ad4c0c5477458797bf6e084175be6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -255,14 +255,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91242f648918d3e42bdaa257a3374286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemySprites: []
+  CleanSprites: []
   CleanModel: {fileID: 8988017909726672413}
   SymbiotModel: {fileID: 222346720150363442}
   Experience: {fileID: 7441833386850997234, guid: 8b5b87e2928f0d14ba5557307d7799e6, type: 3}
   Coin: {fileID: 6539148964891237399, guid: 09fd3a5ee11d38644b28acc988f2427f, type: 3}
+  Pooler: {fileID: 0}
+  ObjectToPool: {fileID: 0}
   DeathVFX: {fileID: 8075457246707724688}
   mStats: {fileID: 11400000, guid: 9a3ae4c7139711647b4f983d2d4b356a, type: 2}
   Collider2D: {fileID: 222346718785397670}
   Monster: {fileID: 9107202946211429435}
+  MonsterClean: {fileID: 0}
   BaseHealth: 0
   BaseSpeed: 0
   BaseDamage: 0
@@ -272,6 +277,7 @@ MonoBehaviour:
   CanAttack: 1
   Player: {fileID: 0}
   EnemyPoolerType: 1
+  TempColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &222346718923431658
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,8 +820,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Head: {fileID: 222346718619279127}
   HeadSprites:
-  - {fileID: 1878093289399152393, guid: 37f1d95cdb4f69041a7c8401a73ab258, type: 3}
-  - {fileID: -7252215782646672311, guid: 37f1d95cdb4f69041a7c8401a73ab258, type: 3}
+  - {fileID: 485716520, guid: 281ad4c0c5477458797bf6e084175be6, type: 3}
+  - {fileID: 1023874323, guid: 281ad4c0c5477458797bf6e084175be6, type: 3}
   - {fileID: -458185587419916677, guid: 37f1d95cdb4f69041a7c8401a73ab258, type: 3}
   Animator: {fileID: 222346720150363440}
   Variations: 0

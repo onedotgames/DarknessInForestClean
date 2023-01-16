@@ -87,14 +87,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91242f648918d3e42bdaa257a3374286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemySprites: []
+  CleanSprites: []
   CleanModel: {fileID: 9212618174816544192}
   SymbiotModel: {fileID: 6814513827444320477}
   Experience: {fileID: 7569538044491255846}
   Coin: {fileID: 6539148964891237399, guid: 09fd3a5ee11d38644b28acc988f2427f, type: 3}
+  Pooler: {fileID: 0}
+  ObjectToPool: {fileID: 0}
   DeathVFX: {fileID: 9029422632360229383}
   mStats: {fileID: 11400000, guid: 9a3ae4c7139711647b4f983d2d4b356a, type: 2}
   Collider2D: {fileID: 1029867143999213311}
   Monster: {fileID: 9212618174816544196}
+  MonsterClean: {fileID: 0}
   BaseHealth: 0
   BaseSpeed: 0
   BaseDamage: 0
@@ -104,6 +109,7 @@ MonoBehaviour:
   CanAttack: 1
   Player: {fileID: 0}
   EnemyPoolerType: 0
+  TempColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1127497519991955174
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,7 +643,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7901157909168463372
 Transform:
   m_ObjectHideFlags: 0
@@ -1482,7 +1488,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5543159362961281809
 Transform:
   m_ObjectHideFlags: 0

@@ -167,8 +167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Head: {fileID: 5970650875167579889}
   HeadSprites:
-  - {fileID: 8647823593821616703, guid: f7e40d54dc8314745a4a48b65e4ee9d5, type: 3}
-  - {fileID: -1381065623766834176, guid: f7e40d54dc8314745a4a48b65e4ee9d5, type: 3}
+  - {fileID: 157351620, guid: 229d974875ecd4510b39fcb69c682317, type: 3}
+  - {fileID: 1913208925, guid: 229d974875ecd4510b39fcb69c682317, type: 3}
   Animator: {fileID: 8436971463390616160}
   Variations: 0
 --- !u!114 &2707082804589610912
@@ -848,7 +848,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 15
-  m_Sprite: {fileID: 8647823593821616703, guid: f7e40d54dc8314745a4a48b65e4ee9d5, type: 3}
+  m_Sprite: {fileID: 157351620, guid: 229d974875ecd4510b39fcb69c682317, type: 3}
   m_Color: {r: 0.44313726, g: 0.44313726, b: 0.44313726, a: 1}
   m_FlipX: 0
   m_FlipY: 0
