@@ -1,0 +1,2115 @@
+fileFormatVersion: 2
+guid: 281ad4c0c5477458797bf6e084175be6
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_0
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 606
+        width: 352
+        height: 358
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e68d1681caa0b413b80a9a89d8af02bf
+      internalID: 485716520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_1
+      rect:
+        serializedVersion: 2
+        x: 729
+        y: 943
+        width: 61
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13b33c64897e6458a8540d9dfa04a707
+      internalID: 2032771584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_2
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 949
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b71a6039982824996899796371e0621e
+      internalID: 1203658191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_3
+      rect:
+        serializedVersion: 2
+        x: 798
+        y: 931
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f32005ed4f5e1435dabb530ee180db2e
+      internalID: -1176955616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_4
+      rect:
+        serializedVersion: 2
+        x: 1282
+        y: 913
+        width: 52
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58e56448755d34769b3ea6c6c982c240
+      internalID: 319600231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_5
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 931
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b2583bf16677430eb93210b61435ddd
+      internalID: -1988957548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_6
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 539
+        width: 333
+        height: 401
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 424636c97bd0f431e9050e896d4a15e9
+      internalID: 1023874323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_7
+      rect:
+        serializedVersion: 2
+        x: 822
+        y: 925
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4e2497363d5049ac932f6262ce75aa6
+      internalID: 1939568218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_8
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 931
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d04c71b60cbf74356a1289c7e2e361ff
+      internalID: -227812359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_9
+      rect:
+        serializedVersion: 2
+        x: 1206
+        y: 925
+        width: 38
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 247cc7f8661474691bd7f91dab73972e
+      internalID: 738964131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_10
+      rect:
+        serializedVersion: 2
+        x: 1339
+        y: 931
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06d2305c9309f4d069b7d75d6a1c9e3b
+      internalID: -1334593839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_11
+      rect:
+        serializedVersion: 2
+        x: 1345
+        y: 925
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce400846d510d4c568ebdfdb268de553
+      internalID: -800070195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_12
+      rect:
+        serializedVersion: 2
+        x: 1255
+        y: 919
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55adc81089d864e088dd9ccaa1dfcc8d
+      internalID: 1300624387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_13
+      rect:
+        serializedVersion: 2
+        x: 1351
+        y: 919
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b428dc626de674383aa022ca1debc0c5
+      internalID: -841465473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_14
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 895
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea106e0f4aeb2406e86fde9db3ff8ff3
+      internalID: -114504625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_15
+      rect:
+        serializedVersion: 2
+        x: 1132
+        y: 555
+        width: 323
+        height: 362
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7637ed8d5f2e4b2d82261477461bb72
+      internalID: -840554462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_16
+      rect:
+        serializedVersion: 2
+        x: 1429
+        y: 835
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7319e2189db374aefa6333f66eadebfd
+      internalID: 1085916263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_17
+      rect:
+        serializedVersion: 2
+        x: 1435
+        y: 829
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27152a5f0c6824529b29d8ce5c3882df
+      internalID: 449557690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_18
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 823
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97dfb057ca9a647e6aba626595859282
+      internalID: -546475538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_19
+      rect:
+        serializedVersion: 2
+        x: 1447
+        y: 817
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33bb6d1cfd5be4fc7887f9cfd1687cb9
+      internalID: -1327776130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_20
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 781
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edbc6dce46a8e49e7b1a1c3a876c81e7
+      internalID: -1674934703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_21
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 775
+        width: 6
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d50fbfb850ece4565987e195eeb6e79e
+      internalID: -174213205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_22
+      rect:
+        serializedVersion: 2
+        x: 1429
+        y: 763
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ab212fc519fb4ca8a199cee2d24543f
+      internalID: 1325575112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_23
+      rect:
+        serializedVersion: 2
+        x: 583
+        y: 710
+        width: 5
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9afaf8baf096472ca6adc5f24a8ed73
+      internalID: 1699865549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_24
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 691
+        width: 5
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e7147828249d44258fa323695110a60
+      internalID: 944345975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_25
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 661
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c08d37dcd6b2849c39c0c9dcab72d02e
+      internalID: -304006420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_26
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 596
+        width: 7
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 735908569666647feace16aa295f76af
+      internalID: 156033686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_27
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 591
+        width: 6
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 814da1449b9334c3db3bcdb725a62458
+      internalID: -466414174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_28
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 589
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ff29c46f7aee4475a9626423ec070e2
+      internalID: -418995666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_29
+      rect:
+        serializedVersion: 2
+        x: 678
+        y: 546
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be97568d594224b91b99ce0e7bfb9e21
+      internalID: 521499152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_30
+      rect:
+        serializedVersion: 2
+        x: 1219
+        y: 549
+        width: 6
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4042c494d5f244ad5b4f7293cca18de8
+      internalID: -1590143700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_31
+      rect:
+        serializedVersion: 2
+        x: 1153
+        y: 505
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f44897f4b5c1e4ea98cc3fbd7b96af0a
+      internalID: 1406065290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_32
+      rect:
+        serializedVersion: 2
+        x: 870
+        y: 474
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8dddaae7d17ae4a1e98e1ac3612e9a74
+      internalID: -1550125787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_33
+      rect:
+        serializedVersion: 2
+        x: 888
+        y: 480
+        width: 6
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a7f76d73f8f6499eb554e1620ad9833
+      internalID: -966368499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_34
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 480
+        width: 20
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 329e63e0422454b0daad244aa7d89157
+      internalID: 848054360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_35
+      rect:
+        serializedVersion: 2
+        x: 1034
+        y: 480
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 215e2657e33704a4f81cf877f211513f
+      internalID: 610002784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_36
+      rect:
+        serializedVersion: 2
+        x: 1056
+        y: 292
+        width: 220
+        height: 210
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a016364e70b7247fdb17662460921332
+      internalID: -921086006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_37
+      rect:
+        serializedVersion: 2
+        x: 858
+        y: 468
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7532298ff52bd4c3b9aa1ee5f5dea97c
+      internalID: -380263060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_38
+      rect:
+        serializedVersion: 2
+        x: 931
+        y: 438
+        width: 35
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf9b4b2541979457eb1ff25e5cd595ed
+      internalID: -887251048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_39
+      rect:
+        serializedVersion: 2
+        x: 1027
+        y: 468
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94d59d744b6d043e2a5b8c7fc96e0d7d
+      internalID: -1420010753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_40
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 462
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35755999950e9404cb02e65b4a936ac5
+      internalID: 5021190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_41
+      rect:
+        serializedVersion: 2
+        x: 842
+        y: 456
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92ba23328335a41d489dc551a70c8c21
+      internalID: 701581715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_42
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 450
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee99cbf2c141e4df097758a3f02b402c
+      internalID: 1337390053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_43
+      rect:
+        serializedVersion: 2
+        x: 838
+        y: 311
+        width: 148
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f383e4c887784929ba2a55043167baa
+      internalID: 653810607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_44
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 424
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 030610f8234ae4767bec3e38eaf8e5b9
+      internalID: 337712679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_45
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 444
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a60ec1c233a94361b9e5884373701f5
+      internalID: -851992300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_46
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 414
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e6b8470711e448828131f22fd834740
+      internalID: -1594459292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_47
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 420
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4c2b81a9ed3d47ebabad2cc44c00566
+      internalID: 1127054448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_48
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 426
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14941eefda71a43fcbd12a5bb662094f
+      internalID: 758636487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_49
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 438
+        width: 10
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 911bbee316c50496fabae88ad370b7b1
+      internalID: -1656385534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_50
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 432
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8a951f1ea73c4b0e87f3270b494a5fa
+      internalID: 370075329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_51
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 426
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2abedeb6fe2c146d28df857d9b61fb7d
+      internalID: -1232257906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_52
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 420
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d8b3b44948f245ea9ddd326991bf063
+      internalID: -251878514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_53
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 426
+        width: 22
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4c73f6e8984d4096b477f23db0ca836
+      internalID: -1074278295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_54
+      rect:
+        serializedVersion: 2
+        x: 811
+        y: 414
+        width: 17
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b34a48b9b29fb493cbd1c174ed2b0398
+      internalID: -688428218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_55
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 418
+        width: 24
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecc1dd942357d46fdb2fce74e7a7f6f3
+      internalID: 1732381387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_56
+      rect:
+        serializedVersion: 2
+        x: 967
+        y: 432
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35e56ac23675244e58ed6de62bb1db03
+      internalID: 725301375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_57
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 71
+        width: 461
+        height: 343
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a1d4e436f9904b00a117523fe1f892d
+      internalID: 2092210196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_58
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 361
+        width: 18
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bde52d9314ec4765910eef4fbd16317
+      internalID: 796763055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_59
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 318
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6e5be6ce95de4f668d608ce4aed74fa
+      internalID: -1391165129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_60
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 314
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf510c673b5d84822a8e868fadca9d14
+      internalID: -147651972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_61
+      rect:
+        serializedVersion: 2
+        x: 918
+        y: 288
+        width: 31
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44ed0fed1c58b453fb6c6342f70f5857
+      internalID: 1302073801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_62
+      rect:
+        serializedVersion: 2
+        x: 1243
+        y: 282
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab252cd19614343ebb654e091540044c
+      internalID: 1567962437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_63
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 306
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46a727c9fd3f14c68a635259c061d6b4
+      internalID: 1596648375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_64
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 308
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b85e84940dbb747e4a4a68b5f51c1ce0
+      internalID: 1760691284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_65
+      rect:
+        serializedVersion: 2
+        x: 842
+        y: 302
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ab58bcc8017341ef82eef66e70a1022
+      internalID: -698726292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_66
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 237
+        width: 7
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96394cb24ddc5416a865e799ae28e1e9
+      internalID: 1346372401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_67
+      rect:
+        serializedVersion: 2
+        x: 848
+        y: 296
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b1aa9654715c46dba1a93458cd09534
+      internalID: 292637296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_68
+      rect:
+        serializedVersion: 2
+        x: 854
+        y: 290
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a33b40e8448d438bba813d06f194aa8
+      internalID: -2118466066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_69
+      rect:
+        serializedVersion: 2
+        x: 877
+        y: 280
+        width: 35
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3a198293cdbe4c4bab8677660308911
+      internalID: 1507458136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_70
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 276
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2115ee50a4701449588705a9ba681074
+      internalID: 1722363978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_71
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 258
+        width: 10
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c68b02eb89ca345019b68a273ea20f5b
+      internalID: -1836944350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_72
+      rect:
+        serializedVersion: 2
+        x: 1165
+        y: 264
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2368e736c936140fda2ebd76e74dbc3c
+      internalID: 178117097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_73
+      rect:
+        serializedVersion: 2
+        x: 836
+        y: 48
+        width: 140
+        height: 182
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c315d95a243ec49e0b67109c65d149f4
+      internalID: -742873384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_74
+      rect:
+        serializedVersion: 2
+        x: 868
+        y: 228
+        width: 32
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7050b3756e60945cdaaf28d944352827
+      internalID: -519161120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_75
+      rect:
+        serializedVersion: 2
+        x: 612
+        y: 174
+        width: 21
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5499836f9178a4bf8a7daafc8b54382c
+      internalID: -1769037848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_76
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 180
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b08c70a7335547a88e58a748547f5ac
+      internalID: -618395440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_77
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 174
+        width: 18
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adf05a44743744670a4a8336d7ac272b
+      internalID: -1828255168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_78
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 132
+        width: 43
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3258488e32934f2ebbb65e61a85cd6d
+      internalID: -1257815845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_79
+      rect:
+        serializedVersion: 2
+        x: 979
+        y: 144
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53c1a9bd76e8c4da68c5394452d82e44
+      internalID: 1168764637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_80
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 138
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebcee3a593aa846a6aa1216fc95177d8
+      internalID: -1321118803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_81
+      rect:
+        serializedVersion: 2
+        x: 973
+        y: 114
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bca21e21b572341199dee2139174d0d3
+      internalID: 1359947488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_82
+      rect:
+        serializedVersion: 2
+        x: 967
+        y: 108
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea1ae0c8ac55c439fb93b34e877002e2
+      internalID: 140596559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_83
+      rect:
+        serializedVersion: 2
+        x: 803
+        y: 56
+        width: 19
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c263e58a59c9b422fb6c93f9dac6aad1
+      internalID: -1602870001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_84
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 97
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1e8260938b9f4e49bfe73b063e8cba8
+      internalID: -1002525086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_85
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 74
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 725ca5e5796d3431ea7f23fc374154de
+      internalID: -1377846695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_86
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 79
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d4f5838af4514c3d8073a03f6b89097
+      internalID: -590807215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_87
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 77
+        width: 41
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6241928480c4f4de4a4043611b53d370
+      internalID: -1979775949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_88
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 86
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8dc46271c34934aa6a429ba7ccf840bc
+      internalID: -852053018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteWolf-Sym_89
+      rect:
+        serializedVersion: 2
+        x: 862
+        y: 17
+        width: 50
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7179668fdfc6c4de3abcb126c9a5d82d
+      internalID: -973556027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      WhiteWolf-Sym_2: 1203658191
+      WhiteWolf-Sym_45: -851992300
+      WhiteWolf-Sym_49: -1656385534
+      WhiteWolf-Sym_0: 485716520
+      WhiteWolf-Sym_84: -1002525086
+      WhiteWolf-Sym_66: 1346372401
+      WhiteWolf-Sym_34: 848054360
+      WhiteWolf-Sym_5: -1988957548
+      WhiteWolf-Sym_28: -418995666
+      WhiteWolf-Sym_65: -698726292
+      WhiteWolf-Sym_69: 1507458136
+      WhiteWolf-Sym_77: -1828255168
+      WhiteWolf-Sym_23: 1699865549
+      WhiteWolf-Sym_52: -251878514
+      WhiteWolf-Sym_43: 653810607
+      WhiteWolf-Sym_44: 337712679
+      WhiteWolf-Sym_80: -1321118803
+      WhiteWolf-Sym_42: 1337390053
+      WhiteWolf-Sym_53: -1074278295
+      WhiteWolf-Sym_9: 738964131
+      WhiteWolf-Sym_25: -304006420
+      WhiteWolf-Sym_74: -519161120
+      WhiteWolf-Sym_73: -742873384
+      WhiteWolf-Sym_37: -380263060
+      WhiteWolf-Sym_12: 1300624387
+      WhiteWolf-Sym_33: -966368499
+      WhiteWolf-Sym_47: 1127054448
+      WhiteWolf-Sym_55: 1732381387
+      WhiteWolf-Sym_51: -1232257906
+      WhiteWolf-Sym_17: 449557690
+      WhiteWolf-Sym_86: -590807215
+      WhiteWolf-Sym_75: -1769037848
+      WhiteWolf-Sym_26: 156033686
+      WhiteWolf-Sym_35: 610002784
+      WhiteWolf-Sym_71: -1836944350
+      WhiteWolf-Sym_30: -1590143700
+      WhiteWolf-Sym_13: -841465473
+      WhiteWolf-Sym_88: -852053018
+      WhiteWolf-Sym_46: -1594459292
+      WhiteWolf-Sym_24: 944345975
+      WhiteWolf-Sym_58: 796763055
+      WhiteWolf-Sym_41: 701581715
+      WhiteWolf-Sym_56: 725301375
+      WhiteWolf-Sym_54: -688428218
+      WhiteWolf-Sym_60: -147651972
+      WhiteWolf-Sym_78: -1257815845
+      WhiteWolf-Sym_64: 1760691284
+      WhiteWolf-Sym_38: -887251048
+      WhiteWolf-Sym_70: 1722363978
+      WhiteWolf-Sym_82: 140596559
+      WhiteWolf-Sym_11: -800070195
+      WhiteWolf-Sym_31: 1406065290
+      WhiteWolf-Sym_4: 319600231
+      WhiteWolf-Sym_59: -1391165129
+      WhiteWolf-Sym_83: -1602870001
+      WhiteWolf-Sym_61: 1302073801
+      WhiteWolf-Sym_21: -174213205
+      WhiteWolf-Sym_27: -466414174
+      WhiteWolf-Sym_89: -973556027
+      WhiteWolf-Sym_72: 178117097
+      WhiteWolf-Sym_6: 1023874323
+      WhiteWolf-Sym_14: -114504625
+      WhiteWolf-Sym_1: 2032771584
+      WhiteWolf-Sym_20: -1674934703
+      WhiteWolf-Sym_19: -1327776130
+      WhiteWolf-Sym_50: 370075329
+      WhiteWolf-Sym_29: 521499152
+      WhiteWolf-Sym_62: 1567962437
+      WhiteWolf-Sym_40: 5021190
+      WhiteWolf-Sym_18: -546475538
+      WhiteWolf-Sym_79: 1168764637
+      WhiteWolf-Sym_85: -1377846695
+      WhiteWolf-Sym_87: -1979775949
+      WhiteWolf-Sym_63: 1596648375
+      WhiteWolf-Sym_48: 758636487
+      WhiteWolf-Sym_68: -2118466066
+      WhiteWolf-Sym_67: 292637296
+      WhiteWolf-Sym_57: 2092210196
+      WhiteWolf-Sym_16: 1085916263
+      WhiteWolf-Sym_36: -921086006
+      WhiteWolf-Sym_22: 1325575112
+      WhiteWolf-Sym_8: -227812359
+      WhiteWolf-Sym_10: -1334593839
+      WhiteWolf-Sym_39: -1420010753
+      WhiteWolf-Sym_7: 1939568218
+      WhiteWolf-Sym_32: -1550125787
+      WhiteWolf-Sym_81: 1359947488
+      WhiteWolf-Sym_76: -618395440
+      WhiteWolf-Sym_3: -1176955616
+      WhiteWolf-Sym_15: -840554462
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

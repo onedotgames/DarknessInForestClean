@@ -7,12 +7,11 @@ public class BackGround : CustomBehaviour
     public Transform player;
     public Renderer renderTerrain;
     public float speed;
+    public Material bgMat;
 
-    private void Update()
+    public void Update()
     {
-        renderTerrain.material.mainTextureOffset = new Vector2(player.transform.position.x,
-            player.transform.position.y) * speed;
+        //renderTerrain.materials[0].mainTextureOffset= new Vector2(player.transform.position.x, player.transform.position.y) * speed;
+        bgMat.mainTextureOffset = new Vector2(player.transform.position.x, player.transform.position.y) * speed;
     }
-
-
 }
