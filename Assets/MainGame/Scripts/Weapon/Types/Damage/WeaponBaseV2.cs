@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Sirenix.Utilities;
 using System;
 using System.Collections;
@@ -723,6 +724,7 @@ public class WeaponBaseV2 : CustomBehaviour
         mSkunk.Player = mPlayer;
         SetProjectile(mSkunk, true);
         obj.gameObject.SetActive(true);
+        mSkunk.Model.gameObject.transform.DOScale(new Vector3(0.3f,0.3f,0.3f), 0.25f);
     }
 
     async Task<int> Delay(float delay)

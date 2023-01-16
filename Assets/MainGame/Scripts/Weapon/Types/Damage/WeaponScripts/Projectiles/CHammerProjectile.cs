@@ -28,7 +28,7 @@ public class CHammerProjectile : ProjectileBase
     {
         if (!GameManager.IsGamePaused && GameManager.IsGameStarted && IsReady)
         {
-            ContinueuslyPlayVFX(MovementVFX);
+            //ContinueuslyPlayVFX(MovementVFX);
             RotateModel();
             ChammerMovement();
         }
