@@ -26,6 +26,7 @@ public class MainEnemySpawner : CustomBehaviour
         }
         else
         {
+            Debug.Log("30+");
             var index = Random.Range(0, GameManager.PoolingManager.EnemyPoolerListV2.Count);
             var pooler = GameManager.PoolingManager.EnemyPoolerListV2[index];
             var obj = pooler.GetFromPool();

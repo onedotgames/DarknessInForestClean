@@ -37,7 +37,11 @@ public class CloverProjectile : ProjectileBase
             }
             else
             {
-                
+                if (ParticlePooler != null && ParticlePooler.isActiveAndEnabled)
+                {
+                    var obj = ParticlePooler.Pool.Get();
+                    obj.gameObject.transform.position = enemy.transform.position;
+                }
                 enemy.GetHit(Damage);
                 Return();
             }           
@@ -51,6 +55,11 @@ public class CloverProjectile : ProjectileBase
             }
             else
             {
+                if (ParticlePooler != null && ParticlePooler.isActiveAndEnabled)
+                {
+                    var obj = ParticlePooler.Pool.Get();
+                    obj.gameObject.transform.position = enemy.transform.position;
+                }
                 enemy.GetHit(Damage);
                 Return();
             }

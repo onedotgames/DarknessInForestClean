@@ -64,13 +64,21 @@ public class BeeShotProjectile : ProjectileBase
         if (collision.gameObject.CompareTag("Enemy"))
         {
             var enemy = collision.gameObject.GetComponent<EnemyBase>();
-
+            if (ParticlePooler != null && ParticlePooler.isActiveAndEnabled)
+            {
+                var obj = ParticlePooler.Pool.Get();
+                obj.gameObject.transform.position = enemy.transform.position;
+            }
             enemy.GetHit(Damage);
         }
         if (collision.gameObject.CompareTag("Boss"))
         {
             var enemy = collision.gameObject.GetComponent<BossBase>();
-
+            if (ParticlePooler != null && ParticlePooler.isActiveAndEnabled)
+            {
+                var obj = ParticlePooler.Pool.Get();
+                obj.gameObject.transform.position = enemy.transform.position;
+            }
             enemy.GetHit(Damage);
         }
         if (collision.gameObject.CompareTag("Tower"))
