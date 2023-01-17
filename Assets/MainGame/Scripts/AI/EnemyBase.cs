@@ -59,17 +59,14 @@ public class EnemyBase : CustomBehaviour
     public void ActivateEnemy()
     {
         Collider2D.enabled = true;
-
         GameManager.AIManager.EnemyList.Add(this.transform);
         GameManager.AIManager.AIList.Add(this);
-        SetStats(); 
-        for (int i = 0; i < EnemySprites.Count; i++)
-        {
-            EnemySprites[i].color = TempColor;
-            CleanSprites[i].color = Color.white;
-        }
+        SetStats();
+        CleanModel.SetActive(false);
+        SymbiotModel.SetActive(true);
+        CleanSprites.ForEach(x => x.color = Color.clear);
+        EnemySprites.ForEach(x => x.color = Color.white);
         IsActivated = true;
-
     }
 
     public virtual void Update()
@@ -95,12 +92,9 @@ public class EnemyBase : CustomBehaviour
                             AttackCooldown = mStats.AttackCooldown;
                         }
                     }
-
                 }
             }
-        }
-       
-        
+        } 
     }
 
     private void SetStats()
@@ -137,11 +131,8 @@ public class EnemyBase : CustomBehaviour
     }
     public void EnemyDeathAnim() //oncomplete e clean modeli a?mak i?in script yaz.
     {
-        CleanSprites.ForEach(x => x.DOFade(1, 0.1f));
-        for (int j = 0; j < EnemySprites.Count; j++)
-        {
-            EnemySprites[j].DOColor(Color.clear, 0.3f).OnComplete(() => CleanAnim());
-        }
+        EnemySprites.ForEach(x => x.DOColor(Color.clear, 0.4f));
+        CleanSprites.ForEach(x => x.DOColor(Color.white, 0.4f).OnComplete(() => Invoke("CleanAnim", 0.2f)));
     }
     private void DropExp()
     {
@@ -160,28 +151,23 @@ public class EnemyBase : CustomBehaviour
             var coin = GameManager.PoolingManager.CoinPoolerList[(int)CoinType.Small].GetObjectFromPool();
             coin.transform.position = transform.position;
         }
-
-
         Return();
     }
     
 
     public void CleanAnim()
     {
-        for (int k = 0; k < CleanSprites.Count; k++)
-        {
-            CleanSprites[k].DOColor(Color.clear, 0.3f);
-        }
+        CleanSprites.ForEach(x => x.DOColor(Color.clear, 0.4f));
         var i = Random.Range(0, 1000);
         if (i == 1)
         {
             //Invoke("DropCoin", DeathVFX.main.duration);
-            Invoke("DropCoin", 0.7f);
+            Invoke("DropCoin", 0.9f);
         }
         else
         {
             //Invoke("DropExp", DeathVFX.main.duration);
-            Invoke("DropExp", 0.7f);
+            Invoke("DropExp", 0.9f);
         }
     }
     public virtual void GetHit(float damageToTake)
