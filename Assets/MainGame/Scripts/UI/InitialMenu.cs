@@ -44,7 +44,12 @@ public class InitialMenu : UIPanel
     public RectTransform Levels;
     public RectTransform LeaderBoard;
 
+    public RectTransform LevelScroller;
     public GameObject PlayerImg;
+
+    public MenuEvent LeavesEvent;
+    public MenuEvent FireFliesEvent;
+    public MenuEvent BossEvent;
     public override void Initialize(UIManager uIManager)
     {
         base.Initialize(uIManager);
@@ -54,7 +59,11 @@ public class InitialMenu : UIPanel
         HomeBTN.Initialize(uIManager, OnHomeBTNClicked);
         LevelsBTN.Initialize(uIManager, OnLevelsBTNClicked);
         LeaderBoardBTN.Initialize(uIManager, OnLeaderBoardBTNClicked);
+        LeavesEvent.Initialize(GameManager);
+        FireFliesEvent.Initialize(GameManager);
+        BossEvent.Initialize(GameManager);
 
+        LevelScroller.sizeDelta = new Vector2(Screen.width, LevelScroller.sizeDelta.y);
         Content.sizeDelta = new Vector2(Screen.height * 5, 0);
         MidGroup.sizeDelta = new Vector2(Screen.height * 5, Screen.width);
         SubEvents();
