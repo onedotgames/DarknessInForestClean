@@ -59,8 +59,10 @@ public class BeeShotProjectile : ProjectileBase
             rot.eulerAngles = new Vector3(0, 0, (Mathf.Atan2(-Direction.y, -Direction.x) * Mathf.Rad2Deg));
             Model.transform.rotation = rot;
         }
+    }
 
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
         if (collision.gameObject.CompareTag("Enemy"))
         {
             var enemy = collision.gameObject.GetComponent<EnemyBase>();
@@ -87,5 +89,5 @@ public class BeeShotProjectile : ProjectileBase
         }
     }
 
-    
+
 }

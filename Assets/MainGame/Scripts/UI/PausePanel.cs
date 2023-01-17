@@ -20,6 +20,8 @@ public class PausePanel : UIPanel
         if (GameManager != null)
         {
             GameManager.OnLevelFailed += OnLevelFailed;
+            GameManager.OnLevelCompleted += OnLevelSuccess;
+
         }
     }
 
@@ -50,11 +52,17 @@ public class PausePanel : UIPanel
         ClosePauseIcons();
         ClosePanel();
     }
+    private void OnLevelSuccess()
+    {
+        ClosePauseIcons();
+        ClosePanel();
+    }
     private void OnDestroy()
     {
         if (GameManager != null)
         {
             GameManager.OnLevelFailed -= OnLevelFailed;
+            GameManager.OnLevelCompleted -= OnLevelSuccess;
         }
     }
 }

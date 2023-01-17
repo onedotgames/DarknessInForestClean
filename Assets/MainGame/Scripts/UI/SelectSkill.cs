@@ -137,6 +137,9 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
         if (GameManager != null)
         {
             GameManager.OnReturnToMainMenu += OnReturnToMainMenu;
+            GameManager.OnStartGame += OnLevelStart;
+            GameManager.OnLevelFailed += OnLevelFailed;
+            GameManager.OnLevelCompleted += OnLevelCompleted;
         }
     }
     public override void OpenPanel()
@@ -180,6 +183,31 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
         UIManager.GameManager.InputManager.TouchEnd(eventData);
     }
 
+    private void LevelEnd()
+    {
+
+    }
+
+    private void LevelStart()
+    {
+
+    }
+
+    private void OnLevelStart()
+    {
+        LevelStart();
+    }
+
+    private void OnLevelFailed()
+    {
+        LevelEnd();
+    }
+
+    private void OnLevelCompleted()
+    {
+        LevelEnd();
+    }
+
     private void OnReturnToMainMenu()
     {
         ClosePanel();
@@ -191,6 +219,9 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
         if (GameManager != null)
         {
             GameManager.OnReturnToMainMenu -= OnReturnToMainMenu;
+            GameManager.OnStartGame -= OnLevelStart;
+            GameManager.OnLevelFailed -= OnLevelFailed;
+            GameManager.OnLevelCompleted -= OnLevelCompleted;
         }
     }
 
