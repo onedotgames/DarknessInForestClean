@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using DG.Tweening;
 
 public class CloverProjectile : ProjectileBase
 {
@@ -42,7 +43,9 @@ public class CloverProjectile : ProjectileBase
                     var obj = ParticlePooler.Pool.Get();
                     obj.gameObject.transform.position = enemy.transform.position;
                 }
+                enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
                 enemy.GetHit(Damage);
+
                 Return();
             }           
         }
