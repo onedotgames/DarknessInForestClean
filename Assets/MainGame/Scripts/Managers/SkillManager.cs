@@ -321,6 +321,7 @@ public class SkillManager : CustomBehaviour
 
     private void OnLevelStart()
     {
+        WeaponsInUseV2.Clear();
         ActivateDefaultWeapon();
     }
 
