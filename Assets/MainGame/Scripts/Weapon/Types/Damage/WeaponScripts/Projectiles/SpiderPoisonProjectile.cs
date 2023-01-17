@@ -54,6 +54,8 @@ public class SpiderPoisonProjectile : ProjectileBase
         if (collision.CompareTag("Enemy"))
         {
             var enemy = collision.GetComponent<EnemyBase>();
+            enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
+
             ChangeModel();
             enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval));
 
@@ -67,6 +69,8 @@ public class SpiderPoisonProjectile : ProjectileBase
         if (collision.CompareTag("Boss"))
         {
             var enemy = collision.GetComponent<BossBase>();
+            enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
+
             ChangeModel();
             enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval));
 

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -60,34 +61,4 @@ public class BeeShotProjectile : ProjectileBase
             Model.transform.rotation = rot;
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            var enemy = collision.gameObject.GetComponent<EnemyBase>();
-            if (ParticlePooler != null && ParticlePooler.isActiveAndEnabled)
-            {
-                var obj = ParticlePooler.Pool.Get();
-                obj.gameObject.transform.position = enemy.transform.position;
-            }
-            enemy.GetHit(Damage);
-        }
-        if (collision.gameObject.CompareTag("Boss"))
-        {
-            var enemy = collision.gameObject.GetComponent<BossBase>();
-            if (ParticlePooler != null && ParticlePooler.isActiveAndEnabled)
-            {
-                var obj = ParticlePooler.Pool.Get();
-                obj.gameObject.transform.position = enemy.transform.position;
-            }
-            enemy.GetHit(Damage);
-        }
-        if (collision.gameObject.CompareTag("Tower"))
-        {
-            collision.gameObject.GetComponent<TowerSystem>().GetHitTower(Damage);
-        }
-    }
-
-
 }

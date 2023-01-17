@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class WhipProjetile : ProjectileBase
 {
@@ -36,11 +37,16 @@ public class WhipProjetile : ProjectileBase
         {
             if (item.transform.CompareTag("Enemy"))
             {
+
+                item.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
+
                 item.transform.GetComponent<EnemyBase>().GetHit(Damage);
             }
             
             if (item.transform.CompareTag("Boss"))
             {
+                item.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
+
                 item.transform.GetComponent<BossBase>().GetHit(Damage);
             }
         }

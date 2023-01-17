@@ -132,7 +132,7 @@ public class WeaponBaseV2 : CustomBehaviour
     private void ResetItemElementsOnEnd()
     {
         IsActivated = false;
-
+        IsEvolved = false;
     }
 
     private void ResetItemElementsOnStart()
@@ -572,30 +572,60 @@ public class WeaponBaseV2 : CustomBehaviour
 
     private async Task Clover()
     {
-        GetClosestEnemy(GameManager.AIManager.EnemyList);
+        //GetClosestEnemy(GameManager.AIManager.EnemyList);
 
-        if (_target != null)
+        //if (_target != null)
+        //{
+        //    for (int i = 0; i < Count; i++)
+        //    {
+        //        var obj = Pooler.GetFromPool();
+        //        obj.transform.position = this.transform.position;
+
+
+        //        var clover = obj.gameObject.GetComponent<CloverProjectile>();
+        //        SetSkill(GameManager.AIManager.EnemyList);
+
+        //        SetProjectile(clover,false);
+
+        //        obj.gameObject.SetActive(true);
+        //        GameManager.AIManager.EnemyList.Remove(_target);
+        //        await Delay(0.25f);
+        //    }
+        //}
+        //else
+        //{
+        //    await Task.Yield();
+        //}
+        //_target = null;
+
+
+
+        
+        for (int i = 0; i < Count; i++)
         {
-            for (int i = 0; i < Count; i++)
+            GetClosestEnemy(GameManager.AIManager.EnemyList);
+
+            if (_target != null)
             {
-                var obj = Pooler.GetFromPool();
-                obj.transform.position = this.transform.position;
+                    var obj = Pooler.GetFromPool();
+                    obj.transform.position = this.transform.position;
 
 
-                var clover = obj.gameObject.GetComponent<CloverProjectile>();
-                SetSkill(GameManager.AIManager.EnemyList);
+                    var clover = obj.gameObject.GetComponent<CloverProjectile>();
+                    SetSkill(GameManager.AIManager.EnemyList);
 
-                SetProjectile(clover,false);
+                    SetProjectile(clover, false);
 
-                obj.gameObject.SetActive(true);
-                GameManager.AIManager.EnemyList.Remove(_target);
-                await Delay(0.25f);
+                    obj.gameObject.SetActive(true);
+                    GameManager.AIManager.EnemyList.Remove(_target);
+                    await Delay(0.25f);
+            }
+            else
+            {
+                await Task.Yield();
             }
         }
-        else
-        {
-            await Task.Yield();
-        }
+        
         _target = null;
     }
 

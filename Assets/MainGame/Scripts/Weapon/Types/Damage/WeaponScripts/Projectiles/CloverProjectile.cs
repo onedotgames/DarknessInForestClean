@@ -63,36 +63,49 @@ public class CloverProjectile : ProjectileBase
                     var obj = ParticlePooler.Pool.Get();
                     obj.gameObject.transform.position = enemy.transform.position;
                 }
+                enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
+
                 enemy.GetHit(Damage);
                 Return();
             }
         }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Barrel"))
         {
-            var enemy = collision.GetComponent<EnemyBase>();
-            if (IsAoE)
+            var barrelPos = collision.transform.position;
+            BarrelPooler = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.BarrelPooler];
+            BarrelPooler.ReturnObjectToPool(collision.gameObject);
+            GameManager.BarrelSystem.barrelCount--;
+            // coin magnet ya da bomb spawn olacak.
+            var k = Random.Range(0, 13);
+            if (k < 3)//bomba?
             {
-                if (enemy.AOEDamageRoutine != null)
-                {
-                    enemy.StopCoroutine(enemy.AOEDamageRoutine);
-                }
+                var bombPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.BombPooler];
+                var bomb = bombPool.GetObjectFromPool();
+                bomb.transform.position = barrelPos;
             }
-            
+            else if (k >= 3 && k < 6)// magne?t
+            {
+                var magnetPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.MagnetPooler];
+                var magnet = magnetPool.GetObjectFromPool();
+                magnet.transform.position = barrelPos;
+            }
+            else if (k >= 6 && k < 9) //co?in
+            {
+                var coinPool = GameManager.PoolingManager.CoinPoolerList[(int)CoinType.Small];
+                var coin = coinPool.GetObjectFromPool();
+                coin.transform.position = barrelPos;
+            }
+            else if (k >= 9 && k < 13)//healthPot
+            {
+                var healthPotPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.HealthPotPooler];
+                var healthPot = healthPotPool.GetObjectFromPool();
+                healthPot.transform.position = barrelPos;
+            }
         }
-        if (collision.CompareTag("Boss"))
+
+        if (collision.gameObject.CompareTag("Tower"))
         {
-            var enemy = collision.GetComponent<BossBase>();
-            if (IsAoE)
-            {
-                if (enemy.AOEDamageRoutine != null)
-                {
-                    enemy.StopCoroutine(enemy.AOEDamageRoutine);
-                }
-            }
+            collision.GetComponent<TowerSystem>().GetHitTower(Damage);
         }
     }
 

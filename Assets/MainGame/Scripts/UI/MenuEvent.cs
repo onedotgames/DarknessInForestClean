@@ -43,21 +43,50 @@ public class MenuEvent : CustomBehaviour
     private void StartGame()
     {
         canPlay = false;
-        Boss.SetActive(false);
-        Leaves.Stop();
-        FireFlies.Stop();
+
+        switch (eventType)
+        {
+            case EventType.Boss:
+                Boss.SetActive(false);
+                break;
+            case EventType.Leaves:
+                Leaves.Stop();
+                break;
+            case EventType.FireFlies:
+                FireFlies.Stop();
+                break;
+        }
+        
     }
 
     private void Completed()
     {
         canPlay = true;
-        Boss.SetActive(true);
+        switch (eventType)
+        {
+            case EventType.Boss:
+                Boss.SetActive(true);
+                break;
+            case EventType.Leaves:
+                break;
+            case EventType.FireFlies:
+                break;
+        }
     }
 
     private void Failed()
     {
         canPlay = true;
-        Boss.SetActive(true);
+        switch(eventType)
+        {
+            case EventType.Boss:
+                Boss.SetActive(true);
+            break;
+            case EventType.Leaves:
+                break;
+            case EventType.FireFlies:
+                break;
+        }
     }
 
     private void Update()

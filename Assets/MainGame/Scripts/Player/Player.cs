@@ -183,11 +183,19 @@ public class Player : CustomBehaviour
         {
             GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.HealthPotPooler].ReturnObjectToPool(collision.gameObject);
             GameManager.PlayerManager.CurrentPlayer.mCurrentHealth += 20;
+            GameManager.PlayerHealthManager.SetHealthBar(mMaxHealth);
+
         }
         if (collision.CompareTag("NPC"))
         {
             GameManager.QuestManager.QuestPanel.SetActive(true);
             Time.timeScale = 0f;
+        }
+        if (collision.CompareTag("HolyFountain"))
+        {
+            mCurrentHealth = mMaxHealth;
+            GameManager.PlayerHealthManager.SetHealthBar(mMaxHealth);
+            GameManager.HolyFountain.isFountainTaken = true;
         }
     }
     private void InitializeCustomOptions()

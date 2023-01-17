@@ -29,6 +29,7 @@ public class BirdBombProjectile : ProjectileBase
         if (collision.CompareTag("Enemy"))
         {
             var enemy = collision.GetComponent<EnemyBase>();
+            enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
 
             enemy.GetHit(Damage);
         }
@@ -61,12 +62,15 @@ public class BirdBombProjectile : ProjectileBase
         if (collision.CompareTag("Boss"))
         {
             var enemy = collision.GetComponent<BossBase>();
+            enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
 
             enemy.GetHit(Damage);
         }
+       
+
         if (collision.gameObject.CompareTag("Tower"))
         {
-            collision.gameObject.GetComponent<TowerSystem>().GetHitTower(Damage);
+            collision.GetComponent<TowerSystem>().GetHitTower(Damage);
         }
     }
 

@@ -46,6 +46,8 @@ public class SpiderWebProjectile : ProjectileBase
         if (collision.CompareTag("Enemy"))
         {
             var enemy = collision.GetComponent<EnemyBase>();
+            enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
+
             Model.SetActive(false);
             _OpenWebModel.SetActive(true);
             _openModel = true;
@@ -60,6 +62,8 @@ public class SpiderWebProjectile : ProjectileBase
         if (collision.CompareTag("Boss"))
         {
             var enemy = collision.GetComponent<BossBase>();
+            enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
+
             Model.SetActive(false);
             _OpenWebModel.SetActive(true);
             _openModel = true;

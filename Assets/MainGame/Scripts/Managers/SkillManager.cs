@@ -333,7 +333,7 @@ public class SkillManager : CustomBehaviour
 
     private void LevelEnd()
     {
-        WeaponsInUseV2.ForEach(x => x.gameObject.SetActive(false));
+        AllWeaponsV2.ForEach(x => x.gameObject.SetActive(false));
         WeaponsInUseV2.Clear();
         TempWeaponsV2.Clear();
         TempUtils.Clear();
