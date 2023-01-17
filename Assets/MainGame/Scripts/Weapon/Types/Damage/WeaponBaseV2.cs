@@ -1,9 +1,11 @@
 using DG.Tweening;
+using DG.Tweening.Core.Easing;
 using Sirenix.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WeaponBaseV2 : CustomBehaviour
@@ -72,8 +74,8 @@ public class WeaponBaseV2 : CustomBehaviour
         {
             //GameManager.OnMiniGame += OnMiniGame;
             //GameManager.OnStartGame += OnGameStart;
-            //GameManager.OnLevelCompleted += OnGameCompleted;
-            //GameManager.OnLevelFailed += OnGameFailed;
+            GameManager.OnLevelCompleted += OnGameCompleted;
+            GameManager.OnLevelFailed += OnGameFailed;
 
         }
         SelectSkillPanel = gameManager.UIManager.GetPanel(Panels.SelectSkill).GetComponent<SelectSkill>();
@@ -91,14 +93,68 @@ public class WeaponBaseV2 : CustomBehaviour
         
         CloseSkillPanel();
     }
+    
+    private void Assign()
+    {
+        if (GameManager != null)
+        {
+            GameManager.OnStartGame += OnGameStart;
+            GameManager.OnLevelCompleted += OnGameCompleted;
+            GameManager.OnLevelFailed += OnGameFailed;
+        }
+    }
+
+    private void OnGameStart()
+    {
+        ResetItemElementsOnStart();
+    }
+
+    private void UnAssign()
+    {
+        if (GameManager != null)
+        {
+            GameManager.OnStartGame -= OnGameStart;
+            GameManager.OnLevelCompleted -= OnGameCompleted;
+            GameManager.OnLevelFailed -= OnGameFailed;
+        }
+    }
+
+    private void OnGameCompleted()
+    {
+        ResetItemElementsOnEnd();
+    }
+
+    private void OnGameFailed()
+    {
+        ResetItemElementsOnEnd();
+    }
+
+    private void ResetItemElementsOnEnd()
+    {
+        IsActivated = false;
+
+    }
+
+    private void ResetItemElementsOnStart()
+    {
+        AttackDegree = 30;
+        BeeIndex = 0;
+        UpgradeLevel = 0;
+        ActiveChestnuts.Clear();
+        ActiveBeeShots.Clear();
+        SlingProjectileList.Clear();
+    }
+
     private async void OnEnable()
     {
+        Assign();
         SetSkill(GameManager.AIManager.EnemyList);
         await SetAttackMethod();
     }
 
     private void OnDisable()
     {
+        UnAssign();
         _timerOn = false;
     }
     public void SetStats()
@@ -769,4 +825,6 @@ public class WeaponBaseV2 : CustomBehaviour
 
         return _target;
     }
+
+
 }
