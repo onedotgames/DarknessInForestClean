@@ -589,21 +589,21 @@ public class WeaponBaseV2 : CustomBehaviour
             int index = 0;
             var count = SlingProjectileList.Count;
 
+            //Bunlar for içindeydi
+            float horizontal = GameManager.JoystickManager.GetHorizontal();
+            float vertical = GameManager.JoystickManager.GetVertical();
+            float initialRot = 0;
+            if (horizontal != 0 || vertical != 0)
+            {
+                initialRot = GameManager.PlayerManager.CurrentPlayer.Angle - 90;
+            }
+            else if (horizontal == 0 && vertical == 0)
+            {
+                //initialRot = GameManager.PlayerManager.CurrentPlayer.LastAngle - 90;
+                initialRot = GameManager.JoystickManager.variableJoystick.LastAngle;
+            }
             for (int i = 0; i < count; i++)
             {
-                float horizontal = GameManager.JoystickManager.GetHorizontal();
-                float vertical = GameManager.JoystickManager.GetVertical();
-
-                float initialRot = 0;
-                if (horizontal != 0 || vertical != 0)
-                {
-                    initialRot = GameManager.PlayerManager.CurrentPlayer.Angle - 90;
-                }
-                else if (horizontal == 0 && vertical == 0)
-                {
-                    initialRot = GameManager.PlayerManager.CurrentPlayer.LastAngle - 90;
-                }
-
                 float RotDeg = initialRot + (spaceBetweenProjectiles) * 
                     ((firstCount - 1) / 2) - (spaceBetweenProjectiles * index);
                 index++;
