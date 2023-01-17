@@ -109,8 +109,6 @@ public class CHammerProjectile : ProjectileBase
                     
                     Return();
                 }
-
-
             }
         }
     }

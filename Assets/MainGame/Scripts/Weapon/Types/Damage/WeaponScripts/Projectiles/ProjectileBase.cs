@@ -22,8 +22,25 @@ public class ProjectileBase : CustomBehaviour
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
+        Assign();
         ProjectileToSpawn = gameObject.GetComponent<ProjectileToSpawn>();
     }
+    protected virtual void Assign()
+    {
+        GameManager.OnLevelCompleted += LevelCompleted;
+        GameManager.OnLevelFailed += LevelFailed;
+    }
+
+    private void LevelCompleted()
+    {
+        Return();
+    }
+
+    private void LevelFailed()
+    {
+        Return();
+    }
+
     protected virtual void Return()
     {
         IsReady = false;
@@ -83,5 +100,11 @@ public class ProjectileBase : CustomBehaviour
         {
             HitVFX.gameObject.SetActive(false);
         }
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnLevelCompleted -= LevelCompleted;
+        GameManager.OnLevelFailed -= LevelFailed;
     }
 }
