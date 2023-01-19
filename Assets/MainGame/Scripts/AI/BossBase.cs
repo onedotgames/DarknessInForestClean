@@ -47,6 +47,7 @@ public class BossBase : CustomBehaviour
     public Transform MomentaryPlayerTransform;
 
     public Coroutine AOEDamageRoutine;
+    protected Coroutine AttakRoutine;
 
     public GameObject Hand;
 
@@ -188,7 +189,7 @@ public class BossBase : CustomBehaviour
                 
             //}
             var dir = (Player.transform.position - transform.position).normalized;
-            _rb2D.AddForce((BaseMoveSpeed * Time.deltaTime) * dir * 200);
+            _rb2D.AddForce((BaseMoveSpeed * Time.deltaTime) * dir * 50);
         }
     }
 
@@ -235,8 +236,7 @@ public class BossBase : CustomBehaviour
                 ShouldIndicatorRotate = false;
 
                 var temp = Destination.transform.position;
-                ChargeIndicator.SetActive(false);
-                ChargeIndicator.transform.localScale = new Vector3(2, 1, 1);
+                CloseIndicator();
                 Monster.ChangeAction(true);
                 Monster.Attack();
 
@@ -262,6 +262,12 @@ public class BossBase : CustomBehaviour
         StartCoroutine(ChargeAttack(StartDelay, ChargeCount, ChargeBuildUpTime, ChargeTime, BaseAttackCooldown, TimeBtwCharges));
     }
 
+
+    private void CloseIndicator()
+    {
+        ChargeIndicator.SetActive(false);
+        ChargeIndicator.transform.localScale = new Vector3(2, 1, 1);
+    }
     public IEnumerator ChargeAttackWithoutIndicatorFollow(float startDelay, int chargeCount, float chargeBuilUpTime, float chargeTime, float chargeCooldown, float timeBetweenCharges)
     {
         while (GameManager.IsGamePaused)
@@ -291,12 +297,18 @@ public class BossBase : CustomBehaviour
             ChargeIndicator.transform.DOScaleY(7.5f, chargeBuilUpTime).OnComplete(() =>
             {
                 var temp = Destination.transform.position;
-                ChargeIndicator.SetActive(false);
-                ChargeIndicator.transform.localScale = new Vector3(2, 1, 1);
+                CloseIndicator();
                 Monster.ChangeAction(true);
                 Monster.Attack();
 
-                gameObject.transform.DOMove(temp, chargeTime).OnComplete(() =>
+                //gameObject.transform.DOMove(temp, chargeTime).OnComplete(() =>
+                //{
+                //    Monster.ChangeAction(false);
+                //    Monster.ResetAttack();
+                //    Monster.SetState(MonsterState.Ready);
+
+                //}); 
+                _rb2D.DOMove(temp, chargeTime).OnComplete(() =>
                 {
                     Monster.ChangeAction(false);
                     Monster.ResetAttack();
@@ -315,6 +327,8 @@ public class BossBase : CustomBehaviour
         Monster.SetState(MonsterState.Run);
 
         StartCoroutine(ChargeAttackWithoutIndicatorFollow(StartDelay, ChargeCount, ChargeBuildUpTime, ChargeTime, BaseAttackCooldown, TimeBtwCharges));
+        //AttakRoutine = StartCoroutine(ChargeAttackWithoutIndicatorFollow(StartDelay, ChargeCount, ChargeBuildUpTime, ChargeTime, BaseAttackCooldown, TimeBtwCharges));
+
     }
 
     protected IEnumerator RapidFire(float startDelay, int shotCount, float shotCooldown, float timeBetweenShots)
@@ -415,14 +429,19 @@ public class BossBase : CustomBehaviour
         if (currentHP <= 0 && IsActivated)
         {
             IsActivated = false;
-
+            CloseIndicator();
             hud.killCount++;
             hud.KillCount.text = hud.killCount.ToString();
             hud.BossHpGroup.SetActive(false);
-            if (AOEDamageRoutine != null)
-            {
-                StopCoroutine(AOEDamageRoutine);
-            }
+            //if (AOEDamageRoutine != null)
+            //{
+            //    StopCoroutine(AOEDamageRoutine);
+            //}
+            //if(AttakRoutine != null)
+            //{
+            //    StopCoroutine(AttakRoutine);
+            //}
+            StopAllCoroutines();
             OnDeath();
         }
     }

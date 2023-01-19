@@ -10,11 +10,12 @@ public class CloverProjectile : ProjectileBase
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
+        TriggerReturn(5f);
     }
 
     private void Update()
     {
-        if(!GameManager.IsGamePaused && GameManager.IsGameStarted)
+        if(!GameManager.IsGamePaused && GameManager.IsGameStarted && IsReady)
         {
             //ContinueuslyPlayVFX(MovementVFX);
             RotateModel();
@@ -42,7 +43,7 @@ public class CloverProjectile : ProjectileBase
             //PunchEffect(enemy.gameObject.transform, enemy.IsPunchable);
             enemy.PunchEffect();
             enemy.GetHit(Damage);
-
+            CancelReturnTrigger();
             Return();
 
         }
@@ -62,6 +63,7 @@ public class CloverProjectile : ProjectileBase
             enemy.PunchEffect();
 
             enemy.GetHit(Damage);
+            CancelReturnTrigger();
             Return();
         }
         if (collision.CompareTag("Barrel"))
@@ -109,6 +111,6 @@ public class CloverProjectile : ProjectileBase
 
     private void OnBecameInvisible()
     {
-        Return();
+        //Return();
     }
 }

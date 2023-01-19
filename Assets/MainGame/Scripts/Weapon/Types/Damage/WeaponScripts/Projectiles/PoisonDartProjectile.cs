@@ -26,6 +26,7 @@ public class PoisonDartProjectile : ProjectileBase
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
+        this.TriggerReturn(5f);
         _AllPoisonRoutines = new List<Coroutine>();
         Model.SetActive(true);
         _originalBoxColliderSize = _circleCollider2D.radius;
@@ -35,7 +36,7 @@ public class PoisonDartProjectile : ProjectileBase
 
     private void Update()
     {
-        if (!GameManager.IsGamePaused && GameManager.IsGameStarted)
+        if (!GameManager.IsGamePaused && GameManager.IsGameStarted && IsReady)
         {
             //ContinueuslyPlayVFX(MovementVFX);
             //RotateModel();
@@ -83,7 +84,7 @@ public class PoisonDartProjectile : ProjectileBase
             _circleCollider2D.radius = _targetBoxColliderSize;
 
             _shouldMove = false;
-
+            CancelReturnTrigger();
             Invoke("Return", PoisonDuration);
 
         }
@@ -218,9 +219,15 @@ public class PoisonDartProjectile : ProjectileBase
         base.Return();
     }
 
-    private void OnBecameInvisible()
+    //private void OnBecameInvisible()
+    //{
+    //    if (!Aura.activeInHierarchy)
+    //        Return();
+    //}
+
+    protected override void TriggerReturn(float time)
     {
         if (!Aura.activeInHierarchy)
-            Return();
+            Invoke("Return", time);
     }
 }
