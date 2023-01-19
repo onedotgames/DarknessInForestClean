@@ -16,4 +16,11 @@ public class NonFollowingCharger : BossBase
         base.SetAttackPattern();
         StartCoroutine(ChargeAttackWithoutIndicatorFollow(StartDelay, ChargeCount, ChargeBuildUpTime, ChargeTime, BaseAttackCooldown, TimeBtwCharges));
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag(TAGS.Player))
+        {
+            collision.gameObject.GetComponent<Player>().GetHit(BaseDamage);
+        }
+    }
 }

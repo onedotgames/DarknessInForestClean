@@ -182,12 +182,13 @@ public class BossBase : CustomBehaviour
     {
         if (!GameManager.IsGamePaused)
         {
-            if (Mathf.Abs(Vector3.Distance(transform.position, Player.transform.position)) < BaseRange)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, BaseMoveSpeed * Time.deltaTime);
-                var dir = (Player.transform.position - transform.position).normalized;
-                _rb2D.AddForce((BaseMoveSpeed * Time.deltaTime) * dir);
-            }
+            //if (Mathf.Abs(Vector3.Distance(transform.position, Player.transform.position)) < BaseRange)
+            //{
+            //    //transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, BaseMoveSpeed * Time.deltaTime);
+                
+            //}
+            var dir = (Player.transform.position - transform.position).normalized;
+            _rb2D.AddForce((BaseMoveSpeed * Time.deltaTime) * dir * 200);
         }
     }
 

@@ -25,4 +25,12 @@ public class ChargerBoss : BossBase
             collision.GetComponent<Player>().GetHit(BaseDamage);
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag(TAGS.Player))
+        {
+            collision.gameObject.GetComponent<Player>().GetHit(BaseDamage);
+        }
+    }
 }
