@@ -32,30 +32,30 @@ public class CloverProjectile : ProjectileBase
         if (collision.CompareTag("Enemy"))
         {
             var enemy = collision.GetComponent<EnemyBase>();
-            if (IsAoE)
+ 
+            if (ParticlePooler != null && ParticlePooler.isActiveAndEnabled)
             {
-                enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(Damage, AoETickInterval));
+                var obj = ParticlePooler.Pool.Get();
+                obj.gameObject.transform.position = enemy.transform.position;
             }
-            else
-            {
-                if (ParticlePooler != null && ParticlePooler.isActiveAndEnabled)
-                {
-                    var obj = ParticlePooler.Pool.Get();
-                    obj.gameObject.transform.position = enemy.transform.position;
-                }
-                enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
-                enemy.GetHit(Damage);
+            //enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
+            //PunchEffect(enemy.gameObject.transform, enemy.IsPunchable);
+            enemy.PunchEffect();
+            enemy.GetHit(Damage);
 
-                Return();
-            }           
+            Return();
+                     
         }
         if (collision.CompareTag("Boss"))
         {
             var enemy = collision.GetComponent<BossBase>();
-            if (IsAoE)
+            
+            if (ParticlePooler != null && ParticlePooler.isActiveAndEnabled)
             {
-                enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(Damage, AoETickInterval));
+                var obj = ParticlePooler.Pool.Get();
+                obj.gameObject.transform.position = enemy.transform.position;
             }
+<<<<<<< Updated upstream
             else
             {
                 if (ParticlePooler != null && ParticlePooler.isActiveAndEnabled)
@@ -66,6 +66,15 @@ public class CloverProjectile : ProjectileBase
                 enemy.GetHit(Damage);
                 Return();
             }
+=======
+            //enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
+            //PunchEffect(enemy.gameObject.transform, enemy.IsPunchable);
+            enemy.PunchEffect();
+
+            enemy.GetHit(Damage);
+            Return();
+            
+>>>>>>> Stashed changes
         }
     }
 

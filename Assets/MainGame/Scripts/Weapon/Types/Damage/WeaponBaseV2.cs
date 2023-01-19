@@ -211,6 +211,7 @@ public class WeaponBaseV2 : CustomBehaviour
             //mDirection = (new Vector3(x, y)).normalized;
             mDirection = Vector2.left;
         }
+        
     }
     
 
@@ -813,12 +814,21 @@ public class WeaponBaseV2 : CustomBehaviour
             {
                 Vector3 directionToTarget = potentialTarget.position - currentPosition;
                 float dSqrToTarget = directionToTarget.sqrMagnitude;
-                if (dSqrToTarget < closestDistanceSqr)
+                if (!GameManager.IsBossTime)
                 {
-                    closestDistanceSqr = dSqrToTarget;
+                    if (dSqrToTarget < closestDistanceSqr)
+                    {
+                        closestDistanceSqr = dSqrToTarget;
 
-                    _target = potentialTarget;
+                        _target = potentialTarget;
+                    }
                 }
+                else
+                {
+                    _target = GameManager.SpawnerManager.BossSpawner.ActiveBossTransform;
+
+                }
+
             }
             
         }

@@ -48,6 +48,7 @@ public class PoisonDartProjectile : ProjectileBase
         if (collision.CompareTag("Enemy"))
         {
             var enemy = collision.GetComponent<EnemyBase>();
+<<<<<<< Updated upstream
             if (IsAoE)
             {
                 enemy.GetHit(Damage);
@@ -66,16 +67,45 @@ public class PoisonDartProjectile : ProjectileBase
                 enemy.GetHit(Damage);
                 Return();
             }
+=======
+        
+            Aura.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.25f);
+            ChangeModel();
+
+            enemy.GetHit(Damage);
+
+            enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval));
+
+            //if (!PoisonVFX.isPlaying)
+            //    PoisonVFX.Play();
+
+            _AllPoisonRoutines.Add(enemy.AOEDamageRoutine);
+
+            Invoke("CloseEnlargement", 0.35f);
+            _circleCollider2D.radius = _targetBoxColliderSize;
+
+            _shouldMove = false;
+
+            Invoke("Return", PoisonDuration);
+            
+>>>>>>> Stashed changes
         }
         if (collision.CompareTag("Boss"))
         {
             var enemy = collision.GetComponent<BossBase>();
+<<<<<<< Updated upstream
             if (IsAoE)
             {
                 enemy.GetHit(Damage);
+=======
 
-                enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval));
+            Aura.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.25f);
+            ChangeModel();
+>>>>>>> Stashed changes
 
+            enemy.GetHit(Damage);
+
+<<<<<<< Updated upstream
                 if (!PoisonVFX.isPlaying)
                     PoisonVFX.Play();
 
@@ -86,6 +116,54 @@ public class PoisonDartProjectile : ProjectileBase
             {
                 enemy.GetHit(Damage);
                 Return();
+=======
+            enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval));
+
+            //if (!PoisonVFX.isPlaying)
+            //    PoisonVFX.Play();
+
+            _AllPoisonRoutines.Add(enemy.AOEDamageRoutine);
+
+            Invoke("CloseEnlargement", 0.35f);
+            _circleCollider2D.radius = _targetBoxColliderSize;
+
+            _shouldMove = false;
+
+            Invoke("Return", PoisonDuration);
+            
+        }
+        if (collision.CompareTag("Barrel"))
+        {
+            var barrelPos = collision.transform.position;
+            BarrelPooler = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.BarrelPooler];
+            BarrelPooler.ReturnObjectToPool(collision.gameObject);
+            GameManager.BarrelSystem.barrelCount--;
+            // coin magnet ya da bomb spawn olacak.
+            var k = UnityEngine.Random.Range(0, 13);
+            if (k < 3)//bomba?
+            {
+                var bombPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.BombPooler];
+                var bomb = bombPool.GetObjectFromPool();
+                bomb.transform.position = barrelPos;
+            }
+            else if (k >= 3 && k < 6)// magne?t
+            {
+                var magnetPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.MagnetPooler];
+                var magnet = magnetPool.GetObjectFromPool();
+                magnet.transform.position = barrelPos;
+            }
+            else if (k >= 6 && k < 9) //co?in
+            {
+                var coinPool = GameManager.PoolingManager.CoinPoolerList[(int)CoinType.Small];
+                var coin = coinPool.GetObjectFromPool();
+                coin.transform.position = barrelPos;
+            }
+            else if (k >= 9 && k < 13)//healthPot
+            {
+                var healthPotPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.HealthPotPooler];
+                var healthPot = healthPotPool.GetObjectFromPool();
+                healthPot.transform.position = barrelPos;
+>>>>>>> Stashed changes
             }
         }
     }

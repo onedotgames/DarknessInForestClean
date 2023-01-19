@@ -23,7 +23,7 @@ public class BossSpawner : CustomBehaviour
     public bool isBossWarningShowed2 = false;
     public bool isBossWarningShowed3 = false;
 
-
+    public Transform ActiveBossTransform;
     public GameObject BossRing;
     public GameObject BossSpawnLocation;
 
@@ -122,6 +122,7 @@ public class BossSpawner : CustomBehaviour
             Boss1Spawned = true;
             Boss1.gameObject.transform.position = transform.position;
             Boss1.gameObject.SetActive(true);
+            ActiveBossTransform = Boss1.transform;
             Boss1.Initialize(GameManager);
         }
         if (bossNumber == 2)
@@ -131,6 +132,7 @@ public class BossSpawner : CustomBehaviour
             Boss2Spawned = true;
             Boss2.gameObject.transform.position = transform.position;
             Boss2.gameObject.SetActive(true);
+            ActiveBossTransform = Boss1.transform;
             Boss2.Initialize(GameManager);
         }
         if (bossNumber == 3)
@@ -140,6 +142,7 @@ public class BossSpawner : CustomBehaviour
             Boss3Spawned = true;
             Boss3.gameObject.transform.position = transform.position;
             Boss3.gameObject.SetActive(true);
+            ActiveBossTransform = Boss1.transform;
             Boss3.Initialize(GameManager);
         }
 

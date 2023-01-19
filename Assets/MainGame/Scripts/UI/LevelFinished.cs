@@ -64,7 +64,7 @@ public class LevelFinished : UIPanel
         if(GameManager != null)
         {
             UIManager.GameManager.OnLevelCompleted += LevelCompleted;
-            UIManager.GameManager.OnTutorialCompleted += LevelCompleted;
+            //UIManager.GameManager.OnTutorialCompleted += LevelCompleted;
             UIManager.GameManager.OnLevelFailed += LevelFailed; 
             UIManager.GameManager.OnReturnToMainMenu += ReturnToMain;
         }
@@ -171,7 +171,7 @@ public class LevelFinished : UIPanel
         if(GameManager != null)
         {
             UIManager.GameManager.OnLevelCompleted -= LevelCompleted;
-            UIManager.GameManager.OnTutorialCompleted -= LevelCompleted;
+            //UIManager.GameManager.OnTutorialCompleted -= LevelCompleted;
             UIManager.GameManager.OnLevelFailed -= LevelFailed;
             UIManager.GameManager.OnReturnToMainMenu -= ReturnToMain;
         }

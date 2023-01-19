@@ -36,11 +36,28 @@ public class WhipProjetile : ProjectileBase
         {
             if (item.transform.CompareTag("Enemy"))
             {
+<<<<<<< Updated upstream
+=======
+
+                //item.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
+                //PunchEffect(enemy.gameObject.transform, enemy.IsPunchable);
+                item.transform.GetComponent<EnemyBase>().PunchEffect();
+
+
+
+>>>>>>> Stashed changes
                 item.transform.GetComponent<EnemyBase>().GetHit(Damage);
             }
             
             if (item.transform.CompareTag("Boss"))
             {
+<<<<<<< Updated upstream
+=======
+                //item.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
+                //PunchEffect(enemy.gameObject.transform, enemy.IsPunchable);
+                item.transform.GetComponent<BossBase>().PunchEffect();
+
+>>>>>>> Stashed changes
                 item.transform.GetComponent<BossBase>().GetHit(Damage);
             }
         }

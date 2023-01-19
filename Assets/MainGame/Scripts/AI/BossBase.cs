@@ -55,6 +55,7 @@ public class BossBase : CustomBehaviour
     public bool CanAttack = true;
     public bool ShouldRotate = false;
     public bool ShouldIndicatorRotate = false;
+    public bool IsPunchable = true;
 
     public Player Player;
     public Animator Anim;
@@ -67,6 +68,8 @@ public class BossBase : CustomBehaviour
     public Sprite RunHead;
 
     private HUD hud;
+    [SerializeField] private Vector3 _originalScale;
+    private Tweener punchTween;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -78,23 +81,40 @@ public class BossBase : CustomBehaviour
         }
         hud = gameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
         Player = gameManager.PlayerManager.CurrentPlayer;
+        gameManager.AIManager.EnemyList.Add(this.transform);
+        transform.localScale = _originalScale;
         SetStats();
         IsActivated = true;
+        Collider2D.enabled = true;
         BossHeadRenderer.sprite = RunHead;
         Anim.SetInteger("State", 0);
         Anim.SetBool("Action", false);
         SetMovementPattern();
         SetAttackPattern();
-
+        punchTween = transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f).SetRecyclable(true).SetAutoKill(false).OnComplete(() =>
+        {
+            IsPunchable = true;
+            transform.localScale = _originalScale;
+        }
+        ); 
         hud.SetBossHPBarActivation(true);
         hud.SetBossFillValue(currentHP,BaseHealth);
         hud.SetBossFillText(currentHP, BaseHealth);
-        gameManager.AIManager.EnemyList.Add(this.transform);
+        //gameManager.AIManager.EnemyList.Add(this.transform);
 
         Monster.ResetAttack();
         Monster.ChangeAction(false);
         Monster.SetState(MonsterState.Run);
 
+    }
+
+    public void PunchEffect()
+    {
+        if (IsPunchable)
+        {
+            IsPunchable = false;
+            punchTween.Restart();
+        }
     }
 
     private void Update()
@@ -377,7 +397,7 @@ public class BossBase : CustomBehaviour
 
     public void CheckDeath()
     {
-        if (currentHP <= 0)
+        if (currentHP <= 0 && IsActivated)
         {
             IsActivated = false;
 
@@ -425,10 +445,12 @@ public class BossBase : CustomBehaviour
         var i = Random.Range(0, 1000);
         if (i == 1)
         {
+            Debug.Log(gameObject.name + " Coin býrakýyor");
             Invoke("DropCoin", Anim.GetCurrentAnimatorStateInfo(0).length);
         }
         else
         {
+            Debug.Log(gameObject.name + " Exp býrakýyor");
             Invoke("DropExp", Anim.GetCurrentAnimatorStateInfo(0).length);
         }
         GameManager.IsBossTime = false;
@@ -440,6 +462,7 @@ public class BossBase : CustomBehaviour
             var exp = GameManager.PoolingManager.ExpPoolerList[(int)ExpPoolerType.SmallExperience].GetObjectFromPool();
             exp.transform.position = transform.position;
         }
+        //GameManager.AIManager.EnemyList.Remove(transform);
 
         CheckIfLastBoss();
         gameObject.SetActive(false);
@@ -452,6 +475,7 @@ public class BossBase : CustomBehaviour
             var coin = GameManager.PoolingManager.CoinPoolerList[(int)CoinType.Small].GetObjectFromPool();
             coin.transform.position = transform.position;
         }
+        //GameManager.AIManager.EnemyList.Remove(transform);
 
         CheckIfLastBoss();
         gameObject.SetActive(false);
@@ -461,6 +485,7 @@ public class BossBase : CustomBehaviour
     {
         if(GameManager.SpawnerManager.BossSpawner.Boss3 == this)
         {
+            Debug.Log("Son Boss yenildi, bölümü sonlandýrýyorum");
             GameManager.LevelCompleted();
         }
     }

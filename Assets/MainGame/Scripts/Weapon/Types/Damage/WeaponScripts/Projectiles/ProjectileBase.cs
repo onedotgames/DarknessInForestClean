@@ -47,6 +47,15 @@ public class ProjectileBase : CustomBehaviour
         Pooler.ReturnObjectToPool(ProjectileToSpawn);
     }
 
+    protected void PunchEffect(Transform transform, bool isPunchable)
+    {
+        if (isPunchable)
+        {
+            isPunchable = false;
+            transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f).OnComplete(() => isPunchable = true);
+        }
+    }
+
     protected void LinearMovement(Vector3 direction)
     {
         transform.Translate(Time.deltaTime * Speed * direction);

@@ -56,10 +56,13 @@ public class CHammerProjectile : ProjectileBase
         if (collision.CompareTag("Enemy"))
         {
             var enemy = collision.GetComponent<EnemyBase>();
-            if (IsAoE)
+            
+            if(ParticlePooler != null && ParticlePooler.isActiveAndEnabled)
             {
-                enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(Damage, AoETickInterval));
+                var obj = ParticlePooler.Pool.Get();
+                obj.gameObject.transform.position = enemy.transform.position;
             }
+<<<<<<< Updated upstream
             else
             {
                 if(ParticlePooler != null && ParticlePooler.isActiveAndEnabled)
@@ -70,17 +73,28 @@ public class CHammerProjectile : ProjectileBase
                 
                 enemy.GetHit(Damage);
                 //PlayHitVFX();
+=======
+            //enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
+            //PunchEffect(enemy.gameObject.transform, enemy.IsPunchable);
+            enemy.PunchEffect();
+
+            enemy.GetHit(Damage);
+            //PlayHitVFX();
+>>>>>>> Stashed changes
                 
-                //Return();
-            }
+            //Return();
+            
         }
         if (collision.CompareTag("Boss"))
         {
             var enemy = collision.GetComponent<BossBase>();
-            if (IsAoE)
+            
+            if (ParticlePooler != null && ParticlePooler.isActiveAndEnabled)
             {
-                enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(Damage, AoETickInterval));
+                var obj = ParticlePooler.Pool.Get();
+                obj.gameObject.transform.position = enemy.transform.position;
             }
+<<<<<<< Updated upstream
             else
             {
                 if (ParticlePooler != null && ParticlePooler.isActiveAndEnabled)
@@ -92,6 +106,16 @@ public class CHammerProjectile : ProjectileBase
                 PlayHitVFX();
                 //Return();
             }
+=======
+            //enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
+            //PunchEffect(enemy.gameObject.transform, enemy.IsPunchable);
+            enemy.PunchEffect();
+
+            enemy.GetHit(Damage);
+            PlayHitVFX();
+            //Return();
+            
+>>>>>>> Stashed changes
         }
         if (mIsReturning)
         {
@@ -129,5 +153,11 @@ public class CHammerProjectile : ProjectileBase
         Return();
         await WeaponBaseV2.SetAttackMethod();
         
+    }
+
+    protected override void Return()
+    {
+        CancelInvoke("CallAgain");
+        base.Return();
     }
 }

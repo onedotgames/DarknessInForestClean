@@ -31,6 +31,7 @@ public class EnemyBase : CustomBehaviour
 
     public bool IsActivated = false;
     public bool CanAttack = true;
+    public bool IsPunchable = true;
 
     public Player Player;
 
@@ -38,6 +39,8 @@ public class EnemyBase : CustomBehaviour
     public Coroutine AOEDamageRoutine;
     private HUD hud; 
     public Color TempColor;
+    private Tweener punchTween;
+
     private bool isDirtyOver = false;
     public override void Initialize(GameManager gameManager)
     {
@@ -54,6 +57,12 @@ public class EnemyBase : CustomBehaviour
         gameManager.AIManager.EnemyList.Add(this.transform);
         gameManager.AIManager.AIList.Add(this);
         hud = gameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
+        punchTween = transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f).SetRecyclable(true).SetAutoKill(false).OnComplete(() =>
+        {
+            IsPunchable = true;
+            transform.localScale = Vector3.one;
+        }
+        );
     }
 
     public void ActivateEnemy()
@@ -67,6 +76,8 @@ public class EnemyBase : CustomBehaviour
         CleanSprites.ForEach(x => x.color = Color.clear);
         EnemySprites.ForEach(x => x.color = Color.white);
         IsActivated = true;
+        IsPunchable = true;
+
     }
 
     public virtual void Update()
@@ -153,7 +164,15 @@ public class EnemyBase : CustomBehaviour
         }
         Return();
     }
-    
+
+    public void PunchEffect()
+    {
+        if (IsPunchable)
+        {
+            IsPunchable = false;
+            punchTween.Restart();
+        }
+    }
 
     public void CleanAnim()
     {
