@@ -33,6 +33,9 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
     public Slider ExpSlider;
     public TMP_Text CoinText;
     public TMP_Text LevelText;
+
+    public GameObject LevelUpText;
+    public GameObject PlayerIcon;
     public override void Initialize(UIManager uIManager)
     {
         base.Initialize(uIManager);
@@ -152,18 +155,23 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
     public override void OpenPanel()
     {
         base.OpenPanel();
+        Debug.Log("Level atladım.");
         GameManager.UIManager.GetPanel(Panels.Hud).ClosePanel();
         UpdateUIElements();
         ExpText.text = GameManager.PlayerLevelManager.CurrentExp + " / " + GameManager.PlayerLevelManager.LevelRequirement;
         ExpSlider.value = GameManager.PlayerLevelManager.CurrentExp / GameManager.PlayerLevelManager.LevelRequirement;
         CoinText.text = GameManager.PlayerManager.GetTotalCoinCount().ToString();
         LevelText.text = (GameManager.PlayerLevelManager.PlayerLevel + 1).ToString();
+        PlayerIcon.SetActive(true);
+        LevelUpText.SetActive(true);
     }
 
     public override void ClosePanel()
     {
         base.ClosePanel();
-
+        //CloseSkillPanelAndOpenHud();
+        PlayerIcon.SetActive(false);
+        LevelUpText.SetActive(false);
     }
     public void CloseSkillPanelAndOpenHud()
     {
