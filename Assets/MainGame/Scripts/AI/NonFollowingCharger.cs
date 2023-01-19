@@ -7,7 +7,8 @@ public class NonFollowingCharger : BossBase
     protected override void SetMovementPattern()
     {
         base.SetMovementPattern();
-        MovementMethod1 += ChasePlayer;
+        //MovementMethod1 += ChasePlayer;
+        MovementMethod1 += RigidBodyChase;
     }
 
     protected override void SetAttackPattern()

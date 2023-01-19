@@ -69,6 +69,7 @@ public class BossBase : CustomBehaviour
 
     private HUD hud;
     [SerializeField] private Vector3 _originalScale;
+    [SerializeField] private Rigidbody2D _rb2D;
     private Tweener punchTween;
     public override void Initialize(GameManager gameManager)
     {
@@ -175,6 +176,19 @@ public class BossBase : CustomBehaviour
     public void Stationary()
     {
         Debug.Log("Enemy is not moving");
+    }
+
+    public void RigidBodyChase()
+    {
+        if (!GameManager.IsGamePaused)
+        {
+            if (Mathf.Abs(Vector3.Distance(transform.position, Player.transform.position)) < BaseRange)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, BaseMoveSpeed * Time.deltaTime);
+                var dir = (Player.transform.position - transform.position).normalized;
+                _rb2D.AddForce((BaseMoveSpeed * Time.deltaTime) * dir);
+            }
+        }
     }
 
     public void ChasePlayer()

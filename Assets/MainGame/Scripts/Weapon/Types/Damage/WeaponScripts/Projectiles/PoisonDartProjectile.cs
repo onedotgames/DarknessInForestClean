@@ -108,12 +108,7 @@ public class PoisonDartProjectile : ProjectileBase
             _shouldMove = false;
 
             Invoke("Return", PoisonDuration);
-            }
-            else
-            {
-                //enemy.GetHit(Damage);
-                //Return();
-            }
+            
         }
         if (collision.CompareTag("Barrel"))
         {
