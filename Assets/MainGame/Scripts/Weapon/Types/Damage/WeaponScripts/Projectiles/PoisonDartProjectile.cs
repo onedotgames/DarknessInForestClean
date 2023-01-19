@@ -1,9 +1,10 @@
+using DG.Tweening;
 using Sirenix.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
+
 public class PoisonDartProjectile : ProjectileBase
 {
     public ParticleSystem PoisonVFX;
@@ -19,12 +20,16 @@ public class PoisonDartProjectile : ProjectileBase
     [SerializeField] private float _spiderWebSizeX;
     [SerializeField] private float _spiderWebSizeY;
     private float _originalBoxColliderSize;
-    [SerializeField] private float _targetBoxColliderSize;
+    [SerializeField]private float _targetBoxColliderSize;
+
     private bool _openModel;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
         _AllPoisonRoutines = new List<Coroutine>();
+        Model.SetActive(true);
+        _originalBoxColliderSize = _circleCollider2D.radius;
+        Aura.transform.localScale = AuraInitialScale;
         _shouldMove = true;
     }
 
@@ -39,6 +44,10 @@ public class PoisonDartProjectile : ProjectileBase
                 LinearMovement(Direction);
             }
         }
+    }
+    private void CloseEnlargement()
+    {
+        _openModel = false;
     }
     public void GetDirection(Vector3 direction)
     {
@@ -58,12 +67,15 @@ public class PoisonDartProjectile : ProjectileBase
         if (collision.CompareTag("Enemy"))
         {
             var enemy = collision.GetComponent<EnemyBase>();
-            
-            enemy.GetHit(Damage);            
-        
+
+            enemy.GetHit(Damage);
+
             ChangeModel();
 
             enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval));
+
+                //if (!PoisonVFX.isPlaying)
+                //    PoisonVFX.Play();
 
             _AllPoisonRoutines.Add(enemy.AOEDamageRoutine);
 
@@ -73,7 +85,7 @@ public class PoisonDartProjectile : ProjectileBase
             _shouldMove = false;
 
             Invoke("Return", PoisonDuration);
-            
+
         }
         if (collision.CompareTag("Boss"))
         {
@@ -85,6 +97,9 @@ public class PoisonDartProjectile : ProjectileBase
 
             enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval));
 
+                //if (!PoisonVFX.isPlaying)
+                //    PoisonVFX.Play();
+
             _AllPoisonRoutines.Add(enemy.AOEDamageRoutine);
 
             Invoke("CloseEnlargement", 0.35f);
@@ -93,7 +108,12 @@ public class PoisonDartProjectile : ProjectileBase
             _shouldMove = false;
 
             Invoke("Return", PoisonDuration);
-
+            }
+            else
+            {
+                //enemy.GetHit(Damage);
+                //Return();
+            }
         }
         if (collision.CompareTag("Barrel"))
         {
@@ -127,6 +147,11 @@ public class PoisonDartProjectile : ProjectileBase
                 var healthPot = healthPotPool.GetObjectFromPool();
                 healthPot.transform.position = barrelPos;
             }
+        }
+
+        if (collision.gameObject.CompareTag("Tower"))
+        {
+            collision.GetComponent<TowerSystem>().GetHitTower(Damage);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -191,12 +216,16 @@ public class PoisonDartProjectile : ProjectileBase
     protected override void Return()
     {
         DeactivatePoisonDart();
+        _circleCollider2D.radius = _originalBoxColliderSize;
+        _openModel = false;
+
+        Aura.SetActive(false);
         base.Return();
     }
 
     private void OnBecameInvisible()
     {
-        if (!PoisonVFX.isPlaying)
+        if (!Aura.activeInHierarchy)
             Return();
     }
 }

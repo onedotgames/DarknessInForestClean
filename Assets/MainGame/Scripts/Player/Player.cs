@@ -183,11 +183,21 @@ public class Player : CustomBehaviour
         {
             GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.HealthPotPooler].ReturnObjectToPool(collision.gameObject);
             GameManager.PlayerManager.CurrentPlayer.mCurrentHealth += 20;
+            GameManager.PlayerHealthManager.SetHealthBar(mMaxHealth);
+
         }
         if (collision.CompareTag("NPC"))
         {
             GameManager.QuestManager.QuestPanel.SetActive(true);
             Time.timeScale = 0f;
+        }
+        if (collision.CompareTag("HolyFountain"))
+        {
+            mCurrentHealth = mMaxHealth;
+            GameManager.PlayerHealthManager.SetHealthBar(mMaxHealth);
+            GameManager.HolyFountain.isFountainTaken = true;
+            GameManager.HolyFountain.SmokeVFX.Play();
+            GameManager.HolyFountain.HolyFountainRenderer.enabled = false;
         }
     }
     private void InitializeCustomOptions()
@@ -399,10 +409,20 @@ public class Player : CustomBehaviour
         RechargableShieldOn.Play(); 
     }
 
+    public void CloseRechargableShield()
+    {
+        IsShieldOn = false;
+        RechargableShieldOff.gameObject.SetActive(false);
+        RechargableShieldOn.gameObject.SetActive(false);
+    }
 
     private void StartGame()
     {
         IsGameStarted = true;
+        IsShieldOn = false;
+        SetPlayerStats();
+        DamageReduction = 1;
+        CloseRechargableShield();
     }
 
     private void ReturnToMainMenu()
@@ -410,17 +430,25 @@ public class Player : CustomBehaviour
         transform.position = Vector3.zero;
         SetPlayerStats(); 
         PlayerAnim.SetBool("isMoving", false);
+        DamageReduction = 1;
+        CloseRechargableShield();
     }
 
     private void LevelFailed()
     {
         PlayerAnim.SetBool("isMoving", false);
         StopShield();
+        SetPlayerStats();
+        DamageReduction = 1;
+        CloseRechargableShield();
     }
     private void LevelCompleted()
     {
         PlayerAnim.SetBool("isMoving", false);
         StopShield();
+        SetPlayerStats();
+        DamageReduction = 1;
+        CloseRechargableShield();
     }
 
     private void OnDisable()

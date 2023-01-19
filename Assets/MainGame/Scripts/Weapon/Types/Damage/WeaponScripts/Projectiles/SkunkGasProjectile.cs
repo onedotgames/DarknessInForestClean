@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,7 @@ public class SkunkGasProjectile : ProjectileBase
         if (collision.CompareTag("Enemy"))
         {
             var enemy = collision.GetComponent<EnemyBase>();
+            enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
 
             enemy.GetHit(Damage);
 
@@ -33,11 +35,51 @@ public class SkunkGasProjectile : ProjectileBase
         if (collision.CompareTag("Boss"))
         {
             var enemy = collision.GetComponent<BossBase>();
+            enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
+
             enemy.GetHit(Damage);
 
             enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval));
 
 
+        }
+        if (collision.CompareTag("Barrel"))
+        {
+            var barrelPos = collision.transform.position;
+            BarrelPooler = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.BarrelPooler];
+            BarrelPooler.ReturnObjectToPool(collision.gameObject);
+            GameManager.BarrelSystem.barrelCount--;
+            // coin magnet ya da bomb spawn olacak.
+            var k = Random.Range(0, 13);
+            if (k < 3)//bomba?
+            {
+                var bombPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.BombPooler];
+                var bomb = bombPool.GetObjectFromPool();
+                bomb.transform.position = barrelPos;
+            }
+            else if (k >= 3 && k < 6)// magne?t
+            {
+                var magnetPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.MagnetPooler];
+                var magnet = magnetPool.GetObjectFromPool();
+                magnet.transform.position = barrelPos;
+            }
+            else if (k >= 6 && k < 9) //co?in
+            {
+                var coinPool = GameManager.PoolingManager.CoinPoolerList[(int)CoinType.Small];
+                var coin = coinPool.GetObjectFromPool();
+                coin.transform.position = barrelPos;
+            }
+            else if (k >= 9 && k < 13)//healthPot
+            {
+                var healthPotPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.HealthPotPooler];
+                var healthPot = healthPotPool.GetObjectFromPool();
+                healthPot.transform.position = barrelPos;
+            }
+        }
+
+        if (collision.gameObject.CompareTag("Tower"))
+        {
+            collision.GetComponent<TowerSystem>().GetHitTower(Damage);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

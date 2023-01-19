@@ -33,6 +33,7 @@ public class MainMenu : UIPanel, IPointerDownHandler, IPointerUpHandler
         SkinsButton.Initialize(uIManager, OnButtonClickedSkins, false); //Remove false to make it visible
         SettingsButton.Initialize(uIManager, OnButtonClickedSettings);
         BuyCoins.Initialize(uIManager, OnButtonClickedSettings, false);
+
         InitializeCustomOptions();
 
         //GameManager.OnReturnToMainMenu += OnReturnToMainMenu;
@@ -69,7 +70,7 @@ public class MainMenu : UIPanel, IPointerDownHandler, IPointerUpHandler
         
         GameManager.InputManager.OnSwiped += OnSwiped;
         UpdateUIElements();
-       
+        GameManager.UIManager.GetPanel(Panels.Initial).ClosePanel();
         base.OpenPanel();
         
         
@@ -126,6 +127,8 @@ public class MainMenu : UIPanel, IPointerDownHandler, IPointerUpHandler
         {
             OnButtonClickedAlertTutor();
         }
+        GameManager.UIManager.GetPanel(Panels.Initial).OpenPanel();
+
         GameManager.StartGame();
     }
 

@@ -208,6 +208,7 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
     public override void OpenPanel()
     {
         UpdateUIElements();
+        GameManager.UIManager.GetPanel(Panels.Initial).ClosePanel();
         base.OpenPanel();
     }
 

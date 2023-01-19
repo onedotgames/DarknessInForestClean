@@ -4,13 +4,14 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Rendering;
 
-public class MenuEvent : MonoBehaviour
+public class MenuEvent : CustomBehaviour
 {
     private float Timer = 0;
     private int LeavesSpawnTime = 0;
     private int FireFliesSpawnTime = 0;
     private int BossSpawnTime = 0;
     private bool isEventStart = false;
+    private bool canPlay = false;
     public int minTime;
     public int maxTime;
     public ParticleSystem Leaves;
@@ -20,18 +21,83 @@ public class MenuEvent : MonoBehaviour
     public GameObject Shadow;
     public EventType eventType;
 
+    public override void Initialize(GameManager gameManager)
+    {
+        base.Initialize(gameManager);
+        canPlay = true;
+        if(GameManager != null)
+        {
+            GameManager.OnStartGame += StartGame;
+            GameManager.OnLevelCompleted += Completed;
+            GameManager.OnLevelFailed += Failed;
+        }
+    }
+
     private void Awake()
     {
         LeavesSpawnTime = Random.Range(minTime,maxTime);
         FireFliesSpawnTime = Random.Range(minTime,maxTime);
         BossSpawnTime = Random.Range(minTime,maxTime);
     }
+
+    private void StartGame()
+    {
+        canPlay = false;
+
+        switch (eventType)
+        {
+            case EventType.Boss:
+                Boss.SetActive(false);
+                break;
+            case EventType.Leaves:
+                Leaves.Stop();
+                break;
+            case EventType.FireFlies:
+                FireFlies.Stop();
+                break;
+        }
+        
+    }
+
+    private void Completed()
+    {
+        canPlay = true;
+        switch (eventType)
+        {
+            case EventType.Boss:
+                Boss.SetActive(true);
+                break;
+            case EventType.Leaves:
+                break;
+            case EventType.FireFlies:
+                break;
+        }
+    }
+
+    private void Failed()
+    {
+        canPlay = true;
+        switch(eventType)
+        {
+            case EventType.Boss:
+                Boss.SetActive(true);
+            break;
+            case EventType.Leaves:
+                break;
+            case EventType.FireFlies:
+                break;
+        }
+    }
+
     private void Update()
     {
-        Timer += Time.deltaTime;
-        if (!isEventStart)
+        if (canPlay)
         {
-            StartEvent();
+            Timer += Time.deltaTime;
+            if (!isEventStart)
+            {
+                StartEvent();
+            }
         }
     }
     public void StartEvent()
@@ -103,5 +169,15 @@ public class MenuEvent : MonoBehaviour
         Leaves = 0,
         FireFlies = 1,
         Boss = 2
+    }
+
+    private void OnDestroy()
+    {
+        if (GameManager != null)
+        {
+            GameManager.OnStartGame -= StartGame;
+            GameManager.OnLevelCompleted -= Completed;
+            GameManager.OnLevelFailed -= Failed;
+        }
     }
 }

@@ -34,25 +34,30 @@ public class PlayerHealthManager : CustomBehaviour
     {
         Player.mCurrentHealth = Player.mMaxHealth;
         SetHealthBar(Player.mMaxHealth);
+        IsRegenActive = false;
     }
     public void StartGame()
     {
         Player.mCurrentHealth = Player.mMaxHealth;
         SetHealthBar(Player.mMaxHealth);
+        IsRegenActive = false;
     }
 
     public void HpRegen()
     {
-        if (Player.mCurrentHealth < Player.mMaxHealth)
+        if (IsRegenActive)
         {
-            Player.mCurrentHealth += HpReg.UtilitySO.UpgradeUtilityDatas[HpReg.UpgradeLevel].ChangeAmount;
-            if(Player.mCurrentHealth > Player.mMaxHealth)
+            if (Player.mCurrentHealth < Player.mMaxHealth)
             {
-                Player.mCurrentHealth = Player.mMaxHealth;
+                Player.mCurrentHealth += HpReg.UtilitySO.UpgradeUtilityDatas[HpReg.UpgradeLevel].ChangeAmount;
+                if (Player.mCurrentHealth > Player.mMaxHealth)
+                {
+                    Player.mCurrentHealth = Player.mMaxHealth;
+                }
             }
+            SetHealthBar(Player.mMaxHealth);
+            Invoke("HpRegen", HpReg.UtilitySO.Cooldown);
         }
-        SetHealthBar(Player.mMaxHealth);
-        Invoke("HpRegen", HpReg.UtilitySO.Cooldown);
     }
     public void SetHealthBar(float maxHealth)
     {
