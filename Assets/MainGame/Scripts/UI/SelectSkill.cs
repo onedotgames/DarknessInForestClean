@@ -24,8 +24,15 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
 
     private HUD mHud;
     //private WeaponManager mWeaponManager;
-    private SkillManager mSkillManager;
+    public SkillManager mSkillManager;
+    public List<Image> WeaponIcons;
+    public List<Image> UtilityIcons;
 
+    [Header("Info Panel")]
+    public TMP_Text ExpText;
+    public Slider ExpSlider;
+    public TMP_Text CoinText;
+    public TMP_Text LevelText;
     public override void Initialize(UIManager uIManager)
     {
         base.Initialize(uIManager);
@@ -147,6 +154,10 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
         base.OpenPanel();
         GameManager.UIManager.GetPanel(Panels.Hud).ClosePanel();
         UpdateUIElements();
+        ExpText.text = GameManager.PlayerLevelManager.CurrentExp + " / " + GameManager.PlayerLevelManager.LevelRequirement;
+        ExpSlider.value = GameManager.PlayerLevelManager.CurrentExp / GameManager.PlayerLevelManager.LevelRequirement;
+        CoinText.text = GameManager.PlayerManager.GetTotalCoinCount().ToString();
+        LevelText.text = (GameManager.PlayerLevelManager.PlayerLevel + 1).ToString();
     }
 
     public override void ClosePanel()

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: adabe1b093acb4d199641a7e121be5a2
+guid: eb76f68338b464f828432ccc312bfdd7
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Pig-Sym_0
+      name: Boar_-_Sym_0
       rect:
         serializedVersion: 2
-        x: 126
-        y: 570
-        width: 6
-        height: 5
+        x: 57
+        y: 401
+        width: 198
+        height: 166
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dc9b098ed0bc94c3e95799d975545dad
-      internalID: 475608021
+      spriteID: 0e1aca5a9f63847c980190d5f77406e3
+      internalID: 803120163
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pig-Sym_1
+      name: Boar_-_Sym_1
       rect:
         serializedVersion: 2
-        x: 172
-        y: 484
-        width: 60
-        height: 94
+        x: 180
+        y: 483
+        width: 73
+        height: 79
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,103 +152,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b17fce503d00543f7bcfd089da73ca54
-      internalID: 1469985538
+      spriteID: 4e5210fa0502e49d487a611ad3cdb176
+      internalID: -924074099
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pig-Sym_2
+      name: Boar_-_Sym_2
       rect:
         serializedVersion: 2
-        x: 762
-        y: 570
-        width: 6
-        height: 5
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 704024fd2488042fa9e35b4fd76525f5
-      internalID: 1501936814
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Pig-Sym_3
-      rect:
-        serializedVersion: 2
-        x: 812
-        y: 484
-        width: 60
-        height: 94
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e85e0c7b7b2124129ab62a125d001fa1
-      internalID: -1213464959
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Pig-Sym_4
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 421
-        width: 137
-        height: 126
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e98a026c2d3974edf9705eb553abd4ad
-      internalID: -298702806
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Pig-Sym_5
-      rect:
-        serializedVersion: 2
-        x: 447
-        y: 540
-        width: 8
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cf4e29100209d48d19519fe34c578afa
-      internalID: -465850675
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Pig-Sym_6
-      rect:
-        serializedVersion: 2
-        x: 734
-        y: 393
-        width: 139
+        x: 377
+        y: 401
+        width: 214
         height: 157
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -257,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a80c44c897799454cb28864f0e659083
-      internalID: 1894903623
+      spriteID: c99800c94ffb04901a990ecc1de6a2e8
+      internalID: -948475244
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pig-Sym_7
+      name: Boar_-_Sym_3
       rect:
         serializedVersion: 2
-        x: 457
-        y: 534
-        width: 4
-        height: 6
+        x: 487
+        y: 483
+        width: 101
+        height: 72
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -278,20 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b2933b2ab57746c98b104c94607fde6
-      internalID: 917646710
+      spriteID: a1875cc2649a841d0a42e1a65eff5e6a
+      internalID: -769199695
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pig-Sym_8
+      name: Boar_-_Sym_4
       rect:
         serializedVersion: 2
-        x: 482
-        y: 490
-        width: 82
-        height: 45
+        x: 697
+        y: 371
+        width: 168
+        height: 187
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -299,20 +215,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bec2cb015135d49c6b4afcfe8fde0723
-      internalID: -1688229556
+      spriteID: 24adb1ca00ced4d2e9262a5d86bf868c
+      internalID: 1972494580
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pig-Sym_9
+      name: Boar_-_Sym_5
       rect:
         serializedVersion: 2
-        x: 414
-        y: 421
-        width: 153
-        height: 118
+        x: 820
+        y: 483
+        width: 73
+        height: 79
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -320,20 +236,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fdb1c333f7c974044906cf25acc80edd
-      internalID: 1559750850
+      spriteID: 4ce8b2444b08748afb1f690e2372cbfb
+      internalID: -575218879
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pig-Sym_10
+      name: Boar_-_Sym_6
       rect:
         serializedVersion: 2
-        x: 168
-        y: 24
-        width: 312
-        height: 313
+        x: 111
+        y: 17
+        width: 412
+        height: 326
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -341,20 +257,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 691ec014bfceb4404b604ff80f71e35b
-      internalID: -804524959
+      spriteID: 34213185063d949918678ddcb57ac924
+      internalID: 268364873
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pig-Sym_11
+      name: Boar_-_Sym_7
       rect:
         serializedVersion: 2
-        x: 886
-        y: 295
-        width: 17
-        height: 15
+        x: 685
+        y: 194
+        width: 68
+        height: 66
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -362,20 +278,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d35f85caa58454d8e88404e0489e453a
-      internalID: 2135941073
+      spriteID: 3648dcafc91ca4c109a1747ac6c71917
+      internalID: 1117565423
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pig-Sym_12
+      name: Boar_-_Sym_8
       rect:
         serializedVersion: 2
-        x: 692
-        y: 172
-        width: 67
-        height: 95
+        x: 846
+        y: 193
+        width: 68
+        height: 66
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -383,29 +299,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd398b2b8b1614f18bd1df6d42be3b2b
-      internalID: -729080024
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Pig-Sym_13
-      rect:
-        serializedVersion: 2
-        x: 847
-        y: 172
-        width: 61
-        height: 85
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0caa69e7bddbc40b3ad05df8363ce362
-      internalID: 891494703
+      spriteID: 8e49a296548854d7082eeffa05531a34
+      internalID: -1182444603
       vertices: []
       indices: 
       edges: []
@@ -421,20 +316,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Pig-Sym_7: 917646710
-      Pig-Sym_2: 1501936814
-      Pig-Sym_3: -1213464959
-      Pig-Sym_11: 2135941073
-      Pig-Sym_12: -729080024
-      Pig-Sym_4: -298702806
-      Pig-Sym_13: 891494703
-      Pig-Sym_1: 1469985538
-      Pig-Sym_6: 1894903623
-      Pig-Sym_8: -1688229556
-      Pig-Sym_10: -804524959
-      Pig-Sym_5: -465850675
-      Pig-Sym_9: 1559750850
-      Pig-Sym_0: 475608021
+      Boar_-_Sym_1: -924074099
+      Boar_-_Sym_2: -948475244
+      Boar_-_Sym_4: 1972494580
+      Boar_-_Sym_8: -1182444603
+      Boar_-_Sym_7: 1117565423
+      Boar_-_Sym_0: 803120163
+      Boar_-_Sym_6: 268364873
+      Boar_-_Sym_5: -575218879
+      Boar_-_Sym_3: -769199695
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

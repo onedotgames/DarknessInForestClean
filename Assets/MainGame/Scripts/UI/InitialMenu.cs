@@ -50,6 +50,8 @@ public class InitialMenu : UIPanel
     public MenuEvent LeavesEvent;
     public MenuEvent FireFliesEvent;
     public MenuEvent BossEvent;
+
+    public GameObject UserInfoPanel;
     public override void Initialize(UIManager uIManager)
     {
         base.Initialize(uIManager);
@@ -62,6 +64,7 @@ public class InitialMenu : UIPanel
         LeavesEvent.Initialize(GameManager);
         FireFliesEvent.Initialize(GameManager);
         BossEvent.Initialize(GameManager);
+        GameManager.UIManager.GetPanel(Panels.Hud).ClosePanel();
 
         LevelScroller.sizeDelta = new Vector2(Screen.width, LevelScroller.sizeDelta.y);
         Content.sizeDelta = new Vector2(Screen.height * 5, 0);
@@ -74,6 +77,7 @@ public class InitialMenu : UIPanel
         if(GameManager != null)
         {
             GameManager.OnReturnToMainMenu += OnReturnToMainMenu;
+            GameManager.OnStartGame += StartGame;
         }
     }
 
@@ -167,11 +171,18 @@ public class InitialMenu : UIPanel
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
         GameManager.UIManager.GetPanel(Panels.MainMenu).OpenPanel();
         ClosePanel();
+        UserInfoPanel.SetActive(false);
     }
 
     private void OnReturnToMainMenu()
     {
         OpenPanel();
+        UserInfoPanel.SetActive(true);
+    }
+
+    private void StartGame()
+    {
+        ClosePanel();
     }
 
     private void OnDestroy()

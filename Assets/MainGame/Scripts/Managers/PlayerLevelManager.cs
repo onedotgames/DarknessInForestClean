@@ -6,7 +6,7 @@ using TMPro;
 
 public class PlayerLevelManager : CustomBehaviour
 {
-    private float CurrentExp;
+    public float CurrentExp;
     public float LevelRequirement;
     [SerializeField] private float InitialLevelRequirement;
     private HUD mHud;
@@ -96,6 +96,14 @@ public class PlayerLevelManager : CustomBehaviour
 
     private void LevelUp()
     {
+        for (int i = 0; i < GameManager.SkillManager.WeaponsInUseV2.Count; i++)
+        {
+            mSelectSkillPanel.WeaponIcons[i].sprite = GameManager.SkillManager.WeaponsInUseV2[i].SkillSO.Icon;
+        }
+        for (int i = 0; i < GameManager.SkillManager.UtilitiesInUse.Count; i++)
+        {
+            mSelectSkillPanel.UtilityIcons[i].sprite = GameManager.SkillManager.UtilitiesInUse[i].UtilitySO.Icon;
+        }
         mSelectSkillPanel.OpenPanel();
         PlayerLevel++;
         mHud.UpdateLevelText();

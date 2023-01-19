@@ -5,6 +5,8 @@ using UnityEngine;
 public class HolyFountain : CustomBehaviour
 {
     public GameObject Fountain;
+    public ParticleSystem SmokeVFX;
+    public SpriteRenderer HolyFountainRenderer;
     public bool isFountainTaken = false;
     public override void Initialize(GameManager gameManager)
     {
@@ -20,12 +22,14 @@ public class HolyFountain : CustomBehaviour
     private void Awake()
     {
         Fountain.SetActive(false);
+        HolyFountainRenderer.enabled = true;
     }
 
     private void StartGame()
     {
         Fountain.transform.position = new Vector3(Random.Range(-80, 80), Random.Range(-80, 80), 0);
         Fountain.SetActive(true);
+        HolyFountainRenderer.enabled = true;
     }
 
     private void LevelCompleted()

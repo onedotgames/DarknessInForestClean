@@ -16,7 +16,9 @@ public class UtilityBase : CustomBehaviour
         base.Initialize(gameManager);
         if (GameManager != null)
         {
-            GameManager.OnLevelFailed -= LevelFailed;
+            GameManager.OnLevelFailed += LevelFailed;
+            GameManager.OnLevelCompleted += LevelSuccess;
+            gameManager.OnStartGame += StartGame;
         }
         mPlayer = gameManager.PlayerManager.CurrentPlayer;
     }
@@ -61,6 +63,7 @@ public class UtilityBase : CustomBehaviour
                     break;
 
                 case UtilityPattern.HealthRegen:
+                    GameManager.PlayerHealthManager.IsRegenActive = true;
                     GameManager.PlayerHealthManager.HpRegen();
                     break;
 
@@ -69,12 +72,10 @@ public class UtilityBase : CustomBehaviour
             }
 
             UpgradeLevel++;
-            Debug.Log(gameObject.name + " Upgrade Level: " + UpgradeLevel);
             if(UpgradeLevel == UtilitySO.UpgradeUtilityDatas.Count - 1)
             {
                 GameManager.SkillManager.AllUtils.Remove(this);
                 GameManager.SkillManager.UtilitiesInUse.Remove(this);
-                Debug.Log(gameObject.name + " Çýkarýldý");
 
             }
         }
@@ -90,12 +91,21 @@ public class UtilityBase : CustomBehaviour
     {
         UpgradeLevel = 0;
     }
-
+    private void LevelSuccess()
+    {
+        UpgradeLevel = 0;
+    }
+    private void StartGame()
+    {
+        UpgradeLevel = 0;
+    }
     private void OnDestroy()
     {
         if(GameManager != null)
         {
             GameManager.OnLevelFailed -= LevelFailed;
+            GameManager.OnLevelCompleted -= LevelSuccess;
+            GameManager.OnStartGame -= StartGame;
         }
     }
 }
