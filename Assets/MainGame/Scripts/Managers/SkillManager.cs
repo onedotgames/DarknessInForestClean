@@ -157,11 +157,12 @@ public class SkillManager : CustomBehaviour
             if (contains)
             {
                 //Increase star level
+                PausePanel.AddWeaponStar();
             }
             else
             {
-                PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
                 WeaponsInUseV2.Add(selectedWeaponData.Weapon);
+                PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
                 CheckWeaponLimitReached();
             }
 
@@ -184,11 +185,12 @@ public class SkillManager : CustomBehaviour
             if (contains)
             {
 
+                PausePanel.AddWeaponStar();
             }
             else
             {
-                PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
                 WeaponsInUseV2.Add(selectedWeaponData.Weapon);
+                PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
                 CheckWeaponLimitReached();
 
             }
@@ -212,11 +214,12 @@ public class SkillManager : CustomBehaviour
             if (contains)
             {
 
+                PausePanel.AddWeaponStar();
             }
             else
             {
-                PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
                 WeaponsInUseV2.Add(selectedWeaponData.Weapon);
+                PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
                 CheckWeaponLimitReached();
 
             }
@@ -249,12 +252,13 @@ public class SkillManager : CustomBehaviour
 
             if (contains)
             {
-
+                //increase star.
+                PausePanel.AddUtilStar();
             }
             else
             {
-                PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
                 UtilitiesInUse.Add(selectedUtilityData.Utility);
+                PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
                 CheckUtilLimitReached();
             }
 
@@ -278,12 +282,13 @@ public class SkillManager : CustomBehaviour
 
             if (contains)
             {
+                PausePanel.AddUtilStar();
 
             }
             else
             {
-                PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
                 UtilitiesInUse.Add(selectedUtilityData.Utility);
+                PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
                 CheckUtilLimitReached();
             }
         }
@@ -306,12 +311,13 @@ public class SkillManager : CustomBehaviour
 
             if (contains)
             {
+                PausePanel.AddUtilStar();
 
             }
             else
             {
-                PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
                 UtilitiesInUse.Add(selectedUtilityData.Utility);
+                PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
                 CheckUtilLimitReached();
             }
         }

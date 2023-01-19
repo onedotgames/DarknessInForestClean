@@ -60,6 +60,7 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
 
     public TMP_Text FPSCounter;
 
+    public GameObject PlayerIcon;
     public override void Initialize(UIManager uIManager)
     {
         base.Initialize(uIManager);
@@ -209,11 +210,13 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
     {
         UpdateUIElements();
         GameManager.UIManager.GetPanel(Panels.Initial).ClosePanel();
+        PlayerIcon.SetActive(true);
         base.OpenPanel();
     }
 
     public override void ClosePanel()
     {
+        PlayerIcon.SetActive(false);
         base.ClosePanel();
     }
 

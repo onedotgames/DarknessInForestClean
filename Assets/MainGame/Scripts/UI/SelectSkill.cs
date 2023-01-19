@@ -11,14 +11,21 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
     public CustomButton SkillButtonOne;
     public Image ButtonOneImage;
     public TMP_Text ButtonOneText;
+    public List<GameObject> BtnOneActives;
+    public List<GameObject> BtnOneDeactives;
+
 
     public CustomButton SkillButtonTwo;
     public TMP_Text ButtonTwoText;
     public Image ButtonTwoImage;
+    public List<GameObject> BtnTwoActives;
+    public List<GameObject> BtnTwoDeactives;
 
     public CustomButton SkillButtonThree;
     public TMP_Text ButtonThreeText;
     public Image ButtonThreeImage;
+    public List<GameObject> BtnThreeActives;
+    public List<GameObject> BtnThreeDeactives;
 
     public List<ButtonData> ButtonDataList;
 
@@ -36,6 +43,11 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
 
     public GameObject LevelUpText;
     public GameObject PlayerIcon;
+
+    private int btnOneLevel;
+    private int btnTwoLevel;
+    private int btnThreeLevel;
+
     public override void Initialize(UIManager uIManager)
     {
         base.Initialize(uIManager);
@@ -63,6 +75,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
             if (GameManager.PlayerLevelManager.PlayerLevel < 5)
             {
                 AssignWeaponV3(i);
+                GetUpgradeLevels(0, i);
             }
             else
             {
@@ -76,6 +89,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
                     {
                         //AssignWeapon(i);
                         AssignWeaponV3(i);
+                        GetUpgradeLevels(0, i);
                     }
                     else
                     {
@@ -83,6 +97,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
                         {
                             //AssignUtil(i);
                             AssignUtilV2(i);
+                            GetUpgradeLevels(0, i);
                         }
                         else
                         {
@@ -96,12 +111,14 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
                     if (i < mSkillManager.TempUtils.Count)
                     {
                         AssignUtilV2(i);
+                        GetUpgradeLevels(1, i);
                     }
                     else
                     {
                         if (i < mSkillManager.TempWeaponsV2.Count)
                         {
                             AssignWeaponV3(i);
+                            GetUpgradeLevels(0, i);
                         }
                         else
                         {
@@ -115,6 +132,113 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
         }
     }
 
+    private void GetUpgradeLevels(int type, int buttonIndex) // 0 ise weapon 1 ise util
+    {
+        if(type == 0) //weapon
+        {
+            if(buttonIndex == 0)
+            {
+                btnOneLevel = ButtonDataList[0].Weapon.UpgradeLevel + 1;
+                if (GameManager.SkillManager.WeaponsInUseV2.Contains(ButtonDataList[0].Weapon))
+                {
+                    for (int i = 0; i < btnOneLevel; i++)
+                    {
+                        BtnOneActives[i].SetActive(true);
+                    }
+                }
+                else
+                {
+                    BtnOneActives.ForEach(x => x.SetActive(false));
+                }
+                
+                Debug.Log("Level" + btnOneLevel);
+
+            }
+            else if(buttonIndex == 1)
+            {
+                btnTwoLevel = ButtonDataList[1].Weapon.UpgradeLevel + 1;
+                if (GameManager.SkillManager.WeaponsInUseV2.Contains(ButtonDataList[1].Weapon))
+                {
+                    for (int i = 0; i < btnTwoLevel; i++)
+                    {
+                        BtnTwoActives[i].SetActive(true);
+                    }
+                }
+                else
+                {
+                    BtnTwoActives.ForEach(x => x.SetActive(false));
+                }
+                Debug.Log("Level" + btnTwoLevel);
+
+            }
+            else if(buttonIndex == 2)
+            {
+                btnThreeLevel = ButtonDataList[2].Weapon.UpgradeLevel + 1;
+                if (GameManager.SkillManager.WeaponsInUseV2.Contains(ButtonDataList[2].Weapon))
+                {
+                    for (int i = 0; i < btnThreeLevel; i++)
+                    {
+                        BtnThreeActives[i].SetActive(true);
+                    }
+                }
+                else
+                {
+                    BtnThreeActives.ForEach(x => x.SetActive(false));
+                }
+            }
+        }
+        else if(type == 1) //util
+        {
+            if (buttonIndex == 0)
+            {
+                btnOneLevel = ButtonDataList[0].Utility.UpgradeLevel + 1;
+                if (GameManager.SkillManager.UtilitiesInUse.Contains(ButtonDataList[0].Utility))
+                {
+                    for (int i = 0; i < btnOneLevel; i++)
+                    {
+                        BtnOneActives[i].SetActive(true);
+                    }
+                }
+                else
+                {
+                    BtnOneActives.ForEach(x => x.SetActive(false));
+                }
+                Debug.Log("Level" + btnOneLevel);
+            }
+            else if (buttonIndex == 1)
+            {
+                btnTwoLevel = ButtonDataList[1].Utility.UpgradeLevel + 1;
+                if (GameManager.SkillManager.UtilitiesInUse.Contains(ButtonDataList[0].Utility))
+                {
+                    for (int i = 0; i < btnTwoLevel; i++)
+                    {
+                        BtnTwoActives[i].SetActive(true);
+                    }
+                }
+                else
+                {
+                    BtnTwoActives.ForEach(x => x.SetActive(false));
+                }
+                Debug.Log("Level" + btnTwoLevel);
+            }
+            else if (buttonIndex == 2)
+            {
+                btnThreeLevel = ButtonDataList[2].Utility.UpgradeLevel + 1;
+                if (GameManager.SkillManager.UtilitiesInUse.Contains(ButtonDataList[0].Utility))
+                {
+                    for (int i = 0; i < btnThreeLevel; i++)
+                    {
+                        BtnThreeActives[i].SetActive(true);
+                    }
+                }
+                else
+                {
+                    BtnThreeActives.ForEach(x => x.SetActive(false));
+                }
+                Debug.Log("Level" + btnThreeLevel);
+            }
+        }
+    }
     public void AssignWeaponV3(int index)
     {
         mSkillManager.WeaponBasesV2 = new List<WeaponBaseV2>();
