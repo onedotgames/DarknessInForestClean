@@ -29,12 +29,10 @@ public class BirdBombProjectile : ProjectileBase
         if (collision.CompareTag("Enemy"))
         {
             var enemy = collision.GetComponent<EnemyBase>();
-<<<<<<< Updated upstream
-=======
+
             //enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
             //PunchEffect(enemy.gameObject.transform, enemy.IsPunchable);
             enemy.PunchEffect();
->>>>>>> Stashed changes
 
             enemy.GetHit(Damage);
         }
@@ -67,12 +65,10 @@ public class BirdBombProjectile : ProjectileBase
         if (collision.CompareTag("Boss"))
         {
             var enemy = collision.GetComponent<BossBase>();
-<<<<<<< Updated upstream
-=======
+
             //enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
             //PunchEffect(enemy.gameObject.transform, enemy.IsPunchable);
             enemy.PunchEffect();
->>>>>>> Stashed changes
 
             enemy.GetHit(Damage);
         }

@@ -50,31 +50,22 @@ public class CloverProjectile : ProjectileBase
         {
             var enemy = collision.GetComponent<BossBase>();
             
+
             if (ParticlePooler != null && ParticlePooler.isActiveAndEnabled)
             {
                 var obj = ParticlePooler.Pool.Get();
                 obj.gameObject.transform.position = enemy.transform.position;
             }
-<<<<<<< Updated upstream
-            else
-            {
-                if (ParticlePooler != null && ParticlePooler.isActiveAndEnabled)
-                {
-                    var obj = ParticlePooler.Pool.Get();
-                    obj.gameObject.transform.position = enemy.transform.position;
-                }
-                enemy.GetHit(Damage);
-                Return();
-            }
-=======
+            enemy.GetHit(Damage);
+            Return();
+            
+
             //enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
             //PunchEffect(enemy.gameObject.transform, enemy.IsPunchable);
             enemy.PunchEffect();
 
             enemy.GetHit(Damage);
-            Return();
-            
->>>>>>> Stashed changes
+            Return();           
         }
     }
 

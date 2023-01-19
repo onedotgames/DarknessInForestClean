@@ -62,60 +62,41 @@ public class CHammerProjectile : ProjectileBase
                 var obj = ParticlePooler.Pool.Get();
                 obj.gameObject.transform.position = enemy.transform.position;
             }
-<<<<<<< Updated upstream
-            else
-            {
-                if(ParticlePooler != null && ParticlePooler.isActiveAndEnabled)
-                {
-                    var obj = ParticlePooler.Pool.Get();
-                    obj.gameObject.transform.position = enemy.transform.position;
-                }
+            
                 
-                enemy.GetHit(Damage);
-                //PlayHitVFX();
-=======
+            enemy.GetHit(Damage);
+            PlayHitVFX();
             //enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
             //PunchEffect(enemy.gameObject.transform, enemy.IsPunchable);
             enemy.PunchEffect();
 
             enemy.GetHit(Damage);
-            //PlayHitVFX();
->>>>>>> Stashed changes
-                
-            //Return();
+
             
         }
         if (collision.CompareTag("Boss"))
         {
             var enemy = collision.GetComponent<BossBase>();
             
+            
             if (ParticlePooler != null && ParticlePooler.isActiveAndEnabled)
             {
                 var obj = ParticlePooler.Pool.Get();
                 obj.gameObject.transform.position = enemy.transform.position;
             }
-<<<<<<< Updated upstream
-            else
-            {
-                if (ParticlePooler != null && ParticlePooler.isActiveAndEnabled)
-                {
-                    var obj = ParticlePooler.Pool.Get();
-                    obj.gameObject.transform.position = enemy.transform.position;
-                }
-                enemy.GetHit(Damage);
-                PlayHitVFX();
-                //Return();
-            }
-=======
+            enemy.GetHit(Damage);
+            PlayHitVFX();
+            
+
             //enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
             //PunchEffect(enemy.gameObject.transform, enemy.IsPunchable);
             enemy.PunchEffect();
 
             enemy.GetHit(Damage);
-            PlayHitVFX();
+            //PlayHitVFX();
             //Return();
             
->>>>>>> Stashed changes
+
         }
         if (mIsReturning)
         {
