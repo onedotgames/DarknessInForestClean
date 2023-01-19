@@ -48,6 +48,16 @@ public class ProjectileBase : CustomBehaviour
         Pooler.ReturnObjectToPool(ProjectileToSpawn);
     }
 
+    protected virtual void TriggerReturn(float time)
+    {
+        Invoke("Return", time);
+    }
+
+    protected virtual void CancelReturnTrigger()
+    {
+        CancelInvoke("Return");
+    }
+
     protected void PunchEffect(Transform transform, bool isPunchable)
     {
         if (isPunchable)

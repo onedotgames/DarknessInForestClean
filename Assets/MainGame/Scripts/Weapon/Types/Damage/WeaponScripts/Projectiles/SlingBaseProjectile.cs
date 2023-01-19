@@ -10,6 +10,7 @@ public class SlingBaseProjectile : ProjectileBase
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
+        TriggerReturn(5f);
     }
     private void OnEnable()
     {
@@ -61,6 +62,7 @@ public class SlingBaseProjectile : ProjectileBase
             enemy.PunchEffect();
 
             enemy.GetHit(Damage);
+            CancelReturnTrigger();
             Return();
         }
         if (collision.CompareTag("Boss"))
@@ -78,6 +80,7 @@ public class SlingBaseProjectile : ProjectileBase
             enemy.PunchEffect();
 
             enemy.GetHit(Damage);
+            CancelReturnTrigger();
             Return();
         }
 
@@ -137,8 +140,8 @@ public class SlingBaseProjectile : ProjectileBase
 
     }
 
-    private void OnBecameInvisible()
-    {
-        Return();
-    }
+    //private void OnBecameInvisible()
+    //{
+    //    Return();
+    //}
 }

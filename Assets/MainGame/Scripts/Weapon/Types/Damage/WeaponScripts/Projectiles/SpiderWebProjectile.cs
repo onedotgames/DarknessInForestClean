@@ -17,14 +17,17 @@ public class SpiderWebProjectile : ProjectileBase
     private float tempSpeed;
     private bool _shouldMove;
     private bool _openModel;
+    private bool _returnTriggered = false;
     [SerializeField] private Vector3 _webReducedScale;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
+
         Model.SetActive(true);
         _originalBoxColliderSize = _boxCollider.size;
         _OpenWebModel.transform.localScale = _webReducedScale;
         _shouldMove = true;
+        _returnTriggered = false;
 
     }
     private void Update()
@@ -55,7 +58,12 @@ public class SpiderWebProjectile : ProjectileBase
             _OpenWebModel.SetActive(true);
             _openModel = true;
             _OpenWebModel.transform.DOScale(new Vector3(_spiderWebSizeX, _spiderWebSizeY), 0.25f);
-            Invoke("Return", Duration + 0.25f);
+            if (!_returnTriggered)
+            {
+                _returnTriggered = true;
+                Invoke("Return", Duration + 0.25f);
+
+            }
             _boxCollider.size = new Vector2(_boxColliderXSize,_boxColliderYSize);
             tempSpeed = enemy.mStats.BaseSpeed;
             enemy.BaseSpeed -= SlowPower;
@@ -73,7 +81,12 @@ public class SpiderWebProjectile : ProjectileBase
             _OpenWebModel.SetActive(true);
             _openModel = true;
             _OpenWebModel.transform.DOScale(new Vector3(_spiderWebSizeX, _spiderWebSizeY), 0.25f);
-            Invoke("Return", Duration + 0.25f);
+            if (!_returnTriggered)
+            {
+                _returnTriggered = true;
+                Invoke("Return", Duration + 0.25f);
+
+            }
             _boxCollider.size = new Vector2(_boxColliderXSize, _boxColliderYSize);
             tempSpeed = enemy.Stats.BaseMoveSpeed;
             enemy.BaseMoveSpeed -= SlowPower;

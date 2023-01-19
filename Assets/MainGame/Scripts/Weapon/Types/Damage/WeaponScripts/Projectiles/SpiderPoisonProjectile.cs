@@ -17,6 +17,8 @@ public class SpiderPoisonProjectile : ProjectileBase
     private float tempSpeed;
     private bool _shouldMove;
     private bool _openModel;
+    private bool _returnTriggered = false;
+
     [SerializeField] private Vector3 _webReducedScale;
     private List<Coroutine> _AllPoisonRoutines;
     private float PoisonAreaDamage = 20f;
@@ -34,7 +36,7 @@ public class SpiderPoisonProjectile : ProjectileBase
     }
     private void Update()
     {
-        if (!GameManager.IsGamePaused && GameManager.IsGameStarted)
+        if (!GameManager.IsGamePaused && GameManager.IsGameStarted && IsReady)
         {
             //ContinueuslyPlayVFX(MovementVFX);
             //RotateModel();
@@ -67,7 +69,13 @@ public class SpiderPoisonProjectile : ProjectileBase
             _boxCollider.size = new Vector2(_boxColliderXSize, _boxColliderYSize);
 
             _shouldMove = false;
-            Invoke("Return", PoisonDuration);
+            if (!_returnTriggered)
+            {
+                _returnTriggered = true;
+                Invoke("Return", PoisonDuration);
+
+            }
+            //Invoke("Return", PoisonDuration);
         }
         if (collision.CompareTag("Boss"))
         {
@@ -85,7 +93,12 @@ public class SpiderPoisonProjectile : ProjectileBase
             _boxCollider.size = new Vector2(_boxColliderXSize, _boxColliderYSize);
 
             _shouldMove = false;
-            Invoke("Return", PoisonDuration);
+            if (!_returnTriggered)
+            {
+                _returnTriggered = true;
+                Invoke("Return", PoisonDuration);
+
+            }
         }
     }
 
