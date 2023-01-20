@@ -86,13 +86,15 @@ public class BossSpawner : CustomBehaviour
 
     private void StartBossPreperation(int bossNumber)
     {
+        //GameManager.IsBossTime = true;
+
         if (bossNumber == 1)
         {
             SetBossRing();
             isBossWarningShowed1 = true;
             StartCoroutine(hud.BossRoutine());
             StopEnemySpawners();
-            ClearOtherEnemies();
+            //ClearOtherEnemies();
         }
         if (bossNumber == 2)
         {
@@ -100,7 +102,7 @@ public class BossSpawner : CustomBehaviour
             isBossWarningShowed2 = true;
             StartCoroutine(hud.BossRoutine());
             StopEnemySpawners();
-            ClearOtherEnemies();
+            //ClearOtherEnemies();
         }
         if (bossNumber == 3)
         {
@@ -108,16 +110,19 @@ public class BossSpawner : CustomBehaviour
             isBossWarningShowed3 = true;
             StartCoroutine(hud.BossRoutine());
             StopEnemySpawners();
-            ClearOtherEnemies();
+            //ClearOtherEnemies();
         }
         
     }
 
     private void SpawnBoss(int bossNumber)
     {
-        if(bossNumber == 1)
+        GameManager.IsBossTime = true;
+        ClearOtherEnemies();
+        Debug.Log(GameManager.IsBossTime);
+        if (bossNumber == 1)
         {
-            GameManager.IsBossTime = true;
+            //GameManager.IsBossTime = true;
 
             Boss1Spawned = true;
             Boss1.gameObject.transform.position = transform.position;
@@ -127,24 +132,25 @@ public class BossSpawner : CustomBehaviour
         }
         if (bossNumber == 2)
         {
-            GameManager.IsBossTime = true;
+            //GameManager.IsBossTime = true;
 
             Boss2Spawned = true;
             Boss2.gameObject.transform.position = transform.position;
             Boss2.gameObject.SetActive(true);
-            ActiveBossTransform = Boss1.transform;
+            ActiveBossTransform = Boss2.transform;
             Boss2.Initialize(GameManager);
         }
         if (bossNumber == 3)
         {
-            GameManager.IsBossTime = true;
+            //GameManager.IsBossTime = true;
 
             Boss3Spawned = true;
             Boss3.gameObject.transform.position = transform.position;
             Boss3.gameObject.SetActive(true);
-            ActiveBossTransform = Boss1.transform;
+            ActiveBossTransform = Boss3.transform;
             Boss3.Initialize(GameManager);
         }
+        Debug.Log(GameManager.IsBossTime);
 
     }
 
@@ -152,6 +158,7 @@ public class BossSpawner : CustomBehaviour
     {
         GameManager.BossSpawn();
         GameManager.AIManager.AIList.Clear();
+        //GameManager.AIManager.EnemyList.Clear();
     }
 
     private void StopEnemySpawners()

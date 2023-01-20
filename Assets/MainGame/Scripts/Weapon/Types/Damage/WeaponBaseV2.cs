@@ -840,25 +840,25 @@ public class WeaponBaseV2 : CustomBehaviour
         Vector3 currentPosition = mPlayer.transform.position;
         foreach (Transform potentialTarget in enemies)
         {
-            if (potentialTarget.gameObject.activeInHierarchy)
+            if (!GameManager.IsBossTime)
             {
-                Vector3 directionToTarget = potentialTarget.position - currentPosition;
-                float dSqrToTarget = directionToTarget.sqrMagnitude;
-                if (!GameManager.IsBossTime)
+                if (potentialTarget.gameObject.activeInHierarchy)
                 {
+                    Vector3 directionToTarget = potentialTarget.position - currentPosition;
+                    float dSqrToTarget = directionToTarget.sqrMagnitude;
+
                     if (dSqrToTarget < closestDistanceSqr)
                     {
                         closestDistanceSqr = dSqrToTarget;
 
                         _target = potentialTarget;
                     }
-                }
-                else
-                {
-                    _target = GameManager.SpawnerManager.BossSpawner.ActiveBossTransform;
 
                 }
-
+            }
+            else
+            {
+                _target = GameManager.SpawnerManager.BossSpawner.ActiveBossTransform;
             }
             
         }
