@@ -45,7 +45,7 @@ public class BossBase : CustomBehaviour
     public float ChargeTime;
     public float TimeBtwCharges;
     public Transform MomentaryPlayerTransform;
-
+    
     public Coroutine AOEDamageRoutine;
     protected Coroutine AttakRoutine;
 
@@ -71,6 +71,7 @@ public class BossBase : CustomBehaviour
     private HUD hud;
     [SerializeField] private Vector3 _originalScale;
     [SerializeField] private Rigidbody2D _rb2D;
+    [SerializeField] private Transform WeaponPos;
     private Tweener punchTween;
     public override void Initialize(GameManager gameManager)
     {
@@ -83,7 +84,7 @@ public class BossBase : CustomBehaviour
         }
         hud = gameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
         Player = gameManager.PlayerManager.CurrentPlayer;
-        gameManager.AIManager.EnemyList.Add(this.transform);
+        //gameManager.AIManager.EnemyList.Add(this.transform);
         transform.localScale = _originalScale;
         SetStats();
         IsActivated = true;
