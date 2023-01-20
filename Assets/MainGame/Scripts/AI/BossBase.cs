@@ -62,6 +62,7 @@ public class BossBase : CustomBehaviour
     public Animator Anim;
     public Collider2D Collider2D;
     public Monster Monster;
+    [SerializeField] private LayerManager _layerManager;
 
 
     public SpriteRenderer BossHeadRenderer;
@@ -85,6 +86,7 @@ public class BossBase : CustomBehaviour
         hud = gameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
         Player = gameManager.PlayerManager.CurrentPlayer;
         //gameManager.AIManager.EnemyList.Add(this.transform);
+        _layerManager.SetOrderBySortingOrder();
         transform.localScale = _originalScale;
         SetStats();
         IsActivated = true;

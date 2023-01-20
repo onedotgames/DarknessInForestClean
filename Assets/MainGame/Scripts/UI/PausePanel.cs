@@ -49,7 +49,7 @@ public class PausePanel : UIPanel
     {
         for (int i = 0; i < GameManager.SkillManager.UtilitiesInUse.Count; i++)
         {
-            for (int j = 0; j < GameManager.SkillManager.UtilitiesInUse[i].UpgradeLevel + 1; j++)
+            for (int j = 0; j < GameManager.SkillManager.UtilitiesInUse[i].UpgradeLevel; j++)
             {
                 UtilIconStars[i].transform.GetChild(j).gameObject.SetActive(true);
             }
@@ -75,7 +75,7 @@ public class PausePanel : UIPanel
     {
         for (int i = 0; i < GameManager.SkillManager.UtilitiesInUse.Count; i++)
         {
-            for (int j = 0; j < GameManager.SkillManager.UtilitiesInUse[i].UpgradeLevel + 1; j++)
+            for (int j = 0; j < GameManager.SkillManager.UtilitiesInUse[i].UpgradeLevel; j++)
             {
                 UtilIconStars[i].transform.GetChild(j).gameObject.SetActive(true);
             }

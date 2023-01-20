@@ -160,6 +160,8 @@ public class SkillManager : CustomBehaviour
                 //Increase star level
                 ActivateWeapon((int)selectedWeaponData.Weapon.SkillSO.PoolerType);
                 PausePanel.AddWeaponStar();
+                CheckWeaponLimitReached();
+
             }
             else
             {
@@ -191,6 +193,8 @@ public class SkillManager : CustomBehaviour
                 ActivateWeapon((int)selectedWeaponData.Weapon.SkillSO.PoolerType);
                 PausePanel.AddWeaponStar();
                 Debug.Log("btn 1 contains");
+                CheckWeaponLimitReached();
+
             }
             else
             {
@@ -225,6 +229,8 @@ public class SkillManager : CustomBehaviour
 
                 PausePanel.AddWeaponStar();
                 Debug.Log("btn 2 contains");
+                CheckWeaponLimitReached();
+
             }
             else
             {
