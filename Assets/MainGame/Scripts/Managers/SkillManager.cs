@@ -140,6 +140,7 @@ public class SkillManager : CustomBehaviour
 
     public void InvokeWeaponV2()
     {
+
         if (EventSystem.current.currentSelectedGameObject == SelectSkillPanel.ButtonDataList[0].Button.gameObject)
         {
             selectedWeaponData = SelectSkillPanel.ButtonDataList[0]; //Selected data daha sonra referens olarak kullan�lmak �zere belirlenir
@@ -157,16 +158,18 @@ public class SkillManager : CustomBehaviour
             if (contains)
             {
                 //Increase star level
+                ActivateWeapon((int)selectedWeaponData.Weapon.SkillSO.PoolerType);
                 PausePanel.AddWeaponStar();
             }
             else
             {
                 WeaponsInUseV2.Add(selectedWeaponData.Weapon);
+                ActivateWeapon((int)selectedWeaponData.Weapon.SkillSO.PoolerType);
                 PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
+                //PausePanel.AddWeaponStar();
                 CheckWeaponLimitReached();
-            }
 
-            //LevelUpWeapon();
+            }
         }
         else if (EventSystem.current.currentSelectedGameObject == SelectSkillPanel.ButtonDataList[1].Button.gameObject)
         {
@@ -185,13 +188,18 @@ public class SkillManager : CustomBehaviour
             if (contains)
             {
 
+                ActivateWeapon((int)selectedWeaponData.Weapon.SkillSO.PoolerType);
                 PausePanel.AddWeaponStar();
+                Debug.Log("btn 1 contains");
             }
             else
             {
                 WeaponsInUseV2.Add(selectedWeaponData.Weapon);
+                ActivateWeapon((int)selectedWeaponData.Weapon.SkillSO.PoolerType);
                 PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
+                //PausePanel.AddWeaponStar();
                 CheckWeaponLimitReached();
+                Debug.Log("btn1 no");
 
             }
 
@@ -213,21 +221,24 @@ public class SkillManager : CustomBehaviour
 
             if (contains)
             {
+                ActivateWeapon((int)selectedWeaponData.Weapon.SkillSO.PoolerType);
 
                 PausePanel.AddWeaponStar();
+                Debug.Log("btn 2 contains");
             }
             else
             {
                 WeaponsInUseV2.Add(selectedWeaponData.Weapon);
+                ActivateWeapon((int)selectedWeaponData.Weapon.SkillSO.PoolerType);
                 PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
+                //PausePanel.AddWeaponStar();
                 CheckWeaponLimitReached();
-
+                Debug.Log("btn2 no");
             }
 
             //LevelUpWeapon();
         }
 
-        ActivateWeapon((int)selectedWeaponData.Weapon.SkillSO.PoolerType);
         //SelectSkillPanel.CloseSkillPanelAndOpenHud();
 
     }
@@ -259,9 +270,9 @@ public class SkillManager : CustomBehaviour
             {
                 UtilitiesInUse.Add(selectedUtilityData.Utility);
                 PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
+                //PausePanel.AddUtilStar();
                 CheckUtilLimitReached();
             }
-
         }
         else if (EventSystem.current.currentSelectedGameObject == SelectSkillPanel.ButtonDataList[1].Button.gameObject)
         {
@@ -289,6 +300,7 @@ public class SkillManager : CustomBehaviour
             {
                 UtilitiesInUse.Add(selectedUtilityData.Utility);
                 PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
+                //PausePanel.AddUtilStar();
                 CheckUtilLimitReached();
             }
         }
@@ -318,10 +330,10 @@ public class SkillManager : CustomBehaviour
             {
                 UtilitiesInUse.Add(selectedUtilityData.Utility);
                 PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
+                //PausePanel.AddUtilStar();
                 CheckUtilLimitReached();
             }
         }
-
         SelectSkillPanel.CloseSkillPanelAndOpenHud();
     }
 

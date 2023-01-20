@@ -71,6 +71,10 @@ public class Player : CustomBehaviour
     public Vector2 Direction;
     public Vector3 pos;
     public Vector3 oldPos;
+
+
+    public GameObject playerBase;
+    public ParticleSystem baseSmoke;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -423,6 +427,8 @@ public class Player : CustomBehaviour
         SetPlayerStats();
         DamageReduction = 1;
         CloseRechargableShield();
+        baseSmoke.Play();
+        playerBase.SetActive(false);
     }
 
     private void ReturnToMainMenu()
@@ -432,6 +438,7 @@ public class Player : CustomBehaviour
         PlayerAnim.SetBool("isMoving", false);
         DamageReduction = 1;
         CloseRechargableShield();
+        playerBase.SetActive(true);
     }
 
     private void LevelFailed()

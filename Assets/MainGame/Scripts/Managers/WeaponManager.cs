@@ -312,7 +312,7 @@ public class WeaponManager : CustomBehaviour
             }
             else
             {
-                PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite); 
+                //PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite); 
                 //WeaponsInUse.Add(selectedWeaponData.Weapon);
                 CheckWeaponLimitReached();
             }
@@ -339,7 +339,8 @@ public class WeaponManager : CustomBehaviour
             }
             else
             {
-                PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
+                //PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
+                
                 //WeaponsInUse.Add(selectedWeaponData.Weapon);
                 CheckWeaponLimitReached();
 
@@ -367,7 +368,7 @@ public class WeaponManager : CustomBehaviour
             }
             else
             {
-                PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
+                //PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
                 //WeaponsInUse.Add(selectedWeaponData.Weapon);
                 CheckWeaponLimitReached();
 
