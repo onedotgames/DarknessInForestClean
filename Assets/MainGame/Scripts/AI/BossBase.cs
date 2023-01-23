@@ -58,6 +58,7 @@ public class BossBase : CustomBehaviour
     public bool ShouldRotate = false;
     public bool ShouldIndicatorRotate = false;
     public bool IsPunchable = true;
+    public bool HasWeapon = false;
 
     public Player Player;
     public Animator Anim;
@@ -100,20 +101,40 @@ public class BossBase : CustomBehaviour
         //Anim.SetBool("Action", false);
         SetMovementPattern();
         SetAttackPattern();
-        punchTween = transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f).SetRecyclable(true).SetAutoKill(false).OnComplete(() =>
-        {
-            IsPunchable = true;
-            transform.localScale = _originalScale;
-        }
-        ); 
+        SetPunchTween();
         hud.SetBossHPBarActivation(true);
         hud.SetBossFillValue(currentHP,BaseHealth);
         hud.SetBossFillText(currentHP, BaseHealth);
         //gameManager.AIManager.EnemyList.Add(this.transform);
 
-        Monster.ResetAttack();
-        Monster.ChangeAction(false);
-        Monster.SetState(MonsterState.Run);
+        //Monster.ResetAttack();
+        //Monster.ChangeAction(false);
+        //Monster.SetState(MonsterState.Run);
+        //MakeMonsterReady();
+        MakeMonsterRun();
+    }
+
+    private void SetPunchTween()
+    {
+        punchTween = transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f).SetRecyclable(true).SetAutoKill(false).OnComplete(() =>
+        {
+            IsPunchable = true;
+            transform.localScale = _originalScale;
+        }
+        );
+    }
+
+    public void BossReset()
+    {
+        if (HasWeapon)
+        {
+            ChangeEnablityOfAnimator(false);
+
+            ResetWeapon();
+            ChangeEnablityOfAnimator(true);
+
+        }
+        //MakeMonsterReady();
 
     }
 
@@ -131,9 +152,15 @@ public class BossBase : CustomBehaviour
     public void MakeMonsterReady()
     {
         Monster.ResetAttack();
+        Monster.ChangeAction(false);
         Monster.SetState(MonsterState.Ready);
     }
-
+    public void MakeMonsterRun()
+    {
+        Monster.ResetAttack();
+        Monster.ChangeAction(false);
+        Monster.SetState(MonsterState.Run);
+    }
     private void GetReferences()
     {
         hud = GameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
@@ -220,6 +247,7 @@ public class BossBase : CustomBehaviour
             //}
             var dir = (Player.transform.position - transform.position).normalized;
             _rb2D.AddForce((BaseMoveSpeed * Time.deltaTime) * dir * 50);
+            
         }
     }
 
@@ -509,13 +537,12 @@ public class BossBase : CustomBehaviour
         var i = Random.Range(0, 1000);
         if (i == 1)
         {
-            Debug.Log(gameObject.name + " Coin býrakýyor");
-            Invoke("DropCoin", Anim.GetCurrentAnimatorStateInfo(0).length);
+            DropCoin();
+            
         }
         else
         {
-            Debug.Log(gameObject.name + " Exp býrakýyor");
-            Invoke("DropExp", Anim.GetCurrentAnimatorStateInfo(0).length);
+            DropExp();
         }
         GameManager.IsBossTime = false;
     }

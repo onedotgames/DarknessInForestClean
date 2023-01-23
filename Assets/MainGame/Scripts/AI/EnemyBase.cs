@@ -181,12 +181,14 @@ public class EnemyBase : CustomBehaviour
         if (i == 1)
         {
             //Invoke("DropCoin", DeathVFX.main.duration);
-            Invoke("DropCoin", 0.9f);
+            //Invoke("DropCoin", 0.1f);
+            DropCoin();
         }
         else
         {
             //Invoke("DropExp", DeathVFX.main.duration);
-            Invoke("DropExp", 0.9f);
+            //Invoke("DropExp", 0.1f);
+            DropExp();
         }
     }
     public virtual void GetHit(float damageToTake)
