@@ -19,7 +19,7 @@ MonoBehaviour:
   AttackRange: 50
   BaseDamage: 100
   BaseSpeed: 5
-  Count: 4
+  Count: 1
   Size: {x: 0, y: 0, z: 0}
   Guardian: 0
   DamagePattern: 2
