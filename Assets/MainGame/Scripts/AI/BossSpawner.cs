@@ -126,17 +126,19 @@ public class BossSpawner : CustomBehaviour
 
             Boss1Spawned = true;
             Boss1.gameObject.transform.position = transform.position;
-            Boss1.ChangeEnablityOfAnimator(false);
-            Boss1.ResetWeapon();
-            Boss1.ChangeEnablityOfAnimator(true);
-            Boss1.MakeMonsterReady();
+            //Boss1.ChangeEnablityOfAnimator(false);
+            //Boss1.ResetWeapon();
+            //Boss1.ChangeEnablityOfAnimator(true);
+            //Boss1.MakeMonsterReady();
+            Boss1.BossReset();
 
             Boss1.gameObject.SetActive(true);
 
-            Boss1.ChangeEnablityOfAnimator(false);
-            Boss1.ResetWeapon();
-            Boss1.ChangeEnablityOfAnimator(true);
-            Boss1.MakeMonsterReady();
+            //Boss1.ChangeEnablityOfAnimator(false);
+            //Boss1.ResetWeapon();
+            //Boss1.ChangeEnablityOfAnimator(true);
+            //Boss1.MakeMonsterReady();
+            Boss1.BossReset();
 
             ActiveBossTransform = Boss1.transform;
             Boss1.Initialize(GameManager);
@@ -147,17 +149,13 @@ public class BossSpawner : CustomBehaviour
 
             Boss2Spawned = true;
             Boss2.gameObject.transform.position = transform.position;
-            Boss2.ChangeEnablityOfAnimator(false);
-            Boss2.ResetWeapon();
-            Boss2.ChangeEnablityOfAnimator(true);
-            Boss2.MakeMonsterReady();
+            Boss2.BossReset();
+
 
             Boss2.gameObject.SetActive(true);
 
-            Boss2.ChangeEnablityOfAnimator(false);
-            Boss2.ResetWeapon();
-            Boss2.ChangeEnablityOfAnimator(true);
-            Boss2.MakeMonsterReady();
+            Boss2.BossReset();
+
 
             ActiveBossTransform = Boss2.transform;
             Boss2.Initialize(GameManager);
@@ -168,17 +166,13 @@ public class BossSpawner : CustomBehaviour
 
             Boss3Spawned = true;
             Boss3.gameObject.transform.position = transform.position;
-            Boss3.ChangeEnablityOfAnimator(false);
-            Boss3.ResetWeapon();
-            Boss3.ChangeEnablityOfAnimator(true);
-            Boss3.MakeMonsterReady();
+            Boss3.BossReset();
+
 
             Boss3.gameObject.SetActive(true);
 
-            Boss3.ChangeEnablityOfAnimator(false);
-            Boss3.ResetWeapon();
-            Boss3.ChangeEnablityOfAnimator(true);
-            Boss3.MakeMonsterReady();
+            Boss3.BossReset();
+
 
             ActiveBossTransform = Boss3.transform;
             Boss3.Initialize(GameManager);
