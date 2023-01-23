@@ -1,5 +1,6 @@
 using Assets.FantasyMonsters.Scripts;
 using DG.Tweening;
+using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -62,7 +63,8 @@ public class BossBase : CustomBehaviour
     public Animator Anim;
     public Collider2D Collider2D;
     public Monster Monster;
-    [SerializeField] private LayerManager _layerManager;
+    public LayerManager LayerManager;
+    //[SerializeField] private CustomGrid _grid;
 
 
     public SpriteRenderer BossHeadRenderer;
@@ -73,6 +75,7 @@ public class BossBase : CustomBehaviour
     [SerializeField] private Vector3 _originalScale;
     [SerializeField] private Rigidbody2D _rb2D;
     [SerializeField] private Transform WeaponPos;
+    [SerializeField] private GameObject Weapon;
     private Tweener punchTween;
     public override void Initialize(GameManager gameManager)
     {
@@ -83,17 +86,18 @@ public class BossBase : CustomBehaviour
             gameManager.OnLevelCompleted += OnGameSuccess;
             gameManager.OnLevelFailed += OnGameFailed;
         }
-        hud = gameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
-        Player = gameManager.PlayerManager.CurrentPlayer;
-        //gameManager.AIManager.EnemyList.Add(this.transform);
-        _layerManager.SetOrderBySortingOrder();
+
+        GetReferences();
+
         transform.localScale = _originalScale;
         SetStats();
+        
         IsActivated = true;
+
         Collider2D.enabled = true;
-        BossHeadRenderer.sprite = RunHead;
-        Anim.SetInteger("State", 0);
-        Anim.SetBool("Action", false);
+        //BossHeadRenderer.sprite = RunHead;
+        //Anim.SetInteger("State", 0);
+        //Anim.SetBool("Action", false);
         SetMovementPattern();
         SetAttackPattern();
         punchTween = transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f).SetRecyclable(true).SetAutoKill(false).OnComplete(() =>
@@ -111,6 +115,29 @@ public class BossBase : CustomBehaviour
         Monster.ChangeAction(false);
         Monster.SetState(MonsterState.Run);
 
+    }
+
+    public void ResetWeapon()
+    {
+        //Weapon.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+        Weapon.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+    }
+
+    public void ChangeEnablityOfAnimator(bool value)
+    {
+        Anim.enabled = value;
+    }
+
+    public void MakeMonsterReady()
+    {
+        Monster.ResetAttack();
+        Monster.SetState(MonsterState.Ready);
+    }
+
+    private void GetReferences()
+    {
+        hud = GameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
+        Player = GameManager.PlayerManager.CurrentPlayer;
     }
 
     public void PunchEffect()
