@@ -21,7 +21,10 @@ public class SkillManager : CustomBehaviour
 
     [Space(10), Title("Skills In Use")]
     public List<WeaponBaseV2> WeaponsInUseV2;
+    public List<WeaponBaseV2> WeaponsInUseTemp;
+
     public List<UtilityBase> UtilitiesInUse;
+    public List<UtilityBase> UtilitiesInUseTemp;
 
     [Space(10), Title("Booleans")]
     public bool IsMiniGameDone = false;
@@ -60,6 +63,7 @@ public class SkillManager : CustomBehaviour
     {
         AllWeaponsV2[1].Initialize(GameManager);
         WeaponsInUseV2.Add(AllWeaponsV2[1]);
+        WeaponsInUseTemp.Add(AllWeaponsV2[1]);
 
         PausePanel.UpdateWeaponIcons(AllWeaponsV2[1].SkillSO.Icon);
         AllWeaponsV2[1].gameObject.SetActive(true);
@@ -140,10 +144,9 @@ public class SkillManager : CustomBehaviour
 
     public void InvokeWeaponV2()
     {
-
         if (EventSystem.current.currentSelectedGameObject == SelectSkillPanel.ButtonDataList[0].Button.gameObject)
         {
-            selectedWeaponData = SelectSkillPanel.ButtonDataList[0]; //Selected data daha sonra referens olarak kullan�lmak �zere belirlenir
+            selectedWeaponData = SelectSkillPanel.ButtonDataList[0];
 
             bool contains = false;
 
@@ -157,25 +160,22 @@ public class SkillManager : CustomBehaviour
 
             if (contains)
             {
-                //Increase star level
                 ActivateWeapon((int)selectedWeaponData.Weapon.SkillSO.PoolerType);
                 PausePanel.AddWeaponStar();
                 CheckWeaponLimitReached();
-
             }
             else
             {
                 WeaponsInUseV2.Add(selectedWeaponData.Weapon);
+                WeaponsInUseTemp.Add(selectedWeaponData.Weapon);
                 ActivateWeapon((int)selectedWeaponData.Weapon.SkillSO.PoolerType);
                 PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
-                //PausePanel.AddWeaponStar();
                 CheckWeaponLimitReached();
-
             }
         }
         else if (EventSystem.current.currentSelectedGameObject == SelectSkillPanel.ButtonDataList[1].Button.gameObject)
         {
-            selectedWeaponData = SelectSkillPanel.ButtonDataList[1]; //Selected data daha sonra referens olarak kullan�lmak �zere belirlenir
+            selectedWeaponData = SelectSkillPanel.ButtonDataList[1];
 
             bool contains = false;
 
@@ -189,29 +189,22 @@ public class SkillManager : CustomBehaviour
 
             if (contains)
             {
-
                 ActivateWeapon((int)selectedWeaponData.Weapon.SkillSO.PoolerType);
                 PausePanel.AddWeaponStar();
-                Debug.Log("btn 1 contains");
                 CheckWeaponLimitReached();
-
             }
             else
             {
                 WeaponsInUseV2.Add(selectedWeaponData.Weapon);
+                WeaponsInUseTemp.Add(selectedWeaponData.Weapon);
                 ActivateWeapon((int)selectedWeaponData.Weapon.SkillSO.PoolerType);
                 PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
-                //PausePanel.AddWeaponStar();
                 CheckWeaponLimitReached();
-                Debug.Log("btn1 no");
-
             }
-
-            //LevelUpWeapon();
         }
         else if (EventSystem.current.currentSelectedGameObject == SelectSkillPanel.ButtonDataList[2].Button.gameObject)
         {
-            selectedWeaponData = SelectSkillPanel.ButtonDataList[2]; //Selected data daha sonra referens olarak kullan�lmak �zere belirlenir
+            selectedWeaponData = SelectSkillPanel.ButtonDataList[2];
 
             bool contains = false;
 
@@ -226,27 +219,18 @@ public class SkillManager : CustomBehaviour
             if (contains)
             {
                 ActivateWeapon((int)selectedWeaponData.Weapon.SkillSO.PoolerType);
-
                 PausePanel.AddWeaponStar();
-                Debug.Log("btn 2 contains");
                 CheckWeaponLimitReached();
-
             }
             else
             {
                 WeaponsInUseV2.Add(selectedWeaponData.Weapon);
+                WeaponsInUseTemp.Add(selectedWeaponData.Weapon);
                 ActivateWeapon((int)selectedWeaponData.Weapon.SkillSO.PoolerType);
                 PausePanel.UpdateWeaponIcons(selectedWeaponData.Image.sprite);
-                //PausePanel.AddWeaponStar();
                 CheckWeaponLimitReached();
-                Debug.Log("btn2 no");
             }
-
-            //LevelUpWeapon();
         }
-
-        //SelectSkillPanel.CloseSkillPanelAndOpenHud();
-
     }
     public void InvokeUtility()
     {
@@ -275,6 +259,7 @@ public class SkillManager : CustomBehaviour
             else
             {
                 UtilitiesInUse.Add(selectedUtilityData.Utility);
+                UtilitiesInUseTemp.Add(selectedUtilityData.Utility);
                 PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
                 //PausePanel.AddUtilStar();
                 CheckUtilLimitReached();
@@ -305,6 +290,7 @@ public class SkillManager : CustomBehaviour
             else
             {
                 UtilitiesInUse.Add(selectedUtilityData.Utility);
+                UtilitiesInUseTemp.Add(selectedUtilityData.Utility);
                 PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
                 //PausePanel.AddUtilStar();
                 CheckUtilLimitReached();
@@ -335,6 +321,7 @@ public class SkillManager : CustomBehaviour
             else
             {
                 UtilitiesInUse.Add(selectedUtilityData.Utility);
+                UtilitiesInUseTemp.Add(selectedUtilityData.Utility);
                 PausePanel.UpdateUtilIcons(selectedUtilityData.Image.sprite);
                 //PausePanel.AddUtilStar();
                 CheckUtilLimitReached();
@@ -359,9 +346,11 @@ public class SkillManager : CustomBehaviour
     {
         AllWeaponsV2.ForEach(x => x.gameObject.SetActive(false));
         WeaponsInUseV2.Clear();
+        WeaponsInUseTemp.Clear();
         TempWeaponsV2.Clear();
         TempUtils.Clear();
         UtilitiesInUse.Clear();
+        UtilitiesInUseTemp.Clear();
     }
 
     private void OnLevelStart()

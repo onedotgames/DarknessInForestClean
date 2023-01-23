@@ -72,11 +72,10 @@ public class UtilityBase : CustomBehaviour
             }
 
             UpgradeLevel++;
-            if(UpgradeLevel == UtilitySO.UpgradeUtilityDatas.Count - 1)
+            if(UpgradeLevel == UtilitySO.UpgradeUtilityDatas.Count - 2)
             {
                 GameManager.SkillManager.AllUtils.Remove(this);
                 GameManager.SkillManager.UtilitiesInUse.Remove(this);
-
             }
         }
     }

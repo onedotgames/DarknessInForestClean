@@ -98,11 +98,11 @@ public class PlayerLevelManager : CustomBehaviour
     {
         for (int i = 0; i < GameManager.SkillManager.WeaponsInUseV2.Count; i++)
         {
-            mSelectSkillPanel.WeaponIcons[i].sprite = GameManager.SkillManager.WeaponsInUseV2[i].SkillSO.Icon;
+            mSelectSkillPanel.WeaponIcons[i].sprite = GameManager.SkillManager.WeaponsInUseTemp[i].SkillSO.Icon;
         }
         for (int i = 0; i < GameManager.SkillManager.UtilitiesInUse.Count; i++)
         {
-            mSelectSkillPanel.UtilityIcons[i].sprite = GameManager.SkillManager.UtilitiesInUse[i].UtilitySO.Icon;
+            mSelectSkillPanel.UtilityIcons[i].sprite = GameManager.SkillManager.UtilitiesInUseTemp[i].UtilitySO.Icon;
         }
         mSelectSkillPanel.OpenPanel();
         PlayerLevel++;

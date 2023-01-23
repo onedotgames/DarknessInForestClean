@@ -35,9 +35,9 @@ public class PausePanel : UIPanel
 
     public void AddWeaponStar()
     {
-        for (int i = 0; i < GameManager.SkillManager.WeaponsInUseV2.Count; i++)
+        for (int i = 0; i < GameManager.SkillManager.WeaponsInUseTemp.Count; i++)
         {
-            for (int j = 0; j < GameManager.SkillManager.WeaponsInUseV2[i].UpgradeLevel + 1; j++)
+            for (int j = 0; j < GameManager.SkillManager.WeaponsInUseTemp[i].UpgradeLevel + 1; j++)
             {
                 WeaponIconStars[i].transform.GetChild(j).gameObject.SetActive(true);
             }
@@ -47,9 +47,9 @@ public class PausePanel : UIPanel
 
     public void AddUtilStar()
     {
-        for (int i = 0; i < GameManager.SkillManager.UtilitiesInUse.Count; i++)
+        for (int i = 0; i < GameManager.SkillManager.UtilitiesInUseTemp.Count; i++)
         {
-            for (int j = 0; j < GameManager.SkillManager.UtilitiesInUse[i].UpgradeLevel; j++)
+            for (int j = 0; j < GameManager.SkillManager.UtilitiesInUseTemp[i].UpgradeLevel; j++)
             {
                 UtilIconStars[i].transform.GetChild(j).gameObject.SetActive(true);
             }
@@ -59,9 +59,9 @@ public class PausePanel : UIPanel
 
     public void UpdateWeaponIcons(Sprite sprite)
     {
-        for (int i = 0; i < GameManager.SkillManager.WeaponsInUseV2.Count; i++)
+        for (int i = 0; i < GameManager.SkillManager.WeaponsInUseTemp.Count; i++)
         {
-            for (int j = 0; j < GameManager.SkillManager.WeaponsInUseV2[i].UpgradeLevel + 1; j++)
+            for (int j = 0; j < GameManager.SkillManager.WeaponsInUseTemp[i].UpgradeLevel + 1; j++)
             {
                 WeaponIconStars[i].transform.GetChild(j).gameObject.SetActive(true);
             }
@@ -73,9 +73,9 @@ public class PausePanel : UIPanel
     }
     public void UpdateUtilIcons(Sprite sprite)
     {
-        for (int i = 0; i < GameManager.SkillManager.UtilitiesInUse.Count; i++)
+        for (int i = 0; i < GameManager.SkillManager.UtilitiesInUseTemp.Count; i++)
         {
-            for (int j = 0; j < GameManager.SkillManager.UtilitiesInUse[i].UpgradeLevel; j++)
+            for (int j = 0; j < GameManager.SkillManager.UtilitiesInUseTemp[i].UpgradeLevel; j++)
             {
                 UtilIconStars[i].transform.GetChild(j).gameObject.SetActive(true);
             }

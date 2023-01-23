@@ -477,7 +477,6 @@ public class WeaponBaseV2 : CustomBehaviour
         UpdateStats();
 
         IsEvolved = true;
-        GameManager.SkillManager.AllWeaponsV2.Remove(this);
         GameManager.SkillManager.WeaponsInUseV2.Remove(this);
     }
 
@@ -676,7 +675,7 @@ public class WeaponBaseV2 : CustomBehaviour
             int index = 0;
             var count = SlingProjectileList.Count;
 
-            //Bunlar for içindeydi
+            //Bunlar for i?indeydi
             float horizontal = GameManager.JoystickManager.GetHorizontal();
             float vertical = GameManager.JoystickManager.GetVertical();
             float initialRot = 0;

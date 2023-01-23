@@ -139,7 +139,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
             if(buttonIndex == 0)
             {
                 btnOneLevel = ButtonDataList[0].Weapon.UpgradeLevel + 1;
-                if (GameManager.SkillManager.WeaponsInUseV2.Contains(ButtonDataList[0].Weapon))
+                if (GameManager.SkillManager.WeaponsInUseTemp.Contains(ButtonDataList[0].Weapon))
                 {
                     for (int i = 0; i < btnOneLevel; i++)
                     {
@@ -150,14 +150,11 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
                 {
                     BtnOneActives.ForEach(x => x.SetActive(false));
                 }
-                
-                Debug.Log("Level" + btnOneLevel);
-
             }
             else if(buttonIndex == 1)
             {
                 btnTwoLevel = ButtonDataList[1].Weapon.UpgradeLevel + 1;
-                if (GameManager.SkillManager.WeaponsInUseV2.Contains(ButtonDataList[1].Weapon))
+                if (GameManager.SkillManager.WeaponsInUseTemp.Contains(ButtonDataList[1].Weapon))
                 {
                     for (int i = 0; i < btnTwoLevel; i++)
                     {
@@ -168,13 +165,11 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
                 {
                     BtnTwoActives.ForEach(x => x.SetActive(false));
                 }
-                Debug.Log("Level" + btnTwoLevel);
-
             }
             else if(buttonIndex == 2)
             {
                 btnThreeLevel = ButtonDataList[2].Weapon.UpgradeLevel + 1;
-                if (GameManager.SkillManager.WeaponsInUseV2.Contains(ButtonDataList[2].Weapon))
+                if (GameManager.SkillManager.WeaponsInUseTemp.Contains(ButtonDataList[2].Weapon))
                 {
                     for (int i = 0; i < btnThreeLevel; i++)
                     {
@@ -191,8 +186,8 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
         {
             if (buttonIndex == 0)
             {
-                btnOneLevel = ButtonDataList[0].Utility.UpgradeLevel + 1;
-                if (GameManager.SkillManager.UtilitiesInUse.Contains(ButtonDataList[0].Utility))
+                btnOneLevel = ButtonDataList[0].Utility.UpgradeLevel;
+                if (GameManager.SkillManager.UtilitiesInUseTemp.Contains(ButtonDataList[0].Utility))
                 {
                     for (int i = 0; i < btnOneLevel; i++)
                     {
@@ -203,12 +198,11 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
                 {
                     BtnOneActives.ForEach(x => x.SetActive(false));
                 }
-                Debug.Log("Level" + btnOneLevel);
             }
             else if (buttonIndex == 1)
             {
-                btnTwoLevel = ButtonDataList[1].Utility.UpgradeLevel + 1;
-                if (GameManager.SkillManager.UtilitiesInUse.Contains(ButtonDataList[0].Utility))
+                btnTwoLevel = ButtonDataList[1].Utility.UpgradeLevel;
+                if (GameManager.SkillManager.UtilitiesInUseTemp.Contains(ButtonDataList[1].Utility))
                 {
                     for (int i = 0; i < btnTwoLevel; i++)
                     {
@@ -219,12 +213,11 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
                 {
                     BtnTwoActives.ForEach(x => x.SetActive(false));
                 }
-                Debug.Log("Level" + btnTwoLevel);
             }
             else if (buttonIndex == 2)
             {
-                btnThreeLevel = ButtonDataList[2].Utility.UpgradeLevel + 1;
-                if (GameManager.SkillManager.UtilitiesInUse.Contains(ButtonDataList[0].Utility))
+                btnThreeLevel = ButtonDataList[2].Utility.UpgradeLevel;
+                if (GameManager.SkillManager.UtilitiesInUseTemp.Contains(ButtonDataList[2].Utility))
                 {
                     for (int i = 0; i < btnThreeLevel; i++)
                     {
@@ -235,7 +228,6 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
                 {
                     BtnThreeActives.ForEach(x => x.SetActive(false));
                 }
-                Debug.Log("Level" + btnThreeLevel);
             }
         }
     }
@@ -293,6 +285,12 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
     public override void ClosePanel()
     {
         base.ClosePanel();
+        for (int i = 0; i < BtnOneActives.Count; i++)
+        {
+            BtnOneActives[i].SetActive(false);
+            BtnTwoActives[i].SetActive(false);
+            BtnThreeActives[i].SetActive(false);
+        }
         //CloseSkillPanelAndOpenHud();
         PlayerIcon.SetActive(false);
         LevelUpText.SetActive(false);
@@ -328,7 +326,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
 
     private void LevelEnd()
     {
-
+        
     }
 
     private void LevelStart()
