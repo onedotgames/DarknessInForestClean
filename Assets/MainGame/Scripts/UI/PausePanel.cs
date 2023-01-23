@@ -30,7 +30,8 @@ public class PausePanel : UIPanel
     public override void OpenPanel()
     {
         base.OpenPanel();
-
+        AddWeaponStar();
+        AddUtilStar();
     }
 
     public void AddWeaponStar()
@@ -39,7 +40,17 @@ public class PausePanel : UIPanel
         {
             for (int j = 0; j < GameManager.SkillManager.WeaponsInUseTemp[i].UpgradeLevel + 1; j++)
             {
-                WeaponIconStars[i].transform.GetChild(j).gameObject.SetActive(true);
+                if (GameManager.SkillManager.WeaponsInUseTemp[i].IsEvolved)
+                {
+                    for (int k = 0; k < WeaponIconStars.Count; k++)
+                    {
+                        WeaponIconStars[i].transform.GetChild(k).gameObject.SetActive(true);
+                    }
+                }
+                else
+                {
+                    WeaponIconStars[i].transform.GetChild(j).gameObject.SetActive(true);
+                }
             }
         }
 
