@@ -70,14 +70,6 @@ public class WeaponBaseV2 : CustomBehaviour
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
-        if (gameManager != null)
-        {
-            //GameManager.OnMiniGame += OnMiniGame;
-            //GameManager.OnStartGame += OnGameStart;
-            GameManager.OnLevelCompleted += OnGameCompleted;
-            GameManager.OnLevelFailed += OnGameFailed;
-
-        }
         SelectSkillPanel = gameManager.UIManager.GetPanel(Panels.SelectSkill).GetComponent<SelectSkill>();
         mHud = gameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
         mPlayer = gameManager.PlayerManager.CurrentPlayer;
@@ -106,7 +98,7 @@ public class WeaponBaseV2 : CustomBehaviour
 
     private void OnGameStart()
     {
-        ResetItemElementsOnStart();
+        //ResetItemElementsOnStart();
     }
 
     private void UnAssign()
@@ -140,22 +132,28 @@ public class WeaponBaseV2 : CustomBehaviour
         AttackDegree = 30;
         BeeIndex = 0;
         UpgradeLevel = 0;
-        ActiveChestnuts.Clear();
-        ActiveBeeShots.Clear();
-        SlingProjectileList.Clear();
+        //ActiveChestnuts.Clear();
+        //ActiveBeeShots.Clear();
+        //SlingProjectileList.Clear();
     }
 
     private async void OnEnable()
     {
         Assign();
         SetSkill(GameManager.AIManager.EnemyList);
+        ResetItemElementsOnStart();
+
         await SetAttackMethod();
     }
 
     private void OnDisable()
     {
-        UnAssign();
         _timerOn = false;
+    }
+
+    private void OnDestroy()
+    {
+        UnAssign();
     }
     public void SetStats()
     {
@@ -836,7 +834,10 @@ public class WeaponBaseV2 : CustomBehaviour
         //Transform bestTarget = null;
         
         float closestDistanceSqr = AttackRange;
-        Vector3 currentPosition = mPlayer.transform.position;
+
+         var  currentPosition = mPlayer.transform.position;
+
+        
         foreach (Transform potentialTarget in enemies)
         {
             if (!GameManager.IsBossTime)
