@@ -41,6 +41,8 @@ public class EnemyBase : CustomBehaviour
     public Color TempColor;
     private Tweener punchTween;
 
+    public EnemyType enemyType;
+
     private bool isDirtyOver = false;
     public override void Initialize(GameManager gameManager)
     {
@@ -222,6 +224,13 @@ public class EnemyBase : CustomBehaviour
         {
             IsActivated = false;
             hud.UpdateKillCountBar();
+            if (GameManager.QuestManager.hasActiveQuest)
+            {
+                if(GameManager.QuestManager.enemyType == (int)enemyType)
+                {
+                    GameManager.QuestManager.currentKillCount++;
+                }
+            }
             if (AOEDamageRoutine != null)
             {
                 StopCoroutine(AOEDamageRoutine);

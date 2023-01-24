@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class QuestManager : CustomBehaviour
 {
@@ -17,11 +18,17 @@ public class QuestManager : CustomBehaviour
     public GameObject QuestPanel;
     public int HuntTarget;
     public int currentKillCount;
+    public int enemyType;
     public GameObject Tower;
     public TowerSystem TowerSystem;
     public bool isTowerNear = false;
     public bool canQuestsStart = false;
     public bool isNpcNear = false;
+    public TMP_Text questText;
+    public GameObject questPanel;
+    public EnemyType EnemyType;
+    private string enemy;
+    private bool towerQuest = false;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -73,6 +80,10 @@ public class QuestManager : CustomBehaviour
         if (GameManager != null && canQuestsStart)
         {
             timer += Time.deltaTime;
+            if (!towerQuest)
+            {
+                questText.text = "Kill " + enemy + ": " + currentKillCount + " / 50";
+            }
             if ((int)timer == QuestSpawnRateSecond && !hasActiveQuest && canSpawnQuest)
             {
                 canSpawnQuest = false;
@@ -80,7 +91,7 @@ public class QuestManager : CustomBehaviour
             }
             if (hasActiveQuest)
             {
-                if(hud.killCount - currentKillCount == 50 || TowerSystem.isTowerDestroyed)
+                if(currentKillCount == 50 || TowerSystem.isTowerDestroyed)
                 {
                     QuestSuccess();
                 }
@@ -115,6 +126,7 @@ public class QuestManager : CustomBehaviour
 
     public void SearchAndDestroy()
     {
+        towerQuest = true;
         hasActiveQuest = true;
         QuestPanel.SetActive(false);
         Time.timeScale = 1f;
@@ -122,16 +134,22 @@ public class QuestManager : CustomBehaviour
         towerPos = new Vector3(Random.Range(-40, 40) + GameManager.PlayerManager.CurrentPlayer.transform.position.x, Random.Range(-40, 40) + GameManager.PlayerManager.CurrentPlayer.transform.position.y, 0);
         Tower.transform.position = towerPos;
         Tower.SetActive(true);
+        questText.text = "Destroy Tower";
+        questPanel.SetActive(true);
     }
 
     public void Hunt()
     {
+        towerQuest = false;
         hasActiveQuest = true;
         QuestPanel.SetActive(false);
         Time.timeScale = 1f;
-        currentKillCount = hud.killCount;
+        currentKillCount = 0;
         QuestNPC.SetActive(false);
-
+        enemyType = Random.Range(0, 4);
+        enemy = EnemyType.GetName(typeof(EnemyType), enemyType);
+        questText.text = "Kill " + enemy + ": " + currentKillCount + " / 50";
+        questPanel.SetActive(true);
     }
 
     public void QuestSuccess()
@@ -139,6 +157,8 @@ public class QuestManager : CustomBehaviour
         GameManager.PlayerManager.UpdateCoinCountData(50);
         hasActiveQuest = false;
         canSpawnQuest = true;
+        currentKillCount = 0;
+        questPanel.SetActive(false);
     }
 
     private void OnDestroy()

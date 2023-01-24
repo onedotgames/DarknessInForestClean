@@ -944,6 +944,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   EnemyPoolerType: 3
   TempColor: {r: 0.44313726, g: 0.44313726, b: 0.44313726, a: 1}
+  enemyType: 2
   ChaseRange: 1
 --- !u!114 &-242416776237791811
 MonoBehaviour:

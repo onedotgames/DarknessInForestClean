@@ -289,3 +289,11 @@ public enum UtilityTypeToChange
     Value = 0,
     Duration = 1
 }
+
+public enum EnemyType
+{
+    Bat = 0,
+    Pig = 1,
+    Bee = 2,
+    Wolf = 3
+}
