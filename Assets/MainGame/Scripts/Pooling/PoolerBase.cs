@@ -87,7 +87,12 @@ public class PoolerBase : CustomBehaviour
         obj.transform.localPosition = Vector3.zero;
     }
 
-    private void LevelFailed()
+    public void LevelFailed()
+    {
+        DisableAllObjects();
+    }
+
+    public void LevelSuccess()
     {
         DisableAllObjects();
     }
@@ -101,6 +106,8 @@ public class PoolerBase : CustomBehaviour
                 DisableObject(x);
             }
         });
+
+
         ClearObjPool();
     }
 
@@ -114,6 +121,7 @@ public class PoolerBase : CustomBehaviour
         if (GameManager != null)
         {
             GameManager.OnLevelFailed += LevelFailed;
+            GameManager.OnLevelCompleted += LevelSuccess;
         }
     }
 
@@ -122,6 +130,7 @@ public class PoolerBase : CustomBehaviour
         if (GameManager != null)
         {
             GameManager.OnLevelFailed -= LevelFailed;
+            GameManager.OnLevelCompleted -= LevelSuccess;
 
         }
     }

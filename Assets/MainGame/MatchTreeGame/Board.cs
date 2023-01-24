@@ -19,6 +19,8 @@ public sealed class Board : MonoBehaviour
     private void Awake() => Instance = this;
     private bool canSwap = false;
     public ScoreCounter scoreCounter;
+    public bool canSelect = true;
+    public List<Button> TileButtons;
     private void Start()
     {
         Tiles = new Tile[rows.Max(row => row.tiles.Length), rows.Length];
@@ -39,8 +41,13 @@ public sealed class Board : MonoBehaviour
     }
     private void Update()
     {
-        if (!Input.GetKeyDown(KeyCode.A)) return;
-
+        if (!canSelect)
+        {
+            for (int i = 0; i < TileButtons.Count; i++)
+            {
+                TileButtons[i].interactable = false;
+            }
+        }
         foreach (var connectedTile in Tiles[0, 0].GetConnectedTiles()) connectedTile.icon.transform.DOScale(1.25f, TweenDuration).Play();
         
     }
@@ -51,6 +58,7 @@ public sealed class Board : MonoBehaviour
         if (_selection.Count < 2) return;
 
         await Swap(_selection[0], _selection[1]);
+        canSelect = false;
 
         if (CanPop() && canSwap)
         {
@@ -63,6 +71,11 @@ public sealed class Board : MonoBehaviour
         }
 
         _selection.Clear();
+        canSelect = true;
+        for (int i = 0; i < TileButtons.Count; i++)
+        {
+            TileButtons[i].interactable = true;
+        }
     }
 
     public async Task Swap(Tile tile1, Tile tile2)
@@ -122,15 +135,12 @@ public sealed class Board : MonoBehaviour
 
                 if (connectedTiles.Skip(1).Count() < 2) continue;
 
-
-
                 var deflateSequence = DOTween.Sequence();
                 deflateSequence.SetUpdate(true);
                 foreach (var connectedTile in connectedTiles) deflateSequence.Join(connectedTile.icon.transform.DOScale(Vector3.zero, TweenDuration));
 
                 await deflateSequence.Play().AsyncWaitForCompletion();
 
-                //ScoreCounter.Instance.Score += tile.Item.value * connectedTiles.Count;
                 var inflateSequence = DOTween.Sequence();
                 inflateSequence.SetUpdate(true);
 

@@ -37,7 +37,13 @@ public sealed class Tile : MonoBehaviour
         Bottom,
     };
 
-    private void Start() => button.onClick.AddListener(() => Board.Instance.Select(this));
+    private void Start()
+    {
+        if (Board.Instance.canSelect)
+        {
+            button.onClick.AddListener(() => Board.Instance.Select(this));
+        }
+    }
 
     public List<Tile> GetConnectedTiles(List<Tile> exclude = null)
     {

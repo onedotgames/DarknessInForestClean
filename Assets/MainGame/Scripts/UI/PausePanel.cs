@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 public class PausePanel : UIPanel
 {
     public List<Image> WeaponIconsOnPause;
@@ -11,7 +12,10 @@ public class PausePanel : UIPanel
     public int UtilIndex = 0;
 
     public List<GameObject> WeaponIconStars;
-    public List<GameObject> UtilIconStars; 
+    public List<GameObject> UtilIconStars;
+
+    public Target questInd;
+    public Target towerInd;
 
     public override void Initialize(UIManager uIManager)
     {
@@ -30,10 +34,18 @@ public class PausePanel : UIPanel
     public override void OpenPanel()
     {
         base.OpenPanel();
+        questInd.targetColor.a = 0;
+        towerInd.targetColor.a = 0;
         AddWeaponStar();
         AddUtilStar();
     }
 
+    public override void ClosePanel()
+    {
+        base.ClosePanel();
+        questInd.targetColor.a = 255;
+        towerInd.targetColor.a = 255;
+    }
     public void AddWeaponStar()
     {
         for (int i = 0; i < GameManager.SkillManager.WeaponsInUseTemp.Count; i++)
