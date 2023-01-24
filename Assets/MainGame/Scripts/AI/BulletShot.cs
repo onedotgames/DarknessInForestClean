@@ -18,6 +18,14 @@ public class BulletShot : MonoBehaviour
             Shot();
         }
     }
+    public void Subscribe()
+    {
+        if (gm != null)
+        {
+            gm.OnLevelFailed += OnGameFailed;
+            gm.OnLevelCompleted += OnGameCompleted;
+        }
+    }
 
     public void Shot()
     {
@@ -25,6 +33,11 @@ public class BulletShot : MonoBehaviour
     }
 
     public void OnGameFailed()
+    {
+        isShotted = false;
+        PoolerBase.ReturnObjectToPool(gameObject);
+    }
+    public void OnGameCompleted()
     {
         isShotted = false;
         PoolerBase.ReturnObjectToPool(gameObject);
@@ -42,6 +55,7 @@ public class BulletShot : MonoBehaviour
         if(gm != null)
         {
             gm.OnLevelFailed -= OnGameFailed;
+            gm.OnLevelCompleted -= OnGameCompleted;
         }
     }
 }
