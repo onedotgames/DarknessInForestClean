@@ -19,7 +19,8 @@ public class RangedEnemy : EnemyBase
             var bullet = GameManager.PoolingManager.EnemyBulletPoolerList[(int)EnemyBulletPoolerType.BasicBullet].GetObjectFromPool();
             var bulletShot = bullet.GetComponent<BulletShot>();
             bulletShot.gm = GameManager;
-            GameManager.OnLevelFailed += bulletShot.OnGameFailed;
+            //GameManager.OnLevelFailed += bulletShot.OnGameFailed;
+            bulletShot.Subscribe();
             bulletShot.mDirection = Player.transform.position - transform.position;
             bulletShot.DirectionNorm = bullet.GetComponent<BulletShot>().mDirection.normalized;
             bulletShot.PoolerBase = GameManager.PoolingManager.EnemyBulletPoolerList[(int)EnemyBulletPoolerType.BasicBullet];

@@ -53,7 +53,7 @@ public class CHammerProjectile : ProjectileBase
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
         
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag(TAGS.Enemy))
         {
             var enemy = collision.GetComponent<EnemyBase>();
 
