@@ -145,7 +145,9 @@ public class EnemyBase : CustomBehaviour
     public void EnemyDeathAnim() //oncomplete e clean modeli a?mak i?in script yaz.
     {
         EnemySprites.ForEach(x => x.DOColor(Color.clear, 0.4f));
-        CleanSprites.ForEach(x => x.DOColor(Color.white, 0.4f).OnComplete(() => Invoke("CleanAnim", 0.2f)));
+        //CleanSprites.ForEach(x => x.DOColor(Color.white, 0.4f).OnComplete(() => Invoke("CleanAnim", 0.2f)));
+        CleanSprites.ForEach(x => x.DOColor(Color.white, 0.4f));
+        Invoke("CleanAnim", 0.2f);
     }
     private void DropExp()
     {
@@ -153,6 +155,13 @@ public class EnemyBase : CustomBehaviour
         {
             var exp = GameManager.PoolingManager.ExpPoolerList[(int)ExpPoolerType.SmallExperience].GetObjectFromPool();
             exp.transform.position = transform.position;
+            var endValue = new Vector3
+                (
+                    (exp.transform.position.x + (Random.Range(-0.5f,0.5f))),
+                    (exp.transform.position.y - (Random.Range(0.3f,0.5f))),
+                    (exp.transform.position.z)
+                );
+            exp.transform.DOJump(endValue, 1, 1, 0.5f);
         }
 
         Return();
@@ -163,6 +172,13 @@ public class EnemyBase : CustomBehaviour
         {
             var coin = GameManager.PoolingManager.CoinPoolerList[(int)CoinType.Small].GetObjectFromPool();
             coin.transform.position = transform.position;
+            var endValue = new Vector3
+                (
+                    (coin.transform.position.x + (Random.Range(-0.5f, 0.5f))),
+                    (coin.transform.position.y - (Random.Range(0.3f, 0.5f))),
+                    (coin.transform.position.z)
+                );
+            coin.transform.DOJump(endValue, 1, 1, 0.5f);
         }
         Return();
     }

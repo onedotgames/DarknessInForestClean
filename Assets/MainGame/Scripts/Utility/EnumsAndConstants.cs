@@ -232,7 +232,9 @@ public enum CoinType
 }
 public enum ExpPoolerType
 {
-    SmallExperience = 0
+    SmallExperience = 0,
+    MediumExperience = 1,
+    LargeExperience = 2
 }
 
 public enum QuestType
