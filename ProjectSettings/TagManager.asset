@@ -42,7 +42,7 @@ TagManager:
   - Collectable
   - EnemyProjectile
   - PostProcess
-  - 
+  - EnvironmentObj
   - 
   - 
   - 

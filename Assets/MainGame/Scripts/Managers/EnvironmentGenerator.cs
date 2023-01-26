@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnvironmentGenerator : CustomBehaviour
 {
+    [SerializeField] private float _spawnCooldown;
     [SerializeField] private int _spawnAreaWidth;
     [SerializeField] private GameObject ObjectToSpawn;
+    [SerializeField] private LayerMask _layerMask;
+    private float _timeValue;
+    private bool _timerOn = false;
     private float _leftOfLeft, _rightOfLeft, _leftOfRight, _rightOfRight, _bottomOfTop, _topOfTop, _topOfBottom, _bottomOfBottom;
     public override void Initialize(GameManager gameManager)
     {
@@ -13,10 +18,26 @@ public class EnvironmentGenerator : CustomBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        //if (Input.GetKeyDown(KeyCode.C))
+        //{
+        //    CalculateSpawnArea();
+        //}
+
+        if (!GameManager.IsGamePaused && GameManager.IsGameStarted && _timerOn)
         {
-            CalculateSpawnArea();
+            _timeValue += Time.deltaTime;
+            if (_timeValue >= _spawnCooldown)
+            {
+                _timerOn = false;
+
+                CalculateSpawnArea();
+
+                _timeValue = 0;
+                _timerOn = true;
+            }
         }
+
+        
     }
     private void CalculateSpawnArea()
     {
@@ -62,7 +83,13 @@ public class EnvironmentGenerator : CustomBehaviour
                     top = randomTop;
                 }
                 var point = new Vector3(randomRightR, top, playerTransformPosition.z);
-                Instantiate(ObjectToSpawn, point, Quaternion.identity);
+                if (!CheckOverlap(point))
+                {
+                    Instantiate(ObjectToSpawn, point, Quaternion.identity);
+
+                }
+                else 
+                { Debug.Log("OVERLAP VAR"); }
             }
             else
             {
@@ -81,7 +108,12 @@ public class EnvironmentGenerator : CustomBehaviour
                     bot = randomBottom;
                 }
                 var point = new Vector3(randomRightR, bot, playerTransformPosition.z);
-                Instantiate(ObjectToSpawn, point, Quaternion.identity);
+                if (!CheckOverlap(point))
+                {
+                    Instantiate(ObjectToSpawn, point, Quaternion.identity);
+
+                }
+                else { Debug.Log("OVERLAP VAR"); }
             }
         }
         else
@@ -104,7 +136,12 @@ public class EnvironmentGenerator : CustomBehaviour
                     top = randomTop;
                 }
                 var point = new Vector3(randomLeftL, top, playerTransformPosition.z);
-                Instantiate(ObjectToSpawn, point, Quaternion.identity);
+                if (!CheckOverlap(point))
+                {
+                    Instantiate(ObjectToSpawn, point, Quaternion.identity);
+
+                }
+                else { Debug.Log("OVERLAP VAR"); }
             }
             else
             {
@@ -123,9 +160,24 @@ public class EnvironmentGenerator : CustomBehaviour
                     bot = randomBottom;
                 }
                 var point = new Vector3(randomLeftL, bot, playerTransformPosition.z);
-                Instantiate(ObjectToSpawn, point, Quaternion.identity);
+                if (!CheckOverlap(point))
+                {
+                    Instantiate(ObjectToSpawn, point, Quaternion.identity);
+
+                }
+                else { Debug.Log("OVERLAP VAR"); }
             }
         }
+    }
+
+    private bool CheckOverlap(Vector3 point)
+    {
+        var isTrue = false;
+        if(Physics2D.OverlapCircle(point, 1, _layerMask) != null)
+        {
+            isTrue = true;
+        }
+        return isTrue;
     }
 
     public float GetHorizontal()
