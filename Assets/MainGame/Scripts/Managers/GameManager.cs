@@ -29,6 +29,7 @@ public class GameManager : CustomBehaviour
     public QuestManager QuestManager;
     public HolyFountain HolyFountain;
     public SkillManager SkillManager;
+    public EnvironmentGenerator EnvironmentGenerator;
     #endregion
 
     public bool IsGameStarted = false;
@@ -120,6 +121,7 @@ public class GameManager : CustomBehaviour
         QuestManager.Initialize(this);
         HolyFountain.Initialize(this);
         SkillManager.Initialize(this);
+        EnvironmentGenerator.Initialize(this);
     }
     #endregion
 
