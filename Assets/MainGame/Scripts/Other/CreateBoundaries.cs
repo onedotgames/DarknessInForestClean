@@ -13,7 +13,7 @@ public class CreateBoundaries : MonoBehaviour
     }
     void SetupBoundaries()
     {
-        Vector3 point = new Vector3();
+       Vector3 point = new Vector3();
 
         point = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.nearClipPlane));
         objTopRight.transform.position = point;

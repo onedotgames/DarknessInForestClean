@@ -138,6 +138,7 @@ public class Player : CustomBehaviour
         {
             collision.GetComponent<BulletShot>().FireVFX.Play();
             GetHit(collision.GetComponent<BulletShot>().damage);
+            
             GameManager.PlayerHealthManager.SetHealthBar(mMaxHealth);
         }
         if (collision.CompareTag("BossBullet"))
@@ -335,6 +336,7 @@ public class Player : CustomBehaviour
 
             }
         }
+        GameManager.VibrationsManager.PlayVibration(HapticPatterns.PresetType.MediumImpact);
         CheckDeath();
     }
 
