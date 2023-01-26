@@ -1,3 +1,4 @@
+using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -15,6 +16,31 @@ public class EnvironmentGenerator : CustomBehaviour
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
+        if(gameManager != null)
+        {
+            gameManager.OnStartGame += StartGame;
+            gameManager.OnLevelCompleted += EndGame;
+            gameManager.OnLevelFailed += EndGame;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (GameManager != null)
+        {
+            GameManager.OnStartGame -= StartGame;
+            GameManager.OnLevelCompleted -= EndGame;
+            GameManager.OnLevelFailed -= EndGame;
+        }
+    }
+    private void StartGame()
+    {
+        _timerOn = true;
+    }
+
+    private void EndGame()
+    {
+        _timerOn = false;
     }
     private void Update()
     {
