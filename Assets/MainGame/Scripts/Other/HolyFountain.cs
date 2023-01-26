@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class HolyFountain : CustomBehaviour
 {
     public GameObject Fountain;
     public ParticleSystem SmokeVFX;
-    public SpriteRenderer HolyFountainRenderer;
+    public CircleCollider2D HolyFountainCollider;
     public bool isFountainTaken = false;
+    public GameObject Water;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -22,14 +23,15 @@ public class HolyFountain : CustomBehaviour
     private void Awake()
     {
         Fountain.SetActive(false);
-        HolyFountainRenderer.enabled = true;
+        HolyFountainCollider.enabled = true;
     }
 
     private void StartGame()
     {
         Fountain.transform.position = new Vector3(Random.Range(-80, 80), Random.Range(-80, 80), 0);
         Fountain.SetActive(true);
-        HolyFountainRenderer.enabled = true;
+        Water.transform.localScale = Vector3.one;
+        HolyFountainCollider.enabled = true;
     }
 
     private void LevelCompleted()

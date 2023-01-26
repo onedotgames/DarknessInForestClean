@@ -26,6 +26,8 @@ public class QuestManager : CustomBehaviour
     public bool isNpcNear = false;
     public TMP_Text questText;
     public GameObject questPanel;
+    public TMP_Text towerText;
+    public GameObject TowerPanel;
     public EnemyType EnemyType;
     private string enemy;
     private bool towerQuest = false;
@@ -64,6 +66,9 @@ public class QuestManager : CustomBehaviour
         isTowerNear = false;
         hasActiveQuest = false;
         canSpawnQuest = true;
+        questPanel.SetActive(false);
+        TowerPanel.SetActive(false);
+        currentKillCount = 0;
     }
     public void OnLevelFailed()
     {
@@ -74,6 +79,9 @@ public class QuestManager : CustomBehaviour
         isTowerNear = false;
         hasActiveQuest = false;
         canSpawnQuest = true;
+        questPanel.SetActive(false);
+        TowerPanel.SetActive(false);
+        currentKillCount = 0;
     }
     public void Update()
     {
@@ -83,6 +91,11 @@ public class QuestManager : CustomBehaviour
             if (!towerQuest)
             {
                 questText.text = "Kill " + enemy + ": " + currentKillCount + " / 50";
+                TowerPanel.SetActive(false);
+            }
+            else
+            {
+                towerText.text = "Tower Health: " + Tower.GetComponent<TowerSystem>().TowerHealth;
             }
             if ((int)timer == QuestSpawnRateSecond && !hasActiveQuest && canSpawnQuest)
             {
@@ -135,7 +148,9 @@ public class QuestManager : CustomBehaviour
         Tower.transform.position = towerPos;
         Tower.SetActive(true);
         questText.text = "Destroy Tower";
+        towerText.text = "Tower Health: " + Tower.GetComponent<TowerSystem>().TowerHealth;
         questPanel.SetActive(true);
+        TowerPanel.SetActive(true);
     }
 
     public void Hunt()

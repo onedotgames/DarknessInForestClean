@@ -200,8 +200,9 @@ public class Player : CustomBehaviour
             mCurrentHealth = mMaxHealth;
             GameManager.PlayerHealthManager.SetHealthBar(mMaxHealth);
             GameManager.HolyFountain.isFountainTaken = true;
-            GameManager.HolyFountain.SmokeVFX.Play();
-            GameManager.HolyFountain.HolyFountainRenderer.enabled = false;
+            //GameManager.HolyFountain.SmokeVFX.Play();
+            GameManager.HolyFountain.Water.transform.DOScale(Vector3.zero, 2f);
+            GameManager.HolyFountain.HolyFountainCollider.enabled = false;
         }
     }
     private void InitializeCustomOptions()

@@ -61,6 +61,10 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
     public TMP_Text FPSCounter;
 
     public GameObject PlayerIcon;
+
+    public RectTransform TopText;
+    public RectTransform BottomText;
+    public GameObject BossImage;
     public override void Initialize(UIManager uIManager)
     {
         base.Initialize(uIManager);
@@ -107,7 +111,10 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
     {
         //WarningBool = true;
         BossWarningObject.SetActive(true);
-        BossWarningText.transform.DOScale(1.05f, 0.2f).SetLoops(-1, LoopType.Yoyo).From(1f);
+        BossImage.transform.DOScale(.75f, 0.4f).SetLoops(-1, LoopType.Yoyo).From(.95f);
+        TopText.DOAnchorPosX(800f, 3f).SetLoops(-1, LoopType.Restart).From(new Vector2(-800,0));
+        BottomText.DOAnchorPosX(800f, 3f).SetLoops(-1, LoopType.Restart).From(new Vector2(-800, 0));
+
         yield return new WaitForSeconds(WarningDuration);
         //WarningBool = false;
         BossWarningObject.SetActive(false);
@@ -117,7 +124,6 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
 
     private void ResetBossUI()
     {
-        BossWarningText.transform.localScale = Vector3.one;
         BossWarningObject.SetActive(false);
         SetBossHPBarActivation(false);
     }
