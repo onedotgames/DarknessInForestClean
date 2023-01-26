@@ -11,6 +11,7 @@ public class PoolingManager : CustomBehaviour
     public List<PoolerBase> CoinPoolerList;
     public List<PoolerBase> CollectablePoolerList;
     public List<ObjectSpawnerV2> EnemyPoolerListV2;
+    public List<ObjectSpawnerV2> EnvironmentObjPoolers;
 
     public override void Initialize(GameManager gameManager)
     {
@@ -35,6 +36,8 @@ public class PoolingManager : CustomBehaviour
     {
         EnemyPoolerListV2.ForEach(x => x.Initialize(GameManager));
         ProjectileSpawners.ForEach(x => x.Initialize(GameManager));
+        EnvironmentObjPoolers.ForEach(x => x.Initialize(GameManager));
+
     }
 
 }

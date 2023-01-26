@@ -10,6 +10,8 @@ public class EnvironmentGenerator : CustomBehaviour
     [SerializeField] private int _spawnAreaWidth;
     [SerializeField] private GameObject ObjectToSpawn;
     [SerializeField] private LayerMask _layerMask;
+    private ObjectSpawnerV2 _pool;
+    private List<ObjectToPool> TreeList;
     private float _timeValue;
     private bool _timerOn = false;
     private float _leftOfLeft, _rightOfLeft, _leftOfRight, _rightOfRight, _bottomOfTop, _topOfTop, _topOfBottom, _bottomOfBottom;
@@ -22,6 +24,19 @@ public class EnvironmentGenerator : CustomBehaviour
             gameManager.OnLevelCompleted += EndGame;
             gameManager.OnLevelFailed += EndGame;
         }
+        //var pooler = GameManager.PoolingManager.EnvironmentObjPoolers[(int)EnvironmentObjType.Tree];
+        //_pool = pooler;
+        //TreeList = new List<ObjectToPool>();
+        _pool = GameManager.PoolingManager.EnvironmentObjPoolers[(int)EnvironmentObjType.Tree];
+    }
+
+    private void SpawnObject(Vector3 point)
+    {
+        
+        var obj = _pool.GetFromPool();
+        obj.objectTransform.position = point;
+        //TreeList.Add(obj);
+        obj.gameObject.SetActive(true);
     }
 
     private void OnDestroy()
@@ -36,11 +51,17 @@ public class EnvironmentGenerator : CustomBehaviour
     private void StartGame()
     {
         _timerOn = true;
+        //TreeList.Clear();
     }
 
     private void EndGame()
     {
         _timerOn = false;
+        //for (int i = 0; i < TreeList.Count; i++)
+        //{
+        //    _pool.ReturnObjectToPool(TreeList[i]);
+        //}
+
     }
     private void Update()
     {
@@ -111,7 +132,8 @@ public class EnvironmentGenerator : CustomBehaviour
                 var point = new Vector3(randomRightR, top, playerTransformPosition.z);
                 if (!CheckOverlap(point))
                 {
-                    Instantiate(ObjectToSpawn, point, Quaternion.identity);
+                    //Instantiate(ObjectToSpawn, point, Quaternion.identity);
+                    SpawnObject(point);
 
                 }
                 else 
@@ -136,7 +158,8 @@ public class EnvironmentGenerator : CustomBehaviour
                 var point = new Vector3(randomRightR, bot, playerTransformPosition.z);
                 if (!CheckOverlap(point))
                 {
-                    Instantiate(ObjectToSpawn, point, Quaternion.identity);
+                    //Instantiate(ObjectToSpawn, point, Quaternion.identity);
+                    SpawnObject(point);
 
                 }
                 else { Debug.Log("OVERLAP VAR"); }
@@ -164,7 +187,8 @@ public class EnvironmentGenerator : CustomBehaviour
                 var point = new Vector3(randomLeftL, top, playerTransformPosition.z);
                 if (!CheckOverlap(point))
                 {
-                    Instantiate(ObjectToSpawn, point, Quaternion.identity);
+                    //Instantiate(ObjectToSpawn, point, Quaternion.identity);
+                    SpawnObject(point);
 
                 }
                 else { Debug.Log("OVERLAP VAR"); }
@@ -188,7 +212,8 @@ public class EnvironmentGenerator : CustomBehaviour
                 var point = new Vector3(randomLeftL, bot, playerTransformPosition.z);
                 if (!CheckOverlap(point))
                 {
-                    Instantiate(ObjectToSpawn, point, Quaternion.identity);
+                    //Instantiate(ObjectToSpawn, point, Quaternion.identity);
+                    SpawnObject(point);
 
                 }
                 else { Debug.Log("OVERLAP VAR"); }

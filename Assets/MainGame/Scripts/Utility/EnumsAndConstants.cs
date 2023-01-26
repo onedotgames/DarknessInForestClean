@@ -237,6 +237,11 @@ public enum ExpPoolerType
     LargeExperience = 2
 }
 
+public enum EnvironmentObjType
+{
+    Tree = 0
+}
+
 public enum QuestType
 {
     Hunt = 0,
