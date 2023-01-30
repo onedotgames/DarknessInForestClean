@@ -1,7 +1,4 @@
-using DG.Tweening.Core.Easing;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnvironmentGenerator : CustomBehaviour

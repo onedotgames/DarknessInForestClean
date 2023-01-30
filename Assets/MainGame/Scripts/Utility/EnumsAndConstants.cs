@@ -35,19 +35,6 @@ public class TAGS
     public const string Skill = "Skill";
 }
 
-public class AnimationTriggers
-{
-    public const string IDLE = "Idle";
-    public const string RUNWITHSOURCE = "RunWithSource";
-    public const string IDLEWITHSOURCE = "IdleWithSource";
-    public const string PUTSOURCE = "PutSource";
-    public const string RUN = "Run";
-    public const string JUMP = "Jump";
-    public const string DIE = "Die";
-    public const string HIT = "Hit";
-    public const string GETHIT = "GetHit";
-    public const string CHEER = "Cheer";
-}
 public enum GameMechanics
 {
     Swipe = 0,
@@ -148,12 +135,6 @@ public enum ConfettiColors
     Purple = 3,
     Rainbow = 4,
     Romantic = 5
-}
-
-public enum SkillNature
-{
-    Damage = 0,
-    Utility = 1
 }
 
 public enum DamagePattern
