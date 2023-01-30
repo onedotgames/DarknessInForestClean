@@ -404,7 +404,7 @@ public class BossBase : CustomBehaviour
         {
             if (ShouldMove)
             {
-                ShouldMove = false;
+                //ShouldMove = false;
                 Monster.ChangeAction(true);
                 Monster.Attack();
             }
