@@ -217,7 +217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6729693414932959683}
   - component: {fileID: 2068510972780388138}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 8897028599185703591}
   - component: {fileID: 8897028599200902437}
   - component: {fileID: 8897028599201005447}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: FireFliesYellow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5096,7 +5096,7 @@ GameObject:
   - component: {fileID: 8897028599185758985}
   - component: {fileID: 8897028599200904153}
   - component: {fileID: 8897028599199224263}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

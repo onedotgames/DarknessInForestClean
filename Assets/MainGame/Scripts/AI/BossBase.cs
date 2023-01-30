@@ -408,7 +408,7 @@ public class BossBase : CustomBehaviour
                 Monster.ChangeAction(true);
                 Monster.Attack();
             }
-
+            ShouldRotate = true;
             var bullet = GameManager.PoolingManager.EnemyBulletPoolerList[(int)EnemyBulletPoolerType.BossClub].GetObjectFromPool();
             if(Hand != null)
             {

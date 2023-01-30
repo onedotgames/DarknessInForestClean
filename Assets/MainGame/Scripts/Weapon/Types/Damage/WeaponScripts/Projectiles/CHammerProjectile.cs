@@ -15,6 +15,8 @@ public class CHammerProjectile : ProjectileBase
     private Player mPlayer;
     public WeaponBaseV2 WeaponBaseV2;
     [SerializeField] private float _duration;
+    public List<ParticleSystem> HitVFXs;
+
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -140,7 +142,7 @@ public class CHammerProjectile : ProjectileBase
                 IsReady = false;
                 if (this == WeaponBaseV2.ActiveChestnuts[WeaponBaseV2.ActiveChestnuts.Count - 1])
                 {
-                    StopHitVfx();
+                    
                     Invoke("CallAgain", _duration);
                 }
                 else
@@ -151,13 +153,23 @@ public class CHammerProjectile : ProjectileBase
             }
         }
     }
-
+    public void StopHitVfxs(bool value)
+    {
+        HitVFXs.ForEach(x =>
+        {
+            if (x.gameObject.activeInHierarchy)
+            {
+                x.gameObject.SetActive(value);
+            }
+        });
+        
+    }
     private void SetActivenessOfElements(bool value)
     {
         bCol2D.enabled = value;
         spriteRenderer.enabled = value;
         MovementVFX.gameObject.SetActive(value);
-        
+        StopHitVfxs(value);
     }
 
     private async void CallAgain()

@@ -16,7 +16,7 @@ MonoBehaviour:
   Description: 
   Icon: {fileID: 21300000, guid: 89d43928fa4ba7849afba5a2fe1262b0, type: 3}
   Cooldown: 3
-  AttackRange: 40
+  AttackRange: 20
   BaseDamage: 100
   BaseSpeed: 5
   Count: 1
