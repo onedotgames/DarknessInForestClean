@@ -29,6 +29,7 @@ public class LevelFinished : UIPanel
 
     private int mDiamondReward;
     private HUD hud;
+    private bool isGameSucceed = false;
 
     public override void Initialize(UIManager uIManager)
     {
@@ -38,7 +39,7 @@ public class LevelFinished : UIPanel
         InitializeEvents();
         hud = uIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
         volume = BoxVolumeParent.GetComponent<Volume>();
-
+        isGameSucceed = false;
         if(volume.profile.TryGet<ColorAdjustments>(out var colorAd))
         {
             colorAdjustments = colorAd;
@@ -64,8 +65,8 @@ public class LevelFinished : UIPanel
         if(GameManager != null)
         {
             UIManager.GameManager.OnLevelCompleted += LevelCompleted;
-            //UIManager.GameManager.OnTutorialCompleted += LevelCompleted;
-            UIManager.GameManager.OnLevelFailed += LevelFailed; 
+            UIManager.GameManager.OnLevelFailed += LevelFailed;
+            UIManager.GameManager.OnStartGame += StartGame;
             UIManager.GameManager.OnReturnToMainMenu += ReturnToMain;
         }
     }
@@ -109,17 +110,29 @@ public class LevelFinished : UIPanel
         OpenPanel();
         SuccessImg.GetComponent<PlayAnimation>().Play();
         colorAdjustments.saturation.value = 0;
-        WinSaturation();
+        isGameSucceed = true;
+        if(isGameSucceed)
+            WinSaturation();
     }
+
+    private void StartGame()
+    {
+        colorAdjustments.saturation.value = 0;
+    }
+
     private void ReturnToMain()
     {
         FailCanvas.Close();;
         SuccessCanvas.Close();
-
+        if(mLoseRout != null)
+            StopCoroutine(mLoseRout);
+        if(mWinRout != null)
+            StopCoroutine(mWinRout);
         FailCanvas.gameObject.SetActive(false);
         SuccessCanvas.gameObject.SetActive(false);
         BoxVolumeParent.SetActive(false);
-
+        colorAdjustments.saturation.value = 0;
+        isGameSucceed = false;
         ClosePanel();
     }
     private void LevelFailed()
@@ -135,7 +148,9 @@ public class LevelFinished : UIPanel
         OpenPanel();
         FailImg.GetComponent<PlayAnimation>().Play();
         colorAdjustments.saturation.value = 0;
-        LoseSaturation();
+        isGameSucceed = false;
+        if(!isGameSucceed)
+            LoseSaturation();
     }
 
     public void WinSaturation()
@@ -152,18 +167,10 @@ public class LevelFinished : UIPanel
     {
         while (colorAdjustments.saturation.value != 100 || colorAdjustments.saturation.value != -100)
         {
+            Debug.Log(colorAdjustments.saturation.value);
             yield return new WaitForSecondsRealtime(0.1f);
             colorAdjustments.saturation.value += add;
         }
-        //if(colorAdjustments.saturation.value != 100 || colorAdjustments.saturation.value != -100)
-        //{
-            //yield return new WaitForSecondsRealtime(0.1f);
-            //colorAdjustments.saturation.value += add;
-            //if (colorAdjustments.saturation.value != 100f)
-            //{
-              //  StartCoroutine(SaturationRoutine(add));
-            //}
-        //}
     }
 
     private void OnDestroy()
@@ -171,7 +178,6 @@ public class LevelFinished : UIPanel
         if(GameManager != null)
         {
             UIManager.GameManager.OnLevelCompleted -= LevelCompleted;
-            //UIManager.GameManager.OnTutorialCompleted -= LevelCompleted;
             UIManager.GameManager.OnLevelFailed -= LevelFailed;
             UIManager.GameManager.OnReturnToMainMenu -= ReturnToMain;
         }

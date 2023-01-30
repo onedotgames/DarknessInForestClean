@@ -16,6 +16,7 @@ public class CameraManager : CustomBehaviour
     private Vector3 mInitialOffset;
     private float mOffsetX;
     private bool mCanFollow = false;
+    private bool sizeFit = true;
 
     public List<BackGround> BackGrounds;
     #endregion
@@ -49,7 +50,7 @@ public class CameraManager : CustomBehaviour
     private void InitializeOptions()
     {
         mCameraTransform = MainCamera.transform;
-
+        MainCamera.orthographicSize = 4;
         mCameraTransform.position = CameraOptions[ActiveCameraOption].Position;
         mCameraTransform.eulerAngles = CameraOptions[ActiveCameraOption].Rotation;
 
@@ -64,6 +65,15 @@ public class CameraManager : CustomBehaviour
     private void LateUpdate()
     {
         PlayerFollow();
+        if (!sizeFit)
+        {
+            MainCamera.orthographicSize += MainCamera.orthographicSize * 2 * Time.deltaTime;
+        }
+        if(MainCamera.orthographicSize >= 6.5f)
+        {
+            sizeFit = true;
+            MainCamera.orthographicSize = 6.5f;
+        }
     }
 
     private void PlayerFollow()
@@ -98,6 +108,7 @@ public class CameraManager : CustomBehaviour
     private void StartGame()
     {
         mCanFollow = true;
+        sizeFit = false;
     }
 
     private void ReturnToMainMenu()
