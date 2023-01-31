@@ -29,6 +29,7 @@ public class QuestManager : CustomBehaviour
     public TMP_Text towerText;
     public GameObject TowerPanel;
     public EnemyType EnemyType;
+    public List<Material> Outlines;
     private string enemy;
     private bool towerQuest = false;
     public override void Initialize(GameManager gameManager)
@@ -46,6 +47,7 @@ public class QuestManager : CustomBehaviour
         QuestNPC.SetActive(false);
         Tower.SetActive(false);
         QuestPanel.SetActive(false);
+        Outlines.ForEach(x => x.DisableKeyword("OUTBASE_ON"));
     }
 
     public void OnGameStart()
@@ -163,6 +165,7 @@ public class QuestManager : CustomBehaviour
         QuestNPC.SetActive(false);
         enemyType = Random.Range(0, 4);
         enemy = EnemyType.GetName(typeof(EnemyType), enemyType);
+        Outlines[enemyType].EnableKeyword("OUTBASE_ON");
         questText.text = "Kill " + enemy + ": " + currentKillCount + " / 50";
         questPanel.SetActive(true);
     }
@@ -174,6 +177,7 @@ public class QuestManager : CustomBehaviour
         canSpawnQuest = true;
         currentKillCount = 0;
         questPanel.SetActive(false);
+        Outlines.ForEach(x => x.DisableKeyword("OUTBASE_ON"));
     }
 
     private void OnDestroy()

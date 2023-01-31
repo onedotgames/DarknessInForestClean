@@ -47,6 +47,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     {
         HandleRange = handleRange;
         DeadZone = deadZone;
+        transform.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
         baseRect = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
         if (canvas == null)

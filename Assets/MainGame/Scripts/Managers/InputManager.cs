@@ -50,15 +50,20 @@ public class InputManager : CustomBehaviour
 
     private void UpdateInput()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (GameManager.IsGameStarted)
         {
-            mRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if(Physics.Raycast(mRay, out mHit, Mathf.Infinity, MouseRayLayer))
+            if (Input.GetMouseButtonDown(0))
             {
-                MouseDownLocation = mHit.point;
+                mRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(mRay, out mHit, Mathf.Infinity, MouseRayLayer))
+                {
+                    MouseDownLocation = mHit.point;
+                }
             }
         }
+
+
     }
 
     private void UpdateUIOverride()
@@ -85,15 +90,19 @@ public class InputManager : CustomBehaviour
 
     public void Touched(PointerEventData eventData)
     {
-        mPointerDownLocation = MainCamera.ScreenToViewportPoint(eventData.pressPosition);
+        if(GameManager.IsGameStarted)
+            mPointerDownLocation = MainCamera.ScreenToViewportPoint(eventData.pressPosition);
     }
 
     public void TouchEnd(PointerEventData eventData)
     {
-        mPointerUpLocation = MainCamera.ScreenToViewportPoint(eventData.position);
-        float distance = Vector2.Distance(mPointerDownLocation, mPointerUpLocation);
+        if (GameManager.IsGameStarted)
+        {
+            mPointerUpLocation = MainCamera.ScreenToViewportPoint(eventData.position);
+            float distance = Vector2.Distance(mPointerDownLocation, mPointerUpLocation);
 
-        ControlSwipe(distance);
+            ControlSwipe(distance);
+        }
     }
 
     private void ControlSwipe(float distance)
