@@ -33,15 +33,15 @@ public class EnvironmentObject : CustomBehaviour
     private void OpenGhost()
     {
         var _mat = this._rnd.material;
-        _mat.EnableKeyword("GHOST_ON");
-        this._rnd.material = _mat;
+        //_mat.EnableKeyword("GHOST_ON");
+        this._rnd.material.EnableKeyword("GHOST_ON");
     }
 
     private void CloseGhost()
     {
         var _mat = this._rnd.material;
-        _mat.DisableKeyword("GHOST_ON");
-        this._rnd.material = _mat;
+        //_mat.DisableKeyword("GHOST_ON");
+        this._rnd.material.DisableKeyword("GHOST_ON");
     }
     private void EndGame()
     {
