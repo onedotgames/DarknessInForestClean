@@ -44,6 +44,14 @@ public class InitialMenu : UIPanel
     public RectTransform Levels;
     public RectTransform LeaderBoard;
 
+    [Header("Panel Backgrounds")]
+    public RectTransform CoopBG;
+    public RectTransform EquipmentBG;
+    public RectTransform HomeBG;
+    public RectTransform LevelsBG;
+    public RectTransform LeaderboardBG;
+
+
     public RectTransform LevelScroller;
     public GameObject PlayerImg;
 
@@ -66,9 +74,23 @@ public class InitialMenu : UIPanel
         BossEvent.Initialize(GameManager);
         GameManager.UIManager.GetPanel(Panels.Hud).ClosePanel();
 
+        
         LevelScroller.sizeDelta = new Vector2(Screen.width, LevelScroller.sizeDelta.y);
         Content.sizeDelta = new Vector2(Screen.height * 5, 0);
         MidGroup.sizeDelta = new Vector2(Screen.height * 5, Screen.width);
+
+        Home.DOScale(Vector3.one * 1.2f, 0.4f);
+        Equipment.DOScale(Vector3.one, 0.4f);
+        Coop.DOScale(Vector3.one, 0.4f);
+        Levels.DOScale(Vector3.one, 0.4f);
+        LeaderBoard.DOScale(Vector3.one, 0.4f);
+
+        HomeBG.DOScale(Vector3.one * 0.8f, 0.4f);
+        EquipmentBG.DOScale(Vector3.zero, 0.4f);
+        CoopBG.DOScale(Vector3.zero, 0.4f);
+        LevelsBG.DOScale(Vector3.zero, 0.4f);
+        LeaderboardBG.DOScale(Vector3.zero, 0.4f);
+
         SubEvents();
     }
 
@@ -88,11 +110,18 @@ public class InitialMenu : UIPanel
         Content.DOLocalMoveX(Screen.height * 2, MenuSwipeSpeed);
         PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
 
-        Coop.DOScale(Vector3.one * 2, 0.4f);
+        Coop.DOScale(Vector3.one * 1.2f, 0.4f);
         Equipment.DOScale(Vector3.one, 0.4f);
         Home.DOScale(Vector3.one, 0.4f);
         Levels.DOScale(Vector3.one, 0.4f);
         LeaderBoard.DOScale(Vector3.one, 0.4f);
+
+        CoopBG.DOScale(Vector3.one * 0.8f, 0.4f);
+        EquipmentBG.DOScale(Vector3.zero, 0.4f);
+        HomeBG.DOScale(Vector3.zero, 0.4f);
+        LevelsBG.DOScale(Vector3.zero, 0.4f);
+        LeaderboardBG.DOScale(Vector3.zero, 0.4f);
+
 
     }
     private void OnEquipmentBTNClicked()
@@ -102,11 +131,17 @@ public class InitialMenu : UIPanel
         Content.DOLocalMoveX(Screen.height, MenuSwipeSpeed);
         PlayerImg.GetComponent<SpriteRenderer>().enabled = true;
 
-        Equipment.DOScale(Vector3.one * 2, 0.4f);
+        Equipment.DOScale(Vector3.one * 1.2f, 0.4f);
         Coop.DOScale(Vector3.one, 0.4f);
         Home.DOScale(Vector3.one, 0.4f);
         Levels.DOScale(Vector3.one, 0.4f);
         LeaderBoard.DOScale(Vector3.one, 0.4f);
+
+        EquipmentBG.DOScale(Vector3.one * 0.8f, 0.4f);
+        CoopBG.DOScale(Vector3.zero, 0.4f);
+        HomeBG.DOScale(Vector3.zero, 0.4f);
+        LevelsBG.DOScale(Vector3.zero, 0.4f);
+        LeaderboardBG.DOScale(Vector3.zero, 0.4f);
     }
     private void OnHomeBTNClicked()
     {
@@ -115,12 +150,17 @@ public class InitialMenu : UIPanel
         Content.DOLocalMoveX(0, MenuSwipeSpeed);
         PlayerImg.GetComponent<SpriteRenderer>().enabled = true;
 
-        Home.DOScale(Vector3.one * 2, 0.4f);
+        Home.DOScale(Vector3.one * 1.2f, 0.4f);
         Equipment.DOScale(Vector3.one, 0.4f);
         Coop.DOScale(Vector3.one, 0.4f);
         Levels.DOScale(Vector3.one, 0.4f);
         LeaderBoard.DOScale(Vector3.one, 0.4f);
 
+        HomeBG.DOScale(Vector3.one * 0.8f, 0.4f);
+        EquipmentBG.DOScale(Vector3.zero, 0.4f);
+        CoopBG.DOScale(Vector3.zero, 0.4f);
+        LevelsBG.DOScale(Vector3.zero, 0.4f);
+        LeaderboardBG.DOScale(Vector3.zero, 0.4f);
     }
     private void OnLevelsBTNClicked()
     {
@@ -130,11 +170,17 @@ public class InitialMenu : UIPanel
         PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
 
 
-        Levels.DOScale(Vector3.one * 2, 0.4f);
+        Levels.DOScale(Vector3.one * 1.2f, 0.4f);
         Equipment.DOScale(Vector3.one, 0.4f);
         Home.DOScale(Vector3.one, 0.4f);
         Coop.DOScale(Vector3.one, 0.4f);
         LeaderBoard.DOScale(Vector3.one, 0.4f);
+
+        LevelsBG.DOScale(Vector3.one * 0.8f, 0.4f);
+        EquipmentBG.DOScale(Vector3.zero, 0.4f);
+        CoopBG.DOScale(Vector3.zero, 0.4f);
+        HomeBG.DOScale(Vector3.zero, 0.4f);
+        LeaderboardBG.DOScale(Vector3.zero, 0.4f);
     }
     private void OnLeaderBoardBTNClicked()
     {
@@ -144,11 +190,17 @@ public class InitialMenu : UIPanel
         PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
 
 
-        LeaderBoard.DOScale(Vector3.one * 2, 0.4f);
+        LeaderBoard.DOScale(Vector3.one * 1.2f, 0.4f);
         Equipment.DOScale(Vector3.one, 0.4f);
         Home.DOScale(Vector3.one, 0.4f);
         Levels.DOScale(Vector3.one, 0.4f);
         Coop.DOScale(Vector3.one, 0.4f);
+
+        LeaderboardBG.DOScale(Vector3.one * 0.8f, 0.4f);
+        EquipmentBG.DOScale(Vector3.zero, 0.4f);
+        CoopBG.DOScale(Vector3.zero, 0.4f);
+        HomeBG.DOScale(Vector3.zero, 0.4f);
+        LevelsBG.DOScale(Vector3.zero, 0.4f);
     }
 
     private void SetCanvas(CanvasGroup canvas)

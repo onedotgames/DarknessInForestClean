@@ -37,6 +37,7 @@ public class BarrelSystem : CustomBehaviour
         canBarrelSystemStart = false;
         timer = 0;
         barrelCount = 0;
+        ReturnPool();
     }
 
     private void LevelFailed()
@@ -44,8 +45,17 @@ public class BarrelSystem : CustomBehaviour
         canBarrelSystemStart = false;
         timer = 0;
         barrelCount = 0;
+        ReturnPool();
     }
 
+    private void ReturnPool()
+    {
+        var pool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.BarrelPooler];
+        for (int i = 0; i < pool.TempList.Count; i++)
+        {
+            pool.ReturnObjectToPool(pool.TempList[i]);
+        }
+    }
 
     void SpawnBarrel()
     {

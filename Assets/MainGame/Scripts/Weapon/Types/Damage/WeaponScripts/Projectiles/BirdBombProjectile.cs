@@ -40,6 +40,7 @@ public class BirdBombProjectile : ProjectileBase
         if (collision.CompareTag("Barrel"))
         {
             var barrelPos = collision.transform.position;
+            BarrelPooler = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.BarrelPooler];
             BarrelPooler.ReturnObjectToPool(collision.gameObject);
             GameManager.BarrelSystem.barrelCount--;
             // coin magnet ya da bomb spawn olacak.

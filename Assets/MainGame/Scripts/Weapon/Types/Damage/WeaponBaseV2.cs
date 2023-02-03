@@ -98,7 +98,7 @@ public class WeaponBaseV2 : CustomBehaviour
 
     private void OnGameStart()
     {
-        //ResetItemElementsOnStart();
+
     }
 
     private void UnAssign()
@@ -132,9 +132,6 @@ public class WeaponBaseV2 : CustomBehaviour
         AttackDegree = 30;
         BeeIndex = 0;
         UpgradeLevel = 0;
-        //ActiveChestnuts.Clear();
-        //ActiveBeeShots.Clear();
-        //SlingProjectileList.Clear();
     }
 
     private async void OnEnable()
@@ -200,8 +197,7 @@ public class WeaponBaseV2 : CustomBehaviour
             var y = UnityEngine.Random.Range(-1f, 1f);
             mDirection = (new Vector3(x, y)).normalized;
         }
-        if (this.SkillSO.PoolerType == PoolerType.BeeShotPooler
-            || this.SkillSO.PoolerType == PoolerType.PoisonDartPooler
+        if (this.SkillSO.PoolerType == PoolerType.PoisonDartPooler
             || this.SkillSO.PoolerType == PoolerType.SlingPooler)
         {
             //var x = UnityEngine.Random.Range(-1f, 1f);
@@ -209,7 +205,21 @@ public class WeaponBaseV2 : CustomBehaviour
             //mDirection = (new Vector3(x, y)).normalized;
             mDirection = Vector2.left;
         }
-        
+        if(this.SkillSO.PoolerType == PoolerType.BeeShotPooler)
+        {
+            if (GameManager.InputManager.isMovementStop)
+            {
+                var x = UnityEngine.Random.Range(-1f, 1f);
+                var y = UnityEngine.Random.Range(-1f, 1f);
+                mDirection = (new Vector3(x, y)).normalized;
+            }
+            else
+            {
+                mDirection = Vector2.left;
+            }
+            
+        }
+
     }
     
 
@@ -279,7 +289,6 @@ public class WeaponBaseV2 : CustomBehaviour
     public void PlayMinigame(int gameIndex)
     {
         Time.timeScale = 0;
-        //SelectSkillPanel.ClosePanel();
         var miniGameObject = GameManager.SkillManager.Minigames[gameIndex];
         var miniGame = miniGameObject.GetComponent<MiniGameBase>();
         if (gameIndex == 0)
@@ -570,35 +579,6 @@ public class WeaponBaseV2 : CustomBehaviour
 
     private async Task Clover()
     {
-        //GetClosestEnemy(GameManager.AIManager.EnemyList);
-
-        //if (_target != null)
-        //{
-        //    for (int i = 0; i < Count; i++)
-        //    {
-        //        var obj = Pooler.GetFromPool();
-        //        obj.transform.position = this.transform.position;
-
-
-        //        var clover = obj.gameObject.GetComponent<CloverProjectile>();
-        //        SetSkill(GameManager.AIManager.EnemyList);
-
-        //        SetProjectile(clover,false);
-
-        //        obj.gameObject.SetActive(true);
-        //        GameManager.AIManager.EnemyList.Remove(_target);
-        //        await Delay(0.25f);
-        //    }
-        //}
-        //else
-        //{
-        //    await Task.Yield();
-        //}
-        //_target = null;
-
-
-
-        
         for (int i = 0; i < Count; i++)
         {
             GetClosestEnemy(GameManager.AIManager.EnemyList);
@@ -768,8 +748,17 @@ public class WeaponBaseV2 : CustomBehaviour
 
             var mBeeShot = obj.gameObject.GetComponent<BeeShotProjectile>();
             //SetSkill(GameManager.AIManager.EnemyList);
-            mDirection = GameManager.JoystickManager.variableJoystick.LastDirection.normalized;
-            if(mDirection == Vector3.zero)
+            if (GameManager.InputManager.isMovementStop)
+            {
+                var x = UnityEngine.Random.Range(-1f, 1f);
+                var y = UnityEngine.Random.Range(-1f, 1f);
+                mDirection = (new Vector3(x, y)).normalized;
+            }
+            else
+            {
+                mDirection = GameManager.JoystickManager.variableJoystick.LastDirection.normalized;
+            }
+            if (mDirection == Vector3.zero)
             {
                 SetSkill(GameManager.AIManager.EnemyList);
             }

@@ -16,7 +16,6 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
 {
     public TMP_Text CoinCount;
     public TMP_Text KillCount;
-    public Slider KillSlider;
     public TMP_Text GameTime;
     
     public int killCount = 0;
@@ -321,7 +320,7 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
     public void UpdateKillCountBar()
     {
         killCount++;
-        KillSlider.DOValue((killCount / (killCount + 100)), 0.25f);
+        KillCount.text = killCount.ToString();
     }
 
     private void OnDestroy()

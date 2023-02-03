@@ -25,6 +25,7 @@ public class InputManager : CustomBehaviour
     private RaycastHit mHit;
     private Ray mRay;
     public bool isSwipeStart = false;
+    public bool isMovementStop = true;
     #endregion
 
     public override void Initialize(GameManager gameManager)
@@ -60,6 +61,11 @@ public class InputManager : CustomBehaviour
                 {
                     MouseDownLocation = mHit.point;
                 }
+                isMovementStop = false;
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                isMovementStop = true;
             }
         }
 

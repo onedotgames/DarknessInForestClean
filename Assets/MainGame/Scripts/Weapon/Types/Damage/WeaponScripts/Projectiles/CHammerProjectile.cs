@@ -30,8 +30,6 @@ public class CHammerProjectile : ProjectileBase
     {
         if (!GameManager.IsGamePaused && GameManager.IsGameStarted && IsReady)
         {
-            
-            //ContinueuslyPlayVFX(MovementVFX);
             RotateModel();
             ChammerMovement();
         }
@@ -87,12 +85,7 @@ public class CHammerProjectile : ProjectileBase
             enemy.GetHit(Damage);
             PlayHitVFX();
 
-
-            //enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
-            //PunchEffect(enemy.gameObject.transform, enemy.IsPunchable);
             enemy.PunchEffect();
-            //PlayHitVFX();
-            //Return();
 
 
         }
