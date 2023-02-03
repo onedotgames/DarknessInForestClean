@@ -113,6 +113,30 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -3214,7 +3238,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Atlas_02_Planks_Leaders_Items_25: 1637334273
+      Atlas_02_Planks_Leaders_Items_92: 1161792084
       Atlas_02_Planks_Leaders_Items_7: 1531462040
       Atlas_02_Planks_Leaders_Items_117: 1158092930
       Atlas_02_Planks_Leaders_Items_45: 1442579235
@@ -3282,9 +3306,9 @@ TextureImporter:
       Atlas_02_Planks_Leaders_Items_42: -2029674714
       Atlas_02_Planks_Leaders_Items_26: 856696263
       Atlas_02_Planks_Leaders_Items_137: -784660800
+      Atlas_02_Planks_Leaders_Items_53: -1340999210
       Atlas_02_Planks_Leaders_Items_108: 150488119
       Atlas_02_Planks_Leaders_Items_81: -645233212
-      Atlas_02_Planks_Leaders_Items_53: -1340999210
       Atlas_02_Planks_Leaders_Items_22: 79547991
       Atlas_02_Planks_Leaders_Items_2: -886176717
       Atlas_02_Planks_Leaders_Items_86: 91049774
@@ -3359,8 +3383,8 @@ TextureImporter:
       Atlas_02_Planks_Leaders_Items_9: 339950465
       Atlas_02_Planks_Leaders_Items_123: 829823416
       Atlas_02_Planks_Leaders_Items_141: 2055366068
-      Atlas_02_Planks_Leaders_Items_92: 1161792084
       Atlas_02_Planks_Leaders_Items_140: -821551674
+      Atlas_02_Planks_Leaders_Items_25: 1637334273
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

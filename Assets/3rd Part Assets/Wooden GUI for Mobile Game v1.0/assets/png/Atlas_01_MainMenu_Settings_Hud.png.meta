@@ -113,6 +113,30 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -1177,7 +1201,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Atlas_01_MainMenu_Settings_Hud_32: 1920933814
+      Atlas_01_MainMenu_Settings_Hud_39: 724433990
       Atlas_01_MainMenu_Settings_Hud_19: -1200719890
       Atlas_01_MainMenu_Settings_Hud_20: 1984821293
       Atlas_01_MainMenu_Settings_Hud_3: 1882030258
@@ -1225,8 +1249,8 @@ TextureImporter:
       Atlas_01_MainMenu_Settings_Hud_28: -1828017770
       Atlas_01_MainMenu_Settings_Hud_12: 1784089955
       Atlas_01_MainMenu_Settings_Hud_13: 1775537102
-      Atlas_01_MainMenu_Settings_Hud_39: 724433990
       Atlas_01_MainMenu_Settings_Hud_27: -1487389078
+      Atlas_01_MainMenu_Settings_Hud_32: 1920933814
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
