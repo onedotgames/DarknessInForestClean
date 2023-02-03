@@ -30,6 +30,7 @@ public class GameManager : CustomBehaviour
     public HolyFountain HolyFountain;
     public SkillManager SkillManager;
     public EnvironmentGenerator EnvironmentGenerator;
+    public CoopManager CoopManager;
     #endregion
 
     public bool IsGameStarted = false;
@@ -122,6 +123,7 @@ public class GameManager : CustomBehaviour
         HolyFountain.Initialize(this);
         SkillManager.Initialize(this);
         EnvironmentGenerator.Initialize(this);
+        CoopManager.Initialize(this);
     }
     #endregion
 
