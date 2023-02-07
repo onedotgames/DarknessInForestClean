@@ -44,13 +44,6 @@ public class InitialMenu : UIPanel
     public RectTransform Levels;
     public RectTransform LeaderBoard;
 
-    [Header("Panel Backgrounds")]
-    public RectTransform CoopBG;
-    public RectTransform EquipmentBG;
-    public RectTransform HomeBG;
-    public RectTransform LevelsBG;
-    public RectTransform LeaderboardBG;
-
 
     public RectTransform LevelScroller;
     public GameObject PlayerImg;
@@ -60,6 +53,9 @@ public class InitialMenu : UIPanel
     public MenuEvent BossEvent;
 
     public GameObject UserInfoPanel;
+
+    public GameObject RedBoxBG;
+    public RectTransform rectBG { get; private set; }
     public override void Initialize(UIManager uIManager)
     {
         base.Initialize(uIManager);
@@ -79,17 +75,16 @@ public class InitialMenu : UIPanel
         Content.sizeDelta = new Vector2(Screen.height * 5, 0);
         MidGroup.sizeDelta = new Vector2(Screen.height * 5, Screen.width);
 
-        Home.DOScale(Vector3.one * 1.2f, 0.4f);
-        Equipment.DOScale(Vector3.one, 0.4f);
-        Coop.DOScale(Vector3.one, 0.4f);
-        Levels.DOScale(Vector3.one, 0.4f);
-        LeaderBoard.DOScale(Vector3.one, 0.4f);
+        Home.DOScale(Vector3.one * 1.3f, 0.4f);
+        Equipment.DOScale(Vector3.one * 0.9f, 0.4f);
+        Coop.DOScale(Vector3.one * 0.9f, 0.4f);
+        Levels.DOScale(Vector3.one * 0.9f, 0.4f);
+        LeaderBoard.DOScale(Vector3.one * 0.9f, 0.4f);
 
-        HomeBG.DOScale(Vector3.one * 0.8f, 0.4f);
-        EquipmentBG.DOScale(Vector3.zero, 0.4f);
-        CoopBG.DOScale(Vector3.zero, 0.4f);
-        LevelsBG.DOScale(Vector3.zero, 0.4f);
-        LeaderboardBG.DOScale(Vector3.zero, 0.4f);
+        rectBG = RedBoxBG.GetComponent<RectTransform>();
+        rectBG.DOLocalMoveX(HomeBTN.transform.position.x, 0.3f).SetEase(Ease.OutQuad);
+        rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 3));
+
 
         SubEvents();
     }
@@ -110,19 +105,14 @@ public class InitialMenu : UIPanel
         Content.DOLocalMoveX(Screen.height * 2, MenuSwipeSpeed);
         PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
 
-        Coop.DOScale(Vector3.one * 1.2f, 0.4f);
-        Equipment.DOScale(Vector3.one, 0.4f);
-        Home.DOScale(Vector3.one, 0.4f);
-        Levels.DOScale(Vector3.one, 0.4f);
-        LeaderBoard.DOScale(Vector3.one, 0.4f);
+        Coop.DOScale(Vector3.one * 1.3f, 0.4f);
+        Equipment.DOScale(Vector3.one * 0.9f, 0.4f);
+        Home.DOScale(Vector3.one * 0.9f, 0.4f);
+        Levels.DOScale(Vector3.one * 0.9f, 0.4f);
+        LeaderBoard.DOScale(Vector3.one * 0.9f, 0.4f);
 
-        CoopBG.DOScale(Vector3.one * 0.8f, 0.4f);
-        EquipmentBG.DOScale(Vector3.zero, 0.4f);
-        HomeBG.DOScale(Vector3.zero, 0.4f);
-        LevelsBG.DOScale(Vector3.zero, 0.4f);
-        LeaderboardBG.DOScale(Vector3.zero, 0.4f);
-
-
+        rectBG.DOLocalMoveX(CoopBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
+        rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, -1));
     }
     private void OnEquipmentBTNClicked()
     {
@@ -131,17 +121,14 @@ public class InitialMenu : UIPanel
         Content.DOLocalMoveX(Screen.height, MenuSwipeSpeed);
         PlayerImg.GetComponent<SpriteRenderer>().enabled = true;
 
-        Equipment.DOScale(Vector3.one * 1.2f, 0.4f);
-        Coop.DOScale(Vector3.one, 0.4f);
-        Home.DOScale(Vector3.one, 0.4f);
-        Levels.DOScale(Vector3.one, 0.4f);
-        LeaderBoard.DOScale(Vector3.one, 0.4f);
+        Equipment.DOScale(Vector3.one * 1.3f, 0.4f);
+        Coop.DOScale(Vector3.one * 0.9f, 0.4f);
+        Home.DOScale(Vector3.one * 0.9f, 0.4f);
+        Levels.DOScale(Vector3.one * 0.9f, 0.4f);
+        LeaderBoard.DOScale(Vector3.one * 0.9f, 0.4f);
 
-        EquipmentBG.DOScale(Vector3.one * 0.8f, 0.4f);
-        CoopBG.DOScale(Vector3.zero, 0.4f);
-        HomeBG.DOScale(Vector3.zero, 0.4f);
-        LevelsBG.DOScale(Vector3.zero, 0.4f);
-        LeaderboardBG.DOScale(Vector3.zero, 0.4f);
+        rectBG.DOLocalMoveX(EquipmentBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
+        rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 1));
     }
     private void OnHomeBTNClicked()
     {
@@ -150,17 +137,15 @@ public class InitialMenu : UIPanel
         Content.DOLocalMoveX(0, MenuSwipeSpeed);
         PlayerImg.GetComponent<SpriteRenderer>().enabled = true;
 
-        Home.DOScale(Vector3.one * 1.2f, 0.4f);
-        Equipment.DOScale(Vector3.one, 0.4f);
-        Coop.DOScale(Vector3.one, 0.4f);
-        Levels.DOScale(Vector3.one, 0.4f);
-        LeaderBoard.DOScale(Vector3.one, 0.4f);
+        Home.DOScale(Vector3.one * 1.3f, 0.4f);
+        Equipment.DOScale(Vector3.one * 0.9f, 0.4f);
+        Coop.DOScale(Vector3.one * 0.9f, 0.4f);
+        Levels.DOScale(Vector3.one * 0.9f, 0.4f);
+        LeaderBoard.DOScale(Vector3.one * 0.9f, 0.4f);
 
-        HomeBG.DOScale(Vector3.one * 0.8f, 0.4f);
-        EquipmentBG.DOScale(Vector3.zero, 0.4f);
-        CoopBG.DOScale(Vector3.zero, 0.4f);
-        LevelsBG.DOScale(Vector3.zero, 0.4f);
-        LeaderboardBG.DOScale(Vector3.zero, 0.4f);
+        rectBG.DOLocalMoveX(HomeBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
+        rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 3));
+
     }
     private void OnLevelsBTNClicked()
     {
@@ -170,17 +155,14 @@ public class InitialMenu : UIPanel
         PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
 
 
-        Levels.DOScale(Vector3.one * 1.2f, 0.4f);
-        Equipment.DOScale(Vector3.one, 0.4f);
-        Home.DOScale(Vector3.one, 0.4f);
-        Coop.DOScale(Vector3.one, 0.4f);
-        LeaderBoard.DOScale(Vector3.one, 0.4f);
+        Levels.DOScale(Vector3.one * 1.3f, 0.4f);
+        Equipment.DOScale(Vector3.one * 0.9f, 0.4f);
+        Home.DOScale(Vector3.one * 0.9f, 0.4f);
+        Coop.DOScale(Vector3.one * 0.9f, 0.4f);
+        LeaderBoard.DOScale(Vector3.one * 0.9f, 0.4f);
 
-        LevelsBG.DOScale(Vector3.one * 0.8f, 0.4f);
-        EquipmentBG.DOScale(Vector3.zero, 0.4f);
-        CoopBG.DOScale(Vector3.zero, 0.4f);
-        HomeBG.DOScale(Vector3.zero, 0.4f);
-        LeaderboardBG.DOScale(Vector3.zero, 0.4f);
+        rectBG.DOLocalMoveX(LevelsBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
+        rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 5));
     }
     private void OnLeaderBoardBTNClicked()
     {
@@ -190,17 +172,14 @@ public class InitialMenu : UIPanel
         PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
 
 
-        LeaderBoard.DOScale(Vector3.one * 1.2f, 0.4f);
-        Equipment.DOScale(Vector3.one, 0.4f);
-        Home.DOScale(Vector3.one, 0.4f);
-        Levels.DOScale(Vector3.one, 0.4f);
-        Coop.DOScale(Vector3.one, 0.4f);
+        LeaderBoard.DOScale(Vector3.one * 1.3f, 0.4f);
+        Equipment.DOScale(Vector3.one * 0.9f, 0.4f);
+        Home.DOScale(Vector3.one * 0.9f, 0.4f);
+        Levels.DOScale(Vector3.one * 0.9f, 0.4f);
+        Coop.DOScale(Vector3.one * 0.9f, 0.4f);
 
-        LeaderboardBG.DOScale(Vector3.one * 0.8f, 0.4f);
-        EquipmentBG.DOScale(Vector3.zero, 0.4f);
-        CoopBG.DOScale(Vector3.zero, 0.4f);
-        HomeBG.DOScale(Vector3.zero, 0.4f);
-        LevelsBG.DOScale(Vector3.zero, 0.4f);
+        rectBG.DOLocalMoveX(LeaderBoardBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
+        rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 7));
     }
 
     private void SetCanvas(CanvasGroup canvas)

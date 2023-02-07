@@ -64,6 +64,8 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
     public RectTransform TopText;
     public RectTransform BottomText;
     public GameObject BossImage;
+
+    public Animator ExpSliderAnim;
     public override void Initialize(UIManager uIManager)
     {
         base.Initialize(uIManager);
@@ -129,11 +131,13 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
     public void SetExpBarFillAmount()
     {
         SetExpText();
+        ExpSliderAnim.enabled = true;
         if(ExperienceBar.value <= 1)
         {
             ExperienceBar.DOValue((playerLevelManager.GetCurrentExp() / playerLevelManager.GetLvlReq()), 0.5f).OnComplete(() =>
             {
                 playerLevelManager.CheckExp();
+                ExpSliderAnim.enabled = false;
             });
         }
         
