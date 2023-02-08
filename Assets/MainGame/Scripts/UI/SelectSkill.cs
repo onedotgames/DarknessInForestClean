@@ -48,6 +48,8 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
     private int btnTwoLevel;
     private int btnThreeLevel;
 
+
+    public List<GameObject> Effects;
     public override void Initialize(UIManager uIManager)
     {
         base.Initialize(uIManager);
@@ -280,6 +282,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
         LevelText.text = (GameManager.PlayerLevelManager.PlayerLevel + 1).ToString();
         PlayerIcon.SetActive(true);
         LevelUpText.SetActive(true);
+        Effects.ForEach(x => x.SetActive(true));
     }
 
     public override void ClosePanel()
@@ -291,6 +294,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
             BtnTwoActives[i].SetActive(false);
             BtnThreeActives[i].SetActive(false);
         }
+        Effects.ForEach(x => x.SetActive(false));
         //CloseSkillPanelAndOpenHud();
         PlayerIcon.SetActive(false);
         LevelUpText.SetActive(false);
