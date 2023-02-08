@@ -8,9 +8,8 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using Assets.FantasyMonsters.Scripts;
-using System.Xml.Linq;
-using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
+
 
 public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
 {
@@ -31,6 +30,8 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
 
     public CustomButton PauseButton;
     public CustomButton ResumeButton;
+    public CustomButton ReplayButton;
+    public CustomButton QuitButton;
 
     public CustomToggle DevToggle;
     public GameObject DevToggleOn;
@@ -72,6 +73,8 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
         playerLevelManager = GameManager.PlayerLevelManager;
         PauseButton.Initialize(uIManager, PauseGame, true);
         ResumeButton.Initialize(uIManager, ResumeGame, true);
+        ReplayButton.Initialize(uIManager, OnReplayButtonClicked, true);
+        QuitButton.Initialize(uIManager, OnQuitButtonClicked, true);
         DevToggle.Initialize(uIManager, OnDevToggleClicked);
         DevLevelUpBTN.Initialize(uIManager, DevLevelUp, true);
         SubscribeEvents();
@@ -248,6 +251,22 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
         OpenPanel();
 
         GameManager.IsGamePaused = false;
+    }
+
+    private void OnQuitButtonClicked()
+    {
+        Application.Quit();
+        Debug.Log("Quit");
+    }
+
+    private void OnReplayButtonClicked()
+    {
+        //GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
+        //GameManager.UIManager.GetPanel(Panels.Pause).ClosePanel();
+
+        //GameManager.ReturnToMainMenu();
+        UnityEngine.SceneManagement.SceneManager.LoadScene
+            (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 
     public void OnPointerDown(PointerEventData eventData)

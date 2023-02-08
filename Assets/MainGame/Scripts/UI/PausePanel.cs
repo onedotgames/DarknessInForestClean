@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
+
 public class PausePanel : UIPanel
 {
     public List<Image> WeaponIconsOnPause;
@@ -22,6 +24,8 @@ public class PausePanel : UIPanel
         base.Initialize(uIManager);
         SubscribeEvents();
     }
+
+
     private void SubscribeEvents()
     {
         if (GameManager != null)
