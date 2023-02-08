@@ -141,7 +141,7 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
             });
         }
         
-
+        
     }
 
     public void SetExpText()
