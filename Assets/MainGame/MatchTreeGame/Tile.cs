@@ -18,6 +18,7 @@ public sealed class Tile : MonoBehaviour
             if (_item == value) return;
             _item = value;
             icon.sprite = _item.sprite;
+            icon.transform.localScale = Vector3.one;
         }
     }
     public Image icon;

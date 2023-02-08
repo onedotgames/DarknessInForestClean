@@ -48,7 +48,7 @@ public sealed class Board : MonoBehaviour
                 TileButtons[i].interactable = false;
             }
         }
-        foreach (var connectedTile in Tiles[0, 0].GetConnectedTiles()) connectedTile.icon.transform.DOScale(1.25f, TweenDuration).Play();
+        foreach (var connectedTile in Tiles[0, 0].GetConnectedTiles()) connectedTile.icon.transform.DOScale(1f, TweenDuration).Play();
         
     }
     public async void Select(Tile tile)
