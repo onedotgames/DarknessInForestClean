@@ -104,9 +104,9 @@ public class EnvironmentGenerator : CustomBehaviour
         _bottomOfBottom = _topOfBottom - _spawnAreaWidth;
 
         var randomTop = Random.Range(_bottomOfTop, _topOfTop);
-        Debug.Log(randomTop);
+        //Debug.Log(randomTop);
         var randomBottom = Random.Range(_topOfBottom, _bottomOfBottom);
-        Debug.Log(randomBottom);
+        //Debug.Log(randomBottom);
 
         if (GetHorizontal() > 0)
         {
