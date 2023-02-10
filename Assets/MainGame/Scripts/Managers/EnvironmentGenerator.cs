@@ -47,7 +47,7 @@ public class EnvironmentGenerator : CustomBehaviour
     }
     private void StartGame()
     {
-        _timerOn = true;
+        //_timerOn = true; --> Spawn mekaniðinin baþlamasý için bunu açmak yeterli
         //TreeList.Clear();
     }
 

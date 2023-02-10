@@ -25,7 +25,8 @@ public class PoolingManager : CustomBehaviour
         ExpPoolerList.ForEach(x => {
             x.Initialize(GameManager);
             x.CreatePool();
-            x.InitializeExperiences();
+            //x.InitializeExperiences(GameManager);
+            x.ObjectList.ForEach(x => x.GetComponent<Experience>().Initialize(GameManager));
         });
         EnemyBulletPoolerList.ForEach(x => x.CreatePool());
         CoinPoolerList.ForEach(x => x.CreatePool());

@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using DG.Tweening.Core.Easing;
 using Sirenix.Utilities;
 using System;
@@ -544,7 +544,7 @@ public class WeaponBaseV2 : CustomBehaviour
                 break;
 
             case PoolerType.BananaPooler:
-
+                BananaGuardian();
                 break;
         }
         //_timerOn = true;
@@ -799,6 +799,17 @@ public class WeaponBaseV2 : CustomBehaviour
         SetProjectile(mSkunk, true);
         obj.gameObject.SetActive(true);
         mSkunk.Model.gameObject.transform.DOScale(new Vector3(0.3f,0.3f,0.3f), 0.25f);
+    }
+
+    private void BananaGuardian() 
+    {
+        var obj = Pooler.GetFromPool();
+        obj.transform.position = this.transform.position;
+        var mBanana = obj.gameObject.GetComponent<BananaMainProjectile>();
+        mBanana.Player = mPlayer;
+        mBanana.BarrelPooler = BarrelPooler;
+        SetProjectile(mBanana, true);
+        obj.gameObject.SetActive(true);
     }
 
     async Task<int> Delay(float delay)

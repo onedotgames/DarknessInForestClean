@@ -33,6 +33,10 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
     public CustomButton ReplayButton;
     public CustomButton QuitButton;
 
+    public CustomToggle VibrationToggle;
+    public GameObject VibrationToggleOn;
+    public GameObject VibrationToggleOff;
+
     public CustomToggle DevToggle;
     public GameObject DevToggleOn;
     public GameObject DevToggleOff;
@@ -76,6 +80,7 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
         ReplayButton.Initialize(uIManager, OnReplayButtonClicked, true);
         QuitButton.Initialize(uIManager, OnQuitButtonClicked, true);
         DevToggle.Initialize(uIManager, OnDevToggleClicked);
+        VibrationToggle.Initialize(uIManager, OnVibrationToggleClicked);
         DevLevelUpBTN.Initialize(uIManager, DevLevelUp, true);
         SubscribeEvents();
         OpenCloseJoystick();
@@ -288,6 +293,12 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
         SwithDevToggleBG();
         Debug.Log("DevMode: " + GameManager.IsDevelopmentModeOn);
     }
+    private void OnVibrationToggleClicked()
+    {
+        GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
+        GameManager.VibrationsManager.ToggleVibration();
+        SwithVibrationToggle();
+    }
 
     private void DevLevelUp()
     {
@@ -311,7 +322,22 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
 
         }
     }
+    private void SwithVibrationToggle()
+    {
+        if (!GameManager.VibrationsManager.IsVibrationOn)
+        {
+            VibrationToggleOn.SetActive(false);
+            VibrationToggleOff.SetActive(true);
+            Debug.Log(GameManager.VibrationsManager.IsVibrationOn);
+        }
+        else 
+        {
+            VibrationToggleOn.SetActive(true);
+            VibrationToggleOff.SetActive(false);
+            Debug.Log(GameManager.VibrationsManager.IsVibrationOn);
 
+        }
+    }
     private void OnStartGame()
     {
         OpenPanel();

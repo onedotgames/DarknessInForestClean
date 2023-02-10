@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class ExperiencePooler : PoolerBase
 {
-    public void InitializeExperiences()
+    public void InitializeExperiences(GameManager manager)
     {
-        ObjectList.ForEach(x => x.GetComponent<Experience>().Initialize(GameManager));
+        ObjectList.ForEach(x => x.GetComponent<Experience>().Initialize(manager));
     }
 }

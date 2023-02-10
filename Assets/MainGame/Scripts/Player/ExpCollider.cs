@@ -1,3 +1,4 @@
+using Panda.Examples.PlayTag;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,10 +17,29 @@ public class ExpCollider : CustomBehaviour
     {
         if (collision.CompareTag("Experience"))
         {
-            GameManager.PlayerLevelManager.SetExp(25f);
-            hud.SetExpBarFillAmount();
-            GameManager.PoolingManager.ExpPoolerList[(int)ExpPoolerType.SmallExperience].ReturnObjectToPool(collision.gameObject);
-            collision.GetComponent<Experience>().isGoing = false;
+            //GameManager.PlayerLevelManager.SetExp(25f);
+            //hud.SetExpBarFillAmount();
+            var exp = collision.GetComponent<Experience>();
+            //GameManager.PoolingManager.ExpPoolerList[(int)exp.ExpPoolerType].ReturnObjectToPool(collision.gameObject);
+            //exp.isGoing = false;
+            if (exp.IsReturning)
+            {
+                GameManager.PlayerLevelManager.SetExp(25f);
+                hud.SetExpBarFillAmount();
+                GameManager.PoolingManager.ExpPoolerList[(int)exp.ExpPoolerType]
+                    .ReturnObjectToPool(collision.gameObject);
+                exp.isGoing = false;
+            }
+            {
+                if(exp != null)
+                {
+                    if (exp.isActiveAndEnabled)
+                    {
+                        exp.TriggerExperience();
+                    }
+                }
+                
+            }
         }
     }
 }
