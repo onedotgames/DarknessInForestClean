@@ -7,10 +7,9 @@ public class SwipeLevels : MonoBehaviour
     public GameObject ScrollBar;
     float scrollPos = 0f;
     float[] pos;
-    public Material currentLevelMat;
-    public Material[] levelsMaterials;
-    public MeshRenderer backgroundRenderer;
-    public BackGround BackGround;
+    public Sprite currentLevelMat;
+    public Sprite[] levelsMaterials;
+    public SpriteRenderer[] backgroundRenderers;
     private void Update()
     {
         pos = new float[transform.childCount];
@@ -41,8 +40,10 @@ public class SwipeLevels : MonoBehaviour
             {
                 transform.GetChild(i).localScale = Vector3.Lerp(transform.GetChild(i).localScale, new Vector3(1.2f, 1.2f, 1f), 0.1f);
                 currentLevelMat = levelsMaterials[i];
-                backgroundRenderer.material = currentLevelMat;
-                BackGround.bgMat = currentLevelMat;
+                for (int k = 0; k < backgroundRenderers.Length; k++)
+                {
+                    backgroundRenderers[k].sprite = currentLevelMat;
+                }
                 for (int j = 0; j < pos.Length; j++)
                 {
                     if(j != i)
