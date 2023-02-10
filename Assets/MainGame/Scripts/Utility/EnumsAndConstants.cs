@@ -166,6 +166,8 @@ public enum PoolerType
     BananaPooler = 10
 }
 
+public enum Maps { Normal, Vertical, Horizontal }
+
 public enum BossAttackType
 {
     ChargeAttackWithInd = 0,

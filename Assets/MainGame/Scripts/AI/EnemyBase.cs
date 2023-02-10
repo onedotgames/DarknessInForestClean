@@ -161,7 +161,8 @@ public class EnemyBase : CustomBehaviour
                     (exp.transform.position.y - (Random.Range(0.3f,0.5f))),
                     (exp.transform.position.z)
                 );
-            exp.transform.DOJump(endValue, 1, 1, 0.5f);
+            exp.transform.DOJump(endValue, 1, 1, 0.5f)
+                .OnComplete(() => exp.GetComponent<Experience>().Shadow.SetActive(true));
         }
 
         Return();
