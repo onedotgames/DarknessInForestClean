@@ -40,26 +40,42 @@ public class BGSystem : MonoBehaviour
             {
                 if (backGrounds[currentCenterIndex].transform.position.y < backGrounds[lastCenterIndex].transform.position.y)
                 {//asagi
-                    Debug.Log("alt");
+                    //Debug.Log("alt");
                     WhichGroupMoveHorizontalDown();
                 }
                 else if(backGrounds[currentCenterIndex].transform.position.y > backGrounds[lastCenterIndex].transform.position.y)
                 {//yukarı
-                    Debug.Log("üst");
+                    //Debug.Log("üst");
                     WhichGroupMoveHorizontalUp();
                 }
             }
             else if(currentCenterIndex == lastCenterIndex + 1 || currentCenterIndex == lastCenterIndex - 1 || currentCenterIndex == lastCenterIndex + 2 || currentCenterIndex == lastCenterIndex -2) //dikey vert
             {
-                if (backGrounds[currentCenterIndex].transform.position.x > backGrounds[lastCenterIndex].transform.position.x)
+                if (backGrounds[currentCenterIndex].transform.position.x > backGrounds[lastCenterIndex].transform.position.x &&
+                    backGrounds[currentCenterIndex].transform.position.y == backGrounds[lastCenterIndex].transform.position.y)
                 {//sağa
-                    Debug.Log("sağ");
+                    //Debug.Log("sağ");
                     WhichGroupMoveVerticalRight();
                 }
-                else if(backGrounds[currentCenterIndex].transform.position.x < backGrounds[lastCenterIndex].transform.position.x)
+                else if (backGrounds[currentCenterIndex].transform.position.x > backGrounds[lastCenterIndex].transform.position.x &&
+                    backGrounds[currentCenterIndex].transform.position.y > backGrounds[lastCenterIndex].transform.position.y)
+                { //sağ üste
+                    //Debug.Log("Sağ üst");
+                    WhichGroupMoveVerticalRight();
+                    WhichGroupMoveHorizontalUp();
+                }
+                else if(backGrounds[currentCenterIndex].transform.position.x < backGrounds[lastCenterIndex].transform.position.x &&
+                    backGrounds[currentCenterIndex].transform.position.y == backGrounds[lastCenterIndex].transform.position.y)
                 {//sola
-                    Debug.Log("Sol");
+                    //Debug.Log("Sol");
                     WhichGroupMoveVerticalLeft();
+                }
+                else if (backGrounds[currentCenterIndex].transform.position.x < backGrounds[lastCenterIndex].transform.position.x &&
+                    backGrounds[currentCenterIndex].transform.position.y < backGrounds[lastCenterIndex].transform.position.y)
+                {//sol alt
+                    //Debug.Log("sol alt");
+                    WhichGroupMoveVerticalLeft();
+                    WhichGroupMoveHorizontalDown();
                 }
             }
             else //çapraz
@@ -67,7 +83,6 @@ public class BGSystem : MonoBehaviour
                 if (backGrounds[currentCenterIndex].transform.position.x > backGrounds[lastCenterIndex].transform.position.x &&
                     backGrounds[currentCenterIndex].transform.position.y > backGrounds[lastCenterIndex].transform.position.y)
                 {//sağ üst
-                    Debug.Log("Sağ üst");
                     WhichGroupMoveVerticalRight();
                     WhichGroupMoveHorizontalUp();
 
@@ -75,21 +90,20 @@ public class BGSystem : MonoBehaviour
                 else if(backGrounds[currentCenterIndex].transform.position.x > backGrounds[lastCenterIndex].transform.position.x &&
                     backGrounds[currentCenterIndex].transform.position.y < backGrounds[lastCenterIndex].transform.position.y)
                 {//sağ alt
-                    Debug.Log("Sağ alt");
+                    //Debug.Log("Sağ alt");
                     WhichGroupMoveVerticalRight();
                     WhichGroupMoveHorizontalDown();
                 }
                 else if (backGrounds[currentCenterIndex].transform.position.x < backGrounds[lastCenterIndex].transform.position.x &&
                     backGrounds[currentCenterIndex].transform.position.y > backGrounds[lastCenterIndex].transform.position.y)
                 {//sol üst
-                    Debug.Log("sol üst");
+                    //Debug.Log("sol üst");
                     WhichGroupMoveVerticalLeft();
                     WhichGroupMoveHorizontalUp();
                 }
                 else if (backGrounds[currentCenterIndex].transform.position.x < backGrounds[lastCenterIndex].transform.position.x &&
                     backGrounds[currentCenterIndex].transform.position.y < backGrounds[lastCenterIndex].transform.position.y)
                 {// sol alt
-                    Debug.Log("sol alt");
                     WhichGroupMoveVerticalLeft();
                     WhichGroupMoveHorizontalDown();
                 }
@@ -118,7 +132,7 @@ public class BGSystem : MonoBehaviour
         {
             if (lastCenterIndex == 0 || lastCenterIndex == 1 || lastCenterIndex == 2)
             {
-                Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
+                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
                 for (int i = 0; i < Horizontal3.Count; i++)
                 {
                     Horizontal3[i].SetActive(false);
@@ -133,7 +147,7 @@ public class BGSystem : MonoBehaviour
         {
             if(lastCenterIndex == 6 || lastCenterIndex == 7 || lastCenterIndex == 8)
             {
-                Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
+                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
                 for (int i = 0; i < Horizontal2.Count; i++)
                 {
                     Horizontal2[i].SetActive(false);
@@ -147,7 +161,7 @@ public class BGSystem : MonoBehaviour
         {
             if (lastCenterIndex == 3 || lastCenterIndex == 4 || lastCenterIndex == 5)
             {
-                Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
+                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
                 for (int i = 0; i < Horizontal1.Count; i++)
                 {
                     Horizontal1[i].SetActive(false);
@@ -165,7 +179,7 @@ public class BGSystem : MonoBehaviour
         {
             if (lastCenterIndex == 3 || lastCenterIndex == 4 || lastCenterIndex == 5)
             {
-                Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
+                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
                 for (int i = 0; i < Horizontal3.Count; i++)
                 {
                     Horizontal3[i].SetActive(false);
@@ -179,7 +193,7 @@ public class BGSystem : MonoBehaviour
         {
             if (lastCenterIndex == 0 || lastCenterIndex == 1 || lastCenterIndex == 2)
             {
-                Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
+                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
                 for (int i = 0; i < Horizontal2.Count; i++)
                 {
                     Horizontal2[i].SetActive(false);
@@ -193,7 +207,7 @@ public class BGSystem : MonoBehaviour
         {
             if (lastCenterIndex == 6 || lastCenterIndex == 7 || lastCenterIndex == 8)
             {
-                Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
+                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
                 for (int i = 0; i < Horizontal1.Count; i++)
                 {
                     Horizontal1[i].SetActive(false);
@@ -211,7 +225,7 @@ public class BGSystem : MonoBehaviour
         {
             if(lastCenterIndex == 1 || lastCenterIndex == 4 || lastCenterIndex == 7)
             {
-                Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
+                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
                 for (int i = 0; i < Vertical3.Count; i++)
                 {
                     Vertical3[i].SetActive(false);
@@ -224,7 +238,7 @@ public class BGSystem : MonoBehaviour
         {
             if(lastCenterIndex == 0 || lastCenterIndex == 3 || lastCenterIndex == 6)
             {
-                Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
+                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
                 for (int i = 0; i < Vertical2.Count; i++)
                 {
                     Vertical2[i].SetActive(false);
@@ -237,7 +251,7 @@ public class BGSystem : MonoBehaviour
         {
             if (lastCenterIndex == 2 || lastCenterIndex == 5 || lastCenterIndex == 8)
             {
-                Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
+                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
                 for (int i = 0; i < Vertical1.Count; i++)
                 {
                     Vertical1[i].SetActive(false);
@@ -254,7 +268,7 @@ public class BGSystem : MonoBehaviour
         {
             if (lastCenterIndex == 1 || lastCenterIndex == 4 || lastCenterIndex == 7)
             {
-                Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
+                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
                 for (int i = 0; i < Vertical1.Count; i++)
                 {
                     Vertical1[i].SetActive(false);
@@ -267,7 +281,7 @@ public class BGSystem : MonoBehaviour
         {
             if (lastCenterIndex == 2 || lastCenterIndex == 5 || lastCenterIndex == 8)
             {
-                Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
+                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
                 for (int i = 0; i < Vertical2.Count; i++)
                 {
                     Vertical2[i].SetActive(false);
@@ -280,7 +294,7 @@ public class BGSystem : MonoBehaviour
         {
             if (lastCenterIndex == 0 || lastCenterIndex == 3 || lastCenterIndex == 6)
             {
-                Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
+                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
                 for (int i = 0; i < Vertical3.Count; i++)
                 {
                     Vertical3[i].SetActive(false);
