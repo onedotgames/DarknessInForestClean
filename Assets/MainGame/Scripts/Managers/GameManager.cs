@@ -31,6 +31,7 @@ public class GameManager : CustomBehaviour
     public SkillManager SkillManager;
     public EnvironmentGenerator EnvironmentGenerator;
     public CoopManager CoopManager;
+    public InventoryManager InventoryManager;
     #endregion
 
     public bool IsGameStarted = false;
@@ -124,6 +125,7 @@ public class GameManager : CustomBehaviour
         SkillManager.Initialize(this);
         EnvironmentGenerator.Initialize(this);
         CoopManager.Initialize(this);
+        InventoryManager.Initialize(this);
     }
     #endregion
 
