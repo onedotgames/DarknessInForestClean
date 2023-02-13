@@ -37,10 +37,24 @@ public class VariableJoystick : Joystick
     {
         if(joystickType != JoystickType.Fixed)
         {
-            background.anchoredPosition = ScreenPointToAnchoredPosition(eventData.position);
+            //background.anchoredPosition = ScreenPointToAnchoredPosition(eventData.position);
+            Vector2 localPoint = Vector2.zero;
+            Vector3 worldPoint = Vector2.zero;
+            Ray ray = RectTransformUtility.ScreenPointToRay(Camera.main, eventData.position);
+            worldPoint = ray.GetPoint(0);
+            localPoint = baseRect.InverseTransformPoint(worldPoint);
+            //if (RectTransformUtility.ScreenPointToWorldPointInRectangle(baseRect, eventData.position, Camera.main, out var worldPoint))
+            //{
+            //    localPoint = baseRect.InverseTransformPoint(worldPoint);
+            //}
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(baseRect, eventData.position, Camera.main, out localPoint))
+            {
+                Vector2 pivotOffset = baseRect.pivot * baseRect.sizeDelta;
+                background.anchoredPosition =  localPoint - (background.anchorMax * baseRect.sizeDelta) + pivotOffset;
+            }
             background.gameObject.SetActive(true);
         }
-        //base.OnPointerDown(eventData);
+        base.OnPointerDown(eventData);
     }
 
     public override void OnPointerUp(PointerEventData eventData)

@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class InventoryManager : CustomBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public List<InventorySlot> InventorySlots;
+    public override void Initialize(GameManager gameManager)
     {
-        
+        base.Initialize(gameManager);
+        InitializeSlots();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void InitializeSlots()
     {
-        
+        InventorySlots.ForEach(x => x.Initialize(GameManager));
     }
 }

@@ -14,6 +14,8 @@ public class JoystickManager : CustomBehaviour
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
+        variableJoystick.canvas = gameManager.UIManager.Canvas;
+        
     }
 
     private void Update()
