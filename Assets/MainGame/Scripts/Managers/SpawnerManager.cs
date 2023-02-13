@@ -112,7 +112,7 @@ public class SpawnerManager : CustomBehaviour
             timeValue += Time.deltaTime;
             if(timeValue >= activeSpawnTime)
             {
-                Debug.Log("SHOULD SPAWN");
+                //Debug.Log("SHOULD SPAWN");
                 timeValue = 0;
 
                 //SpawnAllMainV2();
