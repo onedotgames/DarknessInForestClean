@@ -10,6 +10,10 @@ public class SwipeLevels : MonoBehaviour
     public Sprite currentLevelMat;
     public Sprite[] levelsMaterials;
     public SpriteRenderer[] backgroundRenderers;
+    //public Material currentLevelMat;
+    //public Material[] levelsMaterials;
+    //public MeshRenderer backgroundRenderer;
+    public BackGround backGround;
     private void Update()
     {
         pos = new float[transform.childCount];
@@ -44,6 +48,8 @@ public class SwipeLevels : MonoBehaviour
                 {
                     backgroundRenderers[k].sprite = currentLevelMat;
                 }
+                //backgroundRenderer.material = currentLevelMat;
+                //backGround.bgMat = currentLevelMat;
                 for (int j = 0; j < pos.Length; j++)
                 {
                     if(j != i)

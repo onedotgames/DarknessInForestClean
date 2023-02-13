@@ -40,10 +40,12 @@ public class BGSystem : MonoBehaviour
             {
                 if (backGrounds[currentCenterIndex].transform.position.y < backGrounds[lastCenterIndex].transform.position.y)
                 {//asagi
+                    Debug.Log("alt");
                     WhichGroupMoveHorizontalDown();
                 }
                 else if(backGrounds[currentCenterIndex].transform.position.y > backGrounds[lastCenterIndex].transform.position.y)
                 {//yukarı
+                    Debug.Log("üst");
                     WhichGroupMoveHorizontalUp();
                 }
             }
@@ -51,11 +53,45 @@ public class BGSystem : MonoBehaviour
             {
                 if (backGrounds[currentCenterIndex].transform.position.x > backGrounds[lastCenterIndex].transform.position.x)
                 {//sağa
+                    Debug.Log("sağ");
                     WhichGroupMoveVerticalRight();
                 }
                 else if(backGrounds[currentCenterIndex].transform.position.x < backGrounds[lastCenterIndex].transform.position.x)
                 {//sola
+                    Debug.Log("Sol");
                     WhichGroupMoveVerticalLeft();
+                }
+            }
+            else //çapraz
+            {
+                if (backGrounds[currentCenterIndex].transform.position.x > backGrounds[lastCenterIndex].transform.position.x &&
+                    backGrounds[currentCenterIndex].transform.position.y > backGrounds[lastCenterIndex].transform.position.y)
+                {//sağ üst
+                    Debug.Log("Sağ üst");
+                    WhichGroupMoveVerticalRight();
+                    WhichGroupMoveHorizontalUp();
+
+                }
+                else if(backGrounds[currentCenterIndex].transform.position.x > backGrounds[lastCenterIndex].transform.position.x &&
+                    backGrounds[currentCenterIndex].transform.position.y < backGrounds[lastCenterIndex].transform.position.y)
+                {//sağ alt
+                    Debug.Log("Sağ alt");
+                    WhichGroupMoveVerticalRight();
+                    WhichGroupMoveHorizontalDown();
+                }
+                else if (backGrounds[currentCenterIndex].transform.position.x < backGrounds[lastCenterIndex].transform.position.x &&
+                    backGrounds[currentCenterIndex].transform.position.y > backGrounds[lastCenterIndex].transform.position.y)
+                {//sol üst
+                    Debug.Log("sol üst");
+                    WhichGroupMoveVerticalLeft();
+                    WhichGroupMoveHorizontalUp();
+                }
+                else if (backGrounds[currentCenterIndex].transform.position.x < backGrounds[lastCenterIndex].transform.position.x &&
+                    backGrounds[currentCenterIndex].transform.position.y < backGrounds[lastCenterIndex].transform.position.y)
+                {// sol alt
+                    Debug.Log("sol alt");
+                    WhichGroupMoveVerticalLeft();
+                    WhichGroupMoveHorizontalDown();
                 }
             }
             //lastCenterIndex = currentCenterIndex;
@@ -175,6 +211,7 @@ public class BGSystem : MonoBehaviour
         {
             if(lastCenterIndex == 1 || lastCenterIndex == 4 || lastCenterIndex == 7)
             {
+                Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
                 for (int i = 0; i < Vertical3.Count; i++)
                 {
                     Vertical3[i].SetActive(false);
@@ -187,6 +224,7 @@ public class BGSystem : MonoBehaviour
         {
             if(lastCenterIndex == 0 || lastCenterIndex == 3 || lastCenterIndex == 6)
             {
+                Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
                 for (int i = 0; i < Vertical2.Count; i++)
                 {
                     Vertical2[i].SetActive(false);
@@ -199,6 +237,7 @@ public class BGSystem : MonoBehaviour
         {
             if (lastCenterIndex == 2 || lastCenterIndex == 5 || lastCenterIndex == 8)
             {
+                Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
                 for (int i = 0; i < Vertical1.Count; i++)
                 {
                     Vertical1[i].SetActive(false);
@@ -215,6 +254,7 @@ public class BGSystem : MonoBehaviour
         {
             if (lastCenterIndex == 1 || lastCenterIndex == 4 || lastCenterIndex == 7)
             {
+                Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
                 for (int i = 0; i < Vertical1.Count; i++)
                 {
                     Vertical1[i].SetActive(false);
@@ -227,6 +267,7 @@ public class BGSystem : MonoBehaviour
         {
             if (lastCenterIndex == 2 || lastCenterIndex == 5 || lastCenterIndex == 8)
             {
+                Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
                 for (int i = 0; i < Vertical2.Count; i++)
                 {
                     Vertical2[i].SetActive(false);
@@ -239,6 +280,7 @@ public class BGSystem : MonoBehaviour
         {
             if (lastCenterIndex == 0 || lastCenterIndex == 3 || lastCenterIndex == 6)
             {
+                Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
                 for (int i = 0; i < Vertical3.Count; i++)
                 {
                     Vertical3[i].SetActive(false);
