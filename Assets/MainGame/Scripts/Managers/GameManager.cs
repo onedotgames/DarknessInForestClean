@@ -32,6 +32,7 @@ public class GameManager : CustomBehaviour
     public EnvironmentGenerator EnvironmentGenerator;
     public CoopManager CoopManager;
     public InventoryManager InventoryManager;
+    public BackgroundManager BackgroundManager;
     #endregion
 
     public bool IsGameStarted = false;
@@ -126,6 +127,7 @@ public class GameManager : CustomBehaviour
         EnvironmentGenerator.Initialize(this);
         CoopManager.Initialize(this);
         InventoryManager.Initialize(this);
+        BackgroundManager.Initialize(this);
     }
     #endregion
 

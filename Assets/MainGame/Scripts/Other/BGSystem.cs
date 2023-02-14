@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class BGSystem : MonoBehaviour
@@ -33,85 +34,68 @@ public class BGSystem : MonoBehaviour
 
     private void Update()
     {
+        Methods();
+    }
+
+    private void Methods()
+    {
         if (lastCenterIndex != currentCenterIndex && CanMove)
         {
             CanMove = false;
-            if (currentCenterIndex == lastCenterIndex + 3 || currentCenterIndex == lastCenterIndex - 3 || currentCenterIndex == lastCenterIndex + 6 || currentCenterIndex == lastCenterIndex - 6) //yatay hor
-            {
-                if (backGrounds[currentCenterIndex].transform.position.y < backGrounds[lastCenterIndex].transform.position.y)
-                {//asagi
-                    //Debug.Log("alt");
-                    WhichGroupMoveHorizontalDown();
-                }
-                else if(backGrounds[currentCenterIndex].transform.position.y > backGrounds[lastCenterIndex].transform.position.y)
-                {//yukarı
-                    //Debug.Log("üst");
-                    WhichGroupMoveHorizontalUp();
-                }
-            }
-            else if(currentCenterIndex == lastCenterIndex + 1 || currentCenterIndex == lastCenterIndex - 1 || currentCenterIndex == lastCenterIndex + 2 || currentCenterIndex == lastCenterIndex -2) //dikey vert
-            {
-                if (backGrounds[currentCenterIndex].transform.position.x > backGrounds[lastCenterIndex].transform.position.x &&
+            if (backGrounds[currentCenterIndex].transform.position.x > backGrounds[lastCenterIndex].transform.position.x &&
                     backGrounds[currentCenterIndex].transform.position.y == backGrounds[lastCenterIndex].transform.position.y)
-                {//sağa
-                    //Debug.Log("sağ");
-                    WhichGroupMoveVerticalRight();
-                }
-                else if (backGrounds[currentCenterIndex].transform.position.x > backGrounds[lastCenterIndex].transform.position.x &&
-                    backGrounds[currentCenterIndex].transform.position.y > backGrounds[lastCenterIndex].transform.position.y)
-                { //sağ üste
-                    //Debug.Log("Sağ üst");
-                    WhichGroupMoveVerticalRight();
-                    WhichGroupMoveHorizontalUp();
-                }
-                else if(backGrounds[currentCenterIndex].transform.position.x < backGrounds[lastCenterIndex].transform.position.x &&
-                    backGrounds[currentCenterIndex].transform.position.y == backGrounds[lastCenterIndex].transform.position.y)
-                {//sola
-                    //Debug.Log("Sol");
-                    WhichGroupMoveVerticalLeft();
-                }
-                else if (backGrounds[currentCenterIndex].transform.position.x < backGrounds[lastCenterIndex].transform.position.x &&
-                    backGrounds[currentCenterIndex].transform.position.y < backGrounds[lastCenterIndex].transform.position.y)
-                {//sol alt
-                    //Debug.Log("sol alt");
-                    WhichGroupMoveVerticalLeft();
-                    WhichGroupMoveHorizontalDown();
-                }
+            {//sağa
+                Debug.Log("Sağ" + lastCenterIndex + " - " + currentCenterIndex);
+                WhichGroupMoveVerticalRight();
             }
-            else //çapraz
+            else if (backGrounds[currentCenterIndex].transform.position.x > backGrounds[lastCenterIndex].transform.position.x &&
+                backGrounds[currentCenterIndex].transform.position.y > backGrounds[lastCenterIndex].transform.position.y)
+            { //sağ üste
+                Debug.Log("Sağ üst" + lastCenterIndex + " - " + currentCenterIndex);
+                WhichGroupMoveVerticalRight();
+                WhichGroupMoveHorizontalUp();
+            }
+            else if (backGrounds[currentCenterIndex].transform.position.x > backGrounds[lastCenterIndex].transform.position.x &&
+                backGrounds[currentCenterIndex].transform.position.y < backGrounds[lastCenterIndex].transform.position.y)
             {
-                if (backGrounds[currentCenterIndex].transform.position.x > backGrounds[lastCenterIndex].transform.position.x &&
-                    backGrounds[currentCenterIndex].transform.position.y > backGrounds[lastCenterIndex].transform.position.y)
-                {//sağ üst
-                    WhichGroupMoveVerticalRight();
-                    WhichGroupMoveHorizontalUp();
-
-                }
-                else if(backGrounds[currentCenterIndex].transform.position.x > backGrounds[lastCenterIndex].transform.position.x &&
-                    backGrounds[currentCenterIndex].transform.position.y < backGrounds[lastCenterIndex].transform.position.y)
-                {//sağ alt
-                    //Debug.Log("Sağ alt");
-                    WhichGroupMoveVerticalRight();
-                    WhichGroupMoveHorizontalDown();
-                }
-                else if (backGrounds[currentCenterIndex].transform.position.x < backGrounds[lastCenterIndex].transform.position.x &&
-                    backGrounds[currentCenterIndex].transform.position.y > backGrounds[lastCenterIndex].transform.position.y)
-                {//sol üst
-                    //Debug.Log("sol üst");
-                    WhichGroupMoveVerticalLeft();
-                    WhichGroupMoveHorizontalUp();
-                }
-                else if (backGrounds[currentCenterIndex].transform.position.x < backGrounds[lastCenterIndex].transform.position.x &&
-                    backGrounds[currentCenterIndex].transform.position.y < backGrounds[lastCenterIndex].transform.position.y)
-                {// sol alt
-                    WhichGroupMoveVerticalLeft();
-                    WhichGroupMoveHorizontalDown();
-                }
+                Debug.Log("Sağ alt" + lastCenterIndex + " - " + currentCenterIndex);
+                WhichGroupMoveVerticalRight();
+                WhichGroupMoveHorizontalDown();
             }
-            //lastCenterIndex = currentCenterIndex;
+            else if (backGrounds[currentCenterIndex].transform.position.x < backGrounds[lastCenterIndex].transform.position.x &&
+                backGrounds[currentCenterIndex].transform.position.y == backGrounds[lastCenterIndex].transform.position.y)
+            {//sola
+                Debug.Log("Sol" + lastCenterIndex + " - " + currentCenterIndex);
+                WhichGroupMoveVerticalLeft();
+            }
+            else if (backGrounds[currentCenterIndex].transform.position.x < backGrounds[lastCenterIndex].transform.position.x &&
+                backGrounds[currentCenterIndex].transform.position.y < backGrounds[lastCenterIndex].transform.position.y)
+            {//sol alt
+                Debug.Log("Sol alt" + lastCenterIndex + " - " + currentCenterIndex);
+                WhichGroupMoveVerticalLeft();
+                WhichGroupMoveHorizontalDown();
+            }
+            else if (backGrounds[currentCenterIndex].transform.position.x < backGrounds[lastCenterIndex].transform.position.x &&
+                backGrounds[currentCenterIndex].transform.position.y > backGrounds[lastCenterIndex].transform.position.y)
+            {
+                Debug.Log("Sol üst" + lastCenterIndex + " - " + currentCenterIndex);
+                WhichGroupMoveVerticalLeft();
+                WhichGroupMoveHorizontalUp();
+            }
+            else if (backGrounds[currentCenterIndex].transform.position.y < backGrounds[lastCenterIndex].transform.position.y &&
+                backGrounds[currentCenterIndex].transform.position.x == backGrounds[lastCenterIndex].transform.position.x)
+            {
+                Debug.Log("ALT" + lastCenterIndex + " - " + currentCenterIndex);
+                WhichGroupMoveHorizontalDown();
+            }
+            else if (backGrounds[currentCenterIndex].transform.position.y > backGrounds[lastCenterIndex].transform.position.y &&
+                backGrounds[currentCenterIndex].transform.position.x == backGrounds[lastCenterIndex].transform.position.x)
+            {
+                Debug.Log("üst" + lastCenterIndex + " - " + currentCenterIndex);
+                WhichGroupMoveHorizontalUp();
+            }
         }
     }
-
     public void CheckCenter()
     {
         for (int i = 0; i < backGrounds.Count; i++)
@@ -126,182 +110,171 @@ public class BGSystem : MonoBehaviour
     }
 
 
-    public void WhichGroupMoveHorizontalDown()
+    void WhichGroupMoveHorizontalDown()
     {
-        if (currentCenterIndex == 3 || currentCenterIndex == 4 || currentCenterIndex == 5)     
-        {
-            if (lastCenterIndex == 0 || lastCenterIndex == 1 || lastCenterIndex == 2)
-            {
-                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
-                for (int i = 0; i < Horizontal3.Count; i++)
+                if (currentCenterIndex == 3 || currentCenterIndex == 4 || currentCenterIndex == 5)
                 {
-                    Horizontal3[i].SetActive(false);
-                    Horizontal3[i].transform.position = new Vector3(Horizontal3[i].transform.position.x, Horizontal3[i].transform.position.y - (3 * horizontal), Horizontal3[i].transform.position.z);
-                    Horizontal3[i].SetActive(true);
-                    Debug.Log(Horizontal3[i].name);
+                    if (lastCenterIndex == 0 || lastCenterIndex == 1 || lastCenterIndex == 2)
+                    {
+                        for (int i = 0; i < Horizontal3.Count; i++)
+                        {
+                            Horizontal3[i].SetActive(false);
+                            Horizontal3[i].transform.position = new Vector3(Horizontal3[i].transform.position.x, Horizontal3[i].transform.position.y - (3 * horizontal), Horizontal3[i].transform.position.z);
+                            Horizontal3[i].SetActive(true);
+                            Debug.Log(Horizontal3[i].name);
+                        }
+                    }
+
                 }
-            }
-            
-        }
-        else if (currentCenterIndex == 0 || currentCenterIndex == 1 || currentCenterIndex == 2)           
-        {
-            if(lastCenterIndex == 6 || lastCenterIndex == 7 || lastCenterIndex == 8)
-            {
-                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
-                for (int i = 0; i < Horizontal2.Count; i++)
+                else if (currentCenterIndex == 0 || currentCenterIndex == 1 || currentCenterIndex == 2)
                 {
-                    Horizontal2[i].SetActive(false);
-                    Horizontal2[i].transform.position = new Vector3(Horizontal2[i].transform.position.x, Horizontal2[i].transform.position.y - (3 * horizontal), Horizontal2[i].transform.position.z);
-                    Horizontal2[i].SetActive(true);
-                    Debug.Log(Horizontal2[i].name);
+                    if (lastCenterIndex == 6 || lastCenterIndex == 7 || lastCenterIndex == 8)
+                    {
+                        for (int i = 0; i < Horizontal2.Count; i++)
+                        {
+                            Horizontal2[i].SetActive(false);
+                            Horizontal2[i].transform.position = new Vector3(Horizontal2[i].transform.position.x, Horizontal2[i].transform.position.y - (3 * horizontal), Horizontal2[i].transform.position.z);
+                            Horizontal2[i].SetActive(true);
+                            Debug.Log(Horizontal2[i].name);
+                        }
+                    }
                 }
-            }
-        }
-        else if (currentCenterIndex == 6 || currentCenterIndex == 7 || currentCenterIndex == 8)
-        {
-            if (lastCenterIndex == 3 || lastCenterIndex == 4 || lastCenterIndex == 5)
-            {
-                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
-                for (int i = 0; i < Horizontal1.Count; i++)
+                else if (currentCenterIndex == 6 || currentCenterIndex == 7 || currentCenterIndex == 8)
                 {
-                    Horizontal1[i].SetActive(false);
-                    Horizontal1[i].transform.position = new Vector3(Horizontal1[i].transform.position.x, Horizontal1[i].transform.position.y - (3 * horizontal), Horizontal1[i].transform.position.z);
-                    Horizontal1[i].SetActive(true);
-                    Debug.Log(Horizontal1[i].name);
+                    if (lastCenterIndex == 3 || lastCenterIndex == 4 || lastCenterIndex == 5)
+                    {
+                        for (int i = 0; i < Horizontal1.Count; i++)
+                        {
+                            Horizontal1[i].SetActive(false);
+                            Horizontal1[i].transform.position = new Vector3(Horizontal1[i].transform.position.x, Horizontal1[i].transform.position.y - (3 * horizontal), Horizontal1[i].transform.position.z);
+                            Horizontal1[i].SetActive(true);
+                            Debug.Log(Horizontal1[i].name);
+                        }
+                    }
                 }
-            }
-        }
+          
     }
 
-    public void WhichGroupMoveHorizontalUp()
+    void WhichGroupMoveHorizontalUp()
     {
-        if (currentCenterIndex == 0 || currentCenterIndex == 1 || currentCenterIndex == 2)
-        {
-            if (lastCenterIndex == 3 || lastCenterIndex == 4 || lastCenterIndex == 5)
-            {
-                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
-                for (int i = 0; i < Horizontal3.Count; i++)
+                if (currentCenterIndex == 0 || currentCenterIndex == 1 || currentCenterIndex == 2)
                 {
-                    Horizontal3[i].SetActive(false);
-                    Horizontal3[i].transform.position = new Vector3(Horizontal3[i].transform.position.x, Horizontal3[i].transform.position.y + (3 * horizontal), Horizontal3[i].transform.position.z);
-                    Horizontal3[i].SetActive(true);
-                    Debug.Log(Horizontal3[i].name);
+                    if (lastCenterIndex == 3 || lastCenterIndex == 4 || lastCenterIndex == 5)
+                    {
+                        for (int i = 0; i < Horizontal3.Count; i++)
+                        {
+                            Horizontal3[i].SetActive(false);
+                            Horizontal3[i].transform.position = new Vector3(Horizontal3[i].transform.position.x, Horizontal3[i].transform.position.y + (3 * horizontal), Horizontal3[i].transform.position.z);
+                            Horizontal3[i].SetActive(true);
+                            Debug.Log(Horizontal3[i].name);
+                        }
+                    }
                 }
-            }
-        }
-        else if (currentCenterIndex == 6 || currentCenterIndex == 7 || currentCenterIndex == 8)
-        {
-            if (lastCenterIndex == 0 || lastCenterIndex == 1 || lastCenterIndex == 2)
-            {
-                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
-                for (int i = 0; i < Horizontal2.Count; i++)
+                else if (currentCenterIndex == 6 || currentCenterIndex == 7 || currentCenterIndex == 8)
                 {
-                    Horizontal2[i].SetActive(false);
-                    Horizontal2[i].transform.position = new Vector3(Horizontal2[i].transform.position.x, Horizontal2[i].transform.position.y + (3 * horizontal), Horizontal2[i].transform.position.z);
-                    Horizontal2[i].SetActive(true);
-                    Debug.Log(Horizontal2[i].name);
+                    if (lastCenterIndex == 0 || lastCenterIndex == 1 || lastCenterIndex == 2)
+                    {
+                        for (int i = 0; i < Horizontal2.Count; i++)
+                        {
+                            Horizontal2[i].SetActive(false);
+                            Horizontal2[i].transform.position = new Vector3(Horizontal2[i].transform.position.x, Horizontal2[i].transform.position.y + (3 * horizontal), Horizontal2[i].transform.position.z);
+                            Horizontal2[i].SetActive(true);
+                            Debug.Log(Horizontal2[i].name);
+                        }
+                    }
                 }
-            }
-        }
-        else if (currentCenterIndex == 3 || currentCenterIndex == 4 || currentCenterIndex == 5)
-        {
-            if (lastCenterIndex == 6 || lastCenterIndex == 7 || lastCenterIndex == 8)
-            {
-                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
-                for (int i = 0; i < Horizontal1.Count; i++)
+                else if (currentCenterIndex == 3 || currentCenterIndex == 4 || currentCenterIndex == 5)
                 {
-                    Horizontal1[i].SetActive(false);
-                    Horizontal1[i].transform.position = new Vector3(Horizontal1[i].transform.position.x, Horizontal1[i].transform.position.y + (3 * horizontal), Horizontal1[i].transform.position.z);
-                    Horizontal1[i].SetActive(true);
-                    Debug.Log(Horizontal1[i].name);
+                    if (lastCenterIndex == 6 || lastCenterIndex == 7 || lastCenterIndex == 8)
+                    {
+                        for (int i = 0; i < Horizontal1.Count; i++)
+                        {
+                            Horizontal1[i].SetActive(false);
+                            Horizontal1[i].transform.position = new Vector3(Horizontal1[i].transform.position.x, Horizontal1[i].transform.position.y + (3 * horizontal), Horizontal1[i].transform.position.z);
+                            Horizontal1[i].SetActive(true);
+                            Debug.Log(Horizontal1[i].name);
+                        }
+                    }
                 }
-            }
-        }
     }
 
-    public void WhichGroupMoveVerticalLeft()
+    void WhichGroupMoveVerticalLeft()
     {
-        if(currentCenterIndex == 0  || currentCenterIndex == 3 || currentCenterIndex == 6)
-        {
-            if(lastCenterIndex == 1 || lastCenterIndex == 4 || lastCenterIndex == 7)
-            {
-                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
-                for (int i = 0; i < Vertical3.Count; i++)
+                if (currentCenterIndex == 0 || currentCenterIndex == 3 || currentCenterIndex == 6)
                 {
-                    Vertical3[i].SetActive(false);
-                    Vertical3[i].transform.position = new Vector3(Vertical3[i].transform.position.x - (3 * vertical), Vertical3[i].transform.position.y, Vertical3[i].transform.position.z);
-                    Vertical3[i].SetActive(true);
+                    if (lastCenterIndex == 1 || lastCenterIndex == 4 || lastCenterIndex == 7)
+                    {
+                        for (int i = 0; i < Vertical3.Count; i++)
+                        {
+                            Vertical3[i].SetActive(false);
+                            Vertical3[i].transform.position = new Vector3(Vertical3[i].transform.position.x - (3 * vertical), Vertical3[i].transform.position.y, Vertical3[i].transform.position.z);
+                            Vertical3[i].SetActive(true);
+                        }
+                    }
                 }
-            }
-        }
-        else if(currentCenterIndex == 2 || currentCenterIndex == 5 || currentCenterIndex == 8)
-        {
-            if(lastCenterIndex == 0 || lastCenterIndex == 3 || lastCenterIndex == 6)
-            {
-                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
-                for (int i = 0; i < Vertical2.Count; i++)
+                else if (currentCenterIndex == 2 || currentCenterIndex == 5 || currentCenterIndex == 8)
                 {
-                    Vertical2[i].SetActive(false);
-                    Vertical2[i].transform.position = new Vector3(Vertical2[i].transform.position.x - (3 * vertical), Vertical2[i].transform.position.y, Vertical2[i].transform.position.z);
-                    Vertical2[i].SetActive(true);
+                    if (lastCenterIndex == 0 || lastCenterIndex == 3 || lastCenterIndex == 6)
+                    {
+                        for (int i = 0; i < Vertical2.Count; i++)
+                        {
+                            Vertical2[i].SetActive(false);
+                            Vertical2[i].transform.position = new Vector3(Vertical2[i].transform.position.x - (3 * vertical), Vertical2[i].transform.position.y, Vertical2[i].transform.position.z);
+                            Vertical2[i].SetActive(true);
+                        }
+                    }
                 }
-            }
-        }
-        else if (currentCenterIndex == 1 || currentCenterIndex == 4 || currentCenterIndex == 7)
-        {
-            if (lastCenterIndex == 2 || lastCenterIndex == 5 || lastCenterIndex == 8)
-            {
-                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
-                for (int i = 0; i < Vertical1.Count; i++)
+                else if (currentCenterIndex == 1 || currentCenterIndex == 4 || currentCenterIndex == 7)
                 {
-                    Vertical1[i].SetActive(false);
-                    Vertical1[i].transform.position = new Vector3(Vertical1[i].transform.position.x - (3 * vertical), Vertical1[i].transform.position.y, Vertical1[i].transform.position.z);
-                    Vertical1[i].SetActive(true);
+                    if (lastCenterIndex == 2 || lastCenterIndex == 5 || lastCenterIndex == 8)
+                    {
+                        for (int i = 0; i < Vertical1.Count; i++)
+                        {
+                            Vertical1[i].SetActive(false);
+                            Vertical1[i].transform.position = new Vector3(Vertical1[i].transform.position.x - (3 * vertical), Vertical1[i].transform.position.y, Vertical1[i].transform.position.z);
+                            Vertical1[i].SetActive(true);
+                        }
+                    }
                 }
-            }
-        }
     }
 
-    public void WhichGroupMoveVerticalRight()
+    void WhichGroupMoveVerticalRight()
     {
-        if (currentCenterIndex == 2 || currentCenterIndex == 5 || currentCenterIndex == 8)
-        {
-            if (lastCenterIndex == 1 || lastCenterIndex == 4 || lastCenterIndex == 7)
-            {
-                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
-                for (int i = 0; i < Vertical1.Count; i++)
+                if (currentCenterIndex == 2 || currentCenterIndex == 5 || currentCenterIndex == 8)
                 {
-                    Vertical1[i].SetActive(false);
-                    Vertical1[i].transform.position = new Vector3(Vertical1[i].transform.position.x + (3 * vertical), Vertical1[i].transform.position.y, Vertical1[i].transform.position.z);
-                    Vertical1[i].SetActive(true);
+                    if (lastCenterIndex == 1 || lastCenterIndex == 4 || lastCenterIndex == 7)
+                    {
+                        for (int i = 0; i < Vertical1.Count; i++)
+                        {
+                            Vertical1[i].SetActive(false);
+                            Vertical1[i].transform.position = new Vector3(Vertical1[i].transform.position.x + (3 * vertical), Vertical1[i].transform.position.y, Vertical1[i].transform.position.z);
+                            Vertical1[i].SetActive(true);
+                        }
+                    }
                 }
-            }
-        }
-        else if (currentCenterIndex == 0 || currentCenterIndex == 3 || currentCenterIndex == 6)
-        {
-            if (lastCenterIndex == 2 || lastCenterIndex == 5 || lastCenterIndex == 8)
-            {
-                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
-                for (int i = 0; i < Vertical2.Count; i++)
+                else if (currentCenterIndex == 0 || currentCenterIndex == 3 || currentCenterIndex == 6)
                 {
-                    Vertical2[i].SetActive(false);
-                    Vertical2[i].transform.position = new Vector3(Vertical2[i].transform.position.x + (3 * vertical), Vertical2[i].transform.position.y, Vertical2[i].transform.position.z);
-                    Vertical2[i].SetActive(true);
+                    if (lastCenterIndex == 2 || lastCenterIndex == 5 || lastCenterIndex == 8)
+                    {
+                        for (int i = 0; i < Vertical2.Count; i++)
+                        {
+                            Vertical2[i].SetActive(false);
+                            Vertical2[i].transform.position = new Vector3(Vertical2[i].transform.position.x + (3 * vertical), Vertical2[i].transform.position.y, Vertical2[i].transform.position.z);
+                            Vertical2[i].SetActive(true);
+                        }
+                    }
                 }
-            }
-        }
-        else if (currentCenterIndex == 1 || currentCenterIndex == 4 || currentCenterIndex == 7)
-        {
-            if (lastCenterIndex == 0 || lastCenterIndex == 3 || lastCenterIndex == 6)
-            {
-                //Debug.Log(lastCenterIndex + " - " + currentCenterIndex);
-                for (int i = 0; i < Vertical3.Count; i++)
+                else if (currentCenterIndex == 1 || currentCenterIndex == 4 || currentCenterIndex == 7)
                 {
-                    Vertical3[i].SetActive(false);
-                    Vertical3[i].transform.position = new Vector3(Vertical3[i].transform.position.x + (3 * vertical), Vertical3[i].transform.position.y, Vertical3[i].transform.position.z);
-                    Vertical3[i].SetActive(true);
+                    if (lastCenterIndex == 0 || lastCenterIndex == 3 || lastCenterIndex == 6)
+                    {
+                        for (int i = 0; i < Vertical3.Count; i++)
+                        {
+                            Vertical3[i].SetActive(false);
+                            Vertical3[i].transform.position = new Vector3(Vertical3[i].transform.position.x + (3 * vertical), Vertical3[i].transform.position.y, Vertical3[i].transform.position.z);
+                            Vertical3[i].SetActive(true);
+                        }
+                    }
                 }
-            }
-        }
     }
 }

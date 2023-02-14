@@ -36,9 +36,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     [SerializeField] protected RectTransform background = null;
     [SerializeField] private RectTransform handle = null;
     private RectTransform baseRect = null;
-
-    //public GameObject UI_Canvas;
-    private Canvas canvas;
+    [SerializeField] private Canvas canvas;
     private Camera cam;
 
     private Vector2 input = Vector2.zero;
@@ -49,9 +47,9 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         DeadZone = deadZone;
         transform.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
         baseRect = GetComponent<RectTransform>();
+        //canvas.GetComponentInParent<Canvas>();
         if (canvas == null)
             Debug.LogError("The Joystick is not placed inside a canvas");
-        canvas.GetComponentInParent<Canvas>();
         Vector2 center = new Vector2(0.5f, 0.5f);
         background.pivot = center;
         handle.anchorMin = center;
@@ -72,7 +70,6 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
             cam = canvas.worldCamera;
         cam = Camera.main;
         Vector2 position = RectTransformUtility.WorldToScreenPoint(cam, background.position);
-        Debug.Log(position);
         Vector2 radius = background.sizeDelta / 2;
         input = (eventData.position - position) / (radius * canvas.scaleFactor);
         FormatInput();
@@ -144,7 +141,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     protected Vector2 ScreenPointToAnchoredPosition(Vector2 screenPosition)
     {
         Vector2 localPoint = Vector2.zero;
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(baseRect, screenPosition, cam, out localPoint))
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(baseRect, screenPosition, cam, out localPoint)) //burası sıkıntı.
         {
             Vector2 pivotOffset = baseRect.pivot * baseRect.sizeDelta;
             return localPoint - (background.anchorMax * baseRect.sizeDelta) + pivotOffset;
