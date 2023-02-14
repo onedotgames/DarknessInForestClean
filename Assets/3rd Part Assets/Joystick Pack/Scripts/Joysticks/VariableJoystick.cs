@@ -9,6 +9,7 @@ public class VariableJoystick : Joystick
 
     [SerializeField] private float moveThreshold = 1;
     [SerializeField] private JoystickType joystickType = JoystickType.Fixed;
+
     private Vector2 fixedPosition = Vector2.zero;
 
     public void SetMode(JoystickType joystickType)
@@ -34,8 +35,25 @@ public class VariableJoystick : Joystick
 
     public override void OnPointerDown(PointerEventData eventData)
     {
-        background.anchoredPosition = ScreenPointToAnchoredPosition(eventData.position);
-        background.gameObject.SetActive(true);
+        if(joystickType != JoystickType.Fixed)
+        {
+            //background.anchoredPosition = ScreenPointToAnchoredPosition(eventData.position);
+            Vector2 localPoint = Vector2.zero;
+            Vector3 worldPoint = Vector2.zero;
+            Ray ray = RectTransformUtility.ScreenPointToRay(Camera.main, eventData.position);
+            worldPoint = ray.GetPoint(0);
+            localPoint = baseRect.InverseTransformPoint(worldPoint);
+            //if (RectTransformUtility.ScreenPointToWorldPointInRectangle(baseRect, eventData.position, Camera.main, out var worldPoint))
+            //{
+            //    localPoint = baseRect.InverseTransformPoint(worldPoint);
+            //}
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(baseRect, eventData.position, Camera.main, out localPoint))
+            {
+                Vector2 pivotOffset = baseRect.pivot * baseRect.sizeDelta;
+                background.anchoredPosition =  localPoint - (background.anchorMax * baseRect.sizeDelta) + pivotOffset;
+            }
+            background.gameObject.SetActive(true);
+        }
         base.OnPointerDown(eventData);
     }
 

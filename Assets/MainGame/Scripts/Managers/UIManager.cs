@@ -6,6 +6,7 @@ public class UIManager : CustomBehaviour
 {
     public UIPanel CurrentPanel { get; set; }
     public List<UIPanel> UIPanels;
+    public Canvas Canvas;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);

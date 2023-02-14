@@ -33,10 +33,12 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     [SerializeField] private AxisOptions axisOptions = AxisOptions.Both;
     [SerializeField] private bool snapX = false;
     [SerializeField] private bool snapY = false;
+
     [SerializeField] protected RectTransform background = null;
     [SerializeField] private RectTransform handle = null;
-    private RectTransform baseRect = null;
-    [SerializeField] private Canvas canvas;
+    protected RectTransform baseRect = null;
+
+    public Canvas canvas;
     private Camera cam;
 
     private Vector2 input = Vector2.zero;
@@ -47,9 +49,10 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
         DeadZone = deadZone;
         transform.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width, Screen.height);
         baseRect = GetComponent<RectTransform>();
-        //canvas.GetComponentInParent<Canvas>();
+        canvas = GetComponentInParent<Canvas>();
         if (canvas == null)
             Debug.LogError("The Joystick is not placed inside a canvas");
+
         Vector2 center = new Vector2(0.5f, 0.5f);
         background.pivot = center;
         handle.anchorMin = center;
@@ -141,7 +144,7 @@ public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoint
     protected Vector2 ScreenPointToAnchoredPosition(Vector2 screenPosition)
     {
         Vector2 localPoint = Vector2.zero;
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(baseRect, screenPosition, cam, out localPoint)) //burası sıkıntı.
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(baseRect, screenPosition, cam, out localPoint))
         {
             Vector2 pivotOffset = baseRect.pivot * baseRect.sizeDelta;
             return localPoint - (background.anchorMax * baseRect.sizeDelta) + pivotOffset;
