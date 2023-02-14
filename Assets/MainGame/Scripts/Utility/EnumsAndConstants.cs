@@ -167,6 +167,7 @@ public enum PoolerType
 }
 
 public enum Maps { Normal, Vertical, Horizontal }
+public enum InventorySlotType { Weapon, Chest, Glove, Boot, Helmet, Jewelry }
 
 public enum BossAttackType
 {
