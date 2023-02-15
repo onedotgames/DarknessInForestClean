@@ -458,10 +458,13 @@ public class BossBase : CustomBehaviour
     {
         if (transform.position.x - GameManager.PlayerManager.CurrentPlayer.transform.position.x <= 0)
         {
+            LayerManager.SortingGroup.sortingOrder = 10;
             Model.transform.eulerAngles = new Vector3(0, 180, 0);
         }
         else
         {
+            LayerManager.SortingGroup.sortingOrder = 5;
+
             Model.transform.eulerAngles = Vector3.zero;
         }
     }

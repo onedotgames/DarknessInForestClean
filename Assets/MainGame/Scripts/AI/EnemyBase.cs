@@ -22,6 +22,7 @@ public class EnemyBase : CustomBehaviour
     public Collider2D Collider2D;
     public Monster Monster;
     public Monster MonsterClean;
+    public LayerManager LayerManager;
 
     public float BaseHealth;
     public float BaseSpeed;
@@ -266,10 +267,13 @@ public class EnemyBase : CustomBehaviour
     {
         if(transform.position.x - GameManager.PlayerManager.CurrentPlayer.transform.position.x <= 0)
         {
+            LayerManager.SortingGroup.sortingOrder = 10;
             transform.eulerAngles = Vector3.zero;
         }
         else 
         {
+            LayerManager.SortingGroup.sortingOrder = 5;
+
             transform.eulerAngles = new Vector3(0, 180, 0);
         }
     }

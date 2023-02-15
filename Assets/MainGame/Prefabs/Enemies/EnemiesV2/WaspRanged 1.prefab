@@ -933,6 +933,7 @@ MonoBehaviour:
   Collider2D: {fileID: 6002430587215432663}
   Monster: {fileID: 6002430586864122172}
   MonsterClean: {fileID: 7847663444064669530}
+  LayerManager: {fileID: 6002430586864122174}
   BaseHealth: 0
   BaseSpeed: 0
   BaseDamage: 0

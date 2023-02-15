@@ -32,7 +32,8 @@ namespace Assets.FantasyMonsters.Scripts
                 }
             }
 
-            GetComponent<LayerManager>().SetSortingGroupOrder((int)-transform.localPosition.y);
+            //GetComponent<LayerManager>().SetSortingGroupOrder((int)-transform.localPosition.y);
+            GetComponent<LayerManager>().SetSortingGroupOrder(10);
         }
 
         public void ChangeState(int num)
