@@ -260,8 +260,10 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
 
     private void OnQuitButtonClicked()
     {
-        Application.Quit();
-        Debug.Log("Quit");
+        //Application.Quit();
+        //Debug.Log("Quit");
+        UnityEngine.SceneManagement.SceneManager.LoadScene
+                (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
 
     private void OnReplayButtonClicked()
@@ -272,6 +274,10 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
         //GameManager.ReturnToMainMenu();
         UnityEngine.SceneManagement.SceneManager.LoadScene
             (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        GameManager.UIManager.GetPanel(Panels.MainMenu).OpenPanel();
+        GameManager.UIManager.GetPanel(Panels.Initial).ClosePanel();
+        Debug.Log("Level baştan başlamalı");
+        
     }
 
     public void OnPointerDown(PointerEventData eventData)

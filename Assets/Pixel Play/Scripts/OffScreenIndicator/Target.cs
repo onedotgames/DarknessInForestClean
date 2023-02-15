@@ -23,7 +23,7 @@ public class Target : MonoBehaviour
     /// A reference to the target's indicator, 
     /// its value is assigned at runtime by the offscreen indicator script.
     /// </summary>
-    [HideInInspector] public Indicator indicator;
+    public Indicator indicator;
 
     /// <summary>
     /// Gets the color for the target indicator.
@@ -34,6 +34,7 @@ public class Target : MonoBehaviour
         {
             return targetColor;
         }
+
     }
 
     /// <summary>

@@ -11,6 +11,7 @@ public class InventorySlot : CustomBehaviour
     public RectTransform PopUpWindow;
     private bool isSlotButtonOpen = false;
     public List<InventoryObjectStats> IdenticalEquipmentList;
+    public SpriteRenderer player;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -45,7 +46,7 @@ public class InventorySlot : CustomBehaviour
 
     private void OnSlotButtonClicked()
     {
-        
+
         //isSlotButtonOpen = !isSlotButtonOpen;
         ////SlotButton.interactable = false;
         //if (isSlotButtonOpen)
@@ -66,6 +67,11 @@ public class InventorySlot : CustomBehaviour
 
         //    Debug.Log("Slot button operatability: " + SlotButton.interactable);
         //}
+
+        if(player.enabled == true)
+        {
+            player.enabled = false;
+        }
 
         GameManager.InventoryManager.OpenSlots(IdenticalEquipmentList.Count, IdenticalEquipmentList); // this value should replaced by item count
         PopUpWindow.DOScale(Vector3.one * 1.8f, 0.5f).SetEase(Ease.OutBounce);
