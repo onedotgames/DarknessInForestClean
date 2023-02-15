@@ -12,6 +12,7 @@ public class InventoryManager : CustomBehaviour
     public Sprite PlaceHolderSprite;
     public CustomButton PopUpCloseButton;
     public RectTransform PopUpWindow;
+    public SpriteRenderer player;
 
     [Space(10)]
     [Title("Weapons List")]
@@ -52,9 +53,8 @@ public class InventoryManager : CustomBehaviour
 
     private void OnPopUpCloseButtonClicked()
     {
-        PopUpWindow.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InQuint);
+        PopUpWindow.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InQuint).OnComplete(() => player.enabled = true);
         InventorySlots.ForEach(x => x.SlotButton.interactable = true);
-
     }
 
     public void OpenSlots(int value, List<InventoryObjectStats> objectStats)

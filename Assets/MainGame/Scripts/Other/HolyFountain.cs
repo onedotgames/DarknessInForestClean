@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 public class HolyFountain : CustomBehaviour
 {
     public GameObject Fountain;
@@ -9,6 +10,7 @@ public class HolyFountain : CustomBehaviour
     public CircleCollider2D HolyFountainCollider;
     public bool isFountainTaken = false;
     public GameObject Water;
+    public GameObject TargetObj;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -32,6 +34,20 @@ public class HolyFountain : CustomBehaviour
         Fountain.SetActive(true);
         Water.transform.localScale = Vector3.one;
         HolyFountainCollider.enabled = true;
+    }
+
+    private void Update()
+    {
+        if (Mathf.Abs(Vector3.Distance(TargetObj.transform.position, GameManager.PlayerManager.CurrentPlayer.transform.position)) < 4.5f)
+        {
+            TargetObj.SetActive(false);
+        }
+        else
+        {
+            TargetObj.SetActive(true);
+        }
+        var healthRatio = GameManager.PlayerHealthManager.Player.mCurrentHealth / 100;
+        TargetObj.GetComponent<Target>().targetColor.a = 1 - healthRatio;
     }
 
     private void LevelCompleted()
