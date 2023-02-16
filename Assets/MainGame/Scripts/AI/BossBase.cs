@@ -116,12 +116,16 @@ public class BossBase : CustomBehaviour
 
     private void SetPunchTween()
     {
-        punchTween = transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f).SetRecyclable(true).SetAutoKill(false).OnComplete(() =>
+        if (!IsPunchable)
         {
-            IsPunchable = true;
-            transform.localScale = _originalScale;
+            punchTween = transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f).SetRecyclable(true).SetAutoKill(false).OnComplete(() =>
+            {
+                IsPunchable = true;
+                transform.localScale = _originalScale;
+            }
+            );
         }
-        );
+        
     }
 
     public void BossReset()
@@ -171,6 +175,7 @@ public class BossBase : CustomBehaviour
     {
         if (IsPunchable)
         {
+            transform.localScale = _originalScale;
             IsPunchable = false;
             punchTween.Restart();
         }
@@ -579,7 +584,7 @@ public class BossBase : CustomBehaviour
     {
         if(GameManager.SpawnerManager.BossSpawner.Boss3 == this)
         {
-            Debug.Log("Son Boss yenildi, bölümü sonlandýrýyorum");
+            Debug.Log("Son Boss yenildi, b?l?m? sonland?r?yorum");
             GameManager.LevelCompleted();
         }
     }
