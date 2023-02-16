@@ -32,6 +32,9 @@ public class InventoryObjectStats : ScriptableObject
         get { return mDamage; }
     }
 
+    [EnableIf("EquipmentType", EquipmentType.Weapon)]
+    public SkillSO SkillSO;
+
     [EnableIf("EquipmentType", EquipmentType.Armor)]
     [SerializeField] private int mHealth;
     public int Health

@@ -129,7 +129,7 @@ public class MainMenu : UIPanel, IPointerDownHandler, IPointerUpHandler
         }
         GameManager.UIManager.GetPanel(Panels.Initial).OpenPanel();
 
-        GameManager.StartGame();
+        //GameManager.StartGame();
     }
 
     private void OnButtonClickedSettings()

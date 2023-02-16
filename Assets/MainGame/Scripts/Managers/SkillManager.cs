@@ -61,12 +61,14 @@ public class SkillManager : CustomBehaviour
     }
     public void ActivateDefaultWeapon()
     {
-        AllWeaponsV2[1].Initialize(GameManager);
-        WeaponsInUseV2.Add(AllWeaponsV2[1]);
-        WeaponsInUseTemp.Add(AllWeaponsV2[1]);
+        //AllWeaponsV2.IndexOf(weaponBaseV2);
+        var def = AllWeaponsV2[AllWeaponsV2.IndexOf(DefaultWeaponV2)];
+        def.Initialize(GameManager);
+        WeaponsInUseV2.Add(def);
+        WeaponsInUseTemp.Add(def);
 
-        PausePanel.UpdateWeaponIcons(AllWeaponsV2[1].SkillSO.Icon);
-        AllWeaponsV2[1].gameObject.SetActive(true);
+        PausePanel.UpdateWeaponIcons(def.SkillSO.Icon);
+        def.gameObject.SetActive(true);
     }
     public void ActivateWeapon(int index)
     {
