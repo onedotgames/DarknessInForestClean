@@ -156,7 +156,7 @@ public class WeaponBaseV2 : CustomBehaviour
     {
         if (UpgradeLevel == 0)
         {
-            BaseDamage = SkillSO.BaseDamage;
+            BaseDamage = SkillSO.BaseDamage + GameManager.InventoryManager.GlobalDamageIncrease;
             BaseSpeed = SkillSO.BaseSpeed;
             AttackRange = SkillSO.AttackRange;
             Cooldown = SkillSO.Cooldown;
@@ -166,7 +166,7 @@ public class WeaponBaseV2 : CustomBehaviour
         }
         else
         {
-            BaseDamage = StatList.BaseDamage;
+            BaseDamage = StatList.BaseDamage + GameManager.InventoryManager.GlobalDamageIncrease;
             BaseSpeed = StatList.BaseSpeed;
             Count = StatList.Count;
             AttackRange = StatList.AttackRange;

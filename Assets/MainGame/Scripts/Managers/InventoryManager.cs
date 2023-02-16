@@ -13,6 +13,16 @@ public class InventoryManager : CustomBehaviour
     public CustomButton PopUpCloseButton;
     public RectTransform PopUpWindow;
     public SpriteRenderer player;
+    public InventoryObjectStats CurrentWeapon;
+    public InventoryObjectStats CurrentJewel;
+    public InventoryObjectStats CurrentHelmet;
+    public InventoryObjectStats CurrentGlove;
+    public InventoryObjectStats CurrentBoot;
+    public InventoryObjectStats CurrentChest;
+    public float GlobalHealthIncrease;
+    public float GlobalDamageIncrease;
+    public float GlobalDamageReduction;
+    public float GlobalSpeedIncrease;
 
     [Space(10)]
     [Title("Weapons List")]
@@ -59,6 +69,19 @@ public class InventoryManager : CustomBehaviour
 
     }
 
+    public void SetGlobalStats()
+    {
+        GlobalDamageIncrease = CurrentWeapon.Damage + CurrentJewel.Damage + CurrentHelmet.Damage 
+            + CurrentGlove.Damage + CurrentBoot.Damage + CurrentChest.Damage; 
+        GlobalDamageReduction = CurrentWeapon.DamageReduction + CurrentJewel.DamageReduction + CurrentHelmet.DamageReduction
+            + CurrentGlove.DamageReduction + CurrentBoot.DamageReduction + CurrentChest.DamageReduction;
+        GlobalHealthIncrease = CurrentWeapon.Health + CurrentJewel.Health + CurrentHelmet.Health
+            + CurrentGlove.Health + CurrentBoot.Health + CurrentChest.Health;
+        GlobalSpeedIncrease = CurrentWeapon.Speed + CurrentJewel.Speed + CurrentHelmet.Speed
+            + CurrentGlove.Speed + CurrentBoot.Speed + CurrentChest.Speed;
+
+    }
+
     private void SetDefaultWeapon()
     {
         if(GameManager.SkillManager.DefaultWeaponV2 == null)
@@ -67,10 +90,15 @@ public class InventoryManager : CustomBehaviour
         }
     }
 
-    private void OnPopUpCloseButtonClicked()
+    public void OnPopUpCloseButtonClicked()
     {
-        PopUpWindow.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InQuint).OnComplete(() => player.enabled = true);
+        PopUpWindow.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InQuint).OnComplete(() => 
+        { 
+            player.enabled = true;
+            ClosePopUpSlots();
+        });
         InventorySlots.ForEach(x => x.SlotButton.interactable = true);
+        //ClosePopUpSlots();
     }
 
     public void OpenSlots(int value, List<InventoryObjectStats> objectStats)

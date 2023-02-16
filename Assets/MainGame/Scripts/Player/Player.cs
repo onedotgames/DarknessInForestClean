@@ -226,8 +226,8 @@ public class Player : CustomBehaviour
 
     private void SetPlayerStats()
     {
-        mForwardSpeed = PlayerVariables.MoveSpeed;
-        mMaxHealth = PlayerVariables.PlayerMaxHealth;
+        mForwardSpeed = PlayerVariables.MoveSpeed + GameManager.InventoryManager.GlobalSpeedIncrease;
+        mMaxHealth = PlayerVariables.PlayerMaxHealth + GameManager.InventoryManager.GlobalHealthIncrease;
         mCurrentHealth = mMaxHealth;
         mAcceleration = PlayerVariables.WalkAcceleration;
         mDeceleration = PlayerVariables.GroundDeceleration;

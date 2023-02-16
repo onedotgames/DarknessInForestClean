@@ -2,16 +2,18 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InventorySlot : CustomBehaviour
 {
-    public InventoryObjectStats InventoryObjectStats;
+    //public InventoryObjectStats InventoryObjectStats;
     public InventorySlotType InventorySlotType;
     public CustomButton SlotButton;
     public RectTransform PopUpWindow;
     private bool isSlotButtonOpen = false;
     public List<InventoryObjectStats> IdenticalEquipmentList;
     public SpriteRenderer player;
+    public Image Icon;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
