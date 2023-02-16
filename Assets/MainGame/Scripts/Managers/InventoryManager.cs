@@ -43,12 +43,28 @@ public class InventoryManager : CustomBehaviour
     {
         base.Initialize(gameManager);
         InitializeSlots();
+        ClosePopUpSlots();
+        SetDefaultWeapon();
         PopUpCloseButton.Initialize(gameManager.UIManager, OnPopUpCloseButtonClicked);
     }
 
     private void InitializeSlots()
     {
         InventorySlots.ForEach(x => x.Initialize(GameManager));
+        PopUpSlots.ForEach(x => x.Initialize(GameManager));
+    }
+    private void ClosePopUpSlots()
+    {
+        PopUpSlots.ForEach(x => x.Parent.SetActive(false));
+
+    }
+
+    private void SetDefaultWeapon()
+    {
+        if(GameManager.SkillManager.DefaultWeaponV2 == null)
+        {
+            GameManager.SkillManager.DefaultWeaponV2 = GameManager.SkillManager.AllWeaponsV2[(int)PoolerType.CloverPooler];
+        }
     }
 
     private void OnPopUpCloseButtonClicked()
@@ -66,14 +82,15 @@ public class InventoryManager : CustomBehaviour
             if (i < value)
             {
                 Debug.Log(i+  ". PopUpSlot must be " + objectStats[i].name);
-
+                PopUpSlots[i].Parent.SetActive(true);
+                PopUpSlots[i].InventoryObjectStat = objectStats[i];
                 PopUpSlots[i].ChangeSlotImage(objectStats[i].Icon);
             }
             else
             {
-                Debug.Log(i + ". PopUpSlot must be " + DefaultLockedPopUpSlotSprite.name);
+                //Debug.Log(i + ". PopUpSlot must be " + DefaultLockedPopUpSlotSprite.name);
 
-                PopUpSlots[i].ChangeSlotImage(DefaultLockedPopUpSlotSprite);
+                //PopUpSlots[i].ChangeSlotImage(DefaultLockedPopUpSlotSprite);
             }
 
         }

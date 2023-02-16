@@ -200,9 +200,10 @@ public class InitialMenu : UIPanel
     private void OnPlayButtonClicked()
     {
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
-        GameManager.UIManager.GetPanel(Panels.MainMenu).OpenPanel();
+        //GameManager.UIManager.GetPanel(Panels.MainMenu).OpenPanel();
         ClosePanel();
         UserInfoPanel.SetActive(false);
+        GameManager.StartGame();
     }
 
     private void OnReturnToMainMenu()
