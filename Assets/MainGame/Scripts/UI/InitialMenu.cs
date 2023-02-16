@@ -56,6 +56,12 @@ public class InitialMenu : UIPanel
 
     public GameObject RedBoxBG;
     public RectTransform rectBG { get; private set; }
+
+    public Slider HealthSlider;
+    public Slider AttackSlider;
+    public Slider DamageReductionSlider;
+    public Slider SpeedSlider;
+    private InventoryManager inventoryManager;
     public override void Initialize(UIManager uIManager)
     {
         base.Initialize(uIManager);
@@ -85,7 +91,8 @@ public class InitialMenu : UIPanel
         rectBG.DOLocalMoveX(HomeBTN.transform.position.x, 0.3f).SetEase(Ease.OutQuad);
         rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 3));
 
-
+        inventoryManager = uIManager.GameManager.InventoryManager;
+        SetEquipmentSectionBars();
         SubEvents();
     }
 
@@ -180,6 +187,14 @@ public class InitialMenu : UIPanel
 
         rectBG.DOLocalMoveX(LeaderBoardBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
         rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 7));
+    }
+
+    public void SetEquipmentSectionBars()
+    {
+        HealthSlider.DOValue((inventoryManager.GlobalHealthIncrease / 1000), 0.5f).SetEase(Ease.OutSine);
+        AttackSlider.DOValue((inventoryManager.GlobalDamageIncrease / 1000), 0.5f).SetEase(Ease.OutSine);
+        DamageReductionSlider.DOValue((inventoryManager.GlobalDamageReduction / 20), 0.5f).SetEase(Ease.OutSine);
+        SpeedSlider.DOValue((inventoryManager.GlobalSpeedIncrease / 20), 0.5f).SetEase(Ease.OutSine);
     }
 
     private void SetCanvas(CanvasGroup canvas)

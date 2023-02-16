@@ -36,11 +36,30 @@ public class InventoryObjectStats : ScriptableObject
     public SkillSO SkillSO;
 
     [EnableIf("EquipmentType", EquipmentType.Armor)]
+    [Space(10)]
+    [Title("Choose Equipment Type")]
+    public ArmorType ArmorType;
+
+    [EnableIf("EquipmentType", EquipmentType.Armor)]
     [SerializeField] private int mHealth;
     public int Health
     {
         get { return mHealth; }
     }
+    [EnableIf("EquipmentType", EquipmentType.Armor)]
+    [SerializeField] private int mSpeed;
+    public int Speed
+    {
+        get { return mSpeed; }
+    }
+
+    [EnableIf("EquipmentType", EquipmentType.Armor)]
+    [SerializeField] private int mDmgRdc;
+    public int DamageReduction
+    {
+        get { return mDmgRdc; }
+    }
+
 
 }
 
@@ -48,4 +67,13 @@ public enum EquipmentType
 {
     Weapon,
     Armor
+}
+
+public enum ArmorType
+{
+    Chest,
+    Helmet,
+    Boot,
+    Glove,
+    Jewel
 }
