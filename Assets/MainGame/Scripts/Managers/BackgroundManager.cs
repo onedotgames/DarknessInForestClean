@@ -35,7 +35,7 @@ public class BackgroundManager : CustomBehaviour
         {
             verticalGroup.SetActive(true);
             horizontalGroup.SetActive(false);
-            horizontalGroup.transform.position = new Vector3(horizontalGroup.transform.position.x, GameManager.PlayerManager.CurrentPlayer.transform.position.y, horizontalGroup.transform.position.z);
+            verticalGroup.transform.position = new Vector3(verticalGroup.transform.position.x, GameManager.PlayerManager.CurrentPlayer.transform.position.y, verticalGroup.transform.position.z);
         }
     }
     
