@@ -88,13 +88,12 @@ public class SpawnerManager : CustomBehaviour
 
     private void OpenCloseMainSpawners(bool value)
     {
-        if (SwipeLevels.currentLevelMat == SwipeLevels.levelsMaterials[3])
+        if (GameManager.BackgroundManager.mapType == MapType.Horizontal)
         {
             //Horizontal
             HorizontalMainSpawnerHolder.SetActive(value);
         }
-        else if(SwipeLevels.currentLevelMat == SwipeLevels.levelsMaterials[4]
-            || SwipeLevels.currentLevelMat == SwipeLevels.levelsMaterials[5])
+        else if(GameManager.BackgroundManager.mapType == MapType.Vertical)
         {
             //Vertical
             VerticalMainSpawnerHolder.SetActive(value);
@@ -151,13 +150,12 @@ public class SpawnerManager : CustomBehaviour
     }
     private void OpenCloseAdditionalSpawners(bool value)
     {
-        if (SwipeLevels.currentLevelMat == SwipeLevels.levelsMaterials[3])
+        if (GameManager.BackgroundManager.mapType == MapType.Horizontal)
         {
             //Horizontal
             HorizontalAdditionalSpawnerHolder.SetActive(value);
         }
-        else if (SwipeLevels.currentLevelMat == SwipeLevels.levelsMaterials[4]
-            || SwipeLevels.currentLevelMat == SwipeLevels.levelsMaterials[5])
+        else if (GameManager.BackgroundManager.mapType == MapType.Vertical)
         {
             //Vertical
             VerticalAdditionalSpawnerHolder.SetActive(value);
@@ -170,13 +168,12 @@ public class SpawnerManager : CustomBehaviour
     }
     private void SpawnFromMains()
     {
-        if (SwipeLevels.currentLevelMat == SwipeLevels.levelsMaterials[3])
+        if (GameManager.BackgroundManager.mapType == MapType.Horizontal)
         {
             //Horizontal
             HorizontalMainSpawnersV2.ForEach(x => x.SpawnEnemyV2());
         }
-        else if (SwipeLevels.currentLevelMat == SwipeLevels.levelsMaterials[4]
-            || SwipeLevels.currentLevelMat == SwipeLevels.levelsMaterials[5])
+        else if (GameManager.BackgroundManager.mapType == MapType.Vertical)
         {
             //Vertical
             VerticalMainSpawnersV2.ForEach(x => x.SpawnEnemyV2());
@@ -192,13 +189,12 @@ public class SpawnerManager : CustomBehaviour
 
     private void SpawnFromAdditionals()
     {
-        if (SwipeLevels.currentLevelMat == SwipeLevels.levelsMaterials[3])
+        if (GameManager.BackgroundManager.mapType == MapType.Horizontal)
         {
             //Horizontal
             HorizontalAdditionalSpawnersV2.ForEach(x => x.SpawnEnemyV2());
         }
-        else if (SwipeLevels.currentLevelMat == SwipeLevels.levelsMaterials[4]
-            || SwipeLevels.currentLevelMat == SwipeLevels.levelsMaterials[5])
+        else if (GameManager.BackgroundManager.mapType == MapType.Vertical)
         {
             //Vertical
             VerticalAdditionalSpawnersV2.ForEach(x => x.SpawnEnemyV2());
