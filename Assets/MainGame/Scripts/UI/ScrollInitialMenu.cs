@@ -9,26 +9,82 @@ public class ScrollInitialMenu : MonoBehaviour
     public RectTransform ContentTransform;
     public InitialMenu initialMenu;
     public GameObject PlayerImg;
-
+    private bool isEquipment = false;
+    private bool isCoop = false;
+    private bool isHome = true;
+    private bool isLevels = false;
+    private bool isLeaderboard = false;
     private void Update()
     {
         //content in size ını 5 e böl, her panelin durduğu yere göre pozisyonları eşitle azı ve çoğuna göre oralara at.
         if (Input.GetMouseButtonUp(0))
         {
-            if (ContentTransform.anchoredPosition.x > Screen.height * 1.5)//coop
-            {
-                ContentTransform.DOLocalMoveX(Screen.height * 2, 0.2f);
-                PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
-                initialMenu.Coop.DOScale(Vector3.one * 1.3f, 0.4f);
-                initialMenu.Equipment.DOScale(Vector3.one * 0.9f, 0.4f);
-                initialMenu.Home.DOScale(Vector3.one * 0.9f, 0.4f);
-                initialMenu.Levels.DOScale(Vector3.one * 0.9f, 0.4f);
-                initialMenu.LeaderBoard.DOScale(Vector3.one * 0.9f, 0.4f);
-                initialMenu.rectBG.DOLocalMoveX(initialMenu.CoopBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
-                initialMenu.rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, -1));
-            }
-            else if (ContentTransform.anchoredPosition.x <= Screen.height * 1.5 && ContentTransform.anchoredPosition.x > Screen.height * 0.5)
-            { //equipment
+            //if (ContentTransform.anchoredPosition.x > Screen.height * 1.2f)//coop
+            //{
+            //    ContentTransform.DOLocalMoveX(Screen.height * 2, 0.2f);
+            //    PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
+            //    initialMenu.Coop.DOScale(Vector3.one * 1.3f, 0.4f);
+            //    initialMenu.Equipment.DOScale(Vector3.one * 0.9f, 0.4f);
+            //    initialMenu.Home.DOScale(Vector3.one * 0.9f, 0.4f);
+            //    initialMenu.Levels.DOScale(Vector3.one * 0.9f, 0.4f);
+            //    initialMenu.LeaderBoard.DOScale(Vector3.one * 0.9f, 0.4f);
+            //    initialMenu.rectBG.DOLocalMoveX(initialMenu.CoopBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
+            //    initialMenu.rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, -1));
+            //}
+            //else if (ContentTransform.anchoredPosition.x <= Screen.height * 1.2f && ContentTransform.anchoredPosition.x > Screen.height * 0.3f)
+            //{ //equipment
+            //    isEquipment = true;
+            //    ContentTransform.DOLocalMoveX(Screen.height, 0.2f);
+            //    PlayerImg.GetComponent<SpriteRenderer>().enabled = true;
+            //    initialMenu.Equipment.DOScale(Vector3.one * 1.3f, 0.4f);
+            //    initialMenu.Coop.DOScale(Vector3.one * 0.9f, 0.4f);
+            //    initialMenu.Home.DOScale(Vector3.one * 0.9f, 0.4f);
+            //    initialMenu.Levels.DOScale(Vector3.one * 0.9f, 0.4f);
+            //    initialMenu.LeaderBoard.DOScale(Vector3.one * 0.9f, 0.4f);
+            //    initialMenu.rectBG.DOLocalMoveX(initialMenu.EquipmentBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
+            //    initialMenu.rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 1));
+            //}
+            //else if (ContentTransform.anchoredPosition.x <= Screen.height * 0.3f && ContentTransform.anchoredPosition.x > -Screen.height * 0.3f)
+            //{//home
+            //    ContentTransform.DOLocalMoveX(0, 0.2f);
+            //    PlayerImg.GetComponent<SpriteRenderer>().enabled = true;
+            //    initialMenu.Home.DOScale(Vector3.one * 1.3f, 0.4f);
+            //    initialMenu.Equipment.DOScale(Vector3.one * 0.9f, 0.4f);
+            //    initialMenu.Coop.DOScale(Vector3.one * 0.9f, 0.4f);
+            //    initialMenu.Levels.DOScale(Vector3.one * 0.9f, 0.4f);
+            //    initialMenu.LeaderBoard.DOScale(Vector3.one * 0.9f, 0.4f);
+            //    initialMenu.rectBG.DOLocalMoveX(initialMenu.HomeBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
+            //    initialMenu.rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 3));
+            //}
+            //else if (ContentTransform.anchoredPosition.x <= -Screen.height * 0.3f && ContentTransform.anchoredPosition.x > -Screen.height * 1.2f)
+            //{//levels
+            //    ContentTransform.DOLocalMoveX(-Screen.height, 0.2f);
+            //    PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
+            //    initialMenu.Levels.DOScale(Vector3.one * 1.3f, 0.4f);
+            //    initialMenu.Equipment.DOScale(Vector3.one * 0.9f, 0.4f);
+            //    initialMenu.Home.DOScale(Vector3.one * 0.9f, 0.4f);
+            //    initialMenu.Coop.DOScale(Vector3.one * 0.9f, 0.4f);
+            //    initialMenu.LeaderBoard.DOScale(Vector3.one * 0.9f, 0.4f);
+            //    initialMenu.rectBG.DOLocalMoveX(initialMenu.LevelsBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
+            //    initialMenu.rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 5));
+            //}
+            //else if (ContentTransform.anchoredPosition.x <= -Screen.height * 1.2f)
+            //{//leaderboard
+            //    ContentTransform.DOLocalMoveX(-Screen.height * 2, 0.2f);
+            //    PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
+            //    initialMenu.LeaderBoard.DOScale(Vector3.one * 1.3f, 0.4f);
+            //    initialMenu.Equipment.DOScale(Vector3.one * 0.9f, 0.4f);
+            //    initialMenu.Home.DOScale(Vector3.one * 0.9f, 0.4f);
+            //    initialMenu.Levels.DOScale(Vector3.one * 0.9f, 0.4f);
+            //    initialMenu.Coop.DOScale(Vector3.one * 0.9f, 0.4f);
+            //    initialMenu.rectBG.DOLocalMoveX(initialMenu.LeaderBoardBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
+            //    initialMenu.rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 7));
+
+            //}
+            if (isCoop && ContentTransform.anchoredPosition.x <= Screen.height * 1.8f)
+            { // coop to equipment
+                isCoop = false;
+                isEquipment = true;
                 ContentTransform.DOLocalMoveX(Screen.height, 0.2f);
                 PlayerImg.GetComponent<SpriteRenderer>().enabled = true;
                 initialMenu.Equipment.DOScale(Vector3.one * 1.3f, 0.4f);
@@ -39,8 +95,24 @@ public class ScrollInitialMenu : MonoBehaviour
                 initialMenu.rectBG.DOLocalMoveX(initialMenu.EquipmentBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
                 initialMenu.rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 1));
             }
-            else if (ContentTransform.anchoredPosition.x <= Screen.height * 0.5 && ContentTransform.anchoredPosition.x > -Screen.height * 0.5)
-            {//home
+            else if (isEquipment && ContentTransform.anchoredPosition.x > Screen.height * 1.2f)
+            { // equipment to coop
+                isEquipment = false;
+                isCoop = true;
+                ContentTransform.DOLocalMoveX(Screen.height * 2, 0.2f);
+                PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
+                initialMenu.Coop.DOScale(Vector3.one * 1.3f, 0.4f);
+                initialMenu.Equipment.DOScale(Vector3.one * 0.9f, 0.4f);
+                initialMenu.Home.DOScale(Vector3.one * 0.9f, 0.4f);
+                initialMenu.Levels.DOScale(Vector3.one * 0.9f, 0.4f);
+                initialMenu.LeaderBoard.DOScale(Vector3.one * 0.9f, 0.4f);
+                initialMenu.rectBG.DOLocalMoveX(initialMenu.CoopBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
+                initialMenu.rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, -1));
+            }
+            else if (isEquipment && ContentTransform.anchoredPosition.x <= Screen.height * 0.8f)
+            { //equipment to home
+                isEquipment = false;
+                isHome = true;
                 ContentTransform.DOLocalMoveX(0, 0.2f);
                 PlayerImg.GetComponent<SpriteRenderer>().enabled = true;
                 initialMenu.Home.DOScale(Vector3.one * 1.3f, 0.4f);
@@ -51,8 +123,24 @@ public class ScrollInitialMenu : MonoBehaviour
                 initialMenu.rectBG.DOLocalMoveX(initialMenu.HomeBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
                 initialMenu.rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 3));
             }
-            else if (ContentTransform.anchoredPosition.x <= -Screen.height * 0.5f && ContentTransform.anchoredPosition.x > -Screen.height * 1.5)
-            {//levels
+            else if (isHome && ContentTransform.anchoredPosition.x > Screen.height * 0.2f)
+            { // home to equipment
+                isHome = false;
+                isEquipment = true;
+                ContentTransform.DOLocalMoveX(Screen.height, 0.2f);
+                PlayerImg.GetComponent<SpriteRenderer>().enabled = true;
+                initialMenu.Equipment.DOScale(Vector3.one * 1.3f, 0.4f);
+                initialMenu.Coop.DOScale(Vector3.one * 0.9f, 0.4f);
+                initialMenu.Home.DOScale(Vector3.one * 0.9f, 0.4f);
+                initialMenu.Levels.DOScale(Vector3.one * 0.9f, 0.4f);
+                initialMenu.LeaderBoard.DOScale(Vector3.one * 0.9f, 0.4f);
+                initialMenu.rectBG.DOLocalMoveX(initialMenu.EquipmentBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
+                initialMenu.rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 1));
+            }
+            else if (isHome && ContentTransform.anchoredPosition.x <= -Screen.height * 0.2f)
+            { // home to levels
+                isHome = false;
+                isLevels = true;
                 ContentTransform.DOLocalMoveX(-Screen.height, 0.2f);
                 PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
                 initialMenu.Levels.DOScale(Vector3.one * 1.3f, 0.4f);
@@ -63,8 +151,24 @@ public class ScrollInitialMenu : MonoBehaviour
                 initialMenu.rectBG.DOLocalMoveX(initialMenu.LevelsBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
                 initialMenu.rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 5));
             }
-            else if (ContentTransform.anchoredPosition.x <= -Screen.height * 1.5f)
-            {//leaderboard
+            else if(isLevels && ContentTransform.anchoredPosition.x > -Screen.height * 0.8f)
+            { //levels to home
+                isLevels = false;
+                isHome = true;
+                ContentTransform.DOLocalMoveX(0, 0.2f);
+                PlayerImg.GetComponent<SpriteRenderer>().enabled = true;
+                initialMenu.Home.DOScale(Vector3.one * 1.3f, 0.4f);
+                initialMenu.Equipment.DOScale(Vector3.one * 0.9f, 0.4f);
+                initialMenu.Coop.DOScale(Vector3.one * 0.9f, 0.4f);
+                initialMenu.Levels.DOScale(Vector3.one * 0.9f, 0.4f);
+                initialMenu.LeaderBoard.DOScale(Vector3.one * 0.9f, 0.4f);
+                initialMenu.rectBG.DOLocalMoveX(initialMenu.HomeBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
+                initialMenu.rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 3));
+            }
+            else if(isLevels && ContentTransform.anchoredPosition.x <= -Screen.height * 1.2f)
+            { // levels to leaderboard
+                isLevels = false;
+                isLeaderboard = true;
                 ContentTransform.DOLocalMoveX(-Screen.height * 2, 0.2f);
                 PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
                 initialMenu.LeaderBoard.DOScale(Vector3.one * 1.3f, 0.4f);
@@ -74,7 +178,20 @@ public class ScrollInitialMenu : MonoBehaviour
                 initialMenu.Coop.DOScale(Vector3.one * 0.9f, 0.4f);
                 initialMenu.rectBG.DOLocalMoveX(initialMenu.LeaderBoardBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
                 initialMenu.rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 7));
-
+            }
+            else if(isLeaderboard && ContentTransform.anchoredPosition.x > -Screen.height * 1.8f)
+            { // leaderboard to levels
+                isLeaderboard = false;
+                isLevels = true;
+                ContentTransform.DOLocalMoveX(-Screen.height, 0.2f);
+                PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
+                initialMenu.Levels.DOScale(Vector3.one * 1.3f, 0.4f);
+                initialMenu.Equipment.DOScale(Vector3.one * 0.9f, 0.4f);
+                initialMenu.Home.DOScale(Vector3.one * 0.9f, 0.4f);
+                initialMenu.Coop.DOScale(Vector3.one * 0.9f, 0.4f);
+                initialMenu.LeaderBoard.DOScale(Vector3.one * 0.9f, 0.4f);
+                initialMenu.rectBG.DOLocalMoveX(initialMenu.LevelsBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
+                initialMenu.rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 5));
             }
         }
     }
