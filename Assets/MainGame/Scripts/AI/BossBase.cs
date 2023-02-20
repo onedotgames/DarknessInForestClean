@@ -57,7 +57,7 @@ public class BossBase : CustomBehaviour
     public bool CanAttack = true;
     public bool ShouldRotate = false;
     public bool ShouldIndicatorRotate = false;
-    public bool IsPunchable = true;
+    public bool IsPunchable = false;
     public bool HasWeapon = false;
 
     public Player Player;
@@ -120,8 +120,9 @@ public class BossBase : CustomBehaviour
         {
             punchTween = transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f).SetRecyclable(true).SetAutoKill(false).OnComplete(() =>
             {
-                IsPunchable = true;
-                transform.localScale = _originalScale;
+                this.IsPunchable = true;
+                Debug.Log("Punch On Complete: " + this.IsPunchable);
+                this.transform.localScale = this._originalScale;
             }
             );
         }
@@ -173,10 +174,13 @@ public class BossBase : CustomBehaviour
 
     public void PunchEffect()
     {
+        Debug.Log("Punchable: " + IsPunchable);
         if (IsPunchable)
         {
-            transform.localScale = _originalScale;
             IsPunchable = false;
+            Debug.Log("punchEffect");
+            transform.localScale = _originalScale;
+            Debug.Log(transform.localScale);
             punchTween.Restart();
         }
     }

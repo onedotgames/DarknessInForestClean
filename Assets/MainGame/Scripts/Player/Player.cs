@@ -56,6 +56,7 @@ public class Player : CustomBehaviour
     [Title("References")]
     public ParticleSystem RechargableShieldOn;
     public ParticleSystem RechargableShieldOff;
+    public ParticleSystem HealingEffect;
     public bool IsShieldOn = false;
     public float ShieldValue = 0;
     public UtilityBase ShieldUtility;
@@ -64,7 +65,7 @@ public class Player : CustomBehaviour
     public Animator PlayerAnim;
     public ExpCollider ExpCollider;
     [SerializeField] private Volume volume;
-
+    [SerializeField] private Rigidbody2D rb2d;
     public float Angle;
     public float LastAngle;
 
@@ -256,7 +257,8 @@ public class Player : CustomBehaviour
             Velocity.y = Mathf.MoveTowards(Velocity.y, 0, mDeceleration * Time.deltaTime);
         }
 
-        transform.Translate(Velocity * Time.deltaTime);
+        //transform.Translate(Velocity * Time.deltaTime);
+        rb2d.velocity = (Velocity);
         if(Velocity != Vector3.zero)
         {
             PlayerAnim.SetBool("isMoving", true);

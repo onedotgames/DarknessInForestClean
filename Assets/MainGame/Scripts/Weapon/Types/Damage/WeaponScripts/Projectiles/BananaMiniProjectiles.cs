@@ -11,14 +11,15 @@ public class BananaMiniProjectiles : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             var enemy = collision.GetComponent<EnemyBase>();
-            enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
-
+            //enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
+            enemy.PunchEffect();
             enemy.GetHit(bananaMainProjectile.Damage);
         }
         if (collision.CompareTag("Boss"))
         {
             var enemy = collision.GetComponent<BossBase>();
-            enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
+            //enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
+            enemy.PunchEffect();
 
             enemy.GetHit(bananaMainProjectile.Damage);
         }

@@ -196,7 +196,24 @@ public class BossSpawner : CustomBehaviour
 
     private void SetBossRing()
     {
-        BossRing.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
+        switch (GameManager.BackgroundManager.mapType)
+        {
+            case MapType.Normal:
+                BossRing.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
+                BossRing.transform.eulerAngles = Vector3.zero;
+
+                break;
+            case MapType.Vertical:
+                BossRing.transform.position = new Vector3(0, GameManager.PlayerManager.CurrentPlayer.transform.position.y,0);
+                BossRing.transform.eulerAngles = Vector3.zero;
+                break;
+            case MapType.Horizontal:
+                BossRing.transform.position = new Vector3(GameManager.PlayerManager.CurrentPlayer.transform.position.x, 0, 0);
+                BossRing.transform.eulerAngles = new Vector3(0,0,90);
+
+                break;
+        }
+        //BossRing.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
         transform.position = BossSpawnLocation.transform.position;
         BossRing.SetActive(true);
     }

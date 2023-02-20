@@ -2,23 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CreateBoundaries : MonoBehaviour
+public class CreateBoundaries : CustomBehaviour
 {
     public GameObject objTopRight;
     public GameObject objDownLeft;
+    public GameObject CamBounds;
+
+    public override void Initialize(GameManager gameManager)
+    {
+        base.Initialize(gameManager);
+        SetV2();
+    }
 
     private void Update()
     {
-        SetupBoundaries();
+        if (GameManager.IsGameStarted)
+        {
+            CamBounds.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
+            SetV2();
+        }
     }
-    void SetupBoundaries()
+
+    public void SetV2()
     {
-       Vector3 point = new Vector3();
+        float camDistance = Vector3.Distance(GameManager.PlayerManager.CurrentPlayer.transform.position, MainCamera.transform.position);
 
-        point = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.nearClipPlane));
-        objTopRight.transform.position = point;
+        var dl = MainCamera.ViewportToWorldPoint(new Vector3(0, 0, camDistance));
+        objDownLeft.transform.position = new Vector3(dl.x - 1, dl.y - 1, dl.z);
 
-        point = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, Camera.main.nearClipPlane));
-        objDownLeft.transform.position = point;
+        var tr = MainCamera.ViewportToWorldPoint(new Vector3(1, 1, camDistance));
+        objTopRight.transform.position = new Vector3(tr.x + 1, tr.y + 1, tr.z); ;
     }
+    
 }
