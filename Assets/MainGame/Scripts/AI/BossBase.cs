@@ -5,6 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+//using UnityEngine.UIElements;
 
 public class BossBase : CustomBehaviour
 {
@@ -26,7 +28,9 @@ public class BossBase : CustomBehaviour
     public ParticleSystem Attack2;
     public ParticleSystem Attack3;
     public ParticleSystem DeathEffect;
-
+    public ParticleSystem EntranceVFX;
+    public Color AreaStartColor;
+    public Color AreaEndColor;
     public GameObject ChargeIndicator;
     public GameObject ChargeIndicatorParent;
     public GameObject Destination;
@@ -54,6 +58,7 @@ public class BossBase : CustomBehaviour
 
     public bool IsActivated = false;
     public bool ShouldMove = false;
+    public bool ShouldAttack = false;
     public bool CanAttack = true;
     public bool ShouldRotate = false;
     public bool ShouldIndicatorRotate = false;
@@ -74,9 +79,14 @@ public class BossBase : CustomBehaviour
 
     private HUD hud;
     [SerializeField] private Vector3 _originalScale;
+    [SerializeField] private Vector3 _DesiredInitialDifferenceWithPlayer;
+    [SerializeField] private Vector3 _DesiredAreaIndicatorScale;
+    public Vector3 _DesiredStartPosition;
     [SerializeField] private Rigidbody2D _rb2D;
     [SerializeField] private Transform WeaponPos;
     [SerializeField] private GameObject Weapon;
+    [SerializeField] private Image AreaImage;
+    private float timeValue;
     private Tweener punchTween;
     public override void Initialize(GameManager gameManager)
     {
@@ -89,28 +99,22 @@ public class BossBase : CustomBehaviour
         }
 
         GetReferences();
-
+        transform.position = _DesiredStartPosition + _DesiredInitialDifferenceWithPlayer;
         transform.localScale = _originalScale;
         SetStats();
-        
+        timeValue = 0;
         IsActivated = true;
 
         Collider2D.enabled = true;
-        //BossHeadRenderer.sprite = RunHead;
-        //Anim.SetInteger("State", 0);
-        //Anim.SetBool("Action", false);
+        //StartJumperEntrance();
+        InitialAreaMark(_DesiredStartPosition);
         SetMovementPattern();
         SetAttackPattern();
         SetPunchTween();
         hud.SetBossHPBarActivation(true);
         hud.SetBossFillValue(currentHP,BaseHealth);
         hud.SetBossFillText(currentHP, BaseHealth);
-        //gameManager.AIManager.EnemyList.Add(this.transform);
 
-        //Monster.ResetAttack();
-        //Monster.ChangeAction(false);
-        //Monster.SetState(MonsterState.Run);
-        //MakeMonsterReady();
         MakeMonsterRun();
     }
 
@@ -127,6 +131,56 @@ public class BossBase : CustomBehaviour
             );
         }
         
+    }
+
+    public void StartJumperEntrance()
+    {
+        //transform.position = Player.transform.position + _DesiredInitialDifferenceWithPlayer;
+        transform.DOMove(_DesiredStartPosition, 0.5f).OnComplete(() => 
+        {
+            EntranceVFX.Play();
+            ShouldMove = true;
+            ShouldAttack = true;
+        });
+    }
+
+    public void InitialAreaMark(Vector3 targetArea)
+    {
+        AreaImage.gameObject.transform.position = targetArea;
+        AreaImage.gameObject.transform.DOScale(_DesiredAreaIndicatorScale, 1f).OnComplete(() => StartJumperEntrance());
+        AreaImage.DOColor(AreaEndColor, 1f).OnComplete(() =>
+        {
+            AreaImage.gameObject.transform.localScale = Vector3.zero;
+            AreaImage.color = AreaStartColor;
+        });
+
+    }
+    public void AreaMark(Vector3 targetArea)
+    {
+        AreaImage.gameObject.transform.position = targetArea;
+        AreaImage.gameObject.transform.DOScale(_DesiredAreaIndicatorScale, 1f).OnComplete(() => JumpSequence(targetArea));
+        AreaImage.DOColor(AreaEndColor, 1f).OnComplete(() =>
+        {
+            AreaImage.gameObject.transform.localScale = Vector3.zero;
+            AreaImage.color = AreaStartColor;
+        });
+
+    }
+
+    public void JumpSequence(Vector3 targetArea)
+    {
+        transform.DOMove(new Vector3(transform.position.x, (_DesiredStartPosition + _DesiredInitialDifferenceWithPlayer).y, transform.position.z), 0.5f).OnComplete(() =>
+        {
+            transform.DOMove(targetArea, 0.5f)
+            .OnComplete(() =>
+            {
+                EntranceVFX.Play();
+                ShouldMove = true;
+                ShouldAttack = true;
+            });
+         
+            
+        });
     }
 
     public void BossReset()
@@ -185,7 +239,7 @@ public class BossBase : CustomBehaviour
         }
     }
 
-    private void Update()
+    public virtual void Update()
     {
         if (!GameManager.IsGamePaused)
         {
@@ -203,18 +257,15 @@ public class BossBase : CustomBehaviour
 
                 if (ShouldMove)
                 {
-                    if (MovementMethod1 != null)
-                    {
-                        MovementMethod1();
-                    }
-                    if (MovementMethod2 != null)
-                    {
-                        MovementMethod2();
-                    }
-                    if (MovementMethod3 != null)
-                    {
-                        MovementMethod3();
-                    }
+                    MovementMethod1?.Invoke();
+                    MovementMethod2?.Invoke();
+                    MovementMethod3?.Invoke();
+                }
+                if (ShouldAttack)
+                {
+                    AttackMethod1?.Invoke();
+                    AttackMethod2?.Invoke();
+                    AttackMethod3?.Invoke();                   
                 }
             }
         } 
@@ -249,14 +300,9 @@ public class BossBase : CustomBehaviour
     {
         if (!GameManager.IsGamePaused)
         {
-            //if (Mathf.Abs(Vector3.Distance(transform.position, Player.transform.position)) < BaseRange)
-            //{
-            //    //transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, BaseMoveSpeed * Time.deltaTime);
-                
-            //}
+            Debug.Log("Game is Paused: " + GameManager.IsGamePaused);
             var dir = (Player.transform.position - transform.position).normalized;
-            _rb2D.AddForce((BaseMoveSpeed * Time.deltaTime) * dir * 50);
-            
+            _rb2D.velocity = ((BaseMoveSpeed * Time.deltaTime) * 50 * dir);
         }
     }
 
@@ -271,6 +317,44 @@ public class BossBase : CustomBehaviour
             }
         }
         
+    }
+
+    public void JumpAttack() 
+    {
+        timeValue += Time.deltaTime;
+        if (timeValue >= BaseAttackCooldown)
+        {
+            timeValue = 0;
+            ShouldMove = false;
+            AreaMark(GameManager.PlayerManager.CurrentPlayer.transform.position);
+           
+        }
+    }
+    public void MeleeAttack()
+    {
+        if (CanAttack)
+        {
+            if (Mathf.Abs(Vector3.Distance(Player.transform.position, transform.position)) <= 1f)
+            {
+                Monster.ChangeAction(true);
+                Monster.Attack();
+                Player.GetHit(BaseDamage);
+                GameManager.PlayerHealthManager.SetHealthBar(Player.mMaxHealth);
+                CanAttack = false;
+                Monster.ChangeAction(false);
+                CanAttack = false;
+            }
+        }
+        else
+        {
+            timeValue += Time.deltaTime;
+            if (timeValue >= BaseAttackCooldown)
+            {
+                timeValue = 0;
+                CanAttack = true;
+
+            }
+        }
     }
 
     public IEnumerator ChargeAttack(float startDelay,int chargeCount, float chargeBuilUpTime, float chargeTime, float chargeCooldown, float timeBetweenCharges)
@@ -406,18 +490,15 @@ public class BossBase : CustomBehaviour
         }
         if (CanAttack)
         {
-            yield return new WaitForSeconds(StartDelay);
             CanAttack = false;
+            yield return new WaitForSeconds(StartDelay);
+            CanAttack = true;
         }
         for (int i = 0; i < shotCount; i++)
         {
-            if (ShouldMove)
-            {
-                //ShouldMove = false;
-                Monster.ChangeAction(true);
-                Monster.Attack();
-            }
-            ShouldRotate = true;
+            Monster.ChangeAction(true);
+            Monster.Attack();
+
             var bullet = GameManager.PoolingManager.EnemyBulletPoolerList[(int)EnemyBulletPoolerType.BossClub].GetObjectFromPool();
             if(Hand != null)
             {
@@ -452,10 +533,9 @@ public class BossBase : CustomBehaviour
             bulletShot.PoolerBase = GameManager.PoolingManager.EnemyBulletPoolerList[(int)EnemyBulletPoolerType.BossClub];
             bulletShot.isShotted = true;
             bulletShot.damage = BaseDamage;
-            i++;
             yield return new WaitForSeconds(timeBetweenShots);
         }
-        ShouldMove = true;
+        //ShouldMove = true;
         Monster.ResetAttack();
         Monster.ChangeAction(false);
         Monster.SetState(MonsterState.Run);

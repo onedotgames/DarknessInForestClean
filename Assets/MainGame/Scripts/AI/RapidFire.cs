@@ -9,6 +9,7 @@ public class RapidFire : BossBase
         base.SetMovementPattern();
         //MovementMethod1 += ChasePlayer;
         MovementMethod1 += RigidBodyChase;
+        ShouldRotate = true;
     }
 
     protected override void SetAttackPattern()

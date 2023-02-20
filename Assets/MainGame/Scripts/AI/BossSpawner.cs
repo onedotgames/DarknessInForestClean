@@ -126,7 +126,9 @@ public class BossSpawner : CustomBehaviour
             //GameManager.IsBossTime = true;
 
             Boss1Spawned = true;
-            Boss1.gameObject.transform.position = transform.position;
+            //Boss1.gameObject.transform.position = transform.position;
+            Boss1._DesiredStartPosition = BossSpawnLocation.transform.position;
+
             //Boss1.ChangeEnablityOfAnimator(false);
             //Boss1.ResetWeapon();
             //Boss1.ChangeEnablityOfAnimator(true);
