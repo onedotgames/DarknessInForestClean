@@ -16,11 +16,13 @@ public class CreateBoundaries : CustomBehaviour
 
     private void Update()
     {
-        if (GameManager.IsGameStarted)
-        {
-            CamBounds.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
-            SetV2();
-        }
+        //if (GameManager.IsGameStarted)
+        //{
+        //    CamBounds.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
+        //    SetV2();
+        //}
+        CamBounds.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
+        SetV2();
     }
 
     public void SetV2()

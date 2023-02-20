@@ -15,6 +15,7 @@ public class LevelFinished : UIPanel
     public CanvasGroup FailCanvas;
     public Animator FailAnimator;
     public GameObject FailImg;
+    public CustomButton ExitButton;
     [Title("Success Group")]
     public CustomButton ContinueButton;
     public CanvasGroup SuccessCanvas;
@@ -36,6 +37,7 @@ public class LevelFinished : UIPanel
         base.Initialize(uIManager);
         ReplayButton.Initialize(uIManager, OnReplayButtonClicked);
         ContinueButton.Initialize(uIManager, OnContinueButtonClicked);
+        ExitButton.Initialize(uIManager, OnExitButtonClicked);
         InitializeEvents();
         hud = uIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
         volume = BoxVolumeParent.GetComponent<Volume>();
@@ -59,6 +61,13 @@ public class LevelFinished : UIPanel
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
         ClosePanel();
         GameManager.RestartGame();
+    }
+
+    private void OnExitButtonClicked()
+    {
+        GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
+        ClosePanel();
+        GameManager.ReturnToMainMenu();
     }
 
     private void InitializeEvents()

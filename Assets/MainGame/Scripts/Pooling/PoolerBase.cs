@@ -15,7 +15,6 @@ public class PoolerBase : CustomBehaviour
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
-        //SubEvents();
 
     }
     public void CreatePool()
@@ -72,7 +71,6 @@ public class PoolerBase : CustomBehaviour
         return objectToReturn;
     }
 
-
     public void ReturnObjectToPool(GameObject obj)
     {
         obj.SetActive(false);
@@ -80,6 +78,7 @@ public class PoolerBase : CustomBehaviour
         obj.transform.localPosition = Vector3.zero;
         ObjectList.Add(obj);
     }
+
     public void DisableObject(GameObject obj)
     {
         obj.SetActive(false);
@@ -87,66 +86,20 @@ public class PoolerBase : CustomBehaviour
         obj.transform.localPosition = Vector3.zero;
     }
 
-    public void LevelFailed()
-    {
-        DisableAllObjects();
-    }
-
-    public void LevelSuccess()
-    {
-        DisableAllObjects();
-    }
-
-    private void RestartGame()
-    {
-        DisableAllObjects();
-    }
     private void DisableAllObjects()
     {
         TempList.ForEach(x =>
         {
             if (x.activeInHierarchy)
             {
-                DisableObject(x);
+                ReturnObjectToPool(x);
             }
         });
-
-
         ClearObjPool();
     }
 
     private void ClearObjPool()
     {
         ObjectList.Clear();
-    }
-
-    private void SubEvents()
-    {
-        if (GameManager != null)
-        {
-            GameManager.OnLevelFailed += LevelFailed;
-            GameManager.OnLevelCompleted += LevelSuccess;
-            GameManager.OnRestartGame += RestartGame;
-        }
-    }
-
-    private void UnSubEvents()
-    {
-        if (GameManager != null)
-        {
-            GameManager.OnLevelFailed -= LevelFailed;
-            GameManager.OnLevelCompleted -= LevelSuccess;
-            GameManager.OnRestartGame -= RestartGame;
-        }
-    }
-
-    private void OnDisable()
-    {
-        UnSubEvents();
-    }
-
-    private void OnDestroy()
-    {
-        UnSubEvents();
     }
 }

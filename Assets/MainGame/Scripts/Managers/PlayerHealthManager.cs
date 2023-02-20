@@ -29,6 +29,7 @@ public class PlayerHealthManager : CustomBehaviour
         {
             GameManager.OnReturnToMainMenu += ReturnToMainMenu;
             GameManager.OnStartGame += StartGame;
+            GameManager.OnRestartGame += RestartGame;
         }
     }
 
@@ -72,6 +73,13 @@ public class PlayerHealthManager : CustomBehaviour
         IsRegenActive = false;
     }
 
+    public void RestartGame()
+    {
+        Player.mCurrentHealth = Player.mMaxHealth;
+        SetHealthBar(Player.mMaxHealth);
+        IsRegenActive = false;
+    }
+
     public void HpRegen()
     {
         if (IsRegenActive)
@@ -100,6 +108,7 @@ public class PlayerHealthManager : CustomBehaviour
         {
             GameManager.OnReturnToMainMenu -= ReturnToMainMenu;
             GameManager.OnStartGame -= StartGame;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 

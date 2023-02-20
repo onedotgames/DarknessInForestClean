@@ -174,6 +174,7 @@ public class GameManager : CustomBehaviour
     {
         if (OnRestartGame != null)
         {
+            IsGameStarted = true;
             OnRestartGame();
         }
     }
@@ -182,6 +183,7 @@ public class GameManager : CustomBehaviour
     {
         if(OnResumeGame != null)
         {
+            IsGameStarted = false;
             OnResumeGame();
         }
     }

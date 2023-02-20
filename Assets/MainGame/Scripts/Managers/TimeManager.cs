@@ -20,7 +20,8 @@ public class TimeManager : CustomBehaviour
         if(GameManager != null)
         {
             GameManager.OnStartGame += GameStarted;
-            GameManager.OnReturnToMainMenu += OnREturnToMainMenu;
+            GameManager.OnReturnToMainMenu += OnReturnToMainMenu;
+            GameManager.OnRestartGame += RestartGame;
         }
     }
     private void UnSubscribeToEvents()
@@ -28,7 +29,8 @@ public class TimeManager : CustomBehaviour
         if (GameManager != null)
         {
             GameManager.OnStartGame -= GameStarted;
-            GameManager.OnReturnToMainMenu -= OnREturnToMainMenu;
+            GameManager.OnReturnToMainMenu -= OnReturnToMainMenu;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 
@@ -59,7 +61,13 @@ public class TimeManager : CustomBehaviour
     {
         TimeValue = 0;
     }
-    private void OnREturnToMainMenu()
+
+    private void OnReturnToMainMenu()
+    {
+        TimeValue = 0;
+    }
+
+    private void RestartGame()
     {
         TimeValue = 0;
     }

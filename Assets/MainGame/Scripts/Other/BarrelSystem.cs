@@ -50,7 +50,7 @@ public class BarrelSystem : CustomBehaviour
     }
     private void RestartGame()
     {
-        canBarrelSystemStart = false;
+        canBarrelSystemStart = true;
         timer = 0;
         barrelCount = 0;
         ReturnPool();
@@ -62,6 +62,21 @@ public class BarrelSystem : CustomBehaviour
         for (int i = 0; i < pool.TempList.Count; i++)
         {
             pool.ReturnObjectToPool(pool.TempList[i]);
+        }
+        var potionPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.HealthPotPooler];
+        for (int j = 0; j < potionPool.TempList.Count; j++)
+        {
+            potionPool.ReturnObjectToPool(potionPool.TempList[j]);
+        }
+        var magnetPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.MagnetPooler];
+        for (int k = 0; k < magnetPool.TempList.Count; k++)
+        {
+            magnetPool.ReturnObjectToPool(magnetPool.TempList[k]);
+        }
+        var bombPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.BombPooler];
+        for (int l = 0; l < bombPool.TempList.Count; l++)
+        {
+            bombPool.ReturnObjectToPool(bombPool.TempList[l]);
         }
     }
 

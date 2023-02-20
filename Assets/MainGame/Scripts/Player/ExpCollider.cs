@@ -13,6 +13,24 @@ public class ExpCollider : CustomBehaviour
         hud = gameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Experience"))
+        {
+            var exp = collision.GetComponent<Experience>();
+            if (exp.IsReturning && exp.isTaken)
+            {
+                GameManager.PlayerLevelManager.SetExp(25f);
+                hud.SetExpBarFillAmount();
+                GameManager.PoolingManager.ExpPoolerList[(int)exp.ExpPoolerType]
+                    .ReturnObjectToPool(collision.gameObject);
+                Debug.Log("Is Going: " + exp.isGoing + "Is Taken: " + exp.isTaken + "Is Returning: " + exp.IsReturning);
+                exp.isGoing = false;
+                exp.isTaken = false;
+            }
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Experience"))
@@ -22,14 +40,17 @@ public class ExpCollider : CustomBehaviour
             var exp = collision.GetComponent<Experience>();
             //GameManager.PoolingManager.ExpPoolerList[(int)exp.ExpPoolerType].ReturnObjectToPool(collision.gameObject);
             //exp.isGoing = false;
-            if (exp.IsReturning)
+            if (exp.IsReturning && exp.isTaken)
             {
                 GameManager.PlayerLevelManager.SetExp(25f);
                 hud.SetExpBarFillAmount();
                 GameManager.PoolingManager.ExpPoolerList[(int)exp.ExpPoolerType]
                     .ReturnObjectToPool(collision.gameObject);
+                Debug.Log("Is Going: " + exp.isGoing + "Is Taken: " + exp.isTaken + "Is Returning: " + exp.IsReturning);
                 exp.isGoing = false;
+                exp.isTaken = false;
             }
+            else
             {
                 if(exp != null)
                 {

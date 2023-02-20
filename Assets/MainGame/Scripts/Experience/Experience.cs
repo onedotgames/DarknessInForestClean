@@ -10,7 +10,6 @@ using System.Runtime.CompilerServices;
 public class Experience : CustomBehaviour
 {
     public bool isGoing;
-    public bool IsMovingAway;
     public bool IsReturning;
     public ExpPoolerType ExpPoolerType;
     [SerializeField] private float moveAwayFactor;
@@ -22,6 +21,7 @@ public class Experience : CustomBehaviour
     public Vector3 startPos;
     private Vector3 targetPosition;
     public Player player;
+    public bool isTaken = false;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -51,14 +51,6 @@ public class Experience : CustomBehaviour
         }
     }
 
-    //private void Update()
-    //{
-    //    if (isGoing)
-    //    {
-    //        MoveExp();
-    //    }
-    //}
-
     private void Update()
     {
         if (IsReturning)
@@ -77,18 +69,18 @@ public class Experience : CustomBehaviour
     private IEnumerator ExperienceMovementRoutine()
     {
         Shadow.SetActive(false);
-
-        Vector3 targetDirection = (transform.position - 
+        Vector3 targetDirection = (transform.position -
             GameManager.PlayerManager.CurrentPlayer.transform.position).normalized;
-        
-        var myTween = transform.DOMove(transform.position + 
-            (targetDirection * moveAwayFactor), 0.5f).SetEase(Ease.OutQuad);
-        yield return myTween.WaitForCompletion();
+        if (!isTaken)
+        {
+            isTaken = true;
+            var myTween = transform.DOMove(transform.position +
+                (targetDirection * moveAwayFactor), 0.5f).SetEase(Ease.OutQuad);
+            yield return myTween.WaitForCompletion();
+        }
         //targetPosition = GameManager.PlayerManager.CurrentPlayer.transform.position;
         //var myTween2 = transform.DOMove(targetPosition, 0.5f).SetEase(Ease.InQuad);
         IsReturning = true;
-
-
     }
 
     public void MoveExp()

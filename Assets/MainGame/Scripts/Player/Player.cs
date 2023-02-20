@@ -166,8 +166,6 @@ public class Player : CustomBehaviour
                     if (item.transform.gameObject.activeInHierarchy)
                     {
                         var exp = item.GetComponent<Experience>();
-
-                        //item.GetComponent<Experience>().isGoing = true;
                         if (exp != null)
                         {
                             if (exp.isActiveAndEnabled)
