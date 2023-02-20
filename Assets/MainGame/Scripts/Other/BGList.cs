@@ -14,11 +14,22 @@ public class BGList : CustomBehaviour
         {
             GameManager.OnLevelFailed += LevelFailed;
             GameManager.OnLevelCompleted += LevelSucceed;
+            GameManager.OnRestartGame += RestartGame;
+            GameManager.OnReturnToMainMenu += ReturnMenu;
         }
     }
 
 
     private void LevelFailed()
+    {
+        //for (int i = 0; i < backgrounds.Count; i++)
+        //{
+        //    Destroy(backgrounds[i]);
+        //}
+        //backgrounds.Clear();
+    }
+
+    private void ReturnMenu()
     {
         for (int i = 0; i < backgrounds.Count; i++)
         {
@@ -28,6 +39,15 @@ public class BGList : CustomBehaviour
     }
 
     private void LevelSucceed()
+    {
+        //for (int i = 0; i < backgrounds.Count; i++)
+        //{
+        //    Destroy(backgrounds[i]);
+        //}
+        //backgrounds.Clear();
+    }
+
+    private void RestartGame()
     {
         for (int i = 0; i < backgrounds.Count; i++)
         {
@@ -42,6 +62,8 @@ public class BGList : CustomBehaviour
         {
             GameManager.OnLevelFailed -= LevelFailed;
             GameManager.OnLevelCompleted -= LevelSucceed;
+            GameManager.OnRestartGame -= RestartGame;
+            GameManager.OnReturnToMainMenu -= ReturnMenu;
         }
     }
 }

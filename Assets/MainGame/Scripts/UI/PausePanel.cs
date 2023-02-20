@@ -32,6 +32,7 @@ public class PausePanel : UIPanel
         {
             GameManager.OnLevelFailed += OnLevelFailed;
             GameManager.OnLevelCompleted += OnLevelSuccess;
+            GameManager.OnRestartGame += RestartGame;
         }
     }
 
@@ -70,6 +71,27 @@ public class PausePanel : UIPanel
             }
         }
 
+    }
+    public void CloseWeaponStars()
+    {
+        for (int i = 0; i < WeaponIconStars.Count; i++)
+        {
+            for (int k = 0; k < WeaponIconStars.Count; k++)
+            {
+                WeaponIconStars[i].transform.GetChild(k).gameObject.SetActive(false);
+            }
+        }
+    }
+
+    public void CloseUtilStars()
+    {
+        for (int i = 0; i < WeaponIconStars.Count; i++)
+        {
+            for (int k = 0; k < WeaponIconStars.Count; k++)
+            {
+                UtilIconStars[i].transform.GetChild(k).gameObject.SetActive(false);
+            }
+        }
     }
 
     public void AddUtilStar()
@@ -124,11 +146,22 @@ public class PausePanel : UIPanel
     {
         ClosePauseIcons();
         ClosePanel();
+        CloseUtilStars();
+        CloseWeaponStars();
+    }
+    private void RestartGame()
+    {
+        ClosePauseIcons();
+        ClosePanel();
+        CloseUtilStars();
+        CloseWeaponStars();
     }
     private void OnLevelSuccess()
     {
         ClosePauseIcons();
         ClosePanel();
+        CloseUtilStars();
+        CloseWeaponStars();
     }
     private void OnDestroy()
     {
@@ -136,6 +169,7 @@ public class PausePanel : UIPanel
         {
             GameManager.OnLevelFailed -= OnLevelFailed;
             GameManager.OnLevelCompleted -= OnLevelSuccess;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 }

@@ -49,6 +49,7 @@ public class LevelManager : CustomBehaviour
             GameManager.OnReturnToMainMenu += OnReturnToMainMenu;
             GameManager.OnLevelCompleted += OnLevelCompleted;
             GameManager.OnTutorialCompleted += OnTutorialCompleted;
+            GameManager.OnRestartGame += RestartGame;
         }
     }
 
@@ -145,7 +146,12 @@ public class LevelManager : CustomBehaviour
     {
         TutorialLevel.DeactivateInteractables();
     }
+    private void RestartGame()
+    {
+        mCurrentLevelPassed = false;
+        Levels[ActivatedLevelNumber].DeactivateInteractables();
 
+    }
     private void OnLevelFailed()
     {
         mCurrentLevelPassed = false;
@@ -159,6 +165,7 @@ public class LevelManager : CustomBehaviour
             GameManager.OnReturnToMainMenu -= OnReturnToMainMenu;
             GameManager.OnLevelCompleted -= OnLevelCompleted;
             GameManager.OnTutorialCompleted -= OnTutorialCompleted;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 

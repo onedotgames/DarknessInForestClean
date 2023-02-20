@@ -53,6 +53,7 @@ public class EnemyBase : CustomBehaviour
             GameManager.OnLevelCompleted += OnGameCompleted;
             GameManager.OnLevelFailed += OnGameFailed;
             GameManager.OnBossSpawn += OnBossSpawn;
+            GameManager.OnRestartGame += RestartGame;
 
         }
         Player = gameManager.PlayerManager.CurrentPlayer;
@@ -307,7 +308,11 @@ public class EnemyBase : CustomBehaviour
         Return();
 
     }
+    private void RestartGame()
+    {
+        Return();
 
+    }
     private void OnBossSpawn()
     {
         Return();
@@ -320,6 +325,7 @@ public class EnemyBase : CustomBehaviour
             GameManager.OnLevelFailed -= OnGameFailed;
             GameManager.OnLevelCompleted -= OnGameCompleted;
             GameManager.OnBossSpawn -= OnBossSpawn;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 }

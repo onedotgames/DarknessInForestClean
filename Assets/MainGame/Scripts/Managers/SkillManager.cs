@@ -54,6 +54,7 @@ public class SkillManager : CustomBehaviour
             GameManager.OnStartGame += OnLevelStart;
             GameManager.OnLevelCompleted += OnLevelSuccess;
             GameManager.OnLevelFailed += OnLevelFailed;
+            GameManager.OnRestartGame += RestartGame;
         }
 
         PausePanel = GameManager.UIManager.GetPanel(Panels.Pause).GetComponent<PausePanel>();
@@ -354,7 +355,22 @@ public class SkillManager : CustomBehaviour
         UtilitiesInUse.Clear();
         UtilitiesInUseTemp.Clear();
     }
-
+    private void RestartGame()
+    {
+        AllWeaponsV2.ForEach(x => x.gameObject.SetActive(false));
+        WeaponsInUseV2.Clear();
+        WeaponsInUseTemp.Clear();
+        TempWeaponsV2.Clear();
+        TempUtils.Clear();
+        UtilitiesInUse.Clear();
+        UtilitiesInUseTemp.Clear();
+        selectedWeaponData = null;
+        selectedUtilityData = null;
+        IsMiniGameDone = false;
+        WeaponLimitReached = false;
+        UtilitiesLimitReached = false;
+        ActivateDefaultWeapon();
+    }
     private void OnLevelStart()
     {
         LevelStart();
@@ -376,6 +392,7 @@ public class SkillManager : CustomBehaviour
             GameManager.OnStartGame -= OnLevelStart;
             GameManager.OnLevelCompleted -= OnLevelSuccess;
             GameManager.OnLevelFailed -= OnLevelFailed;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 }

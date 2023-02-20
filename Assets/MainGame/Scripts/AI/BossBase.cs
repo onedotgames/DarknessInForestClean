@@ -82,10 +82,10 @@ public class BossBase : CustomBehaviour
     {
         base.Initialize(gameManager);
         if (gameManager != null)
-        {            
-            
-            gameManager.OnLevelCompleted += OnGameSuccess;
-            gameManager.OnLevelFailed += OnGameFailed;
+        {
+            GameManager.OnRestartGame += RestartGame;
+            GameManager.OnLevelCompleted += OnGameSuccess;
+            GameManager.OnLevelFailed += OnGameFailed;
         }
 
         GetReferences();
@@ -600,6 +600,18 @@ public class BossBase : CustomBehaviour
         StopAllCoroutines();
 
     }
+
+    private void RestartGame()
+    {
+        gameObject.SetActive(false);
+        IsActivated = false;
+        ShouldMove = false;
+        CanAttack = true;
+        ShouldRotate = false;
+        ShouldIndicatorRotate = false;
+        StopAllCoroutines();
+    }
+
     private void OnGameSuccess()
     {
         Debug.Log("Success");
@@ -618,6 +630,7 @@ public class BossBase : CustomBehaviour
         {
             GameManager.OnLevelFailed -= OnGameFailed;
             GameManager.OnLevelCompleted -= OnGameSuccess;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 }

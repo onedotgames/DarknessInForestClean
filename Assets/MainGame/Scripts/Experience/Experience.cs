@@ -47,6 +47,7 @@ public class Experience : CustomBehaviour
         {
             GameManager.OnLevelCompleted += LevelCompleted;
             GameManager.OnLevelFailed += LevelFailed;
+            GameManager.OnRestartGame += RestartGame;
         }
     }
 
@@ -103,6 +104,14 @@ public class Experience : CustomBehaviour
         }
     }
 
+    private void RestartGame()
+    {
+        if (gameObject.activeInHierarchy)
+        {
+            GameManager.PoolingManager.ExpPoolerList[(int)ExpPoolerType].ReturnObjectToPool(this.gameObject);
+        }
+    }
+
     private void LevelCompleted()
     {
         if (gameObject.activeInHierarchy)
@@ -118,6 +127,7 @@ public class Experience : CustomBehaviour
         {
             GameManager.OnLevelFailed -= LevelFailed;
             GameManager.OnLevelCompleted -= LevelCompleted;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 }

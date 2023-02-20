@@ -11,6 +11,7 @@ public class Barrel : CustomBehaviour
         {
             GameManager.OnLevelCompleted += LevelCompleted;
             GameManager.OnLevelFailed += LevelFailed;
+            GameManager.OnRestartGame += RestartGame;
         }
     }
 
@@ -26,12 +27,19 @@ public class Barrel : CustomBehaviour
         pool.ReturnObjectToPool(gameObject);
     }
 
+    private void RestartGame()
+    {
+        var pool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.BarrelPooler];
+        pool.ReturnObjectToPool(gameObject);
+    }
+
     private void OnDestroy()
     {
         if(GameManager != null)
         {
             GameManager.OnLevelCompleted -= LevelCompleted;
             GameManager.OnLevelFailed -= LevelFailed;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 }

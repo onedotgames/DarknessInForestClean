@@ -59,6 +59,7 @@ public class SpawnerManager : CustomBehaviour
             gameManager.OnStartGame += OnLevelStart;
             gameManager.OnLevelCompleted += OnLevelCompleted;
             gameManager.OnLevelFailed += OnLevelFailed;
+            gameManager.OnRestartGame += RestartGame;
         }
         InitializeOptions();
     }
@@ -246,6 +247,19 @@ public class SpawnerManager : CustomBehaviour
 
     }
 
+    private void RestartGame()
+    {
+        MainSpawnerRoutineStop();
+        AdditionalSpawnerRoutineStop();
+        AdditionalSpawnerHolder.SetActive(false);
+        OpenCloseMainSpawners(false);
+        OpenCloseAdditionalSpawners(false);
+        activeSpawnTime = NormalSpawnTime;
+        //CacheMainSpawnRoutine();
+        timeValue = activeSpawnTime;
+        OpenCloseMainSpawners(true);
+    }
+
     private void OnLevelFailed()
     {
         MainSpawnerRoutineStop();
@@ -260,6 +274,7 @@ public class SpawnerManager : CustomBehaviour
         AdditionalSpawnerRoutineStop();
         AdditionalSpawnerHolder.SetActive(false);
         OpenCloseAdditionalSpawners(false);
+        OpenCloseMainSpawners(false);
     }
 
 
@@ -271,6 +286,7 @@ public class SpawnerManager : CustomBehaviour
             GameManager.OnStartGame -= OnLevelStart;
             GameManager.OnLevelFailed -= OnLevelFailed;
             GameManager.OnLevelCompleted -= OnLevelCompleted;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
     #endregion

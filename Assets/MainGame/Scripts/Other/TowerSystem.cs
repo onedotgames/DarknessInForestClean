@@ -13,6 +13,7 @@ public class TowerSystem : CustomBehaviour
         {
             GameManager.OnLevelFailed += LevelFailed;
             GameManager.OnLevelCompleted += LevelCompleted;
+            GameManager.OnRestartGame += RestartGame;
         }
     }
 
@@ -41,12 +42,18 @@ public class TowerSystem : CustomBehaviour
 
     }
 
+    private void RestartGame()
+    {
+        isTowerDestroyed = false;
+    }
+
     private void OnDestroy()
     {
         if(GameManager != null)
         {
             GameManager.OnLevelFailed -= LevelFailed;
             GameManager.OnLevelCompleted -= LevelCompleted;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 }

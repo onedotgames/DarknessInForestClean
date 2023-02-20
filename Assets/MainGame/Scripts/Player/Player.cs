@@ -275,6 +275,7 @@ public class Player : CustomBehaviour
             GameManager.OnLevelFailed += LevelFailed;
             GameManager.OnLevelCompleted += LevelCompleted;
             GameManager.OnReturnToMainMenu += ReturnToMainMenu;
+            GameManager.OnRestartGame += RestartGame;
         }
     }
 
@@ -443,6 +444,18 @@ public class Player : CustomBehaviour
         playerBase.SetActive(false);
     }
 
+    private void RestartGame()
+    {
+        transform.position = Vector3.zero;
+        PlayerAnim.SetBool("isMoving", false);
+        IsGameStarted = true;
+        IsShieldOn = false;
+        SetPlayerStats();
+        DamageReduction = 1;
+        CloseRechargableShield();
+        baseSmoke.Play();
+        playerBase.SetActive(false);
+    }
     private void ReturnToMainMenu()
     {
         transform.position = Vector3.zero;
@@ -478,6 +491,7 @@ public class Player : CustomBehaviour
             GameManager.OnReturnToMainMenu -= ReturnToMainMenu;
             GameManager.OnLevelFailed -= LevelFailed;
             GameManager.OnLevelCompleted -= LevelCompleted;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 }

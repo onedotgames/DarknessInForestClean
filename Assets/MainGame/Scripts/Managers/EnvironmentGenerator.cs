@@ -20,6 +20,7 @@ public class EnvironmentGenerator : CustomBehaviour
             gameManager.OnStartGame += StartGame;
             gameManager.OnLevelCompleted += EndGame;
             gameManager.OnLevelFailed += EndGame;
+            gameManager.OnRestartGame += RestartGame;
         }
         //var pooler = GameManager.PoolingManager.EnvironmentObjPoolers[(int)EnvironmentObjType.Tree];
         //_pool = pooler;
@@ -43,11 +44,12 @@ public class EnvironmentGenerator : CustomBehaviour
             GameManager.OnStartGame -= StartGame;
             GameManager.OnLevelCompleted -= EndGame;
             GameManager.OnLevelFailed -= EndGame;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
     private void StartGame()
     {
-        //_timerOn = true; --> Spawn mekaniðinin baþlamasý için bunu açmak yeterli
+        //_timerOn = true; --> Spawn mekani?inin ba?lamas? i?in bunu a?mak yeterli
         //TreeList.Clear();
     }
 
@@ -59,6 +61,11 @@ public class EnvironmentGenerator : CustomBehaviour
         //    _pool.ReturnObjectToPool(TreeList[i]);
         //}
 
+    }
+
+    private void RestartGame()
+    {
+        _timerOn = false;
     }
     private void Update()
     {

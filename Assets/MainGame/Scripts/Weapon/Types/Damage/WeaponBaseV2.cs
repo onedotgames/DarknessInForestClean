@@ -93,6 +93,7 @@ public class WeaponBaseV2 : CustomBehaviour
             GameManager.OnStartGame += OnGameStart;
             GameManager.OnLevelCompleted += OnGameCompleted;
             GameManager.OnLevelFailed += OnGameFailed;
+            GameManager.OnRestartGame += RestartGame;
         }
     }
 
@@ -108,6 +109,7 @@ public class WeaponBaseV2 : CustomBehaviour
             GameManager.OnStartGame -= OnGameStart;
             GameManager.OnLevelCompleted -= OnGameCompleted;
             GameManager.OnLevelFailed -= OnGameFailed;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 
@@ -121,6 +123,10 @@ public class WeaponBaseV2 : CustomBehaviour
         ResetItemElementsOnEnd();
     }
 
+    private void RestartGame()
+    {
+        ResetItemElementsOnEnd();
+    }
     private void ResetItemElementsOnEnd()
     {
         IsActivated = false;

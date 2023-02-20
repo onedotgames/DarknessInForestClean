@@ -55,9 +55,10 @@ public class LevelFinished : UIPanel
 
     private void OnReplayButtonClicked()
     {
+
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
         ClosePanel();
-        GameManager.ReturnToMainMenu();
+        GameManager.RestartGame();
     }
 
     private void InitializeEvents()
@@ -68,6 +69,7 @@ public class LevelFinished : UIPanel
             UIManager.GameManager.OnLevelFailed += LevelFailed;
             UIManager.GameManager.OnStartGame += StartGame;
             UIManager.GameManager.OnReturnToMainMenu += ReturnToMain;
+            UIManager.GameManager.OnRestartGame += RestartGame;
         }
     }
 
@@ -122,7 +124,7 @@ public class LevelFinished : UIPanel
 
     private void ReturnToMain()
     {
-        FailCanvas.Close();;
+        FailCanvas.Close();
         SuccessCanvas.Close();
         if(mLoseRout != null)
             StopCoroutine(mLoseRout);
@@ -132,6 +134,21 @@ public class LevelFinished : UIPanel
         SuccessCanvas.gameObject.SetActive(false);
         BoxVolumeParent.SetActive(false);
         colorAdjustments.saturation.value = 0;
+        isGameSucceed = false;
+        ClosePanel();
+    }
+    private void RestartGame()
+    {
+        colorAdjustments.saturation.value = 0;
+        FailCanvas.Close();
+        SuccessCanvas.Close();
+        if (mLoseRout != null)
+            StopCoroutine(mLoseRout);
+        if (mWinRout != null)
+            StopCoroutine(mWinRout);
+        FailCanvas.gameObject.SetActive(false);
+        SuccessCanvas.gameObject.SetActive(false);
+        BoxVolumeParent.SetActive(false);
         isGameSucceed = false;
         ClosePanel();
     }
@@ -180,6 +197,7 @@ public class LevelFinished : UIPanel
             UIManager.GameManager.OnLevelCompleted -= LevelCompleted;
             UIManager.GameManager.OnLevelFailed -= LevelFailed;
             UIManager.GameManager.OnReturnToMainMenu -= ReturnToMain;
+            UIManager.GameManager.OnRestartGame -= RestartGame;
         }
     }
 }

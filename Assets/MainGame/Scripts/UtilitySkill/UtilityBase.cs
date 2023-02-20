@@ -18,7 +18,8 @@ public class UtilityBase : CustomBehaviour
         {
             GameManager.OnLevelFailed += LevelFailed;
             GameManager.OnLevelCompleted += LevelSuccess;
-            gameManager.OnStartGame += StartGame;
+            GameManager.OnStartGame += StartGame;
+            GameManager.OnRestartGame += RestartGame;
         }
         mPlayer = gameManager.PlayerManager.CurrentPlayer;
     }
@@ -98,6 +99,10 @@ public class UtilityBase : CustomBehaviour
     {
         UpgradeLevel = 0;
     }
+    private void RestartGame()
+    {
+        UpgradeLevel = 0;
+    }
     private void OnDestroy()
     {
         if(GameManager != null)
@@ -105,6 +110,7 @@ public class UtilityBase : CustomBehaviour
             GameManager.OnLevelFailed -= LevelFailed;
             GameManager.OnLevelCompleted -= LevelSuccess;
             GameManager.OnStartGame -= StartGame;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 }

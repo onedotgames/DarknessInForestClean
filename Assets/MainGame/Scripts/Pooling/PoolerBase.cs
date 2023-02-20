@@ -97,6 +97,10 @@ public class PoolerBase : CustomBehaviour
         DisableAllObjects();
     }
 
+    private void RestartGame()
+    {
+        DisableAllObjects();
+    }
     private void DisableAllObjects()
     {
         TempList.ForEach(x =>
@@ -122,6 +126,7 @@ public class PoolerBase : CustomBehaviour
         {
             GameManager.OnLevelFailed += LevelFailed;
             GameManager.OnLevelCompleted += LevelSuccess;
+            GameManager.OnRestartGame += RestartGame;
         }
     }
 
@@ -131,7 +136,7 @@ public class PoolerBase : CustomBehaviour
         {
             GameManager.OnLevelFailed -= LevelFailed;
             GameManager.OnLevelCompleted -= LevelSuccess;
-
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 

@@ -38,6 +38,7 @@ public class BossSpawner : CustomBehaviour
             GameManager.OnStartGame += GameStart;
             GameManager.OnLevelCompleted += LevelCompleted;
             GameManager.OnLevelFailed += LevelFailed;
+            GameManager.OnRestartGame += RestartGame;
         }
         timeManager = GameManager.TimeManager;
         hud = gameManager.UIManager.GetPanel(Panels.Hud).GetComponent<HUD>();
@@ -226,6 +227,20 @@ public class BossSpawner : CustomBehaviour
         Boss2Spawned = false;
         Boss3Spawned = false;
     }
+
+    private void RestartGame()
+    {
+        TimePassed = 0;
+        isBossWarningShowed1 = false;
+        isBossWarningShowed2 = false;
+        isBossWarningShowed3 = false;
+        GameManager.IsBossTime = false;
+        BossRing.SetActive(false);
+        Boss1Spawned = false;
+        Boss2Spawned = false;
+        Boss3Spawned = false;
+    }
+
     private void LevelFailed()
     {
         TimePassed = 0;
@@ -246,6 +261,7 @@ public class BossSpawner : CustomBehaviour
             GameManager.OnStartGame -= GameStart;
             GameManager.OnLevelCompleted -= LevelCompleted;
             GameManager.OnLevelFailed -= LevelFailed;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 

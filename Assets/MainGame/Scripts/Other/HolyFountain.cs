@@ -19,6 +19,7 @@ public class HolyFountain : CustomBehaviour
             GameManager.OnStartGame += StartGame;
             GameManager.OnLevelCompleted += LevelCompleted;
             GameManager.OnLevelFailed += LevelFailed;
+            GameManager.OnRestartGame += RestartGame;
         }
     }
 
@@ -62,6 +63,15 @@ public class HolyFountain : CustomBehaviour
         isFountainTaken = false;
     }
 
+    private void RestartGame()
+    {
+        Fountain.SetActive(false);
+        isFountainTaken = false;
+        Fountain.transform.position = new Vector3(Random.Range(-80, 80), Random.Range(-80, 80), 0);
+        Fountain.SetActive(true);
+        Water.transform.localScale = Vector3.one;
+        HolyFountainCollider.enabled = true;
+    }
 
     private void OnDestroy()
     {
@@ -70,6 +80,7 @@ public class HolyFountain : CustomBehaviour
             GameManager.OnStartGame -= StartGame;
             GameManager.OnLevelCompleted -= LevelCompleted;
             GameManager.OnLevelFailed -= LevelFailed;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 

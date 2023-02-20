@@ -15,6 +15,7 @@ public class EnvironmentObject : CustomBehaviour
             GameManager.OnStartGame += StartGame;
             GameManager.OnLevelCompleted += EndGame;
             GameManager.OnLevelFailed += EndGame;
+            GameManager.OnRestartGame += RestartGame;
         }
     }
     private void OnDestroy()
@@ -24,6 +25,7 @@ public class EnvironmentObject : CustomBehaviour
             GameManager.OnStartGame -= StartGame;
             GameManager.OnLevelCompleted -= EndGame;
             GameManager.OnLevelFailed -= EndGame;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
     private void StartGame()
@@ -47,6 +49,10 @@ public class EnvironmentObject : CustomBehaviour
     {
         CloseGhost();
         GameManager.PoolingManager.EnvironmentObjPoolers[(int)EnvironmentObjType.Tree].ReturnObjectToPool(_objToPool);
+    }
+    private void RestartGame()
+    {
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -23,6 +23,7 @@ public class PlayerLevelManager : CustomBehaviour
             GameManager.OnLevelFailed += LevelFailed;
             GameManager.OnLevelCompleted += LevelCompleted;
             GameManager.OnStartGame += GameStarted;
+            GameManager.OnRestartGame += RestartGame;
         }
         SetLevelRequirement();
 
@@ -104,7 +105,8 @@ public class PlayerLevelManager : CustomBehaviour
         {
             mSelectSkillPanel.UtilityIcons[i].sprite = GameManager.SkillManager.UtilitiesInUseTemp[i].UtilitySO.Icon;
         }
-        mSelectSkillPanel.OpenPanel();
+        if(GameManager.PlayerManager.CurrentPlayer.mCurrentHealth != 0)
+            mSelectSkillPanel.OpenPanel();
         PlayerLevel++;
         mHud.UpdateLevelText();
 
@@ -113,6 +115,16 @@ public class PlayerLevelManager : CustomBehaviour
 
     private void GameStarted()
     {
+        CurrentExp = 0;
+        PlayerLevel = 0;
+        LevelRequirement = InitialLevelRequirement;
+        mHud.UpdateLevelText();
+        mHud.SetExpBarFillAmount();
+    }
+
+    private void RestartGame()
+    {
+        mSelectSkillPanel.ClosePanel();
         CurrentExp = 0;
         PlayerLevel = 0;
         LevelRequirement = InitialLevelRequirement;
@@ -137,6 +149,7 @@ public class PlayerLevelManager : CustomBehaviour
             GameManager.OnStartGame -= GameStarted;
             GameManager.OnLevelFailed -= LevelFailed;
             GameManager.OnLevelCompleted -= LevelCompleted;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 }

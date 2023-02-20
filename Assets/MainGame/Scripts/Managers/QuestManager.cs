@@ -40,6 +40,7 @@ public class QuestManager : CustomBehaviour
             GameManager.OnStartGame += OnGameStart;
             GameManager.OnLevelCompleted += OnLevelCompleted;
             GameManager.OnLevelFailed += OnLevelFailed;
+            GameManager.OnRestartGame += RestartGame;
         }
     }
     private void Awake()
@@ -85,6 +86,23 @@ public class QuestManager : CustomBehaviour
         TowerPanel.SetActive(false);
         currentKillCount = 0;
     }
+
+    public void RestartGame()
+    {
+        hasActiveQuest = false;
+        canSpawnQuest = true;
+        canQuestsStart = true;
+        timer = 0;
+        currentKillCount = 0;
+        QuestNPC.SetActive(false);
+        Tower.SetActive(false);
+        QuestPanel.SetActive(false);
+        questPanel.SetActive(false);
+        TowerPanel.SetActive(false);
+        isTowerNear = false;
+        hasActiveQuest = false;
+    }
+
     public void Update()
     {
         if (GameManager != null && canQuestsStart)
@@ -187,6 +205,7 @@ public class QuestManager : CustomBehaviour
             GameManager.OnStartGame -= OnGameStart;
             GameManager.OnLevelCompleted -= OnLevelCompleted;
             GameManager.OnLevelFailed -= OnLevelFailed;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 }

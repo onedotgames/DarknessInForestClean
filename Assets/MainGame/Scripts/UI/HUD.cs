@@ -220,6 +220,7 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
             GameManager.OnReturnToMainMenu += OnReturnToMainMenu;
             GameManager.OnLevelFailed += OnLevelFailed;
             GameManager.OnLevelCompleted += OnLevelCompleted;
+            GameManager.OnRestartGame += RestartGame;
         }
     }
 
@@ -270,14 +271,11 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
     {
         //GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
         //GameManager.UIManager.GetPanel(Panels.Pause).ClosePanel();
+        GameManager.RestartGame();
+        GameManager.UIManager.GetPanel(Panels.Pause).ClosePanel();
+        OpenPanel();
+        GameManager.IsGamePaused = false;
 
-        //GameManager.ReturnToMainMenu();
-        UnityEngine.SceneManagement.SceneManager.LoadScene
-            (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
-        GameManager.UIManager.GetPanel(Panels.MainMenu).OpenPanel();
-        GameManager.UIManager.GetPanel(Panels.Initial).ClosePanel();
-        Debug.Log("Level baştan başlamalı");
-        
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -372,6 +370,13 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
         ClosePanel();
     }
 
+    private void RestartGame()
+    {
+        ResetBossUI();
+        OpenPanel();
+        killCount = 0;
+        KillCount.text = killCount.ToString();
+    }
     public void UpdateKillCountBar()
     {
         killCount++;
@@ -386,6 +391,7 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
             GameManager.OnReturnToMainMenu -= OnReturnToMainMenu;
             GameManager.OnLevelFailed -= OnLevelFailed;
             GameManager.OnLevelCompleted -= OnLevelCompleted;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 

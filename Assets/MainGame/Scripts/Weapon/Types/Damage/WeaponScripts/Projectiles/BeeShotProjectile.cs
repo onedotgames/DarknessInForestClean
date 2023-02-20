@@ -43,7 +43,7 @@ public class BeeShotProjectile : ProjectileBase
         float addition = 0;
 
         Quaternion rot = Quaternion.identity;
-        rot.eulerAngles = new Vector3(0, 0, (Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg + addition * index));
+        rot.eulerAngles = new Vector3(0, 0, ((Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg + addition * index)) + UnityEngine.Random.Range(-5,5));
         Model.transform.rotation = rot;
 
     }

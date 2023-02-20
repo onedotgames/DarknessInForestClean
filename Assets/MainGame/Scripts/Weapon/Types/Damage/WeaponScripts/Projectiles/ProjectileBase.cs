@@ -30,6 +30,7 @@ public class ProjectileBase : CustomBehaviour
     {
         GameManager.OnLevelCompleted += LevelCompleted;
         GameManager.OnLevelFailed += LevelFailed;
+        GameManager.OnRestartGame += RestartGame;
     }
 
     private void LevelCompleted()
@@ -38,6 +39,11 @@ public class ProjectileBase : CustomBehaviour
     }
 
     private void LevelFailed()
+    {
+        Return();
+    }
+
+    private void RestartGame()
     {
         Return();
     }
@@ -126,5 +132,6 @@ public class ProjectileBase : CustomBehaviour
     {
         GameManager.OnLevelCompleted -= LevelCompleted;
         GameManager.OnLevelFailed -= LevelFailed;
+        GameManager.OnRestartGame -= RestartGame;
     }
 }

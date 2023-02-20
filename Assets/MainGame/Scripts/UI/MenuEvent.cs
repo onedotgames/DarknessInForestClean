@@ -30,6 +30,7 @@ public class MenuEvent : CustomBehaviour
             GameManager.OnStartGame += StartGame;
             GameManager.OnLevelCompleted += Completed;
             GameManager.OnLevelFailed += Failed;
+            GameManager.OnRestartGame += RestartGame;
         }
     }
 
@@ -74,6 +75,23 @@ public class MenuEvent : CustomBehaviour
         }
     }
 
+    private void RestartGame()
+    {
+        canPlay = false;
+
+        switch (eventType)
+        {
+            case EventType.Boss:
+                Boss.SetActive(false);
+                break;
+            case EventType.Leaves:
+                Leaves.Stop();
+                break;
+            case EventType.FireFlies:
+                FireFlies.Stop();
+                break;
+        }
+    }
     private void Failed()
     {
         canPlay = true;
@@ -81,7 +99,7 @@ public class MenuEvent : CustomBehaviour
         {
             case EventType.Boss:
                 Boss.SetActive(true);
-            break;
+                break;
             case EventType.Leaves:
                 break;
             case EventType.FireFlies:
@@ -178,6 +196,7 @@ public class MenuEvent : CustomBehaviour
             GameManager.OnStartGame -= StartGame;
             GameManager.OnLevelCompleted -= Completed;
             GameManager.OnLevelFailed -= Failed;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 }

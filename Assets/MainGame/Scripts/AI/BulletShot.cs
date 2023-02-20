@@ -24,6 +24,7 @@ public class BulletShot : MonoBehaviour
         {
             gm.OnLevelFailed += OnGameFailed;
             gm.OnLevelCompleted += OnGameCompleted;
+            gm.OnRestartGame += RestartGame;
         }
     }
 
@@ -42,6 +43,11 @@ public class BulletShot : MonoBehaviour
         isShotted = false;
         PoolerBase.ReturnObjectToPool(gameObject);
     }
+    private void RestartGame()
+    {
+        isShotted = false;
+        PoolerBase.ReturnObjectToPool(gameObject);
+    }
 
     private void OnBecameInvisible()
     {
@@ -56,6 +62,7 @@ public class BulletShot : MonoBehaviour
         {
             gm.OnLevelFailed -= OnGameFailed;
             gm.OnLevelCompleted -= OnGameCompleted;
+            gm.OnRestartGame -= RestartGame;
         }
     }
 }

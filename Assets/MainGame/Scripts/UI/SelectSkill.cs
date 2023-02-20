@@ -268,6 +268,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
             GameManager.OnStartGame += OnLevelStart;
             GameManager.OnLevelFailed += OnLevelFailed;
             GameManager.OnLevelCompleted += OnLevelCompleted;
+            GameManager.OnRestartGame += RestartGame;
         }
     }
     public override void OpenPanel()
@@ -343,6 +344,11 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
         LevelStart();
     }
 
+    private void RestartGame()
+    {
+        ClosePanel();
+    }
+
     private void OnLevelFailed()
     {
         LevelEnd();
@@ -367,6 +373,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
             GameManager.OnStartGame -= OnLevelStart;
             GameManager.OnLevelFailed -= OnLevelFailed;
             GameManager.OnLevelCompleted -= OnLevelCompleted;
+            GameManager.OnRestartGame -= RestartGame;
         }
     }
 
