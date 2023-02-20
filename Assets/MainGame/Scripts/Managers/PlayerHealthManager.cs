@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using Unity.VisualScripting;
+using UnityEngine.UIElements;
 
 public class PlayerHealthManager : CustomBehaviour
 {
     public Player Player;
     public HUD mHud;
-    public Image HealthBar;
+    public UnityEngine.UI.Image HealthBar;
 
     public bool IsRegenActive;
     public UtilityBase HpReg;
-
+    private float _timeValue;
 
     public override void Initialize(GameManager gameManager)
     {
@@ -27,6 +29,33 @@ public class PlayerHealthManager : CustomBehaviour
         {
             GameManager.OnReturnToMainMenu += ReturnToMainMenu;
             GameManager.OnStartGame += StartGame;
+        }
+    }
+
+    private void Update()
+    {
+        if(GameManager.IsGameStarted && !GameManager.IsGamePaused && IsRegenActive)
+        {
+            _timeValue += Time.deltaTime;
+            if (_timeValue >= HpReg.UtilitySO.Cooldown)
+            {
+                _timeValue = 0;
+                if (Player.mCurrentHealth < Player.mMaxHealth)
+                {
+                    Player.mCurrentHealth += HpReg.UtilitySO.UpgradeUtilityDatas[HpReg.UpgradeLevel].ChangeAmount;
+                    if (Player.mCurrentHealth > Player.mMaxHealth)
+                    {
+                        Player.mCurrentHealth = Player.mMaxHealth;
+                    }
+                    Player.HealingEffect.gameObject.SetActive(true);
+                }
+                else
+                {
+                    Player.HealingEffect.gameObject.SetActive(false);
+
+                }
+            }
+            
         }
     }
 
@@ -54,6 +83,7 @@ public class PlayerHealthManager : CustomBehaviour
                 {
                     Player.mCurrentHealth = Player.mMaxHealth;
                 }
+                Player.HealingEffect.gameObject.SetActive(true);
             }
             SetHealthBar(Player.mMaxHealth);
             Invoke("HpRegen", HpReg.UtilitySO.Cooldown);

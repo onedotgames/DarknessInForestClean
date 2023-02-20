@@ -65,7 +65,7 @@ public class UtilityBase : CustomBehaviour
 
                 case UtilityPattern.HealthRegen:
                     GameManager.PlayerHealthManager.IsRegenActive = true;
-                    GameManager.PlayerHealthManager.HpRegen();
+                    //GameManager.PlayerHealthManager.HpRegen();
                     break;
 
                 case UtilityPattern.WeaponCooldownReduction:

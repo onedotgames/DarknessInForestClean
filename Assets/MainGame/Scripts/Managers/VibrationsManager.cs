@@ -14,7 +14,7 @@ public class VibrationsManager : CustomBehaviour
         base.Initialize(gameManager);
         LofeltHaptics.Initialize();
         DeviceCapabilities.Init();
-        
+        InitializeVibrationState();       
     }
 
     public void InitializeVibrationState()
@@ -43,7 +43,10 @@ public class VibrationsManager : CustomBehaviour
     //}
 
     public void PlayVibration(HapticPatterns.PresetType presetType)
-    {        
-        HapticPatterns.PlayPreset(presetType);
+    {
+        if (IsVibrationOn)
+        {
+            HapticPatterns.PlayPreset(presetType);
+        }
     }
 }

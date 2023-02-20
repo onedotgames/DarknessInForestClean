@@ -90,6 +90,7 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
         {
             vignette = vig;
         }
+        SwithVibrationToggle();
     }
 
     public void SetBossHPBarActivation(bool setValue)

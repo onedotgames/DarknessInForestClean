@@ -17,7 +17,7 @@ public class CameraManager : CustomBehaviour
     private float mOffsetX;
     private bool mCanFollow = false;
     private bool sizeFit = true;
-
+    public CreateBoundaries CreateBoundaries;
     public List<BackGround> BackGrounds;
     #endregion
 
@@ -60,6 +60,7 @@ public class CameraManager : CustomBehaviour
         mOffsetX = mCameraTransform.position.x - PlayerTransform.position.x;
 
         mUpdatedCameraPosition = new Vector3(mOffsetX, mCurrentOffset.y, mCurrentOffset.z + PlayerTransform.position.z);
+        CreateBoundaries.Initialize(GameManager);
     }
 
     private void LateUpdate()
@@ -109,6 +110,7 @@ public class CameraManager : CustomBehaviour
     {
         mCanFollow = true;
         sizeFit = false;
+        CreateBoundaries.SetV2();
     }
 
     private void ReturnToMainMenu()
