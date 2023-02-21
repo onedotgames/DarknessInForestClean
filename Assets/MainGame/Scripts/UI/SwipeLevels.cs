@@ -12,9 +12,6 @@ public class SwipeLevels : MonoBehaviour
     public MapStats[] mapStats;
     public SpriteRenderer[] backgroundRenderers;
     public GameObject BGObject;
-    //public Material currentLevelMat;
-    //public Material[] levelsMaterials;
-    //public MeshRenderer backgroundRenderer;
     public BackGround backGround;
     public GameManager GameManager;
     private void Update()
@@ -46,7 +43,6 @@ public class SwipeLevels : MonoBehaviour
             if (scrollPos < pos[i] + (distance / 2) && scrollPos > pos[i] - (distance / 2))
             {
                 transform.GetChild(i).localScale = Vector3.Lerp(transform.GetChild(i).localScale, new Vector3(1.2f, 1.2f, 1f), 0.1f);
-                //currentLevelMat = levelsMaterials[i];
                 currentLevelMat = mapStats[i].MapSprite;
                 GameManager.BackgroundManager.mapType = mapStats[i].mapType;
                 for (int k = 0; k < 9; k++)

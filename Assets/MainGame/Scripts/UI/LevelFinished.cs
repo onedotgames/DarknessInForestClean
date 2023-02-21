@@ -119,10 +119,10 @@ public class LevelFinished : UIPanel
         SuccessCanvas.Open();
         SuccessCanvas.gameObject.SetActive(true);
         OpenPanel();
-        SuccessImg.GetComponent<PlayAnimation>().Play();
         colorAdjustments.saturation.value = 0;
         isGameSucceed = true;
-        if(isGameSucceed)
+        SuccessImg.GetComponent<PlayAnimation>().Play();
+        if (isGameSucceed)
             WinSaturation();
     }
 

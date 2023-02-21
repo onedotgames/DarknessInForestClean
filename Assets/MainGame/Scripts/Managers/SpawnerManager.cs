@@ -93,16 +93,22 @@ public class SpawnerManager : CustomBehaviour
         {
             //Horizontal
             HorizontalMainSpawnerHolder.SetActive(value);
+            VerticalMainSpawnerHolder.SetActive(false);
+            MainSpawnerHolder.SetActive(false);
         }
         else if(GameManager.BackgroundManager.mapType == MapType.Vertical)
         {
             //Vertical
             VerticalMainSpawnerHolder.SetActive(value);
+            MainSpawnerHolder.SetActive(false);
+            HorizontalMainSpawnerHolder.SetActive(false);
         }
         else
         {
             //Normal
             MainSpawnerHolder.SetActive(value);
+            VerticalMainSpawnerHolder.SetActive(false);
+            HorizontalMainSpawnerHolder.SetActive(false);
         }
     }
     private void Update()

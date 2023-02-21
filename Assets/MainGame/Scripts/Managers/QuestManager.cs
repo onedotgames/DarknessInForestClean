@@ -151,26 +151,77 @@ public class QuestManager : CustomBehaviour
 
     public void SpawnQuest()
     {
-        questPos = new Vector3(Random.Range(-80, 80) + GameManager.PlayerManager.CurrentPlayer.transform.position.x, Random.Range(-80, 80) + GameManager.PlayerManager.CurrentPlayer.transform.position.y, 0);
-        QuestNPC.transform.position = questPos;
-        QuestNPC.SetActive(true);
-        TargetObj.SetActive(true);
+        if(GameManager.BackgroundManager.mapType == MapType.Normal)
+        {
+            questPos = new Vector3(Random.Range(-80, 80) + GameManager.PlayerManager.CurrentPlayer.transform.position.x, Random.Range(-80, 80) + GameManager.PlayerManager.CurrentPlayer.transform.position.y, 0);
+            QuestNPC.transform.position = questPos;
+            QuestNPC.SetActive(true);
+            TargetObj.SetActive(true);
+        }
+        else if(GameManager.BackgroundManager.mapType == MapType.Horizontal)
+        {//yatay
+            questPos = new Vector3(Random.Range(-80, 80) + GameManager.PlayerManager.CurrentPlayer.transform.position.x, Random.Range(-5, 5), 0);
+            QuestNPC.transform.position = questPos;
+            QuestNPC.SetActive(true);
+            TargetObj.SetActive(true);
+        }
+        else if(GameManager.BackgroundManager.mapType == MapType.Vertical)
+        {//dikey
+            questPos = new Vector3(Random.Range(-5, 5), Random.Range(-80, 80) + GameManager.PlayerManager.CurrentPlayer.transform.position.y, 0);
+            QuestNPC.transform.position = questPos;
+            QuestNPC.SetActive(true);
+            TargetObj.SetActive(true);
+        }
+        
     }
 
     public void SearchAndDestroy()
     {
-        towerQuest = true;
-        hasActiveQuest = true;
-        QuestPanel.SetActive(false);
-        Time.timeScale = 1f;
-        QuestNPC.SetActive(false);
-        towerPos = new Vector3(Random.Range(-40, 40) + GameManager.PlayerManager.CurrentPlayer.transform.position.x, Random.Range(-40, 40) + GameManager.PlayerManager.CurrentPlayer.transform.position.y, 0);
-        Tower.transform.position = towerPos;
-        Tower.SetActive(true);
-        questText.text = "Destroy Tower";
-        towerText.text = "Tower Health: " + Tower.GetComponent<TowerSystem>().TowerHealth;
-        questPanel.SetActive(true);
-        TowerPanel.SetActive(true);
+        if(GameManager.BackgroundManager.mapType == MapType.Normal)
+        {
+            towerQuest = true;
+            hasActiveQuest = true;
+            QuestPanel.SetActive(false);
+            Time.timeScale = 1f;
+            QuestNPC.SetActive(false);
+            towerPos = new Vector3(Random.Range(-40, 40) + GameManager.PlayerManager.CurrentPlayer.transform.position.x, Random.Range(-40, 40) + GameManager.PlayerManager.CurrentPlayer.transform.position.y, 0);
+            Tower.transform.position = towerPos;
+            Tower.SetActive(true);
+            questText.text = "Destroy Tower";
+            towerText.text = "Tower Health: " + Tower.GetComponent<TowerSystem>().TowerHealth;
+            questPanel.SetActive(true);
+            TowerPanel.SetActive(true);
+        }
+        else if(GameManager.BackgroundManager.mapType == MapType.Horizontal)
+        {
+            towerQuest = true;
+            hasActiveQuest = true;
+            QuestPanel.SetActive(false);
+            Time.timeScale = 1f;
+            QuestNPC.SetActive(false);
+            towerPos = new Vector3(Random.Range(-40, 40) + GameManager.PlayerManager.CurrentPlayer.transform.position.x, Random.Range(-5, 5), 0);
+            Tower.transform.position = towerPos;
+            Tower.SetActive(true);
+            questText.text = "Destroy Tower";
+            towerText.text = "Tower Health: " + Tower.GetComponent<TowerSystem>().TowerHealth;
+            questPanel.SetActive(true);
+            TowerPanel.SetActive(true);
+        }
+        else if(GameManager.BackgroundManager.mapType == MapType.Vertical)
+        {
+            towerQuest = true;
+            hasActiveQuest = true;
+            QuestPanel.SetActive(false);
+            Time.timeScale = 1f;
+            QuestNPC.SetActive(false);
+            towerPos = new Vector3(Random.Range(-5, 5), Random.Range(-40, 40) + GameManager.PlayerManager.CurrentPlayer.transform.position.y, 0);
+            Tower.transform.position = towerPos;
+            Tower.SetActive(true);
+            questText.text = "Destroy Tower";
+            towerText.text = "Tower Health: " + Tower.GetComponent<TowerSystem>().TowerHealth;
+            questPanel.SetActive(true);
+            TowerPanel.SetActive(true);
+        }
     }
 
     public void Hunt()

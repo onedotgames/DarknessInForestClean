@@ -31,10 +31,27 @@ public class HolyFountain : CustomBehaviour
 
     private void StartGame()
     {
-        Fountain.transform.position = new Vector3(Random.Range(-80, 80), Random.Range(-80, 80), 0);
-        Fountain.SetActive(true);
-        Water.transform.localScale = Vector3.one;
-        HolyFountainCollider.enabled = true;
+        if(GameManager.BackgroundManager.mapType == MapType.Normal)
+        {
+            Fountain.transform.position = new Vector3(Random.Range(-80, 80), Random.Range(-80, 80), 0);
+            Fountain.SetActive(true);
+            Water.transform.localScale = Vector3.one;
+            HolyFountainCollider.enabled = true;
+        }
+        else if (GameManager.BackgroundManager.mapType == MapType.Horizontal)
+        {
+            Fountain.transform.position = new Vector3(Random.Range(-80, 80), Random.Range(-5, 5), 0);
+            Fountain.SetActive(true);
+            Water.transform.localScale = Vector3.one;
+            HolyFountainCollider.enabled = true;
+        }
+        else if (GameManager.BackgroundManager.mapType == MapType.Vertical)
+        {
+            Fountain.transform.position = new Vector3(Random.Range(-5, 5), Random.Range(-80, 80), 0);
+            Fountain.SetActive(true);
+            Water.transform.localScale = Vector3.one;
+            HolyFountainCollider.enabled = true;
+        }
     }
 
     private void Update()

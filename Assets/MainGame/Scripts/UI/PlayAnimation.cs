@@ -9,7 +9,6 @@ public class PlayAnimation : MonoBehaviour
     public Image BaseImage;
     public float Time;
     private Coroutine coroutineLoop;
-    private Coroutine coroutine;
     public void Play()
     {
         StartCoroutine(Delay());

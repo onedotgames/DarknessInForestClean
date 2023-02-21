@@ -61,7 +61,14 @@ public class InitialMenu : UIPanel
     public Slider AttackSlider;
     public Slider DamageReductionSlider;
     public Slider SpeedSlider;
+    public bool isSwipe = true;
     private InventoryManager inventoryManager;
+
+    [Header("Energy System")]
+    public TMP_Text EnergyText;
+    public int EnergyRechargeTime;
+    public Player player;
+    private float EnergyTimer;
     public override void Initialize(UIManager uIManager)
     {
         base.Initialize(uIManager);
@@ -93,6 +100,7 @@ public class InitialMenu : UIPanel
 
         inventoryManager = uIManager.GameManager.InventoryManager;
         SetEquipmentSectionBars();
+        SetEnergyText();
         SubEvents();
     }
 
@@ -105,11 +113,31 @@ public class InitialMenu : UIPanel
         }
     }
 
+    private void SetEnergyText()
+    {
+        EnergyText.text = player.PlayerVariables.UserCurrentEnergy + " / " + player.PlayerVariables.MaxEnergy;
+    }
+
+    private void Update()
+    {
+        if (!GameManager.IsGameStarted)
+        {
+            EnergyTimer += Time.deltaTime;
+            if (EnergyRechargeTime == (int)EnergyTimer)
+            {
+                Debug.Log("Enerji arttı");
+                player.PlayerVariables.UserCurrentEnergy++;
+                EnergyText.text = player.PlayerVariables.UserCurrentEnergy + " / " + player.PlayerVariables.MaxEnergy;
+                EnergyTimer = 0;
+            }
+        }
+    }
     private void OnCoopBTNClicked()
     {
+        isSwipe = false;
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
         //AdjustMenuButtonScales();
-        Content.DOLocalMoveX(Screen.height * 2, MenuSwipeSpeed);
+        Content.DOLocalMoveX(Screen.height * 2, MenuSwipeSpeed).OnComplete(() => isSwipe = true);
         PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
 
         Coop.DOScale(Vector3.one * 1.3f, 0.4f);
@@ -123,9 +151,10 @@ public class InitialMenu : UIPanel
     }
     private void OnEquipmentBTNClicked()
     {
+        isSwipe = false;
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click); 
         //AdjustMenuButtonScales();
-        Content.DOLocalMoveX(Screen.height, MenuSwipeSpeed);
+        Content.DOLocalMoveX(Screen.height, MenuSwipeSpeed).OnComplete(() => isSwipe = true);
         PlayerImg.GetComponent<SpriteRenderer>().enabled = true;
 
         Equipment.DOScale(Vector3.one * 1.3f, 0.4f);
@@ -139,9 +168,10 @@ public class InitialMenu : UIPanel
     }
     private void OnHomeBTNClicked()
     {
+        isSwipe = false;
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click); 
         //AdjustMenuButtonScales();
-        Content.DOLocalMoveX(0, MenuSwipeSpeed);
+        Content.DOLocalMoveX(0, MenuSwipeSpeed).OnComplete(() => isSwipe = true);
         PlayerImg.GetComponent<SpriteRenderer>().enabled = true;
 
         Home.DOScale(Vector3.one * 1.3f, 0.4f);
@@ -156,9 +186,10 @@ public class InitialMenu : UIPanel
     }
     private void OnLevelsBTNClicked()
     {
+        isSwipe = false;
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
         //AdjustMenuButtonScales();
-        Content.DOLocalMoveX(-Screen.height, MenuSwipeSpeed);
+        Content.DOLocalMoveX(-Screen.height, MenuSwipeSpeed).OnComplete(() => isSwipe = true);
         PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
 
 
@@ -173,9 +204,10 @@ public class InitialMenu : UIPanel
     }
     private void OnLeaderBoardBTNClicked()
     {
+        isSwipe = false;
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click); 
         //AdjustMenuButtonScales();
-        Content.DOLocalMoveX(-Screen.height * 2, MenuSwipeSpeed);
+        Content.DOLocalMoveX(-Screen.height * 2, MenuSwipeSpeed).OnComplete(() => isSwipe = true);
         PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
 
 
@@ -214,11 +246,20 @@ public class InitialMenu : UIPanel
 
     private void OnPlayButtonClicked()
     {
-        GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
-        //GameManager.UIManager.GetPanel(Panels.MainMenu).OpenPanel();
-        ClosePanel();
-        UserInfoPanel.SetActive(false);
-        GameManager.StartGame();
+        if(player.PlayerVariables.UserCurrentEnergy >= 5)
+        {
+            GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
+            //GameManager.UIManager.GetPanel(Panels.MainMenu).OpenPanel();
+            ClosePanel();
+            UserInfoPanel.SetActive(false);
+            GameManager.StartGame();
+            player.PlayerVariables.UserCurrentEnergy -= 5;
+            EnergyText.text = player.PlayerVariables.UserCurrentEnergy + " / " + player.PlayerVariables.MaxEnergy;
+        }
+        else
+        {
+            Debug.Log("Yeterli Enerjim yok");
+        }
     }
 
     private void OnReturnToMainMenu()

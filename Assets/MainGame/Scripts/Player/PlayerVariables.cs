@@ -10,4 +10,6 @@ public class PlayerVariables : ScriptableObject
     public int PlayerMaxHealth;
     public float WalkAcceleration;
     public float GroundDeceleration;
+    public float MaxEnergy;
+    public float UserCurrentEnergy;
 }

@@ -8,12 +8,21 @@ public class CreateBoundaries : CustomBehaviour
     public GameObject objDownLeft;
     public GameObject CamBounds;
 
+
+
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
-        SetV2();
+        if(GameManager != null)
+        {
+            GameManager.OnStartGame += StartGame;
+        }
     }
 
+    private void StartGame()
+    {
+        SetV2();
+    }
     private void Update()
     {
         //if (GameManager.IsGameStarted)
@@ -33,7 +42,14 @@ public class CreateBoundaries : CustomBehaviour
         objDownLeft.transform.position = new Vector3(dl.x - 1, dl.y - 1, dl.z);
 
         var tr = MainCamera.ViewportToWorldPoint(new Vector3(1, 1, camDistance));
-        objTopRight.transform.position = new Vector3(tr.x + 1, tr.y + 1, tr.z); ;
+        objTopRight.transform.position = new Vector3(tr.x + 1, tr.y + 1, tr.z);
     }
-    
+
+    private void OnDestroy()
+    {
+        if(GameManager != null)
+        {
+            GameManager.OnStartGame -= StartGame;
+        }
+    }
 }
