@@ -15,6 +15,8 @@ MonoBehaviour:
   mBaseHealth: 3000
   mBaseMoveSpeed: 1
   mAttackRange: 10
-  mAttackCooldown: 5
+  mAttackCooldown: 2
+  mSpecialOneCooldown: 5
+  mSpecialTwoCooldown: 3
   mDamage: 10
   mMoveType: 1

@@ -552,6 +552,11 @@ public class WeaponBaseV2 : CustomBehaviour
             case PoolerType.BananaPooler:
                 BananaGuardian();
                 break;
+            case PoolerType.BoulderPooler:
+                await Boulder();
+                _timerOn = true;
+
+                break;
         }
         //_timerOn = true;
 
@@ -818,6 +823,35 @@ public class WeaponBaseV2 : CustomBehaviour
         obj.gameObject.SetActive(true);
     }
 
+    private async Task Boulder()
+    {
+        for (int i = 0; i < Count; i++)
+        {
+            GetClosestEnemy(GameManager.AIManager.EnemyList);
+
+            if (_target != null)
+            {
+                var obj = Pooler.GetFromPool();
+                obj.transform.position = this.transform.position;
+
+
+                var boulder = obj.gameObject.GetComponent<BoulderProjectile>();
+                SetSkill(GameManager.AIManager.EnemyList);
+
+                SetProjectile(boulder, false);
+
+                obj.gameObject.SetActive(true);
+                GameManager.AIManager.EnemyList.Remove(_target);
+                await Delay(0.25f);
+            }
+            else
+            {
+                await Task.Yield();
+            }
+        }
+
+        _target = null;
+    }
     async Task<int> Delay(float delay)
     {
         var mDelay = (int)(delay * 1000);

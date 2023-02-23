@@ -148,7 +148,8 @@ public enum DamagePattern
     Bomb = 7,
     Bounce = 8,
     SkunkGas = 9,
-    BananaGuardian = 10
+    BananaGuardian = 10,
+    Boulder = 11
 }
 
 public enum PoolerType
@@ -163,7 +164,8 @@ public enum PoolerType
     BeeShotPooler = 7,
     BirdBomb = 8,
     SkunGasPooler = 9,
-    BananaPooler = 10
+    BananaPooler = 10,
+    BoulderPooler = 11
 }
 
 public enum Maps { Normal, Vertical, Horizontal }
