@@ -18,4 +18,4 @@ MonoBehaviour:
   WalkAcceleration: 10
   GroundDeceleration: 1000
   MaxEnergy: 30
-  UserCurrentEnergy: 10
+  UserCurrentEnergy: 25
