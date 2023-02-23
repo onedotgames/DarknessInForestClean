@@ -17,7 +17,7 @@ public sealed class ScoreCounter : MonoBehaviour
 
     private void Update()
     {
-        if(popCount == 3)
+        if(popCount == 5)
         {
             MiniGamePanel.SetActive(false);
             skillManager.IsMiniGameDone = true;
@@ -31,7 +31,7 @@ public sealed class ScoreCounter : MonoBehaviour
 
             Time.timeScale = 1;
             popCount = 0;
-            scoreText.text = (popCount + " / 3");
+            scoreText.text = (popCount + " / 5");
         }
     }
 

@@ -14,13 +14,17 @@ public sealed class Board : MonoBehaviour
     public Tile[,] Tiles { get; private set; }
     public int Width => Tiles.GetLength(0);
     public int Height => Tiles.GetLength(1);
-    private readonly List<Tile> _selection = new List<Tile>();
+    public List<Tile> _selection = new List<Tile>();
     private const float TweenDuration = 0.25f;
     private void Awake() => Instance = this;
     private bool canSwap = false;
     public ScoreCounter scoreCounter;
     public bool canSelect = true;
     public List<Button> TileButtons;
+    public Vector2 clickedMousePos;
+    public Vector2 finalPos;
+    public LayerMask layerMask;
+    private RaycastHit raycastHit;
     private void Start()
     {
         Tiles = new Tile[rows.Max(row => row.tiles.Length), rows.Length];
@@ -41,6 +45,58 @@ public sealed class Board : MonoBehaviour
     }
     private void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            clickedMousePos = Input.mousePosition;
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward, Mathf.Infinity, layerMask);
+            if(hit.collider != null)
+            {
+                if (hit.collider.gameObject.CompareTag("Match3Tile"))
+                {
+                    _selection.Add(hit.collider.gameObject.GetComponent<Tile>());
+                }
+            }
+        }
+        if (Input.GetMouseButton(0))
+        {
+            finalPos = Input.mousePosition;
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            Debug.Log(clickedMousePos + " - " + finalPos);
+            if(clickedMousePos.x + 50 < finalPos.x && clickedMousePos.y - 50 < finalPos.y && clickedMousePos.y + 50 > finalPos.y)
+            {//sağ
+                if(_selection[0] != null && _selection[0].Right != null)
+                {
+                    //_selection.Add(_selection[0].Right);
+                    Select(_selection[0].Right);
+                }
+            }
+            else if(clickedMousePos.x - 50 > finalPos.x && clickedMousePos.y - 50 < finalPos.y && clickedMousePos.y + 50 > finalPos.y)
+            {//sol
+                if (_selection[0] != null && _selection[0].Left != null)
+                {
+                    //_selection.Add(_selection[0].Left);
+                    Select(_selection[0].Left);
+                }
+            }
+            else if(clickedMousePos.y + 50 < finalPos.y && clickedMousePos.x - 50 < finalPos.x && clickedMousePos.x + 50 > finalPos.x)
+            { //yukarı
+                if (_selection[0] != null && _selection[0].Top != null)
+                {
+                    //_selection.Add(_selection[0].Top);
+                    Select(_selection[0].Top);
+                }
+            }
+            else if (clickedMousePos.y - 50 > finalPos.y && clickedMousePos.x - 50 < finalPos.x && clickedMousePos.x + 50 > finalPos.x)
+            {//asağı
+                if (_selection[0] != null && _selection[0].Bottom != null)
+                {
+                    //_selection.Add(_selection[0].Bottom);
+                    Select(_selection[0].Bottom);
+                }
+            }
+        }
         if (!canSelect)
         {
             for (int i = 0; i < TileButtons.Count; i++)
@@ -137,9 +193,15 @@ public sealed class Board : MonoBehaviour
 
                 var deflateSequence = DOTween.Sequence();
                 deflateSequence.SetUpdate(true);
-                foreach (var connectedTile in connectedTiles) deflateSequence.Join(connectedTile.icon.transform.DOScale(Vector3.zero, TweenDuration));
-
-                await deflateSequence.Play().AsyncWaitForCompletion();
+                if (canSwap)
+                {
+                    foreach (var connectedTile in connectedTiles)
+                    {
+                        deflateSequence.Join(connectedTile.icon.transform.DOScale(Vector3.zero, TweenDuration));
+                        connectedTile.PopEffect.Play();
+                    }
+                    await deflateSequence.Play().AsyncWaitForCompletion();
+                }
 
                 var inflateSequence = DOTween.Sequence();
                 inflateSequence.SetUpdate(true);
@@ -147,7 +209,6 @@ public sealed class Board : MonoBehaviour
                 foreach (var connectedTile in connectedTiles)
                 {
                     connectedTile.Item = ItemDatabase.Items[UnityEngine.Random.Range(0, ItemDatabase.Items.Length)];
-
                     inflateSequence.Join(connectedTile.icon.transform.DOScale(Vector3.one, TweenDuration));
                 }
 

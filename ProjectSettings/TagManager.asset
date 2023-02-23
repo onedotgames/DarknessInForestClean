@@ -25,6 +25,7 @@ TagManager:
   - BossBullet
   - HolyFountain
   - BossRing
+  - Match3Tile
   layers:
   - Default
   - TransparentFX

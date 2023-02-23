@@ -22,7 +22,7 @@ public sealed class Tile : MonoBehaviour
         }
     }
     public Image icon;
-
+    public ParticleSystem PopEffect;
     public Button button;
 
     public Tile Left => x > 0 ? Board.Instance.Tiles[x - 1, y] : null;
