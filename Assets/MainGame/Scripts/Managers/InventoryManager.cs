@@ -94,7 +94,7 @@ public class InventoryManager : CustomBehaviour
     {
         PopUpWindow.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InQuint).OnComplete(() => 
         { 
-            player.enabled = true;
+            player.gameObject.SetActive(true);
             ClosePopUpSlots();
         });
         InventorySlots.ForEach(x => x.SlotButton.interactable = true);

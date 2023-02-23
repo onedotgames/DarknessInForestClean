@@ -123,61 +123,50 @@ public class BossSpawner : CustomBehaviour
         Debug.Log(GameManager.IsBossTime);
         if (bossNumber == 1)
         {
-            //GameManager.IsBossTime = true;
-
             Boss1Spawned = true;
-            //Boss1.gameObject.transform.position = transform.position;
+
             Boss1._DesiredStartPosition = BossSpawnLocation.transform.position;
 
-            //Boss1.ChangeEnablityOfAnimator(false);
-            //Boss1.ResetWeapon();
-            //Boss1.ChangeEnablityOfAnimator(true);
-            //Boss1.MakeMonsterReady();
             Boss1.BossReset();
 
             Boss1.gameObject.SetActive(true);
 
-            //Boss1.ChangeEnablityOfAnimator(false);
-            //Boss1.ResetWeapon();
-            //Boss1.ChangeEnablityOfAnimator(true);
-            //Boss1.MakeMonsterReady();
             Boss1.BossReset();
 
             ActiveBossTransform = Boss1.transform;
+
             Boss1.Initialize(GameManager);
         }
         if (bossNumber == 2)
         {
-            //GameManager.IsBossTime = true;
-
             Boss2Spawned = true;
-            Boss2.gameObject.transform.position = transform.position;
-            Boss2.BossReset();
 
+            Boss2._DesiredStartPosition = BossSpawnLocation.transform.position;
+
+            Boss2.BossReset();
 
             Boss2.gameObject.SetActive(true);
 
             Boss2.BossReset();
 
-
             ActiveBossTransform = Boss2.transform;
+
             Boss2.Initialize(GameManager);
         }
         if (bossNumber == 3)
         {
-            //GameManager.IsBossTime = true;
-
             Boss3Spawned = true;
-            Boss3.gameObject.transform.position = transform.position;
-            Boss3.BossReset();
 
+            Boss3._DesiredStartPosition = BossSpawnLocation.transform.position;
+
+            Boss3.BossReset();
 
             Boss3.gameObject.SetActive(true);
 
             Boss3.BossReset();
 
-
             ActiveBossTransform = Boss3.transform;
+
             Boss3.Initialize(GameManager);
         }
         Debug.Log(GameManager.IsBossTime);

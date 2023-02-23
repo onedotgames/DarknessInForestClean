@@ -70,9 +70,13 @@ public class InventorySlot : CustomBehaviour
         //    Debug.Log("Slot button operatability: " + SlotButton.interactable);
         //}
 
-        if(player.enabled == true)
+        if(player.gameObject.activeInHierarchy == true)
         {
-            player.enabled = false;
+            player.gameObject.SetActive(false);
+        }
+        else
+        {
+            player.gameObject.SetActive(true);
         }
 
         GameManager.InventoryManager.OpenSlots(IdenticalEquipmentList.Count, IdenticalEquipmentList); // this value should replaced by item count

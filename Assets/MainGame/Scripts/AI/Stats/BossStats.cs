@@ -40,6 +40,22 @@ public class BossStats : ScriptableObject
             return mAttackCooldown;
         }
     }
+    [SerializeField] private float mSpecialOneCooldown;
+    public float SpecialOneCooldown
+    {
+        get
+        {
+            return mSpecialOneCooldown;
+        }
+    }
+    [SerializeField] private float mSpecialTwoCooldown;
+    public float SpecialTwoCooldown
+    {
+        get
+        {
+            return mSpecialTwoCooldown;
+        }
+    }
 
     [SerializeField] private float mDamage;
 

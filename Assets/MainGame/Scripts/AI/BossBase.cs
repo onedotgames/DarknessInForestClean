@@ -1,16 +1,19 @@
 using Assets.FantasyMonsters.Scripts;
 using DG.Tweening;
 using DG.Tweening.Core.Easing;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 //using UnityEngine.UIElements;
+//using UnityEngine.UIElements;
 
 public class BossBase : CustomBehaviour
 {
-    public delegate void AttackDelegate();
+    public delegate void AttackDelegate(float timeValue);
     protected AttackDelegate AttackMethod1;
     protected AttackDelegate AttackMethod2;
     protected AttackDelegate AttackMethod3;
@@ -41,6 +44,8 @@ public class BossBase : CustomBehaviour
     public float BaseDamage;
     public float BaseRange;
     public float BaseAttackCooldown;
+    public float BaseSpecialOneCooldown;
+    public float BaseSpecialTwoCooldown;
 
     private float currentHP;
 
@@ -59,11 +64,13 @@ public class BossBase : CustomBehaviour
     public bool IsActivated = false;
     public bool ShouldMove = false;
     public bool ShouldAttack = false;
+    public bool ShouldSpecialOne = false;
     public bool CanAttack = true;
     public bool ShouldRotate = false;
     public bool ShouldIndicatorRotate = false;
     public bool IsPunchable = false;
     public bool HasWeapon = false;
+    public bool HasAreaIndicator = false;
 
     public Player Player;
     public Animator Anim;
@@ -86,7 +93,10 @@ public class BossBase : CustomBehaviour
     [SerializeField] private Transform WeaponPos;
     [SerializeField] private GameObject Weapon;
     [SerializeField] private Image AreaImage;
-    private float timeValue;
+    [SerializeField] private Canvas Canvas;
+    public float timeValue1;
+    public float timeValue2;
+    public float timeValue3;
     private Tweener punchTween;
     public override void Initialize(GameManager gameManager)
     {
@@ -102,12 +112,15 @@ public class BossBase : CustomBehaviour
         transform.position = _DesiredStartPosition + _DesiredInitialDifferenceWithPlayer;
         transform.localScale = _originalScale;
         SetStats();
-        timeValue = 0;
+        //ResetTimeValues();
         IsActivated = true;
 
         Collider2D.enabled = true;
         //StartJumperEntrance();
-        InitialAreaMark(_DesiredStartPosition);
+        if (HasAreaIndicator)
+        {
+            InitialAreaMark(_DesiredStartPosition);
+        }
         SetMovementPattern();
         SetAttackPattern();
         SetPunchTween();
@@ -116,6 +129,14 @@ public class BossBase : CustomBehaviour
         hud.SetBossFillText(currentHP, BaseHealth);
 
         MakeMonsterRun();
+    }
+
+    private void ResetTimeValues()
+    {
+        Debug.Log("Resetting boss time values");
+        timeValue1 = 0;
+        timeValue2 = 0;
+        timeValue3 = 0;
     }
 
     private void SetPunchTween()
@@ -155,13 +176,22 @@ public class BossBase : CustomBehaviour
         });
 
     }
+    public void JumpAttack(float timeValue)
+    {
+        ShouldMove = false;
+        ShouldSpecialOne = false;
+        AreaMark(GameManager.PlayerManager.CurrentPlayer.transform.position);
+    }
     public void AreaMark(Vector3 targetArea)
     {
         AreaImage.gameObject.transform.position = targetArea;
+        //AreaImage.gameObject.transform.parent = null;
+        
         AreaImage.gameObject.transform.DOScale(_DesiredAreaIndicatorScale, 1f).OnComplete(() => JumpSequence(targetArea));
         AreaImage.DOColor(AreaEndColor, 1f).OnComplete(() =>
         {
             AreaImage.gameObject.transform.localScale = Vector3.zero;
+            //AreaImage.gameObject.transform.parent = Canvas.gameObject.transform;
             AreaImage.color = AreaStartColor;
         });
 
@@ -169,6 +199,7 @@ public class BossBase : CustomBehaviour
 
     public void JumpSequence(Vector3 targetArea)
     {
+        Collider2D.enabled = false;
         transform.DOMove(new Vector3(transform.position.x, (_DesiredStartPosition + _DesiredInitialDifferenceWithPlayer).y, transform.position.z), 0.5f).OnComplete(() =>
         {
             transform.DOMove(targetArea, 0.5f)
@@ -176,7 +207,8 @@ public class BossBase : CustomBehaviour
             {
                 EntranceVFX.Play();
                 ShouldMove = true;
-                ShouldAttack = true;
+                ShouldSpecialOne = true;
+                Collider2D.enabled = true;
             });
          
             
@@ -241,35 +273,30 @@ public class BossBase : CustomBehaviour
 
     public virtual void Update()
     {
-        if (!GameManager.IsGamePaused)
-        {
-            if (IsActivated)
-            {
-                if (ShouldRotate)
-                {
-                    BossRotation();
-                }
+        //if (!GameManager.IsGamePaused)
+        //{
+        //    if (IsActivated)
+        //    {
+        //        if (ShouldRotate)
+        //        {
+        //            BossRotation();
+        //        }
 
-                if (ShouldIndicatorRotate)
-                {
-                    IndicatorRotation();
-                }
+        //        if (ShouldIndicatorRotate)
+        //        {
+        //            IndicatorRotation();
+        //        }
 
-                if (ShouldMove)
-                {
-                    MovementMethod1?.Invoke();
-                    MovementMethod2?.Invoke();
-                    MovementMethod3?.Invoke();
-                }
-                if (ShouldAttack)
-                {
-                    AttackMethod1?.Invoke();
-                    AttackMethod2?.Invoke();
-                    AttackMethod3?.Invoke();                   
-                }
-            }
-        } 
+        //        if (ShouldMove)
+        //        {
+        //            MovementMethod1?.Invoke();
+        //            MovementMethod2?.Invoke();
+        //            MovementMethod3?.Invoke();
+        //        }
+        //    }
+        //} 
     }
+
     private void SetStats()
     {
         BaseHealth = Stats.BaseHealth;
@@ -277,6 +304,8 @@ public class BossBase : CustomBehaviour
         BaseDamage = Stats.Damage;
         BaseRange = Stats.AttackRange;
         BaseAttackCooldown = Stats.AttackCooldown;
+        BaseSpecialOneCooldown = Stats.SpecialOneCooldown;
+        BaseSpecialTwoCooldown = Stats.SpecialTwoCooldown;
 
         currentHP = BaseHealth;
     }
@@ -300,9 +329,22 @@ public class BossBase : CustomBehaviour
     {
         if (!GameManager.IsGamePaused)
         {
-            Debug.Log("Game is Paused: " + GameManager.IsGamePaused);
             var dir = (Player.transform.position - transform.position).normalized;
-            _rb2D.velocity = ((BaseMoveSpeed * Time.deltaTime) * 50 * dir);
+            if (ShouldMove)
+            {
+                _rb2D.velocity = ((BaseMoveSpeed * Time.deltaTime) * 50 * dir);
+
+            }
+            else
+            {
+                _rb2D.velocity = Vector3.zero;
+
+            }
+        }
+        else
+        {
+            _rb2D.velocity = Vector3.zero;
+
         }
     }
 
@@ -319,44 +361,113 @@ public class BossBase : CustomBehaviour
         
     }
 
-    public void JumpAttack() 
+    
+    public void MeleeAttack(float timeValue)
     {
-        timeValue += Time.deltaTime;
-        if (timeValue >= BaseAttackCooldown)
+        if (Mathf.Abs(Vector3.Distance(Player.transform.position, transform.position)) <= 1.5f)
         {
-            timeValue = 0;
-            ShouldMove = false;
-            AreaMark(GameManager.PlayerManager.CurrentPlayer.transform.position);
-           
+            //Debug.Log("Melee Attack Time Value: " + timeValue);
+            Debug.Log(gameObject.name + " Melee attack");
+
+            Monster.ChangeAction(true);
+            Monster.Attack();
+            Player.GetHit(BaseDamage);
+            GameManager.PlayerHealthManager.SetHealthBar(Player.mMaxHealth);
+            CanAttack = false;
+            Monster.ChangeAction(false);
+            CanAttack = false;
         }
+        //if (CanAttack)
+        //{
+        //    if (Mathf.Abs(Vector3.Distance(Player.transform.position, transform.position)) <= 1f)
+        //    {
+        //        Monster.ChangeAction(true);
+        //        Monster.Attack();
+        //        Player.GetHit(BaseDamage);
+        //        GameManager.PlayerHealthManager.SetHealthBar(Player.mMaxHealth);
+        //        CanAttack = false;
+        //        Monster.ChangeAction(false);
+        //        CanAttack = false;
+        //    }
+        //}
+        //else
+        //{
+
+        //    timeValue += Time.deltaTime;
+        //    Debug.Log("Melee Attack Time Value: " + timeValue);
+        //    if (timeValue >= BaseAttackCooldown)
+        //    {
+        //        timeValue = 0;
+        //        CanAttack = true;
+
+        //    }
+        //}
     }
-    public void MeleeAttack()
+    protected async Task RapidFireAttack(float timeValue)
     {
-        if (CanAttack)
+        //timeValue += Time.deltaTime;
+        //Debug.Log("Rapide Time Value: " + timeValue);
+        //if (timeValue >= BaseAttackCooldown)
+        //{           
+        //    ProjectileShot(timeValue);
+        //}
+        //Debug.Log("Rapide Time Value: " + timeValue);
+
+        await ProjectileShot(timeValue);
+    }
+
+    private async Task ProjectileShot(float timeValue)
+    {
+        Debug.Log(gameObject.name + " Projectile Shot");
+        for (int i = 0; i < ChargeCount; i++)
         {
-            if (Mathf.Abs(Vector3.Distance(Player.transform.position, transform.position)) <= 1f)
+            Monster.ChangeAction(true);
+            Monster.Attack();
+
+            var bullet = GameManager.PoolingManager.EnemyBulletPoolerList[(int)EnemyBulletPoolerType.BossClub].GetObjectFromPool();
+            if (Hand != null)
             {
-                Monster.ChangeAction(true);
-                Monster.Attack();
-                Player.GetHit(BaseDamage);
-                GameManager.PlayerHealthManager.SetHealthBar(Player.mMaxHealth);
-                CanAttack = false;
-                Monster.ChangeAction(false);
-                CanAttack = false;
-            }
-        }
-        else
-        {
-            timeValue += Time.deltaTime;
-            if (timeValue >= BaseAttackCooldown)
-            {
-                timeValue = 0;
-                CanAttack = true;
+                if (bullet != null)
+                {
+                    bullet.transform.position = Hand.transform.position;
+
+                }
+                else
+                {
+                    Debug.Log("NO Bullet");
+                }
 
             }
-        }
-    }
+            else
+            {
+                bullet.transform.position = transform.position;
 
+            }
+
+            var bulletShot = bullet.GetComponent<BossRotatingProjectile>();
+
+            bulletShot.gm = GameManager;
+            GameManager.OnLevelFailed += bulletShot.OnGameFailed;
+
+            bulletShot.mDirection = Player.transform.position - transform.position;
+            bulletShot.DirectionNorm = bulletShot.mDirection.normalized;
+            if (bulletShot.DirectionNorm == Vector3.zero)
+            {
+                bulletShot.DirectionNorm = Vector3.down;
+            }
+            bulletShot.PoolerBase = GameManager.PoolingManager.EnemyBulletPoolerList[(int)EnemyBulletPoolerType.BossClub];
+            bulletShot.isShotted = true;
+            bulletShot.damage = BaseDamage;
+            await Delay(0.25f);
+        }
+        Monster.ChangeAction(false);
+    }
+    async Task<int> Delay(float delay)
+    {
+        var mDelay = (int)(delay * 1000);
+        await Task.Delay(mDelay);
+        return mDelay;
+    }
     public IEnumerator ChargeAttack(float startDelay,int chargeCount, float chargeBuilUpTime, float chargeTime, float chargeCooldown, float timeBetweenCharges)
     {
         while (GameManager.IsGamePaused)
@@ -482,6 +593,8 @@ public class BossBase : CustomBehaviour
 
     }
 
+    
+
     protected IEnumerator RapidFire(float startDelay, int shotCount, float shotCooldown, float timeBetweenShots)
     {
         while (GameManager.IsGamePaused)
@@ -543,7 +656,7 @@ public class BossBase : CustomBehaviour
         StartCoroutine(RapidFire(StartDelay, ChargeCount, BaseAttackCooldown, TimeBtwCharges));
     }
 
-    private void BossRotation()
+    protected void BossRotation()
     {
         if (transform.position.x - GameManager.PlayerManager.CurrentPlayer.transform.position.x <= 0)
         {
@@ -626,7 +739,7 @@ public class BossBase : CustomBehaviour
         GameManager.SpawnerManager.BossSpawner.BossRing.SetActive(false);
         Monster.Die();
         //random range 0,1000 if 1 se gold else exp.
-        var i = Random.Range(0, 1000);
+        var i = UnityEngine.Random.Range(0, 1000);
         if (i == 1)
         {
             DropCoin();
