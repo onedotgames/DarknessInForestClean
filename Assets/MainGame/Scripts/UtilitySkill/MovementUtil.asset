@@ -21,20 +21,20 @@ MonoBehaviour:
   UtilityPattern: 0
   UpgradeUtilityDatas:
   - Description: 0
-    PropertyChangeType: 0
-    ChangeAmount: 1.25
+    PropertyChangeType: 1
+    ChangeAmount: 0.1
   - Description: 0->1
-    PropertyChangeType: 0
-    ChangeAmount: 1.25
+    PropertyChangeType: 1
+    ChangeAmount: 0.1
   - Description: 1->2
-    PropertyChangeType: 0
-    ChangeAmount: 1.25
+    PropertyChangeType: 1
+    ChangeAmount: 0.1
   - Description: 2->3
-    PropertyChangeType: 0
-    ChangeAmount: 1.25
+    PropertyChangeType: 1
+    ChangeAmount: 0.1
   - Description: 3->4
-    PropertyChangeType: 0
-    ChangeAmount: 1.25
+    PropertyChangeType: 1
+    ChangeAmount: 0.1
   - Description: 4->5
-    PropertyChangeType: 0
-    ChangeAmount: 2
+    PropertyChangeType: 1
+    ChangeAmount: 0.1

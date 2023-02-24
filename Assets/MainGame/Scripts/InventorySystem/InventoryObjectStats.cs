@@ -47,8 +47,8 @@ public class InventoryObjectStats : ScriptableObject
         get { return mHealth; }
     }
     [EnableIf("EquipmentType", EquipmentType.Armor)]
-    [SerializeField] private int mSpeed;
-    public int Speed
+    [SerializeField] private float mSpeed;
+    public float Speed
     {
         get { return mSpeed; }
     }
