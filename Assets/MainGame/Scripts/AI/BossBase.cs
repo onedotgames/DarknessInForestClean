@@ -98,6 +98,7 @@ public class BossBase : CustomBehaviour
     public float timeValue2;
     public float timeValue3;
     private Tweener punchTween;
+    public ScoreCounter ScoreCounter;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -706,6 +707,10 @@ public class BossBase : CustomBehaviour
             //}
             StopAllCoroutines();
             OnDeath();
+            var miniGameObject = GameManager.SkillManager.Minigames[1];
+            miniGameObject.SetActive(true);
+            ScoreCounter.miniGameType = ScoreCounter.MiniGameType.Chest;
+            Time.timeScale = 0f;
         }
     }
 

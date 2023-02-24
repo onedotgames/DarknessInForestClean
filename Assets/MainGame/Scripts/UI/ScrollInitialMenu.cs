@@ -15,6 +15,8 @@ public class ScrollInitialMenu : MonoBehaviour
     public bool isHome = true;
     public bool isLevels = false;
     public bool isLeaderboard = false;
+    public InventoryManager inventoryManager;
+
     private void Update()
     {
         //content in size ını 5 e böl, her panelin durduğu yere göre pozisyonları eşitle azı ve çoğuna göre oralara at.
@@ -39,6 +41,7 @@ public class ScrollInitialMenu : MonoBehaviour
             { // equipment to coop
                 isEquipment = false;
                 isCoop = true;
+                inventoryManager.OnPopUpCloseButtonClicked();
                 ContentTransform.DOLocalMoveX(Screen.height * 2, 0.2f);
                 PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
                 initialMenu.Coop.DOScale(Vector3.one * 1.3f, 0.4f);
@@ -53,6 +56,7 @@ public class ScrollInitialMenu : MonoBehaviour
             { //equipment to home
                 isEquipment = false;
                 isHome = true;
+                inventoryManager.OnPopUpCloseButtonClicked();
                 ContentTransform.DOLocalMoveX(0, 0.2f);
                 PlayerImg.GetComponent<SpriteRenderer>().enabled = true;
                 initialMenu.Home.DOScale(Vector3.one * 1.3f, 0.4f);

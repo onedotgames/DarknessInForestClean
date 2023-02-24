@@ -65,7 +65,7 @@ public class WeaponBaseV2 : CustomBehaviour
     private int controlInt = 0;
 # endregion
     protected Player mPlayer;
-
+    public ScoreCounter ScoreCounter;
     public StatList StatList = new StatList();
     public override void Initialize(GameManager gameManager)
     {
@@ -315,7 +315,13 @@ public class WeaponBaseV2 : CustomBehaviour
                 miniGame.Weapons[0] = SkillSO.Icon;
             }
         }
+        miniGameObject.transform.localScale = Vector3.zero;
         miniGameObject.SetActive(true);
+        if(gameIndex == 1)
+        {//match3
+            ScoreCounter.miniGameType = ScoreCounter.MiniGameType.Evolve;
+        }
+        miniGameObject.transform.DOScale(Vector3.one, 1f).SetUpdate(true);
     }
     public void MakePropertyReadyForChange(PropertyToChange propertyToChange)
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
-
+using UnityEngine.UI;
 public sealed class ScoreCounter : MonoBehaviour
 {
     public static ScoreCounter Instance { get; private set; }
@@ -15,25 +15,11 @@ public sealed class ScoreCounter : MonoBehaviour
     public HUD HUD;
     public List<RectTransform> PopOpenList;
     public MiniGameType miniGameType;
-
+    public RectTransform RadialShine;
+    public Button SuccessBTN;
     private void Update()
     {
-        //if(popCount == 5)
-        //{
-        //    MiniGamePanel.SetActive(false);
-        //    skillManager.IsMiniGameDone = true;
-        //}
-
-        //if (skillManager.IsMiniGameDone)
-        //{
-        //    skillManager.IsMiniGameDone = false;
-        //    if(miniGameType == MiniGameType.Evolve)
-        //        GameManager.SkillManager.AllWeaponsV2[(int)GameManager.SkillManager.selectedWeaponData.Weapon.SkillSO.PoolerType].EvolveWeapon();
-
-        //    Time.timeScale = 1;
-        //    popCount = 0;
-        //    scoreText.text = (popCount + " / 5");
-        //}
+        RadialShine.DORotate(RadialShine.rotation.eulerAngles + new Vector3(0, 0, 5), 0.3f).SetUpdate(true);
     }
 
     public void OpenPop()
@@ -42,15 +28,15 @@ public sealed class ScoreCounter : MonoBehaviour
         {
             if(i == 0 || i== 1)
             {
-                PopOpenList[i].DOScale(Vector3.one, 0.5f);
+                PopOpenList[i].DOScale(Vector3.one, 0.5f).SetUpdate(true);
             }
             else if (i == 2 || i == 3)
             {
-                PopOpenList[i].DOScale(Vector3.one * 1.2f, 0.5f);
+                PopOpenList[i].DOScale(Vector3.one * 1.2f, 0.5f).SetUpdate(true);
             }
             else if (i == 4)
             {
-                PopOpenList[i].DOScale(Vector3.one * 1.4f, 0.5f);
+                PopOpenList[i].DOScale(Vector3.one * 1.4f, 0.5f).SetUpdate(true);
             }
         }
     }
@@ -59,23 +45,32 @@ public sealed class ScoreCounter : MonoBehaviour
     {
         if (popCount >= 5)
         {
-            MiniGamePanel.SetActive(false);
-            skillManager.IsMiniGameDone = true;
+            SuccessBTN.gameObject.SetActive(true);
+            SuccessBTN.transform.DOScale(Vector3.one * 0.65f, 0.5f).SetUpdate(true);
         }
+    }
+
+    private void Awake() => Instance = this;
+
+
+    public void SuccessBTNClick()
+    {
+        MiniGamePanel.transform.DOScale(Vector3.zero, 1f).OnComplete(() => MiniGamePanel.SetActive(false));
+        skillManager.IsMiniGameDone = true;
+        RadialShine.gameObject.SetActive(false);
 
         if (skillManager.IsMiniGameDone)
         {
             skillManager.IsMiniGameDone = false;
             if (miniGameType == MiniGameType.Evolve)
                 GameManager.SkillManager.AllWeaponsV2[(int)GameManager.SkillManager.selectedWeaponData.Weapon.SkillSO.PoolerType].EvolveWeapon();
-
             Time.timeScale = 1;
             popCount = 0;
-            scoreText.text = (popCount + " / 5");
         }
+        SuccessBTN.gameObject.SetActive(false);
+        SuccessBTN.transform.localScale = Vector3.zero;
+        Time.timeScale = 1;
     }
-
-    private void Awake() => Instance = this;
 
     public enum MiniGameType
     {

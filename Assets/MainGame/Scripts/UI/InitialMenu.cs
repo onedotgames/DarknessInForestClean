@@ -134,6 +134,7 @@ public class InitialMenu : UIPanel
     }
     private void OnCoopBTNClicked()
     {
+        inventoryManager.OnPopUpCloseButtonClicked();
         isSwipe = false;
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
         //AdjustMenuButtonScales();
@@ -168,6 +169,7 @@ public class InitialMenu : UIPanel
     }
     private void OnHomeBTNClicked()
     {
+        inventoryManager.OnPopUpCloseButtonClicked();
         isSwipe = false;
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click); 
         //AdjustMenuButtonScales();
@@ -186,6 +188,7 @@ public class InitialMenu : UIPanel
     }
     private void OnLevelsBTNClicked()
     {
+        inventoryManager.OnPopUpCloseButtonClicked();
         isSwipe = false;
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
         //AdjustMenuButtonScales();
@@ -204,6 +207,7 @@ public class InitialMenu : UIPanel
     }
     private void OnLeaderBoardBTNClicked()
     {
+        inventoryManager.OnPopUpCloseButtonClicked();
         isSwipe = false;
         GameManager.SoundManager.PlayClickSound(ClickSounds.Click); 
         //AdjustMenuButtonScales();

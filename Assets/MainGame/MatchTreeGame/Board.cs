@@ -215,7 +215,10 @@ public sealed class Board : MonoBehaviour
                 scoreCounter.popCount++;
                 scoreCounter.OpenPop();
                 if (scoreCounter.popCount >= 5)
+                {
+                    scoreCounter.RadialShine.gameObject.SetActive(true);
                     StartCoroutine(SuccessRoutine());
+                }
 
                 await inflateSequence.Play().AsyncWaitForCompletion();
 
