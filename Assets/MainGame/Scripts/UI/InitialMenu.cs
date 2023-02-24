@@ -253,7 +253,7 @@ public class InitialMenu : UIPanel
             ClosePanel();
             UserInfoPanel.SetActive(false);
             GameManager.StartGame();
-            player.PlayerVariables.UserCurrentEnergy -= 5;
+            player.PlayerVariables.UserCurrentEnergy -= 0;
             EnergyText.text = player.PlayerVariables.UserCurrentEnergy + " / " + player.PlayerVariables.MaxEnergy;
         }
         else

@@ -416,7 +416,7 @@ public class Player : CustomBehaviour
     private void OnDeath()
     {
         GameManager.LevelFailed();
-        IsGameStarted = false;
+        //IsGameStarted = false;
     }
 
     public void OpenRechargableShield()

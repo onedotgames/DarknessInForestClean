@@ -213,7 +213,9 @@ public sealed class Board : MonoBehaviour
                 }
 
                 scoreCounter.popCount++;
-                scoreCounter.scoreText.text = (scoreCounter.popCount + " / 3");
+                scoreCounter.OpenPop();
+                if (scoreCounter.popCount >= 5)
+                    StartCoroutine(SuccessRoutine());
 
                 await inflateSequence.Play().AsyncWaitForCompletion();
 
@@ -221,6 +223,12 @@ public sealed class Board : MonoBehaviour
                 y = 0;
             }
         }
+    }
+
+    public IEnumerator SuccessRoutine()
+    {
+        yield return new WaitForSecondsRealtime(1f);
+        scoreCounter.SuccessMinigame();
     }
 
 }
