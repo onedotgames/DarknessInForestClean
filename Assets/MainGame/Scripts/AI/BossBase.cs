@@ -71,6 +71,7 @@ public class BossBase : CustomBehaviour
     public bool IsPunchable = false;
     public bool HasWeapon = false;
     public bool HasAreaIndicator = false;
+    public bool HasEntrancePassed = false;
 
     public Player Player;
     public Animator Anim;
@@ -99,6 +100,11 @@ public class BossBase : CustomBehaviour
     public float timeValue3;
     private Tweener punchTween;
     private int chestCount;
+    public ScoreCounter ScoreCounter;
+    public PlayAnimation PlayAnimation;
+    public Image PlayAnimationImage;
+    [SerializeField] Animator AreaIndicatorAnimator;
+    private Vector3 areaTarget;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -164,31 +170,40 @@ public class BossBase : CustomBehaviour
             EntranceVFX.Play();
             ShouldMove = true;
             ShouldAttack = true;
+            HasEntrancePassed = true;
         });
     }
 
     public void InitialAreaMark(Vector3 targetArea)
     {
-        AreaImage.gameObject.transform.position = targetArea;
-        AreaImage.gameObject.transform.DOScale(_DesiredAreaIndicatorScale, 1f).OnComplete(() => StartJumperEntrance());
-        AreaImage.DOColor(AreaEndColor, 1f).OnComplete(() =>
-        {
-            AreaImage.gameObject.transform.localScale = Vector3.zero;
-            AreaImage.color = AreaStartColor;
-        });
+        //AreaImage.gameObject.transform.position = targetArea;
+        //AreaImage.gameObject.transform.DOScale(_DesiredAreaIndicatorScale, 1f).OnComplete(() => StartJumperEntrance());
+        //AreaImage.DOColor(AreaEndColor, 1f).OnComplete(() =>
+        //{
+        //    AreaImage.gameObject.transform.localScale = Vector3.zero;
+        //    AreaImage.color = AreaStartColor;
+        //});
 
+        //PlayAnimationImage.gameObject.transform.position = targetArea;
+        //PlayAnimation.Play();
+        AreaIndicatorAnimator.gameObject.transform.position = targetArea;
+        AreaIndicatorAnimator.Play("TargetAnim");
     }
     public void JumpAttack(float timeValue)
     {
         ShouldMove = false;
         ShouldSpecialOne = false;
-        AreaMark(GameManager.PlayerManager.CurrentPlayer.transform.position);
+        //AreaMark(GameManager.PlayerManager.CurrentPlayer.transform.position);
+        AreaIndicatorAnimator.gameObject.transform.position = GameManager.PlayerManager.CurrentPlayer.transform.position;
+        AreaIndicatorAnimator.Play("TargetAnim");
+        areaTarget = GameManager.PlayerManager.CurrentPlayer.transform.position;
     }
     public void AreaMark(Vector3 targetArea)
     {
+
         AreaImage.gameObject.transform.position = targetArea;
         //AreaImage.gameObject.transform.parent = null;
-        
+
         AreaImage.gameObject.transform.DOScale(_DesiredAreaIndicatorScale, 1f).OnComplete(() => JumpSequence(targetArea));
         AreaImage.DOColor(AreaEndColor, 1f).OnComplete(() =>
         {
@@ -212,8 +227,25 @@ public class BossBase : CustomBehaviour
                 ShouldSpecialOne = true;
                 Collider2D.enabled = true;
             });
-         
-            
+
+
+        });
+    }
+    public void JumpSequence()
+    {
+        Collider2D.enabled = false;
+        transform.DOMove(new Vector3(transform.position.x, (_DesiredStartPosition + _DesiredInitialDifferenceWithPlayer).y, transform.position.z), 0.5f).OnComplete(() =>
+        {
+            transform.DOMove(areaTarget, 0.5f)
+            .OnComplete(() =>
+            {
+                EntranceVFX.Play();
+                ShouldMove = true;
+                ShouldSpecialOne = true;
+                Collider2D.enabled = true;
+            });
+
+
         });
     }
 
@@ -819,6 +851,7 @@ public class BossBase : CustomBehaviour
         CanAttack = true;
         ShouldRotate = false;
         ShouldIndicatorRotate = false;
+        HasEntrancePassed = false;
         StopAllCoroutines();
         chestCount = 0;
     }
@@ -831,6 +864,8 @@ public class BossBase : CustomBehaviour
         CanAttack = true;
         ShouldRotate = false;
         ShouldIndicatorRotate = false;
+        HasEntrancePassed = false;
+
         StopAllCoroutines();
         chestCount = 0;
     }
@@ -849,6 +884,8 @@ public class BossBase : CustomBehaviour
         CanAttack = true;
         ShouldRotate = false;
         ShouldIndicatorRotate = false;
+        HasEntrancePassed = false;
+
         StopAllCoroutines();
         chestCount = 0;
     }
