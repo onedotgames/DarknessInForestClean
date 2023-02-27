@@ -17,6 +17,7 @@ public sealed class ScoreCounter : MonoBehaviour
     public MiniGameType miniGameType;
     public RectTransform RadialShine;
     public Button SuccessBTN;
+    
     private void Update()
     {
         RadialShine.DORotate(RadialShine.rotation.eulerAngles + new Vector3(0, 0, 5), 0.3f).SetUpdate(true);
@@ -55,23 +56,30 @@ public sealed class ScoreCounter : MonoBehaviour
 
     public void SuccessBTNClick()
     {
-        MiniGamePanel.transform.DOScale(Vector3.zero, 1f).OnComplete(() => MiniGamePanel.SetActive(false));
+        MiniGamePanel.transform.DOScale(Vector3.zero, 1f);
         skillManager.IsMiniGameDone = true;
         RadialShine.gameObject.SetActive(false);
 
         if (skillManager.IsMiniGameDone)
         {
             skillManager.IsMiniGameDone = false;
-            if (miniGameType == MiniGameType.Evolve)
-                GameManager.SkillManager.AllWeaponsV2[(int)GameManager.SkillManager.selectedWeaponData.Weapon.SkillSO.PoolerType].EvolveWeapon();
             Time.timeScale = 1;
             popCount = 0;
+            if (miniGameType == MiniGameType.Evolve)
+            {
+                GameManager.SkillManager.AllWeaponsV2[(int)GameManager.SkillManager.selectedWeaponData.Weapon.SkillSO.PoolerType].EvolveWeapon();
+            }
+            else if (miniGameType == MiniGameType.Chest)
+            {
+                var chest = GameObject.FindGameObjectWithTag("Chest");
+                chest.GetComponent<Chest>().canChestOpen = true;
+                chest.GetComponent<Chest>().GameManager = GameManager;
+            }
         }
         SuccessBTN.gameObject.SetActive(false);
         SuccessBTN.transform.localScale = Vector3.zero;
-        Time.timeScale = 1;
+        MiniGamePanel.SetActive(false);
     }
-
     public enum MiniGameType
     {
         Evolve = 0,

@@ -98,7 +98,7 @@ public class BossBase : CustomBehaviour
     public float timeValue2;
     public float timeValue3;
     private Tweener punchTween;
-    public ScoreCounter ScoreCounter;
+    private int chestCount;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -107,6 +107,7 @@ public class BossBase : CustomBehaviour
             GameManager.OnRestartGame += RestartGame;
             GameManager.OnLevelCompleted += OnGameSuccess;
             GameManager.OnLevelFailed += OnGameFailed;
+            GameManager.OnStartGame += StartGame;
         }
 
         GetReferences();
@@ -707,10 +708,11 @@ public class BossBase : CustomBehaviour
             //}
             StopAllCoroutines();
             OnDeath();
-            var miniGameObject = GameManager.SkillManager.Minigames[1];
-            miniGameObject.SetActive(true);
-            ScoreCounter.miniGameType = ScoreCounter.MiniGameType.Chest;
-            Time.timeScale = 0f;
+            var chestDropNumber = UnityEngine.Random.Range(0,200);
+            if(chestDropNumber > 100 && chestCount <= 2 /*chestDropNumber == 99*/)
+            {
+                DropChest();
+            }
         }
     }
 
@@ -719,6 +721,24 @@ public class BossBase : CustomBehaviour
         PlayDeathVFX();
         //GameManager.PlayerManager.PlayerSkillHandler.TargetList.Remove(this.gameObject.transform);
         Collider2D.enabled = false;
+    }
+
+    public void DropChest()
+    {
+        if(chestCount < 2)
+        {
+            Debug.Log("Chest Dropped");
+            var chest = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.ChestPooler].GetObjectFromPool();
+            chestCount++;
+            chest.transform.position = transform.position;
+            var endValue = new Vector3
+                (
+                    (chest.transform.position.x + (UnityEngine.Random.Range(-0.5f, 0.5f))),
+                    (chest.transform.position.y - (UnityEngine.Random.Range(0.3f, 0.5f))),
+                    (chest.transform.position.z)
+                );
+            chest.transform.DOJump(endValue, 1, 1, 0.5f);
+        }
     }
 
     public virtual IEnumerator GetAOEHit(float damageToTake, float interval)
@@ -800,7 +820,7 @@ public class BossBase : CustomBehaviour
         ShouldRotate = false;
         ShouldIndicatorRotate = false;
         StopAllCoroutines();
-
+        chestCount = 0;
     }
 
     private void RestartGame()
@@ -812,6 +832,12 @@ public class BossBase : CustomBehaviour
         ShouldRotate = false;
         ShouldIndicatorRotate = false;
         StopAllCoroutines();
+        chestCount = 0;
+    }
+
+    private void StartGame()
+    {
+        chestCount = 0;
     }
 
     private void OnGameSuccess()
@@ -824,6 +850,7 @@ public class BossBase : CustomBehaviour
         ShouldRotate = false;
         ShouldIndicatorRotate = false;
         StopAllCoroutines();
+        chestCount = 0;
     }
 
     private void OnDestroy()

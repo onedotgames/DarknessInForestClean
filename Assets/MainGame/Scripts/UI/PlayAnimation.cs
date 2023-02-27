@@ -21,7 +21,6 @@ public class PlayAnimation : MonoBehaviour
             yield return new WaitForSeconds(Time);
             BaseImage.sprite = Images[i];
         }
-        
     }
 
     public void PlayLoop()

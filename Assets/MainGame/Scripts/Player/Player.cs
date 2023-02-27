@@ -76,6 +76,7 @@ public class Player : CustomBehaviour
 
     public GameObject playerBase;
     public ParticleSystem baseSmoke;
+    public ScoreCounter ScoreCounter;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -123,7 +124,6 @@ public class Player : CustomBehaviour
                 Direction = temp;
             }
         }
-        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -180,6 +180,13 @@ public class Player : CustomBehaviour
             }
             GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.MagnetPooler].ReturnObjectToPool(collision.gameObject);
 
+        }
+        if (collision.CompareTag("Chest"))
+        {
+            var miniGameObject = GameManager.SkillManager.Minigames[1];
+            miniGameObject.SetActive(true);
+            ScoreCounter.miniGameType = ScoreCounter.MiniGameType.Chest;
+            Time.timeScale = 0f;
         }
         if (collision.CompareTag("Bomb"))
         {

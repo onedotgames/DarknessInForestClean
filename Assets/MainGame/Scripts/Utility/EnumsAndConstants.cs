@@ -193,7 +193,8 @@ public enum CollectablePoolerType
     BarrelPooler = 0,
     MagnetPooler = 1,
     BombPooler = 2,
-    HealthPotPooler = 3
+    HealthPotPooler = 3,
+    ChestPooler = 4
 }
 
 public enum EnemyPoolerType

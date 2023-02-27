@@ -26,6 +26,7 @@ TagManager:
   - HolyFountain
   - BossRing
   - Match3Tile
+  - Chest
   layers:
   - Default
   - TransparentFX
