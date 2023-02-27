@@ -223,7 +223,18 @@ public class WeaponBaseV2 : CustomBehaviour
             {
                 mDirection = Vector2.left;
             }
-            
+
+            //if (GameManager.InputManager.isMovementStop)
+            //{
+            //    if(GameManager.JoystickManager.variableJoystick.LastDirection == Vector2.zero)
+            //    {
+            //        mDirection = Vector2.left;
+            //    }
+            //}
+            //else
+            //{
+            //    mDirection = GameManager.JoystickManager.variableJoystick.LastDirection.normalized;
+            //}
         }
 
     }
@@ -775,10 +786,15 @@ public class WeaponBaseV2 : CustomBehaviour
             {
                 mDirection = GameManager.JoystickManager.variableJoystick.LastDirection.normalized;
             }
+
+            //mDirection = GameManager.JoystickManager.variableJoystick.LastDirection.normalized;
+
             if (mDirection == Vector3.zero)
             {
                 SetSkill(GameManager.AIManager.EnemyList);
             }
+
+            //SetSkill(GameManager.AIManager.EnemyList);
             ActiveBeeShots.Add(mBeeShot);
             mBeeShot.index = BeeIndex;
             BeeIndex++;
