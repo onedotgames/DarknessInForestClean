@@ -16,8 +16,8 @@ public class PausePanel : UIPanel
     public List<GameObject> WeaponIconStars;
     public List<GameObject> UtilIconStars;
 
-    public Target questInd;
-    public Target towerInd;
+    public TargetIndicator questInd;
+    public TargetIndicator towerInd;
 
     public override void Initialize(UIManager uIManager)
     {

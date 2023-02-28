@@ -65,7 +65,7 @@ public class HolyFountain : CustomBehaviour
             TargetObj.SetActive(true);
         }
         var healthRatio = GameManager.PlayerHealthManager.Player.mCurrentHealth / 100;
-        TargetObj.GetComponent<Target>().targetColor.a = 1 - healthRatio;
+        TargetObj.GetComponent<TargetIndicator>().targetColor.a = 1 - healthRatio;
     }
 
     private void LevelCompleted()
