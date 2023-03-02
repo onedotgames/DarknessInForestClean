@@ -16,6 +16,9 @@ public class SoundManager : CustomBehaviour
 
     public AudioSource InitialMenuAudioSource;
     public AudioClip InitialMenuAudioClip;
+
+    public AudioSource SwitchScreenSource;
+    public AudioSource PopUpSource;
     public bool IsSoundOn { get; set; }
     #endregion
 
@@ -64,6 +67,16 @@ public class SoundManager : CustomBehaviour
         if (!IsSoundOn) return;
         GameStateAudioSource.clip = PlayerInteractionAudioClips[(int)sound];
         GameStateAudioSource.Play();
+    }
+    public void PlaySwitchScreenSound()
+    {
+        if (!IsSoundOn) return;
+        SwitchScreenSource.Play();
+    }
+    public void PlayPopUpScreenSound()
+    {
+        if (!IsSoundOn) return;
+        PopUpSource.Play();
     }
 
     public void PlayInitialMenuSound()

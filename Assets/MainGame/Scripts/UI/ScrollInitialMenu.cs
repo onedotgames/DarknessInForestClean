@@ -41,7 +41,7 @@ public class ScrollInitialMenu : MonoBehaviour
             { // equipment to coop
                 isEquipment = false;
                 isCoop = true;
-                inventoryManager.OnPopUpCloseButtonClicked();
+                inventoryManager.ClosePopUpButtonsOnSwipe();
                 ContentTransform.DOLocalMoveX(Screen.height * 2, 0.2f);
                 PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
                 initialMenu.Coop.DOScale(Vector3.one * 1.3f, 0.4f);
@@ -56,7 +56,7 @@ public class ScrollInitialMenu : MonoBehaviour
             { //equipment to home
                 isEquipment = false;
                 isHome = true;
-                inventoryManager.OnPopUpCloseButtonClicked();
+                inventoryManager.ClosePopUpButtonsOnSwipe();
                 ContentTransform.DOLocalMoveX(0, 0.2f);
                 PlayerImg.GetComponent<SpriteRenderer>().enabled = true;
                 initialMenu.Home.DOScale(Vector3.one * 1.3f, 0.4f);

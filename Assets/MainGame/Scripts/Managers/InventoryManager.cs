@@ -92,8 +92,19 @@ public class InventoryManager : CustomBehaviour
 
     public void OnPopUpCloseButtonClicked()
     {
+        GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
         PopUpWindow.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InQuint).OnComplete(() => 
         { 
+            player.gameObject.SetActive(true);
+            ClosePopUpSlots();
+        });
+        InventorySlots.ForEach(x => x.SlotButton.interactable = true);
+        //ClosePopUpSlots();
+    }
+    public void ClosePopUpButtonsOnSwipe()
+    {
+        PopUpWindow.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InQuint).OnComplete(() =>
+        {
             player.gameObject.SetActive(true);
             ClosePopUpSlots();
         });
@@ -105,6 +116,7 @@ public class InventoryManager : CustomBehaviour
     {
         Debug.Log("There is " + PopUpSlots.Count + " Pop Up Slot");
         InventorySlots.ForEach(x => x.SlotButton.interactable = false);
+        GameManager.SoundManager.PlayPopUpScreenSound();
         for (int i = 0; i < PopUpSlots.Count; i++)
         {
             if (i < value)

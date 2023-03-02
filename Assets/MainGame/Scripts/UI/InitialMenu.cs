@@ -147,9 +147,10 @@ public class InitialMenu : UIPanel
 
     private void OnCoopBTNClicked()
     {
-        inventoryManager.OnPopUpCloseButtonClicked();
+        inventoryManager.ClosePopUpButtonsOnSwipe();
         isSwipe = false;
-        GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
+        GameManager.SoundManager.PlaySwitchScreenSound();
+
         //AdjustMenuButtonScales();
         Content.DOLocalMoveX(Screen.height * 2, MenuSwipeSpeed).OnComplete(() => isSwipe = true);
         PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
@@ -166,7 +167,8 @@ public class InitialMenu : UIPanel
     private void OnEquipmentBTNClicked()
     {
         isSwipe = false;
-        GameManager.SoundManager.PlayClickSound(ClickSounds.Click); 
+        GameManager.SoundManager.PlaySwitchScreenSound();
+
         //AdjustMenuButtonScales();
         Content.DOLocalMoveX(Screen.height, MenuSwipeSpeed).OnComplete(() => isSwipe = true);
         PlayerImg.GetComponent<SpriteRenderer>().enabled = true;
@@ -182,9 +184,9 @@ public class InitialMenu : UIPanel
     }
     private void OnHomeBTNClicked()
     {
-        inventoryManager.OnPopUpCloseButtonClicked();
+        inventoryManager.ClosePopUpButtonsOnSwipe();
         isSwipe = false;
-        GameManager.SoundManager.PlayClickSound(ClickSounds.Click); 
+        GameManager.SoundManager.PlaySwitchScreenSound();
         //AdjustMenuButtonScales();
         Content.DOLocalMoveX(0, MenuSwipeSpeed).OnComplete(() => isSwipe = true);
         PlayerImg.GetComponent<SpriteRenderer>().enabled = true;
@@ -201,9 +203,10 @@ public class InitialMenu : UIPanel
     }
     private void OnLevelsBTNClicked()
     {
-        inventoryManager.OnPopUpCloseButtonClicked();
+        inventoryManager.ClosePopUpButtonsOnSwipe();
         isSwipe = false;
-        GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
+        GameManager.SoundManager.PlaySwitchScreenSound();
+
         //AdjustMenuButtonScales();
         Content.DOLocalMoveX(-Screen.height, MenuSwipeSpeed).OnComplete(() => isSwipe = true);
         PlayerImg.GetComponent<SpriteRenderer>().enabled = false;
@@ -220,9 +223,10 @@ public class InitialMenu : UIPanel
     }
     private void OnLeaderBoardBTNClicked()
     {
-        inventoryManager.OnPopUpCloseButtonClicked();
+        inventoryManager.ClosePopUpButtonsOnSwipe();
         isSwipe = false;
-        GameManager.SoundManager.PlayClickSound(ClickSounds.Click); 
+        GameManager.SoundManager.PlaySwitchScreenSound();
+
         //AdjustMenuButtonScales();
         Content.DOLocalMoveX(-Screen.height * 2, MenuSwipeSpeed).OnComplete(() => isSwipe = true);
         PlayerImg.GetComponent<SpriteRenderer>().enabled = false;

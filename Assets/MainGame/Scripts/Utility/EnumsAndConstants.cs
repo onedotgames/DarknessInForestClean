@@ -95,10 +95,8 @@ public enum PlayerStates
 public enum ClickSounds
 {
     Click = 0,
-    Purhace = 1,
-    Upgrade = 2,
-
-    MAX = 3
+    WoodClick = 1,
+    MAX = 2
 }
 
 public enum GameStateSounds
