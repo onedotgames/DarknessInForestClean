@@ -27,6 +27,8 @@ TagManager:
   - BossRing
   - Match3Tile
   - Chest
+  - Swamp
+  - Thorn
   layers:
   - Default
   - TransparentFX

@@ -226,7 +226,10 @@ public enum ExpPoolerType
 
 public enum EnvironmentObjType
 {
-    Tree = 0
+    Ice = 0,
+    Thorn = 1,
+    Swamp = 2,
+    Tree = 3
 }
 
 public enum QuestType

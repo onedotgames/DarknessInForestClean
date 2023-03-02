@@ -58,7 +58,6 @@ public class EnvironmentObject : CustomBehaviour
     {
         if (collision.gameObject.CompareTag(TAGS.Player))
         {
-
             OpenGhost();
         }
     }

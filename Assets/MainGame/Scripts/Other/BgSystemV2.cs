@@ -13,7 +13,7 @@ public class BgSystemV2 : MonoBehaviour
     public BGList bglist;
     private void Update()
     {
-        if(swipeLevels.currentLevelMat != null)
+        if(swipeLevels.currentLevelMat != null && !swipeLevels.GameManager.ChallengeManager.isChallengeLevel)
         {
             for (int i = 0; i < bgSprites.Count; i++)
             {

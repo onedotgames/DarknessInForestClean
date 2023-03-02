@@ -252,6 +252,7 @@ public class InitialMenu : UIPanel
     {
         if(player.PlayerVariables.UserCurrentEnergy >= 5)
         {
+            GameManager.ChallengeManager.isChallengeLevel = false;
             GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
             //GameManager.UIManager.GetPanel(Panels.MainMenu).OpenPanel();
             ClosePanel();

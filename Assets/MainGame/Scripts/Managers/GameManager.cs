@@ -33,6 +33,7 @@ public class GameManager : CustomBehaviour
     public CoopManager CoopManager;
     public InventoryManager InventoryManager;
     public BackgroundManager BackgroundManager;
+    public ChallengeManager ChallengeManager;
     #endregion
 
     public bool IsGameStarted = false;
@@ -128,6 +129,7 @@ public class GameManager : CustomBehaviour
         CoopManager.Initialize(this);
         InventoryManager.Initialize(this);
         BackgroundManager.Initialize(this);
+        ChallengeManager.Initialize(this);
     }
     #endregion
 
