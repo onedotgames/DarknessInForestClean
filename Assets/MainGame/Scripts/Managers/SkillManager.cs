@@ -358,6 +358,7 @@ public class SkillManager : CustomBehaviour
     private void RestartGame()
     {
         AllWeaponsV2.ForEach(x => x.gameObject.SetActive(false));
+        AllWeaponsV2.ForEach(x => x.ResetItemElementsOnStart());
         WeaponsInUseV2.Clear();
         WeaponsInUseTemp.Clear();
         TempWeaponsV2.Clear();

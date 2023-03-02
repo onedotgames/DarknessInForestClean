@@ -185,7 +185,7 @@ public class Player : CustomBehaviour
         {
             var miniGameObject = GameManager.SkillManager.Minigames[1];
             miniGameObject.SetActive(true);
-            ScoreCounter.miniGameType = ScoreCounter.MiniGameType.Chest;
+            ScoreCounter.miniGameType = MiniGameType.Chest;
             Time.timeScale = 0f;
         }
         if (collision.CompareTag("Bomb"))

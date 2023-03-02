@@ -741,7 +741,8 @@ public class BossBase : CustomBehaviour
             //}
             StopAllCoroutines();
             OnDeath();
-            var chestDropNumber = UnityEngine.Random.Range(0,200);
+            //var chestDropNumber = UnityEngine.Random.Range(0,200);
+            var chestDropNumber = 150;
             if(chestDropNumber > 100 && chestCount <= 2 /*chestDropNumber == 99*/)
             {
                 DropChest();

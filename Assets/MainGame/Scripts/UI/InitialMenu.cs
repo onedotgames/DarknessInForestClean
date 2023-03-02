@@ -132,6 +132,19 @@ public class InitialMenu : UIPanel
             }
         }
     }
+
+    public override void OpenPanel()
+    {
+        base.OpenPanel();
+        GameManager.SoundManager.PlayInitialMenuSound();
+    }
+
+    public override void ClosePanel()
+    {
+        base.ClosePanel();
+        GameManager.SoundManager.StopInitialMenuSound();
+    }
+
     private void OnCoopBTNClicked()
     {
         inventoryManager.OnPopUpCloseButtonClicked();

@@ -133,7 +133,7 @@ public class WeaponBaseV2 : CustomBehaviour
         IsEvolved = false;
     }
 
-    private void ResetItemElementsOnStart()
+    public void ResetItemElementsOnStart()
     {
         AttackDegree = 30;
         BeeIndex = 0;
@@ -330,7 +330,7 @@ public class WeaponBaseV2 : CustomBehaviour
         miniGameObject.SetActive(true);
         if(gameIndex == 1)
         {//match3
-            ScoreCounter.miniGameType = ScoreCounter.MiniGameType.Evolve;
+            ScoreCounter.miniGameType = MiniGameType.Evolve;
         }
         miniGameObject.transform.DOScale(Vector3.one, 1f).SetUpdate(true);
     }

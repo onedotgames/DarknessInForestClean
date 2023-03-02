@@ -14,6 +14,8 @@ public class SoundManager : CustomBehaviour
     public AudioSource PlayerInteractionAudioSource;
     public AudioClip[] PlayerInteractionAudioClips;
 
+    public AudioSource InitialMenuAudioSource;
+    public AudioClip InitialMenuAudioClip;
     public bool IsSoundOn { get; set; }
     #endregion
 
@@ -62,6 +64,18 @@ public class SoundManager : CustomBehaviour
         if (!IsSoundOn) return;
         GameStateAudioSource.clip = PlayerInteractionAudioClips[(int)sound];
         GameStateAudioSource.Play();
+    }
+
+    public void PlayInitialMenuSound()
+    {
+        if (!IsSoundOn) return;
+        GameStateAudioSource.clip = InitialMenuAudioClip;
+        GameStateAudioSource.Play();
+    }
+    public void StopInitialMenuSound()
+    {
+        
+        GameStateAudioSource.Stop();
     }
     #endregion
 }

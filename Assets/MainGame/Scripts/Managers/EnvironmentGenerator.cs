@@ -149,7 +149,8 @@ public class EnvironmentGenerator : CustomBehaviour
                     randomRightR = Random.Range(playerTransformPosition.x, _leftOfRight);
                     top = randomTop;
                 }
-                var point = new Vector3(randomRightR, Random.Range(-20f,20f), playerTransformPosition.z);
+                randomRightR = playerTransformPosition.x + MainCamera.orthographicSize;
+                var point = new Vector3(randomRightR, Random.Range(-4f,4f), playerTransformPosition.z);
                 if (!CheckOverlap(point))
                 {
                     //Instantiate(ObjectToSpawn, point, Quaternion.identity);
@@ -176,7 +177,9 @@ public class EnvironmentGenerator : CustomBehaviour
                     randomRightR = Random.Range(playerTransformPosition.x, _leftOfRight);
                     bot = randomBottom;
                 }
-                var point = new Vector3(randomRightR, Random.Range(-20f,20f), playerTransformPosition.z);
+                randomRightR = playerTransformPosition.x + MainCamera.orthographicSize;
+
+                var point = new Vector3(randomRightR, Random.Range(-4f,4f), playerTransformPosition.z);
                 if (!CheckOverlap(point))
                 {
                     //Instantiate(ObjectToSpawn, point, Quaternion.identity);
@@ -206,7 +209,9 @@ public class EnvironmentGenerator : CustomBehaviour
                     randomLeftL = Random.Range(_rightOfLeft, playerTransformPosition.x);
                     top = randomTop;
                 }
-                var point = new Vector3(randomLeftL, Random.Range(-20f,20f), playerTransformPosition.z);
+                randomLeftL = playerTransformPosition.x - MainCamera.orthographicSize;
+
+                var point = new Vector3(randomLeftL, Random.Range(-4f,4f), playerTransformPosition.z);
                 if (!CheckOverlap(point))
                 {
                     //Instantiate(ObjectToSpawn, point, Quaternion.identity);
@@ -232,7 +237,9 @@ public class EnvironmentGenerator : CustomBehaviour
                     randomLeftL = Random.Range(_rightOfLeft, playerTransformPosition.x);
                     bot = randomBottom;
                 }
-                var point = new Vector3(randomLeftL, Random.Range(-20f,20f), playerTransformPosition.z);
+                randomLeftL = playerTransformPosition.x - MainCamera.orthographicSize;
+
+                var point = new Vector3(randomLeftL, Random.Range(-4f,4f), playerTransformPosition.z);
                 if (!CheckOverlap(point))
                 {
                     //Instantiate(ObjectToSpawn, point, Quaternion.identity);

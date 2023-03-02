@@ -80,9 +80,10 @@ public sealed class ScoreCounter : MonoBehaviour
         SuccessBTN.transform.localScale = Vector3.zero;
         MiniGamePanel.SetActive(false);
     }
-    public enum MiniGameType
-    {
-        Evolve = 0,
-        Chest = 1
-    }
+    
+}
+public enum MiniGameType
+{
+    Evolve = 0,
+    Chest = 1
 }
