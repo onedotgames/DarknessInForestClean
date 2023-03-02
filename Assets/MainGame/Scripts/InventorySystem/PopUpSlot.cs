@@ -15,6 +15,7 @@ public class PopUpSlot : CustomBehaviour
         base.Initialize(gameManager);
         PopUpSlotButton.Initialize(gameManager.UIManager, SetEquipment);
     }
+
     public void ChangeSlotImage(Sprite sprite)
     {
         this.Image.sprite = sprite;

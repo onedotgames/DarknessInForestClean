@@ -98,6 +98,7 @@ public class InputManager : CustomBehaviour
     {
         if(GameManager.IsGameStarted)
             mPointerDownLocation = MainCamera.ScreenToViewportPoint(eventData.pressPosition);
+        Debug.Log(eventData.selectedObject.transform.name);
     }
 
     public void TouchEnd(PointerEventData eventData)

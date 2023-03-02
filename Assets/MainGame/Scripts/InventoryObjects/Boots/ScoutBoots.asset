@@ -20,5 +20,5 @@ MonoBehaviour:
   SkillSO: {fileID: 0}
   ArmorType: 2
   mHealth: 0
-  mSpeed: 0.75
+  mSpeed: 0.1
   mDmgRdc: 0

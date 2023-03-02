@@ -105,6 +105,7 @@ public class BossBase : CustomBehaviour
     public Image PlayAnimationImage;
     [SerializeField] Animator AreaIndicatorAnimator;
     private Vector3 areaTarget;
+    [SerializeField]private IndicatorEnd IndicatorEnd;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);

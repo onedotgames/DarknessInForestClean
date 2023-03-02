@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5efcd8b7c78774840a5ddfcf4ef92ba4, type: 3}
   m_Name: EnemyTypeOne
   m_EditorClassIdentifier: 
-  mBaseHealth: 200
+  mBaseHealth: 100
   mBaseSpeed: 1
   mMeleeRange: 1
   mAttackCooldown: 3
