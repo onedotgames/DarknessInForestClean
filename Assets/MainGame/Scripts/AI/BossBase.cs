@@ -856,6 +856,11 @@ public class BossBase : CustomBehaviour
         HasEntrancePassed = false;
         StopAllCoroutines();
         chestCount = 0;
+        var chestPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.ChestPooler];
+        for (int i = 0; i < chestPool.TempList.Count; i++)
+        {
+            chestPool.ReturnObjectToPool(chestPool.TempList[i]);
+        }
     }
 
     private void RestartGame()
@@ -870,6 +875,11 @@ public class BossBase : CustomBehaviour
 
         StopAllCoroutines();
         chestCount = 0;
+        var chestPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.ChestPooler];
+        for (int i = 0; i < chestPool.TempList.Count; i++)
+        {
+            chestPool.ReturnObjectToPool(chestPool.TempList[i]);
+        }
     }
 
     private void StartGame()
@@ -890,6 +900,11 @@ public class BossBase : CustomBehaviour
 
         StopAllCoroutines();
         chestCount = 0;
+        var chestPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.ChestPooler];
+        for (int i = 0; i < chestPool.TempList.Count; i++)
+        {
+            chestPool.ReturnObjectToPool(chestPool.TempList[i]);
+        }
     }
 
     private void OnDestroy()

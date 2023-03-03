@@ -57,7 +57,7 @@ public class EnvironmentGenerator : CustomBehaviour
     }
     private void StartGame()
     {
-        _timerOn = true; //--> Spawn mekani?inin ba?lamas? i?in bunu a?mak yeterli
+        //_timerOn = true; //--> Spawn mekani?inin ba?lamas? i?in bunu a?mak yeterli
         //TreeList.Clear();
         if (GameManager.ChallengeManager.isChallengeLevel)
         {
