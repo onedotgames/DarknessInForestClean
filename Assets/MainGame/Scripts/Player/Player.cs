@@ -184,7 +184,9 @@ public class Player : CustomBehaviour
         if (collision.CompareTag("Chest"))
         {
             var miniGameObject = GameManager.SkillManager.Minigames[1];
+            GameManager.UIManager.GetPanel(Panels.Hud).ClosePanel();
             miniGameObject.SetActive(true);
+            miniGameObject.transform.DOScale(Vector3.one * 0.75f, 1f).SetUpdate(true);
             ScoreCounter.miniGameType = MiniGameType.Chest;
             Time.timeScale = 0f;
         }

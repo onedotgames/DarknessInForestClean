@@ -76,11 +76,16 @@ public sealed class ScoreCounter : MonoBehaviour
                 chest.GetComponent<Chest>().GameManager = GameManager;
             }
         }
+
+        PopOpenList.ForEach(x => x.DOScale(Vector3.zero, 0.5f).SetUpdate(true));
+        
         SuccessBTN.gameObject.SetActive(false);
         SuccessBTN.transform.localScale = Vector3.zero;
         MiniGamePanel.SetActive(false);
+        GameManager.UIManager.GetPanel(Panels.Hud).OpenPanel();
+
     }
-    
+
 }
 public enum MiniGameType
 {
