@@ -22,6 +22,7 @@ public class ScrollInitialMenu : MonoBehaviour
         //content in size ını 5 e böl, her panelin durduğu yere göre pozisyonları eşitle azı ve çoğuna göre oralara at.
         if (Input.GetMouseButtonUp(0) && initialMenu.isSwipe == true)
         {
+            inventoryManager.GameManager.SoundManager.PlaySwitchScreenSound();
             if (isCoop && ContentTransform.anchoredPosition.x <= Screen.height * 1.8f && ContentTransform.anchoredPosition.x > Screen.height)
             { // coop to equipment
                 Debug.Log("Coop to equipment");
@@ -36,6 +37,8 @@ public class ScrollInitialMenu : MonoBehaviour
                 initialMenu.LeaderBoard.DOScale(Vector3.one * 0.9f, 0.4f);
                 initialMenu.rectBG.DOLocalMoveX(initialMenu.EquipmentBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
                 initialMenu.rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 1));
+                inventoryManager.GameManager.TutorialManager.EquipmentTutorialOn();
+                
             }
             else if (isEquipment && ContentTransform.anchoredPosition.x > Screen.height * 1.2f && ContentTransform.anchoredPosition.x <= Screen.height * 2f)
             { // equipment to coop
@@ -51,6 +54,8 @@ public class ScrollInitialMenu : MonoBehaviour
                 initialMenu.LeaderBoard.DOScale(Vector3.one * 0.9f, 0.4f);
                 initialMenu.rectBG.DOLocalMoveX(initialMenu.CoopBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
                 initialMenu.rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, -1));
+                inventoryManager.GameManager.TutorialManager.TutorialPanel.ClosePanel();
+
             }
             else if (isEquipment && ContentTransform.anchoredPosition.x <= Screen.height * 0.8f && ContentTransform.anchoredPosition.x > 0)
             { //equipment to home
@@ -66,6 +71,8 @@ public class ScrollInitialMenu : MonoBehaviour
                 initialMenu.LeaderBoard.DOScale(Vector3.one * 0.9f, 0.4f);
                 initialMenu.rectBG.DOLocalMoveX(initialMenu.HomeBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
                 initialMenu.rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 3));
+                inventoryManager.GameManager.TutorialManager.TutorialPanel.ClosePanel();
+
             }
             else if (isHome && ContentTransform.anchoredPosition.x > Screen.height * 0.2f && ContentTransform.anchoredPosition.x <= Screen.height * 1)
             { // home to equipment
@@ -80,6 +87,8 @@ public class ScrollInitialMenu : MonoBehaviour
                 initialMenu.LeaderBoard.DOScale(Vector3.one * 0.9f, 0.4f);
                 initialMenu.rectBG.DOLocalMoveX(initialMenu.EquipmentBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
                 initialMenu.rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 1));
+                inventoryManager.GameManager.TutorialManager.EquipmentTutorialOn();
+
             }
             else if (isHome && ContentTransform.anchoredPosition.x <= -Screen.height * 0.2f && ContentTransform.anchoredPosition.x > -Screen.height)
             { // home to levels

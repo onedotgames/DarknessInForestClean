@@ -137,19 +137,22 @@ public class InitialMenu : UIPanel
     {
         base.OpenPanel();
         GameManager.SoundManager.PlayInitialMenuSound();
+        gameObject.SetActive(true);
     }
 
     public override void ClosePanel()
     {
         base.ClosePanel();
         GameManager.SoundManager.StopInitialMenuSound();
+        gameObject.SetActive(false);
+        
     }
 
     private void OnCoopBTNClicked()
     {
         inventoryManager.ClosePopUpButtonsOnSwipe();
         isSwipe = false;
-        GameManager.SoundManager.PlaySwitchScreenSound();
+        GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
 
         //AdjustMenuButtonScales();
         Content.DOLocalMoveX(Screen.height * 2, MenuSwipeSpeed).OnComplete(() => isSwipe = true);
@@ -163,11 +166,13 @@ public class InitialMenu : UIPanel
 
         rectBG.DOLocalMoveX(CoopBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
         rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, -1));
+        GameManager.TutorialManager.TutorialPanel.ClosePanel();
+
     }
     private void OnEquipmentBTNClicked()
     {
         isSwipe = false;
-        GameManager.SoundManager.PlaySwitchScreenSound();
+        GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
 
         //AdjustMenuButtonScales();
         Content.DOLocalMoveX(Screen.height, MenuSwipeSpeed).OnComplete(() => isSwipe = true);
@@ -181,12 +186,14 @@ public class InitialMenu : UIPanel
 
         rectBG.DOLocalMoveX(EquipmentBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
         rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 1));
+        GameManager.TutorialManager.EquipmentTutorialOn();
     }
     private void OnHomeBTNClicked()
     {
         inventoryManager.ClosePopUpButtonsOnSwipe();
         isSwipe = false;
-        GameManager.SoundManager.PlaySwitchScreenSound();
+        GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
+
         //AdjustMenuButtonScales();
         Content.DOLocalMoveX(0, MenuSwipeSpeed).OnComplete(() => isSwipe = true);
         PlayerImg.GetComponent<SpriteRenderer>().enabled = true;
@@ -199,13 +206,14 @@ public class InitialMenu : UIPanel
 
         rectBG.DOLocalMoveX(HomeBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
         rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 3));
+        GameManager.TutorialManager.TutorialPanel.ClosePanel();
 
     }
     private void OnLevelsBTNClicked()
     {
         inventoryManager.ClosePopUpButtonsOnSwipe();
         isSwipe = false;
-        GameManager.SoundManager.PlaySwitchScreenSound();
+        GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
 
         //AdjustMenuButtonScales();
         Content.DOLocalMoveX(-Screen.height, MenuSwipeSpeed).OnComplete(() => isSwipe = true);
@@ -220,12 +228,14 @@ public class InitialMenu : UIPanel
 
         rectBG.DOLocalMoveX(LevelsBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
         rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 5));
+        GameManager.TutorialManager.TutorialPanel.ClosePanel();
+
     }
     private void OnLeaderBoardBTNClicked()
     {
         inventoryManager.ClosePopUpButtonsOnSwipe();
         isSwipe = false;
-        GameManager.SoundManager.PlaySwitchScreenSound();
+        GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
 
         //AdjustMenuButtonScales();
         Content.DOLocalMoveX(-Screen.height * 2, MenuSwipeSpeed).OnComplete(() => isSwipe = true);
@@ -240,6 +250,8 @@ public class InitialMenu : UIPanel
 
         rectBG.DOLocalMoveX(LeaderBoardBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
         rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 7));
+        GameManager.TutorialManager.TutorialPanel.ClosePanel();
+
     }
 
     public void SetEquipmentSectionBars()

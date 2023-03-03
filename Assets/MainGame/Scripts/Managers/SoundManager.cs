@@ -51,7 +51,6 @@ public class SoundManager : CustomBehaviour
     {
         if (!IsSoundOn) return;
 
-        ClickAudioSource.clip = ClickAudioClips[(int)clickSound];
         ClickAudioSource.Play();
     }
 

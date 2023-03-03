@@ -34,6 +34,7 @@ public class GameManager : CustomBehaviour
     public InventoryManager InventoryManager;
     public BackgroundManager BackgroundManager;
     public ChallengeManager ChallengeManager;
+    public TutorialManager TutorialManager;
     #endregion
 
     public bool IsGameStarted = false;
@@ -130,6 +131,7 @@ public class GameManager : CustomBehaviour
         InventoryManager.Initialize(this);
         BackgroundManager.Initialize(this);
         ChallengeManager.Initialize(this);
+        TutorialManager.Initialize(this);
     }
     #endregion
 

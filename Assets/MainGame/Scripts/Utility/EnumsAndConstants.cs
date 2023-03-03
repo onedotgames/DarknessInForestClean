@@ -79,8 +79,9 @@ public enum Panels
     Initial = 4,
     Pause = 5,
     SelectSkill = 6,
+    Tutorial = 7,
 
-    MAX = 7
+    MAX = 8
 }
 
 public enum PlayerStates
