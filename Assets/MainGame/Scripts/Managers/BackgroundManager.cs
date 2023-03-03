@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class BackgroundManager : CustomBehaviour
 {
-    public BGList BGList;
+    //public BGList BGList;
 
     public GameObject horizontalGroup;
     public GameObject verticalGroup;
     public MapType mapType;
+    
 
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
-        BGList.Initialize(gameManager);
+        //BGList.Initialize(gameManager);
     }
 
 

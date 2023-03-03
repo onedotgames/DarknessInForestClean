@@ -14,6 +14,9 @@ public class SwipeLevels : MonoBehaviour
     public GameObject BGObject;
     public BackGround backGround;
     public GameManager GameManager;
+    public Image BGImage;
+    
+
     private void Update()
     {
         pos = new float[transform.childCount];
@@ -45,6 +48,7 @@ public class SwipeLevels : MonoBehaviour
             {
                 transform.GetChild(i).localScale = Vector3.Lerp(transform.GetChild(i).localScale, new Vector3(1.2f, 1.2f, 1f), 0.1f);
                 currentLevelMat = mapStats[i].MapSprite;
+                BGImage.material = mapStats[i].MapMaterial;
                 GameManager.BackgroundManager.mapType = mapStats[i].mapType;
                 //for (int k = 0; k < 9; k++)
                 //{
@@ -68,5 +72,6 @@ public class SwipeLevels : MonoBehaviour
 public struct MapStats
 {
     public Sprite MapSprite;
+    public Material MapMaterial;
     public MapType mapType;
 }

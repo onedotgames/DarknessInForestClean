@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &50996815079236148
 Transform:
   m_ObjectHideFlags: 0
@@ -46,6 +46,64 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgrounds: []
+--- !u!1 &7979475363971682888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 91648321411388634}
+  - component: {fileID: 2385829416616082511}
+  m_Layer: 19
+  m_Name: OverlapCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &91648321411388634
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7979475363971682888}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 50996815145803786}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &2385829416616082511
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7979475363971682888}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2}
+  m_EdgeRadius: 0
 --- !u!1001 &618972038114137086
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53,14 +111,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 50996815079236148}
     m_Modifications:
+    - target: {fileID: 586077764319882254, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 586077764343065763, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 9282007e484f0234d8479d348223eb54, type: 3}
+    - target: {fileID: 586077764343065767, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 586077764703572304, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 1a038ea303d5c5f4e90f6083f30b441a, type: 3}
+    - target: {fileID: 586077764703572308, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 586077764774378640, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 586077764821890384, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 586077764821890396, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -69,6 +147,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 1a038ea303d5c5f4e90f6083f30b441a, type: 3}
+    - target: {fileID: 586077764998530406, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 586077765198432451, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 586077765198432463, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -121,10 +207,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: BGObject
       objectReference: {fileID: 0}
+    - target: {fileID: 586077765768022731, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 586077765992029571, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 9282007e484f0234d8479d348223eb54, type: 3}
+    - target: {fileID: 586077765992029575, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 1996452771317391541, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
       propertyPath: bglist
       value: 
@@ -133,6 +227,10 @@ PrefabInstance:
       propertyPath: BGSystem
       value: 
       objectReference: {fileID: 50996815079236149}
+    - target: {fileID: 1996452771317391541, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
+      propertyPath: _layerMask.m_Bits
+      value: 524288
+      objectReference: {fileID: 0}
     - target: {fileID: 1996452771317391541, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
       propertyPath: bgSprites.Array.size
       value: 9
@@ -173,6 +271,18 @@ PrefabInstance:
       propertyPath: bgSprites.Array.data[8]
       value: 
       objectReference: {fileID: 50996814941775522}
+    - target: {fileID: 3068465319747322654, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038193745846497793, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 4553907514604368241, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     - target: {fileID: 4865468648340171355, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
       propertyPath: bglist
       value: 
@@ -181,6 +291,10 @@ PrefabInstance:
       propertyPath: BGSystem
       value: 
       objectReference: {fileID: 50996815079236149}
+    - target: {fileID: 4865468648340171355, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
+      propertyPath: _layerMask.m_Bits
+      value: 524288
+      objectReference: {fileID: 0}
     - target: {fileID: 4865468648340171355, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
       propertyPath: bgSprites.Array.size
       value: 9
@@ -230,6 +344,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 50996815079236149}
     - target: {fileID: 5321523205162013907, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
+      propertyPath: _layerMask.m_Bits
+      value: 524288
+      objectReference: {fileID: 0}
+    - target: {fileID: 5321523205162013907, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
       propertyPath: bgSprites.Array.size
       value: 9
       objectReference: {fileID: 0}
@@ -278,6 +396,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 50996815079236149}
     - target: {fileID: 6120896268888760623, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
+      propertyPath: _layerMask.m_Bits
+      value: 524288
+      objectReference: {fileID: 0}
+    - target: {fileID: 6120896268888760623, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
       propertyPath: bgSprites.Array.size
       value: 9
       objectReference: {fileID: 0}
@@ -317,6 +439,10 @@ PrefabInstance:
       propertyPath: bgSprites.Array.data[8]
       value: 
       objectReference: {fileID: 50996814941775522}
+    - target: {fileID: 8300045371592625332, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
+      propertyPath: m_Layer
+      value: 19
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
 --- !u!212 &50996814160855028 stripped
@@ -352,6 +478,11 @@ SpriteRenderer:
 --- !u!212 &50996815101646492 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 586077764998530402, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
+  m_PrefabInstance: {fileID: 618972038114137086}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &50996815145803786 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 586077765019661300, guid: 521a2ffc529d74eb39ec2724cc3f0aec, type: 3}
   m_PrefabInstance: {fileID: 618972038114137086}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &50996815536350903 stripped
