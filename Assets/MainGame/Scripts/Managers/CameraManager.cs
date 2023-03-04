@@ -19,6 +19,7 @@ public class CameraManager : CustomBehaviour
     private bool sizeFit = true;
     public CreateBoundaries CreateBoundaries;
     public List<BackGround> BackGrounds;
+    public float OrtoSize;
     #endregion
 
     #region Methods
@@ -70,10 +71,10 @@ public class CameraManager : CustomBehaviour
         {
             MainCamera.orthographicSize += MainCamera.orthographicSize * 2 * Time.deltaTime;
         }
-        if(MainCamera.orthographicSize >= 6.5f)
+        if(MainCamera.orthographicSize >= OrtoSize)
         {
             sizeFit = true;
-            MainCamera.orthographicSize = 6.5f;
+            MainCamera.orthographicSize = OrtoSize;
         }
     }
 
