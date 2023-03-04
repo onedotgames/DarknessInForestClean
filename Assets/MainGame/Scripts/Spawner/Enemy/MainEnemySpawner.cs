@@ -13,29 +13,37 @@ public class MainEnemySpawner : CustomBehaviour
 
     public void SpawnEnemyV2()
     {
-        if (timeManager.GetTimeValue() < 30f)
-        {
-            var pooler = GameManager.PoolingManager.EnemyPoolerListV2[(int)EnemyPoolerType.BasicMeleeEnemyPoolerOne];
-            var obj = pooler.GetFromPool();
-            obj.objectTransform.position = transform.position;
-            obj.gameObject.SetActive(true);
-            var enemy = obj.GetComponent<EnemyBase>();
-            enemy.ObjectToPool = obj;
-            enemy.Pooler = pooler;
-            enemy.ActivateEnemy();
-        }
-        else
-        {
-            //Debug.Log("30+");
-            var index = Random.Range(0, GameManager.PoolingManager.EnemyPoolerListV2.Count);
-            var pooler = GameManager.PoolingManager.EnemyPoolerListV2[index];
-            var obj = pooler.GetFromPool();
-            obj.objectTransform.position = transform.position;
-            obj.gameObject.SetActive(true);
-            var enemy = obj.GetComponent<EnemyBase>();
-            enemy.ObjectToPool = obj;
-            enemy.Pooler = pooler;
-            enemy.ActivateEnemy();
-        }
+        //if (timeManager.GetTimeValue() < 30f)
+        //{
+        //    var pooler = GameManager.PoolingManager.EnemyPoolerListV2[(int)EnemyPoolerType.BasicMeleeEnemyPoolerOne];
+        //    var obj = pooler.GetFromPool();
+        //    obj.objectTransform.position = transform.position;
+        //    obj.gameObject.SetActive(true);
+        //    var enemy = obj.GetComponent<EnemyBase>();
+        //    enemy.ObjectToPool = obj;
+        //    enemy.Pooler = pooler;
+        //    enemy.ActivateEnemy();
+        //}
+        //else
+        //{
+        //    //Debug.Log("30+");
+        //    var index = Random.Range(0, GameManager.PoolingManager.EnemyPoolerListV2.Count);
+        //    var pooler = GameManager.PoolingManager.EnemyPoolerListV2[index];
+        //    var obj = pooler.GetFromPool();
+        //    obj.objectTransform.position = transform.position;
+        //    obj.gameObject.SetActive(true);
+        //    var enemy = obj.GetComponent<EnemyBase>();
+        //    enemy.ObjectToPool = obj;
+        //    enemy.Pooler = pooler;
+        //    enemy.ActivateEnemy();
+        //}
+        var pooler = GameManager.PoolingManager.EnemyPoolerListV2[(int)EnemyPoolerType.BasicMeleeEnemyPoolerOne];
+        var obj = pooler.GetFromPool();
+        obj.objectTransform.position = transform.position;
+        obj.gameObject.SetActive(true);
+        var enemy = obj.GetComponent<EnemyBase>();
+        enemy.ObjectToPool = obj;
+        enemy.Pooler = pooler;
+        enemy.ActivateEnemy();
     }
 }

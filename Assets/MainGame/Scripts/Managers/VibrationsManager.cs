@@ -14,7 +14,8 @@ public class VibrationsManager : CustomBehaviour
         base.Initialize(gameManager);
         LofeltHaptics.Initialize();
         DeviceCapabilities.Init();
-        InitializeVibrationState();       
+        //InitializeVibrationState();
+        IsVibrationOn = true;
     }
 
     public void InitializeVibrationState()

@@ -1,6 +1,7 @@
 using Assets.FantasyMonsters.Scripts;
 using DG.Tweening;
 using DG.Tweening.Core.Easing;
+using Lofelt.NiceVibrations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -719,6 +720,7 @@ public class BossBase : CustomBehaviour
         currentHP -= damageToTake;
         hud.SetBossFillValue(currentHP, BaseHealth);
         hud.SetBossFillText(currentHP, BaseHealth);
+        GameManager.VibrationsManager.PlayVibration(HapticPatterns.PresetType.SoftImpact);
         CheckDeath();
     }
 

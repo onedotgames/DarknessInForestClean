@@ -186,6 +186,8 @@ public class InitialMenu : UIPanel
 
         rectBG.DOLocalMoveX(EquipmentBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
         rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 1));
+        GameManager.TutorialManager.TutorialPanel.ClosePanel();
+
         GameManager.TutorialManager.EquipmentTutorialOn();
     }
     private void OnHomeBTNClicked()
@@ -229,6 +231,8 @@ public class InitialMenu : UIPanel
         rectBG.DOLocalMoveX(LevelsBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
         rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 5));
         GameManager.TutorialManager.TutorialPanel.ClosePanel();
+        GameManager.TutorialManager.LevelsTutorialOn();
+
 
     }
     private void OnLeaderBoardBTNClicked()

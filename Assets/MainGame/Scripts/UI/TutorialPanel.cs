@@ -8,8 +8,11 @@ public class TutorialPanel : UIPanel
 {
     public Image TutorialPopUP;
     public Image TutorialPopUPArrow;
+    public Image TempTutorialPopUPArrow;
     public GameObject TempPos;
+    public GameObject TempLevelsPos;
     public GameObject TempTargetPos;
+    public GameObject TempLevelsTargetPos;
     public TMP_Text PopUpText;
     public override void Initialize(UIManager uIManager)
     {

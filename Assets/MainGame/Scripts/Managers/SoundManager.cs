@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SoundManager : CustomBehaviour
@@ -17,8 +18,6 @@ public class SoundManager : CustomBehaviour
     public AudioSource InitialMenuAudioSource;
     public AudioClip InitialMenuAudioClip;
 
-    public AudioSource SwitchScreenSource;
-    public AudioSource PopUpSource;
     public bool IsSoundOn { get; set; }
     #endregion
 
@@ -50,8 +49,9 @@ public class SoundManager : CustomBehaviour
     public void PlayClickSound(ClickSounds clickSound)
     {
         if (!IsSoundOn) return;
-
-        ClickAudioSource.Play();
+        GameStateAudioSource.clip = ClickAudioClips[(int)clickSound];
+        GameStateAudioSource.Play();
+        //ClickAudioSource.Play();
     }
 
     public void PlayGameStateSound(GameStateSounds sound)
@@ -67,27 +67,32 @@ public class SoundManager : CustomBehaviour
         GameStateAudioSource.clip = PlayerInteractionAudioClips[(int)sound];
         GameStateAudioSource.Play();
     }
-    public void PlaySwitchScreenSound()
-    {
-        if (!IsSoundOn) return;
-        SwitchScreenSource.Play();
-    }
-    public void PlayPopUpScreenSound()
-    {
-        if (!IsSoundOn) return;
-        PopUpSource.Play();
-    }
+//    public void PlaySwitchScreenSound()
+//    {
+//        if (!IsSoundOn) return;
+//        GameStateAudioSource.clip =         GameStateAudioSource.clip = GameStateAudioClips[(int)sound];
+//;
+//        GameStateAudioSource.Play();
+//        //SwitchScreenSource.Play();
+//    }
+    //public void PlayPopUpScreenSound()
+    //{
+    //    if (!IsSoundOn) return;
+    //    GameStateAudioSource.clip = PopUpSource.clip;
+    //    GameStateAudioSource.Play();
+    //    //PopUpSource.Play();
+    //}
 
     public void PlayInitialMenuSound()
     {
         if (!IsSoundOn) return;
-        GameStateAudioSource.clip = InitialMenuAudioClip;
-        GameStateAudioSource.Play();
+        InitialMenuAudioSource.clip = InitialMenuAudioClip;
+        InitialMenuAudioSource.Play();
     }
     public void StopInitialMenuSound()
     {
-        
-        GameStateAudioSource.Stop();
+
+        InitialMenuAudioSource.Stop();
     }
     #endregion
 }

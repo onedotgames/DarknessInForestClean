@@ -1,3 +1,4 @@
+using Lofelt.NiceVibrations;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -277,6 +278,8 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
         Debug.Log("Level atladım.");
         GameManager.UIManager.GetPanel(Panels.Hud).ClosePanel();
         UpdateUIElements();
+        GameManager.VibrationsManager.PlayVibration(HapticPatterns.PresetType.Success);
+
         ExpText.text = GameManager.PlayerLevelManager.CurrentExp + " / " + GameManager.PlayerLevelManager.LevelRequirement;
         ExpSlider.value = GameManager.PlayerLevelManager.CurrentExp / GameManager.PlayerLevelManager.LevelRequirement;
         CoinText.text = GameManager.PlayerManager.GetTotalCoinCount().ToString();

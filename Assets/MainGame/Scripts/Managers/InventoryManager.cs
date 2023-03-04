@@ -116,7 +116,7 @@ public class InventoryManager : CustomBehaviour
     {
         Debug.Log("There is " + PopUpSlots.Count + " Pop Up Slot");
         InventorySlots.ForEach(x => x.SlotButton.interactable = false);
-        GameManager.SoundManager.PlayPopUpScreenSound();
+        GameManager.SoundManager.PlayClickSound(ClickSounds.PopUp);
         for (int i = 0; i < PopUpSlots.Count; i++)
         {
             if (i < value)

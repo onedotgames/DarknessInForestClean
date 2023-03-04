@@ -247,7 +247,10 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
 
     private void PauseGame()
     {
+
         ClosePanel();
+        GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
+
         GameManager.UIManager.GetPanel(Panels.Pause).OpenPanel();
         GameManager.IsGamePaused = true;
         
@@ -256,6 +259,7 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
     {
         GameManager.UIManager.GetPanel(Panels.Pause).ClosePanel();
         OpenPanel();
+        GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
 
         GameManager.IsGamePaused = false;
     }
@@ -264,6 +268,8 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
     {
         //Application.Quit();
         //Debug.Log("Quit");
+        GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
+
         UnityEngine.SceneManagement.SceneManager.LoadScene
                 (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
     }
@@ -272,6 +278,8 @@ public class HUD : UIPanel, IPointerDownHandler, IPointerUpHandler
     {
         //GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
         //GameManager.UIManager.GetPanel(Panels.Pause).ClosePanel();
+        GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
+
         GameManager.RestartGame();
         GameManager.UIManager.GetPanel(Panels.Pause).ClosePanel();
         OpenPanel();

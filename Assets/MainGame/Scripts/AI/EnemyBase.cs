@@ -1,6 +1,7 @@
 using Assets.FantasyMonsters.Scripts;
 using DG.Tweening;
 using DG.Tweening.Core.Easing;
+using Lofelt.NiceVibrations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -217,6 +218,8 @@ public class EnemyBase : CustomBehaviour
         if (IsActivated)
         {
             BaseHealth -= damageToTake;
+            GameManager.VibrationsManager.PlayVibration(HapticPatterns.PresetType.SoftImpact);
+
             CheckDeath();
         }
         
