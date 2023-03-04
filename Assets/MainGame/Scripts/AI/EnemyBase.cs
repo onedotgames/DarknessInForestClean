@@ -218,7 +218,7 @@ public class EnemyBase : CustomBehaviour
         if (IsActivated)
         {
             BaseHealth -= damageToTake;
-            GameManager.VibrationsManager.PlayVibration(HapticPatterns.PresetType.SoftImpact);
+            GameManager.VibrationsManager.PlayVibration(HapticPatterns.PresetType.LightImpact);
 
             CheckDeath();
         }

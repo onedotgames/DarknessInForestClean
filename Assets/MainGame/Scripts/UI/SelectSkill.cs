@@ -278,7 +278,7 @@ public class SelectSkill : UIPanel, IPointerDownHandler, IPointerUpHandler
         Debug.Log("Level atladım.");
         GameManager.UIManager.GetPanel(Panels.Hud).ClosePanel();
         UpdateUIElements();
-        GameManager.VibrationsManager.PlayVibration(HapticPatterns.PresetType.Success);
+        GameManager.VibrationsManager.PlayVibration(HapticPatterns.PresetType.Selection);
 
         ExpText.text = GameManager.PlayerLevelManager.CurrentExp + " / " + GameManager.PlayerLevelManager.LevelRequirement;
         ExpSlider.value = GameManager.PlayerLevelManager.CurrentExp / GameManager.PlayerLevelManager.LevelRequirement;

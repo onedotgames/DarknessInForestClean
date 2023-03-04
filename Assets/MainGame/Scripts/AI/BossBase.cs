@@ -720,7 +720,7 @@ public class BossBase : CustomBehaviour
         currentHP -= damageToTake;
         hud.SetBossFillValue(currentHP, BaseHealth);
         hud.SetBossFillText(currentHP, BaseHealth);
-        GameManager.VibrationsManager.PlayVibration(HapticPatterns.PresetType.SoftImpact);
+        GameManager.VibrationsManager.PlayVibration(HapticPatterns.PresetType.LightImpact);
         CheckDeath();
     }
 
