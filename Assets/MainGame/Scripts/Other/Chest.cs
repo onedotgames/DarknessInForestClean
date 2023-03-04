@@ -18,6 +18,7 @@ public class Chest : MonoBehaviour
     }
     public void OpenChest()
     {
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
         transform.GetChild(0).gameObject.SetActive(false);
         transform.GetChild(1).gameObject.SetActive(true);
         StartCoroutine(ThrowExpCoinRoutine());
@@ -53,6 +54,7 @@ public class Chest : MonoBehaviour
         }
         yield return new WaitForSeconds(1.5f);
         GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.ChestPooler].ReturnObjectToPool(this.gameObject);
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
         transform.GetChild(1).gameObject.SetActive(false);
         transform.GetChild(0).gameObject.SetActive(true);
     }
