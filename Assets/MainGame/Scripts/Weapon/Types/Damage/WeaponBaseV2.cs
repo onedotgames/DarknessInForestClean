@@ -268,7 +268,8 @@ public class WeaponBaseV2 : CustomBehaviour
         {
             Debug.Log("Should play minigame");
             CloseSkillPanel();
-            PlayMinigame(UnityEngine.Random.Range(0, GameManager.SkillManager.Minigames.Length));
+            //PlayMinigame(UnityEngine.Random.Range(0, GameManager.SkillManager.Minigames.Length));
+            PlayMinigame(0);
         }
         else
         {

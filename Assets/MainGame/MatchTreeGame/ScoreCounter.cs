@@ -17,6 +17,7 @@ public sealed class ScoreCounter : MonoBehaviour
     public MiniGameType miniGameType;
     public RectTransform RadialShine;
     public Button SuccessBTN;
+    public Button SkipBTN;
     
     private void Update()
     {
