@@ -11,7 +11,6 @@ public class PoisonDartProjectile : ProjectileBase
     public float PoisonDuration = 2f;
     private float PoisonAreaDamage = 20f;
     private bool _shouldMove;
-    private List<Coroutine> _AllPoisonRoutines;
     [SerializeField] private GameObject Aura;
     [SerializeField] private Vector3 AuraInitialScale;
     [SerializeField] private CircleCollider2D _circleCollider2D;
@@ -23,11 +22,11 @@ public class PoisonDartProjectile : ProjectileBase
     [SerializeField]private float _targetBoxColliderSize;
 
     private bool _openModel;
+    private bool _AoEMode;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
         //this.TriggerReturn(5f);
-        _AllPoisonRoutines = new List<Coroutine>();
         Model.SetActive(true);
         _originalBoxColliderSize = _circleCollider2D.radius;
         Aura.transform.localScale = AuraInitialScale;
@@ -44,9 +43,23 @@ public class PoisonDartProjectile : ProjectileBase
             {
                 LinearMovement(Direction);
             }
-            if (_openModel)
+            if (_AoEMode)
             {
-
+                OpenTimeValue += Time.deltaTime;
+                if (OpenTimeValue >= Cooldown)
+                {
+                    OpenTimeValue = 0;
+                    Return();
+                }
+            }
+            else
+            {
+                CloseTimeValue += Time.deltaTime;
+                if (CloseTimeValue >= Cooldown * 2)
+                {
+                    CloseTimeValue = 0;
+                    Return();
+                }
             }
         }
     }
@@ -77,20 +90,17 @@ public class PoisonDartProjectile : ProjectileBase
 
             ChangeModel();
 
-            enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.FrostBitten));
-
-                //if (!PoisonVFX.isPlaying)
-                //    PoisonVFX.Play();
-
-            _AllPoisonRoutines.Add(enemy.AOEDamageRoutine);
+            if (!enemy.FrostBitten)
+            {
+                enemy.FrostBitten = true;
+                enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.FrostBitten));
+            }
+            
 
             Invoke("CloseEnlargement", 0.35f);
             _circleCollider2D.radius = _targetBoxColliderSize;
 
-            _shouldMove = false;
-            CancelReturnTrigger();
-            Invoke("Return", PoisonDuration);
-
+            _shouldMove = false; 
         }
         if (collision.CompareTag("Boss"))
         {
@@ -100,20 +110,16 @@ public class PoisonDartProjectile : ProjectileBase
 
             ChangeModel();
 
-            enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.FrostBitten));
-
-                //if (!PoisonVFX.isPlaying)
-                //    PoisonVFX.Play();
-
-            _AllPoisonRoutines.Add(enemy.AOEDamageRoutine);
+            if (!enemy.FrostBitten)
+            {
+                enemy.FrostBitten = true;
+                enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.FrostBitten));
+            }
 
             Invoke("CloseEnlargement", 0.35f);
             _circleCollider2D.radius = _targetBoxColliderSize;
 
-            _shouldMove = false;
-
-            Invoke("Return", PoisonDuration);
-            
+            _shouldMove = false;            
         }
         if (collision.CompareTag("Barrel"))
         {
@@ -155,80 +161,23 @@ public class PoisonDartProjectile : ProjectileBase
         }
     }
 
-    //private void OnTriggerExit2D(Collider2D collision)
-    //{
-    //    if (collision.CompareTag("Enemy"))
-    //    {
-    //        _shouldMove = false;
-    //        var enemy = collision.GetComponent<EnemyBase>();
-    //        if (IsAoE)
-    //        {
-    //            if (enemy.AOEDamageRoutine != null)
-    //            {
-    //                enemy.StopCoroutine(enemy.AOEDamageRoutine);
-    //                if (_AllPoisonRoutines.Contains(enemy.AOEDamageRoutine))
-    //                {
-    //                    _AllPoisonRoutines.Remove(enemy.AOEDamageRoutine);
-    //                }
-    //            }
-    //        }
-
-    //    }
-    //    if (collision.CompareTag("Boss"))
-    //    {
-    //        _shouldMove = false;
-    //        var enemy = collision.GetComponent<BossBase>();
-    //        if (IsAoE)
-    //        {
-    //            if (enemy.AOEDamageRoutine != null)
-    //            {
-    //                enemy.StopCoroutine(enemy.AOEDamageRoutine); 
-    //                if (_AllPoisonRoutines.Contains(enemy.AOEDamageRoutine))
-    //                {
-    //                    _AllPoisonRoutines.Remove(enemy.AOEDamageRoutine);
-    //                }
-    //            }
-    //        }
-    //    }
-    //}
-
     private void ChangeModel()
     {
         Model.SetActive(false);
         Aura.SetActive(true);
         _openModel = true;
+        _AoEMode = true;
         Aura.transform.DOScale(new Vector3(_spiderWebSizeX, _spiderWebSizeY, _spiderWebSizeX), 0.25f);
     }
-    private void DeactivatePoisonDart()
-    {
-        if (!_AllPoisonRoutines.IsNullOrEmpty())
-        {
-            _AllPoisonRoutines.ForEach(x =>
-            {
-                if (x != null)
-                {
-                    StopCoroutine(x);
 
-                }
-            }
-            );
-        }
-    }
     protected override void Return()
     {
-        DeactivatePoisonDart();
         _circleCollider2D.radius = _originalBoxColliderSize;
         _openModel = false;
-
+        _AoEMode = false;
         Aura.SetActive(false);
         base.Return();
     }
-
-    //private void OnBecameInvisible()
-    //{
-    //    if (!Aura.activeInHierarchy)
-    //        Return();
-    //}
 
     protected override void TriggerReturn(float time)
     {

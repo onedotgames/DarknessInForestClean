@@ -24,7 +24,8 @@ public class ProjectileBase : CustomBehaviour
 
     [Space(10)]
     [Title("Timer Properties")]
-    public float TimeValue;
+    public float OpenTimeValue;
+    public float CloseTimeValue;
     public float Cooldown;
 
     public override void Initialize(GameManager gameManager)
@@ -38,6 +39,11 @@ public class ProjectileBase : CustomBehaviour
         GameManager.OnLevelCompleted += LevelCompleted;
         GameManager.OnLevelFailed += LevelFailed;
         GameManager.OnRestartGame += RestartGame;
+    }
+
+    protected virtual void ReturnTimer()
+    {
+        
     }
 
     private void LevelCompleted()

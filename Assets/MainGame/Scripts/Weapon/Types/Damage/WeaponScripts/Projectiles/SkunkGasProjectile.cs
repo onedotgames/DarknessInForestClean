@@ -30,7 +30,11 @@ public class SkunkGasProjectile : ProjectileBase
 
             enemy.GetHit(Damage);
 
-            enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.Poisoned));
+            if (!enemy.Poisoned)
+            {
+                enemy.Poisoned = true;
+                enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.Poisoned));
+            }         
 
         }
         if (collision.CompareTag("Boss"))
@@ -40,8 +44,11 @@ public class SkunkGasProjectile : ProjectileBase
 
             enemy.GetHit(Damage);
 
-            enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.Poisoned));
-
+            if (!enemy.Burned)
+            {
+                enemy.Burned = true;
+                enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.Burned));
+            }
 
         }
         if (collision.CompareTag("Barrel"))
