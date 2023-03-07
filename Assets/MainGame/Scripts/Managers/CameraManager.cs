@@ -16,7 +16,7 @@ public class CameraManager : CustomBehaviour
     private Vector3 mInitialOffset;
     private float mOffsetX;
     private bool mCanFollow = false;
-    private bool sizeFit = true;
+    [SerializeField] private bool sizeFit = true;
     public CreateBoundaries CreateBoundaries;
     public List<BackGround> BackGrounds;
     public float OrtoSize;
@@ -37,6 +37,9 @@ public class CameraManager : CustomBehaviour
         {
             GameManager.OnStartGame += StartGame;
             GameManager.OnReturnToMainMenu += ReturnToMainMenu;
+            GameManager.OnRestartGame += RestartGame;
+            GameManager.OnLevelCompleted += LevelCompleted;
+            GameManager.OnLevelFailed += LevelFailed;
         }
     }
     private void UnSubscribeEvents()
@@ -45,7 +48,9 @@ public class CameraManager : CustomBehaviour
         {
             GameManager.OnStartGame -= StartGame;
             GameManager.OnReturnToMainMenu -= ReturnToMainMenu;
-        }
+            GameManager.OnRestartGame -= RestartGame;
+            GameManager.OnLevelCompleted -= LevelCompleted;
+            GameManager.OnLevelFailed -= LevelFailed;}
     }
 
     private void InitializeOptions()
@@ -70,6 +75,10 @@ public class CameraManager : CustomBehaviour
         if (!sizeFit)
         {
             MainCamera.orthographicSize += MainCamera.orthographicSize * 2 * Time.deltaTime;
+        }
+        else
+        {
+            MainCamera.orthographicSize = OrtoSize;
         }
         if(MainCamera.orthographicSize >= OrtoSize)
         {
@@ -109,6 +118,7 @@ public class CameraManager : CustomBehaviour
     #region Event Methods
     private void StartGame()
     {
+        OrtoSize = 7.5f;
         mCanFollow = true;
         sizeFit = false;
         CreateBoundaries.SetV2();
@@ -117,10 +127,23 @@ public class CameraManager : CustomBehaviour
     private void ReturnToMainMenu()
     {
         ResetOffset();
+        OrtoSize = 7.5f;
         
     }
+    private void RestartGame()
+    {
+        OrtoSize = 7.5f;
+    }
 
+    private void LevelCompleted()
+    {
+        OrtoSize = 7.5f;
+    }
 
+    private void LevelFailed()
+    {
+        OrtoSize = 7.5f;
+    }
     private void OnDestroy()
     {
         UnSubscribeEvents();

@@ -309,23 +309,25 @@ public class WeaponBaseV2 : CustomBehaviour
         Time.timeScale = 0;
         var miniGameObject = GameManager.SkillManager.Minigames[gameIndex];
         var miniGame = miniGameObject.GetComponent<MiniGameBase>();
+        miniGame.TargetImage = SkillSO.Icon;
+        miniGame.TargetBox.sprite = SkillSO.Icon;
+        Debug.Log(SkillSO.Icon.name);
+        miniGame.Weapons[0] = SkillSO.Icon;
         if (gameIndex == 0)
         {
-            miniGame.TargetImage = SkillSO.Icon;
-            miniGame.TargetBox.sprite = SkillSO.Icon;
-            for (int i = 0; i < miniGame.Weapons.Count; i++)
-            {
-                if (miniGame.Weapons[i].name == SkillSO.Icon.name)
-                {
-                    controlInt++;
-                }
+            // for (int i = 0; i < miniGame.Weapons.Count; i++)
+            // {
+            //     if (miniGame.Weapons[i].name == SkillSO.Icon.name)
+            //     {
+            //         controlInt++;
+            //     }
 
-            }
-            if (controlInt == 0)
-            {
-                //resim yoktur..
-                miniGame.Weapons[0] = SkillSO.Icon;
-            }
+            // }
+            // if (controlInt == 0)
+            // {
+            //     //resim yoktur..
+            //     miniGame.Weapons[0] = SkillSO.Icon;
+            // }
         }
         miniGameObject.transform.localScale = Vector3.zero;
         miniGameObject.SetActive(true);
@@ -333,7 +335,7 @@ public class WeaponBaseV2 : CustomBehaviour
         {//match3
             ScoreCounter.miniGameType = MiniGameType.Evolve;
         }
-        miniGameObject.transform.DOScale(Vector3.one, 1f).SetUpdate(true);
+        miniGameObject.transform.DOScale(Vector3.one * 0.8f, 1f).SetUpdate(true);
     }
     public void MakePropertyReadyForChange(PropertyToChange propertyToChange)
     {

@@ -57,7 +57,7 @@ public class EnvironmentGenerator : CustomBehaviour
     }
     private void StartGame()
     {
-        //_timerOn = true; //--> Spawn mekani?inin ba?lamas? i?in bunu a?mak yeterli
+        _timerOn = true; //--> Spawn mekani?inin ba?lamas? i?in bunu a?mak yeterli
         //TreeList.Clear();
         if (GameManager.ChallengeManager.isChallengeLevel)
         {
@@ -73,7 +73,6 @@ public class EnvironmentGenerator : CustomBehaviour
         //{
         //    _pool.ReturnObjectToPool(TreeList[i]);
         //}
-
     }
 
     private void RestartGame()
@@ -150,16 +149,26 @@ public class EnvironmentGenerator : CustomBehaviour
                     top = randomTop;
                 }
                 randomRightR = playerTransformPosition.x + MainCamera.orthographicSize;
-                var point = new Vector3(randomRightR, Random.Range(-4f,4f), playerTransformPosition.z);
+                var point = new Vector3(randomRightR, Random.Range(-4f, 4f), playerTransformPosition.z);
+                var challengePoint = new Vector3(randomRightR, Random.Range(-4f, 4f), playerTransformPosition.z);
                 if (!CheckOverlap(point))
                 {
                     //Instantiate(ObjectToSpawn, point, Quaternion.identity);
-                    SpawnObject(point);
                     if (GameManager.ChallengeManager.isChallengeLevel)
-                        SpawnChallengeObject(point);
+                    {
+                        SpawnChallengeObject(challengePoint);
+                        SpawnObject(point);
+                        Debug.Log("Challenge Obj Spawn oldu");
+                    }
+                    else if (!GameManager.ChallengeManager.isChallengeLevel)
+                    {
+                        SpawnObject(point);
+                    }
                 }
                 else
-                { Debug.Log("OVERLAP VAR"); }
+                {
+                    Debug.Log("OVERLAP VAR");
+                }
             }
             else
             {
@@ -179,15 +188,25 @@ public class EnvironmentGenerator : CustomBehaviour
                 }
                 randomRightR = playerTransformPosition.x + MainCamera.orthographicSize;
 
-                var point = new Vector3(randomRightR, Random.Range(-4f,4f), playerTransformPosition.z);
+                var point = new Vector3(randomRightR, Random.Range(-4f, 4f), playerTransformPosition.z);
+                var challengePoint = new Vector3(randomRightR, Random.Range(-4f, 4f), playerTransformPosition.z);
                 if (!CheckOverlap(point))
                 {
-                    //Instantiate(ObjectToSpawn, point, Quaternion.identity);
-                    SpawnObject(point);
                     if (GameManager.ChallengeManager.isChallengeLevel)
-                        SpawnChallengeObject(point);
+                    {
+                        SpawnChallengeObject(challengePoint);
+                        SpawnObject(point);
+                        Debug.Log("Challenge Obj Spawn oldu");
+                    }
+                    else if (!GameManager.ChallengeManager.isChallengeLevel)
+                    {
+                        SpawnObject(point);
+                    }
+                    else
+                    {
+                        Debug.Log("OVERLAP VAR");
+                    }
                 }
-                else { Debug.Log("OVERLAP VAR"); }
             }
         }
         else
@@ -211,13 +230,20 @@ public class EnvironmentGenerator : CustomBehaviour
                 }
                 randomLeftL = playerTransformPosition.x - MainCamera.orthographicSize;
 
-                var point = new Vector3(randomLeftL, Random.Range(-4f,4f), playerTransformPosition.z);
+                var point = new Vector3(randomLeftL, Random.Range(-4f, 4f), playerTransformPosition.z);
+                var challengePoint = new Vector3(randomLeftL, Random.Range(-4f, 4f), playerTransformPosition.z);
                 if (!CheckOverlap(point))
                 {
-                    //Instantiate(ObjectToSpawn, point, Quaternion.identity);
-                    SpawnObject(point);
                     if (GameManager.ChallengeManager.isChallengeLevel)
-                        SpawnChallengeObject(point);
+                    {
+                        SpawnChallengeObject(challengePoint);
+                        SpawnObject(point);
+                        Debug.Log("Challenge Obj Spawn oldu");
+                    }
+                    else
+                    {
+                        SpawnObject(point);
+                    }
                 }
                 else { Debug.Log("OVERLAP VAR"); }
             }
@@ -239,13 +265,20 @@ public class EnvironmentGenerator : CustomBehaviour
                 }
                 randomLeftL = playerTransformPosition.x - MainCamera.orthographicSize;
 
-                var point = new Vector3(randomLeftL, Random.Range(-4f,4f), playerTransformPosition.z);
+                var point = new Vector3(randomLeftL, Random.Range(-4f, 4f), playerTransformPosition.z);
+                var challengePoint = new Vector3(randomLeftL, Random.Range(-4f, 4f), playerTransformPosition.z);
                 if (!CheckOverlap(point))
                 {
-                    //Instantiate(ObjectToSpawn, point, Quaternion.identity);
-                    SpawnObject(point);
                     if (GameManager.ChallengeManager.isChallengeLevel)
-                        SpawnChallengeObject(point);
+                    {
+                        SpawnChallengeObject(challengePoint);
+                        SpawnObject(point);
+                        Debug.Log("Challenge Obj Spawn oldu");
+                    }
+                    else
+                    {
+                        SpawnObject(point);
+                    }
                 }
                 else { Debug.Log("OVERLAP VAR"); }
             }
@@ -295,12 +328,19 @@ public class EnvironmentGenerator : CustomBehaviour
                     top = randomTop;
                 }
                 var point = new Vector3(Random.Range(-5f,5f), top, playerTransformPosition.z);
+                var challengePoint = new Vector3(randomRightR, Random.Range(-4f,4f), playerTransformPosition.z);
                 if (!CheckOverlap(point))
                 {
-                    //Instantiate(ObjectToSpawn, point, Quaternion.identity);
-                    SpawnObject(point);
                     if (GameManager.ChallengeManager.isChallengeLevel)
-                        SpawnChallengeObject(point);
+                    {
+                        SpawnChallengeObject(challengePoint);
+                        SpawnObject(point);
+                        Debug.Log("Challenge Obj Spawn oldu");
+                    }
+                    else
+                    {
+                        SpawnObject(point);
+                    }
                 }
                 else
                 { Debug.Log("OVERLAP VAR"); }
@@ -322,12 +362,19 @@ public class EnvironmentGenerator : CustomBehaviour
                     bot = randomBottom;
                 }
                 var point = new Vector3(Random.Range(-5f,5f), bot, playerTransformPosition.z);
+                var challengePoint = new Vector3(randomRightR, Random.Range(-4f,4f), playerTransformPosition.z);
                 if (!CheckOverlap(point))
                 {
-                    //Instantiate(ObjectToSpawn, point, Quaternion.identity);
-                    SpawnObject(point);
                     if (GameManager.ChallengeManager.isChallengeLevel)
-                        SpawnChallengeObject(point);
+                    {
+                        SpawnChallengeObject(challengePoint);
+                        SpawnObject(point);
+                        Debug.Log("Challenge Obj Spawn oldu");
+                    }
+                    else
+                    {
+                        SpawnObject(point);
+                    }
                 }
                 else { Debug.Log("OVERLAP VAR"); }
             }
@@ -352,12 +399,19 @@ public class EnvironmentGenerator : CustomBehaviour
                     top = randomTop;
                 }
                 var point = new Vector3(Random.Range(-5f,5f), top, playerTransformPosition.z);
+                var challengePoint = new Vector3(Random.Range(-5f, 5f), top, playerTransformPosition.z);
                 if (!CheckOverlap(point))
                 {
-                    //Instantiate(ObjectToSpawn, point, Quaternion.identity);
-                    SpawnObject(point);
                     if (GameManager.ChallengeManager.isChallengeLevel)
-                        SpawnChallengeObject(point);
+                    {
+                        SpawnChallengeObject(challengePoint);
+                        SpawnObject(point);
+                        Debug.Log("Challenge Obj Spawn oldu");
+                    }
+                    else
+                    {
+                        SpawnObject(point);
+                    }
                 }
                 else { Debug.Log("OVERLAP VAR"); }
             }
@@ -378,12 +432,19 @@ public class EnvironmentGenerator : CustomBehaviour
                     bot = randomBottom;
                 }
                 var point = new Vector3(Random.Range(-5f,5f), bot, playerTransformPosition.z);
+                var challengePoint = new Vector3(Random.Range(-5f, 5f), bot, playerTransformPosition.z);
                 if (!CheckOverlap(point))
                 {
-                    //Instantiate(ObjectToSpawn, point, Quaternion.identity);
-                    SpawnObject(point);
                     if (GameManager.ChallengeManager.isChallengeLevel)
-                        SpawnChallengeObject(point);
+                    {
+                        SpawnChallengeObject(challengePoint);
+                        SpawnObject(point);
+                        Debug.Log("Challenge Obj Spawn oldu");
+                    }
+                    else
+                    {
+                        SpawnObject(point);
+                    }
                 }
                 else { Debug.Log("OVERLAP VAR"); }
             }
@@ -433,12 +494,19 @@ public class EnvironmentGenerator : CustomBehaviour
                     top = randomTop;
                 }
                 var point = new Vector3(randomRightR, top, playerTransformPosition.z);
+                var challengePoint = new Vector3(randomRightR, Random.Range(-4f,4f), playerTransformPosition.z);
                 if (!CheckOverlap(point))
                 {
-                    //Instantiate(ObjectToSpawn, point, Quaternion.identity);
-                    SpawnObject(point);
-                    if(GameManager.ChallengeManager.isChallengeLevel)
-                        SpawnChallengeObject(point);
+                    if (GameManager.ChallengeManager.isChallengeLevel)
+                    {
+                        SpawnChallengeObject(challengePoint);
+                        SpawnObject(point);
+                        Debug.Log("Challenge Obj Spawn oldu");
+                    }
+                    else
+                    {
+                        SpawnObject(point);
+                    }
                 }
                 else 
                 { Debug.Log("OVERLAP VAR"); }
@@ -460,12 +528,20 @@ public class EnvironmentGenerator : CustomBehaviour
                     bot = randomBottom;
                 }
                 var point = new Vector3(randomRightR, bot, playerTransformPosition.z);
+                var challengePoint = new Vector3(randomRightR, Random.Range(-4f,4f), playerTransformPosition.z);
                 if (!CheckOverlap(point))
                 {
                     //Instantiate(ObjectToSpawn, point, Quaternion.identity);
-                    SpawnObject(point);
-                    if(GameManager.ChallengeManager.isChallengeLevel)
-                        SpawnChallengeObject(point);
+                    if (GameManager.ChallengeManager.isChallengeLevel)
+                    {
+                        SpawnChallengeObject(challengePoint);
+                        SpawnObject(point);
+                        Debug.Log("Challenge Obj Spawn oldu");
+                    }
+                    else
+                    {
+                        SpawnObject(point);
+                    }
                 }
                 else { Debug.Log("OVERLAP VAR"); }
             }
@@ -490,12 +566,19 @@ public class EnvironmentGenerator : CustomBehaviour
                     top = randomTop;
                 }
                 var point = new Vector3(randomLeftL, top, playerTransformPosition.z);
+                var challengePoint = new Vector3(randomLeftL, top, playerTransformPosition.z);
                 if (!CheckOverlap(point))
                 {
-                    //Instantiate(ObjectToSpawn, point, Quaternion.identity);
-                    SpawnObject(point);
                     if (GameManager.ChallengeManager.isChallengeLevel)
-                        SpawnChallengeObject(point);
+                    {
+                        SpawnChallengeObject(challengePoint);
+                        SpawnObject(point);
+                        Debug.Log("Challenge Obj Spawn oldu");
+                    }
+                    else
+                    {
+                        SpawnObject(point);
+                    }
                 }
                 else { Debug.Log("OVERLAP VAR"); }
             }
@@ -516,12 +599,19 @@ public class EnvironmentGenerator : CustomBehaviour
                     bot = randomBottom;
                 }
                 var point = new Vector3(randomLeftL, bot, playerTransformPosition.z);
+                var challengePoint = new Vector3(randomLeftL, bot, playerTransformPosition.z);
                 if (!CheckOverlap(point))
                 {
-                    //Instantiate(ObjectToSpawn, point, Quaternion.identity);
-                    SpawnObject(point);
-                    if (GameManager.ChallengeManager.isChallengeLevel)
-                        SpawnChallengeObject(point);
+                   if (GameManager.ChallengeManager.isChallengeLevel)
+                    {
+                        SpawnChallengeObject(challengePoint);
+                        SpawnObject(point);
+                        Debug.Log("Challenge Obj Spawn oldu");
+                    }
+                    else
+                    {
+                        SpawnObject(point);
+                    }
                 }
                 else { Debug.Log("OVERLAP VAR"); }
             }

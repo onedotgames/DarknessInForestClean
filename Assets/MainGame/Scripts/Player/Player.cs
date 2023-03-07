@@ -77,6 +77,8 @@ public class Player : CustomBehaviour
     public GameObject playerBase;
     public ParticleSystem baseSmoke;
     public ScoreCounter ScoreCounter;
+    public int chestCount;
+    private float TempMoveSpeed;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -221,6 +223,23 @@ public class Player : CustomBehaviour
             //GameManager.HolyFountain.SmokeVFX.Play();
             GameManager.HolyFountain.Water.transform.DOScale(Vector3.zero, 2f);
             GameManager.HolyFountain.HolyFountainCollider.enabled = false;
+        }
+        if (collision.CompareTag("Swamp"))
+        {
+            TempMoveSpeed = mForwardSpeed;
+            mForwardSpeed *= 0.5f;
+        }
+        if (collision.CompareTag("Thorn"))
+        {
+            GetHit(5f);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Swamp"))
+        {
+            mForwardSpeed = TempMoveSpeed;
         }
     }
     private void InitializeCustomOptions()
@@ -451,6 +470,12 @@ public class Player : CustomBehaviour
         CloseRechargableShield();
         baseSmoke.Play();
         playerBase.SetActive(false);
+        var chestPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.ChestPooler];
+        for (int i = 0; i < chestPool.TempList.Count; i++)
+        {
+            chestPool.ReturnObjectToPool(chestPool.TempList[i]);
+        }
+        chestCount = 0;
     }
 
     private void RestartGame()
@@ -464,6 +489,12 @@ public class Player : CustomBehaviour
         CloseRechargableShield();
         baseSmoke.Play();
         playerBase.SetActive(false);
+        var chestPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.ChestPooler];
+        for (int i = 0; i < chestPool.TempList.Count; i++)
+        {
+            chestPool.ReturnObjectToPool(chestPool.TempList[i]);
+        }
+        chestCount = 0;
     }
     private void ReturnToMainMenu()
     {
@@ -473,6 +504,12 @@ public class Player : CustomBehaviour
         DamageReduction = 1;
         CloseRechargableShield();
         playerBase.SetActive(true);
+        var chestPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.ChestPooler];
+        for (int i = 0; i < chestPool.TempList.Count; i++)
+        {
+            chestPool.ReturnObjectToPool(chestPool.TempList[i]);
+        }
+        chestCount = 0;
     }
 
     private void LevelFailed()
@@ -482,6 +519,12 @@ public class Player : CustomBehaviour
         SetPlayerStats();
         DamageReduction = 1;
         CloseRechargableShield();
+        var chestPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.ChestPooler];
+        for (int i = 0; i < chestPool.TempList.Count; i++)
+        {
+            chestPool.ReturnObjectToPool(chestPool.TempList[i]);
+        }
+        chestCount = 0;
     }
     private void LevelCompleted()
     {
@@ -490,6 +533,12 @@ public class Player : CustomBehaviour
         SetPlayerStats();
         DamageReduction = 1;
         CloseRechargableShield();
+        var chestPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.ChestPooler];
+        for (int i = 0; i < chestPool.TempList.Count; i++)
+        {
+            chestPool.ReturnObjectToPool(chestPool.TempList[i]);
+        }
+        chestCount = 0;
     }
 
     private void OnDisable()
