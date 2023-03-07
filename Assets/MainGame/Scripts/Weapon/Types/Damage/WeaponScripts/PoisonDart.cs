@@ -26,7 +26,12 @@ public class PoisonDart : WeaponBase
             PoisonVFX.Play();
             HitEffect.gameObject.SetActive(true);
             HitEffect.Play();
-            StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, 0.5f));
+            if (!enemy.FrostBitten)
+            {
+                enemy.FrostBitten = true;
+                StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, 0.5f, PoisonDuration,enemy.FrostBitten));
+
+            }
             Invoke("StopPoison", 0.2f);
             Invoke("ReturnPoison", PoisonDuration);
             //zehir b?rakma buraya gelecek.
@@ -40,7 +45,7 @@ public class PoisonDart : WeaponBase
             PoisonVFX.Play();
             HitEffect.gameObject.SetActive(true);
             HitEffect.Play();
-            StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, 0.5f));
+            //StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, 0.5f));
             Invoke("StopPoison", 0.2f);
             Invoke("ReturnPoison", PoisonDuration);
             //zehir b?rakma buraya gelecek.

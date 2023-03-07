@@ -34,6 +34,9 @@ public class EnemyBase : CustomBehaviour
     public bool IsActivated = false;
     public bool CanAttack = true;
     public bool IsPunchable = true;
+    public bool Poisoned = false;
+    public bool Burned = false;
+    public bool FrostBitten = false;
 
     public Player Player;
 
@@ -82,6 +85,9 @@ public class EnemyBase : CustomBehaviour
         EnemySprites.ForEach(x => x.color = Color.white);
         IsActivated = true;
         IsPunchable = true;
+        Poisoned = false;
+        Burned = false;
+        FrostBitten = false;
 
     }
 
@@ -225,18 +231,24 @@ public class EnemyBase : CustomBehaviour
         
     }
     
-    public virtual IEnumerator GetAOEHit(float damageToTake, float interval)
-    {
-        
+    public virtual IEnumerator GetAOEHit(float damageToTake, float interval,float length, bool status)
+    {        
         if (IsActivated && gameObject.activeInHierarchy)
         {
-            BaseHealth -= damageToTake;
-            CheckDeath();
-            yield return new WaitForSeconds(interval);
-            if (gameObject.activeInHierarchy)
+            var tickCount = length / interval;
+            for (int i = 0; i < tickCount; i++)
             {
-                StartCoroutine(GetAOEHit(damageToTake, interval));
-            }        
+                BaseHealth -= damageToTake;
+                CheckDeath();
+                yield return new WaitForSeconds(interval);
+            }
+
+            yield return new WaitForSeconds(length);
+            status = false;
+            //if (gameObject.activeInHierarchy)
+            //{
+            //    StartCoroutine(GetAOEHit(damageToTake, interval));
+            //}        
         }   
     }
 

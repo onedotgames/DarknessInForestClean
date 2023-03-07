@@ -26,7 +26,7 @@ public class PoisonDartProjectile : ProjectileBase
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
-        this.TriggerReturn(5f);
+        //this.TriggerReturn(5f);
         _AllPoisonRoutines = new List<Coroutine>();
         Model.SetActive(true);
         _originalBoxColliderSize = _circleCollider2D.radius;
@@ -44,6 +44,10 @@ public class PoisonDartProjectile : ProjectileBase
             {
                 LinearMovement(Direction);
             }
+            if (_openModel)
+            {
+
+            }
         }
     }
     private void CloseEnlargement()
@@ -55,7 +59,7 @@ public class PoisonDartProjectile : ProjectileBase
         if (GameManager.JoystickManager.variableJoystick.LastDirection.normalized == Vector2.zero)
         {
             direction = Vector2.left;
-            Debug.Log(Direction);
+            //Debug.Log(Direction);
         }
 
         Quaternion rot = Quaternion.identity;
@@ -73,7 +77,7 @@ public class PoisonDartProjectile : ProjectileBase
 
             ChangeModel();
 
-            enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval));
+            enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.FrostBitten));
 
                 //if (!PoisonVFX.isPlaying)
                 //    PoisonVFX.Play();
@@ -96,7 +100,7 @@ public class PoisonDartProjectile : ProjectileBase
 
             ChangeModel();
 
-            enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval));
+            enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.FrostBitten));
 
                 //if (!PoisonVFX.isPlaying)
                 //    PoisonVFX.Play();
@@ -150,42 +154,43 @@ public class PoisonDartProjectile : ProjectileBase
             collision.GetComponent<TowerSystem>().GetHitTower(Damage);
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Enemy"))
-        {
-            _shouldMove = false;
-            var enemy = collision.GetComponent<EnemyBase>();
-            if (IsAoE)
-            {
-                if (enemy.AOEDamageRoutine != null)
-                {
-                    enemy.StopCoroutine(enemy.AOEDamageRoutine);
-                    if (_AllPoisonRoutines.Contains(enemy.AOEDamageRoutine))
-                    {
-                        _AllPoisonRoutines.Remove(enemy.AOEDamageRoutine);
-                    }
-                }
-            }
 
-        }
-        if (collision.CompareTag("Boss"))
-        {
-            _shouldMove = false;
-            var enemy = collision.GetComponent<BossBase>();
-            if (IsAoE)
-            {
-                if (enemy.AOEDamageRoutine != null)
-                {
-                    enemy.StopCoroutine(enemy.AOEDamageRoutine); 
-                    if (_AllPoisonRoutines.Contains(enemy.AOEDamageRoutine))
-                    {
-                        _AllPoisonRoutines.Remove(enemy.AOEDamageRoutine);
-                    }
-                }
-            }
-        }
-    }
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("Enemy"))
+    //    {
+    //        _shouldMove = false;
+    //        var enemy = collision.GetComponent<EnemyBase>();
+    //        if (IsAoE)
+    //        {
+    //            if (enemy.AOEDamageRoutine != null)
+    //            {
+    //                enemy.StopCoroutine(enemy.AOEDamageRoutine);
+    //                if (_AllPoisonRoutines.Contains(enemy.AOEDamageRoutine))
+    //                {
+    //                    _AllPoisonRoutines.Remove(enemy.AOEDamageRoutine);
+    //                }
+    //            }
+    //        }
+
+    //    }
+    //    if (collision.CompareTag("Boss"))
+    //    {
+    //        _shouldMove = false;
+    //        var enemy = collision.GetComponent<BossBase>();
+    //        if (IsAoE)
+    //        {
+    //            if (enemy.AOEDamageRoutine != null)
+    //            {
+    //                enemy.StopCoroutine(enemy.AOEDamageRoutine); 
+    //                if (_AllPoisonRoutines.Contains(enemy.AOEDamageRoutine))
+    //                {
+    //                    _AllPoisonRoutines.Remove(enemy.AOEDamageRoutine);
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 
     private void ChangeModel()
     {
@@ -228,6 +233,6 @@ public class PoisonDartProjectile : ProjectileBase
     protected override void TriggerReturn(float time)
     {
         if (!Aura.activeInHierarchy)
-            Invoke("Return", time);
+            Return();
     }
 }

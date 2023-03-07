@@ -7,6 +7,7 @@ public class SkunkGasProjectile : ProjectileBase
 {
     private float PoisonAreaDamage = 20f;
     public Player Player;
+    private float PoisonDuration = 2f;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -29,7 +30,7 @@ public class SkunkGasProjectile : ProjectileBase
 
             enemy.GetHit(Damage);
 
-            enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval));
+            enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.Poisoned));
 
         }
         if (collision.CompareTag("Boss"))
@@ -39,7 +40,7 @@ public class SkunkGasProjectile : ProjectileBase
 
             enemy.GetHit(Damage);
 
-            enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval));
+            enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.Poisoned));
 
 
         }

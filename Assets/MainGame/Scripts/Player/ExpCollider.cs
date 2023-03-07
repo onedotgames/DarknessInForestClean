@@ -24,7 +24,7 @@ public class ExpCollider : CustomBehaviour
                 hud.SetExpBarFillAmount();
                 GameManager.PoolingManager.ExpPoolerList[(int)exp.ExpPoolerType]
                     .ReturnObjectToPool(collision.gameObject);
-                Debug.Log("Is Going: " + exp.isGoing + "Is Taken: " + exp.isTaken + "Is Returning: " + exp.IsReturning);
+                //Debug.Log("Is Going: " + exp.isGoing + "Is Taken: " + exp.isTaken + "Is Returning: " + exp.IsReturning);
                 exp.isGoing = false;
                 exp.isTaken = false;
             }
@@ -46,7 +46,7 @@ public class ExpCollider : CustomBehaviour
                 hud.SetExpBarFillAmount();
                 GameManager.PoolingManager.ExpPoolerList[(int)exp.ExpPoolerType]
                     .ReturnObjectToPool(collision.gameObject);
-                Debug.Log("Is Going: " + exp.isGoing + "Is Taken: " + exp.isTaken + "Is Returning: " + exp.IsReturning);
+                //Debug.Log("Is Going: " + exp.isGoing + "Is Taken: " + exp.isTaken + "Is Returning: " + exp.IsReturning);
                 exp.isGoing = false;
                 exp.isTaken = false;
             }

@@ -23,7 +23,7 @@ public class SpiderPoison : WeaponBase
         {
             var enemy = collision.GetComponent<EnemyBase>();
 
-            StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, 0.5f));
+            //StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, 0.5f));
             Invoke("StopPoison", 0.5f);
             Invoke("ReturnPoison", PoisonDuration);
         }
@@ -31,7 +31,7 @@ public class SpiderPoison : WeaponBase
         {
             var boss = collision.GetComponent<BossBase>();
 
-            StartCoroutine(boss.GetAOEHit(PoisonAreaDamage, 0.5f));
+            //StartCoroutine(boss.GetAOEHit(PoisonAreaDamage, 0.5f));
             Invoke("StopPoison", 0.5f);
             Invoke("ReturnPoison", PoisonDuration);
         }

@@ -484,7 +484,7 @@ public class WeaponBase :CustomBehaviour
                     PoolerBase.ReturnObjectToPool(gameObject);
                     break;
                 case DamagePattern.Area:
-                    enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(BaseDamage,Cooldown));
+                    //enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(BaseDamage,Cooldown));
                     break;
                 case DamagePattern.Yoyo:
                     enemy.GetHit(BaseDamage);
@@ -510,7 +510,7 @@ public class WeaponBase :CustomBehaviour
                     }
                     break;
                 case DamagePattern.SkunkGas:
-                    enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(BaseDamage,Cooldown));
+                    //enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(BaseDamage,Cooldown));
                     break;
                 case DamagePattern.BananaGuardian:
                     enemy.GetHit(BaseDamage);
@@ -534,7 +534,7 @@ public class WeaponBase :CustomBehaviour
                     PoolerBase.ReturnObjectToPool(gameObject);
                     break;
                 case DamagePattern.Area:
-                    enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(BaseDamage, Cooldown));
+                    //enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(BaseDamage, Cooldown));
                     break;
                 case DamagePattern.Yoyo:
                     enemy.GetHit(BaseDamage);

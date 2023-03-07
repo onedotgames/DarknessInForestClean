@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Sirenix.OdinInspector;
 
 public class ProjectileBase : CustomBehaviour
 {
@@ -20,6 +21,12 @@ public class ProjectileBase : CustomBehaviour
     [HideInInspector]
     public PoolerBase BarrelPooler;
     public ParticlePooler ParticlePooler;
+
+    [Space(10)]
+    [Title("Timer Properties")]
+    public float TimeValue;
+    public float Cooldown;
+
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);

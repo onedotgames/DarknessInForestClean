@@ -18,11 +18,15 @@ public class SpiderPoisonProjectile : ProjectileBase
     private bool _shouldMove;
     private bool _openModel;
     private bool _returnTriggered = false;
+    private bool _AoEMode = false;
 
     [SerializeField] private Vector3 _webReducedScale;
     private List<Coroutine> _AllPoisonRoutines;
     private float PoisonAreaDamage = 20f;
     public float PoisonDuration = 2f;
+    private float _timeValue;
+    private float Cooldown = 0;
+
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -51,30 +55,35 @@ public class SpiderPoisonProjectile : ProjectileBase
     {
         _openModel = false;
     }
+
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
             var enemy = collision.GetComponent<EnemyBase>();
 
-            //enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
-            //PunchEffect(enemy.gameObject.transform, enemy.IsPunchable);
             enemy.PunchEffect();
 
             ChangeModel();
-            enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval));
+            if (!enemy.Poisoned)
+            {
+                enemy.Poisoned = true;
+                enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.Burned));
 
-            _AllPoisonRoutines.Add(enemy.AOEDamageRoutine);
+            }
+
+            //_AllPoisonRoutines.Add(enemy.AOEDamageRoutine);
             Invoke("CloseEnlargement", 0.35f);
             _boxCollider.size = new Vector2(_boxColliderXSize, _boxColliderYSize);
 
             _shouldMove = false;
-            if (!_returnTriggered)
-            {
-                _returnTriggered = true;
-                Invoke("Return", PoisonDuration);
+            //if (!_returnTriggered)
+            //{
+            //    _returnTriggered = true;
+            //    Invoke("Return", PoisonDuration);
 
-            }
+            //}
             //Invoke("Return", PoisonDuration);
         }
         if (collision.CompareTag("Boss"))
@@ -86,7 +95,7 @@ public class SpiderPoisonProjectile : ProjectileBase
             enemy.PunchEffect();
 
             ChangeModel();
-            enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval));
+            enemy.AOEDamageRoutine = enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.Burned));
 
             _AllPoisonRoutines.Add(enemy.AOEDamageRoutine);
             Invoke("CloseEnlargement", 0.35f);
@@ -108,6 +117,7 @@ public class SpiderPoisonProjectile : ProjectileBase
         _OpenWebModel.SetActive(true);
         _openModel = true;
         _OpenWebModel.transform.DOScale(new Vector3(_spiderWebSizeX, _spiderWebSizeY), 0.25f);
+        _AoEMode = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)

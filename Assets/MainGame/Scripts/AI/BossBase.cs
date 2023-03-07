@@ -73,6 +73,9 @@ public class BossBase : CustomBehaviour
     public bool HasWeapon = false;
     public bool HasAreaIndicator = false;
     public bool HasEntrancePassed = false;
+    public bool Poisoned = false;
+    public bool Burned = false;
+    public bool FrostBitten = false;
 
     public Player Player;
     public Animator Anim;
@@ -296,13 +299,10 @@ public class BossBase : CustomBehaviour
 
     public void PunchEffect()
     {
-        Debug.Log("Punchable: " + IsPunchable);
         if (IsPunchable)
         {
             IsPunchable = false;
-            Debug.Log("punchEffect");
             transform.localScale = _originalScale;
-            Debug.Log(transform.localScale);
             punchTween.Restart();
         }
     }
@@ -777,22 +777,25 @@ public class BossBase : CustomBehaviour
         }
     }
 
-    public virtual IEnumerator GetAOEHit(float damageToTake, float interval)
+    public virtual IEnumerator GetAOEHit(float damageToTake, float interval, float length, bool status)
     {
         while (GameManager.IsGamePaused)
         {
             yield return null;
         }
-        currentHP -= damageToTake;
-        hud.SetBossFillValue(currentHP, BaseHealth);
-        hud.SetBossFillText(currentHP, BaseHealth);
-        CheckDeath();
-        if (IsActivated && gameObject.activeInHierarchy)
+
+        var tickCount = length / interval;
+        for (int i = 0; i < tickCount; i++)
         {
+            currentHP -= damageToTake;
+            hud.SetBossFillValue(currentHP, BaseHealth);
+            hud.SetBossFillText(currentHP, BaseHealth);
+            CheckDeath();
             yield return new WaitForSeconds(interval);
-            StartCoroutine(GetAOEHit(damageToTake, interval));
         }
 
+        yield return new WaitForSeconds(length);
+        status = false;
     }
 
     public void PlayDeathVFX()
@@ -856,6 +859,9 @@ public class BossBase : CustomBehaviour
         ShouldRotate = false;
         ShouldIndicatorRotate = false;
         HasEntrancePassed = false;
+        Poisoned = false;
+        Burned = false;
+        FrostBitten = false;
         StopAllCoroutines();
         chestCount = 0;
         var chestPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.ChestPooler];
@@ -874,7 +880,9 @@ public class BossBase : CustomBehaviour
         ShouldRotate = false;
         ShouldIndicatorRotate = false;
         HasEntrancePassed = false;
-
+        Poisoned = false;
+        Burned = false;
+        FrostBitten = false;
         StopAllCoroutines();
         chestCount = 0;
         var chestPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.ChestPooler];
@@ -887,6 +895,9 @@ public class BossBase : CustomBehaviour
     private void StartGame()
     {
         chestCount = 0;
+        Poisoned = false;
+        Burned = false;
+        FrostBitten = false;
     }
 
     private void OnGameSuccess()
@@ -899,7 +910,9 @@ public class BossBase : CustomBehaviour
         ShouldRotate = false;
         ShouldIndicatorRotate = false;
         HasEntrancePassed = false;
-
+        Poisoned = false;
+        Burned = false;
+        FrostBitten = false;
         StopAllCoroutines();
         chestCount = 0;
         var chestPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.ChestPooler];
