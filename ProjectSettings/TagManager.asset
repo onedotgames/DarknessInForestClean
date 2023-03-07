@@ -29,6 +29,9 @@ TagManager:
   - Chest
   - Swamp
   - Thorn
+  - BigCircle
+  - MediumCircle
+  - SmallCircle
   layers:
   - Default
   - TransparentFX

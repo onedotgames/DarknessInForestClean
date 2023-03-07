@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnvironmentChallenge : CustomBehaviour
 {
     public LevelType levelType;
     public CustomButton PlayButton;
-    public GameObject BGObject;
+    public Image BGObject;
 
     public override void Initialize(GameManager gameManager)
     {
@@ -25,7 +26,7 @@ public class EnvironmentChallenge : CustomBehaviour
             for (int i = 0; i < 9; i++)
             {
                 Debug.Log("Enviroment Challenge ile bg değişti.");
-                BGObject.transform.GetChild(i).GetComponent<SpriteRenderer>().sprite = levelType.Sprite;
+                BGObject.material = levelType.Material;
             }
             GameManager.SoundManager.PlayClickSound(ClickSounds.Click);
             GameManager.UIManager.GetPanel(Panels.Initial).ClosePanel();
@@ -50,7 +51,7 @@ public enum ChallengeType
 public struct LevelType
 {
     public MapType MapType;
-    public Sprite Sprite;
+    public Material Material;
     public float DifficultMultiplier;
     public ChallengeType ChallengeType;
 }

@@ -32,6 +32,7 @@ public class SpawnerManager : CustomBehaviour
 
     public bool IsFirstEnemyRushActive = false;
     public bool WarningStarted = false;
+    private bool isRoutineActive = true;
 
     [Header("Spawner Settings")]
     private float activeSpawnTime;
@@ -137,7 +138,10 @@ public class SpawnerManager : CustomBehaviour
                     if (!IsFirstEnemyRushActive)
                     {
                         IsFirstEnemyRushActive = true;
-                        GameManager.CameraManager.MainCamera.DOOrthoSize(10f, 3f);
+                        //GameManager.CameraManager.MainCamera.DOOrthoSize(10f, 3f);
+                        //GameManager.CameraManager.OrtoSize = Mathf.Lerp(GameManager.CameraManager.OrtoSize, 11f, 10f * Time.deltaTime);
+                        if(isRoutineActive)
+                            StartCoroutine(CamSizeRoutine(11f, 7.5f, 3f));
                         //AdditionalSpawnerHolder.SetActive(true);
                         OpenCloseAdditionalSpawners(true);
                         activeSpawnTime = RushOneSpawnTime;
@@ -147,7 +151,10 @@ public class SpawnerManager : CustomBehaviour
                 }
                 if (timeManager.GetTimeValue() > RushTimeOneEnd)
                 {
-                    GameManager.CameraManager.MainCamera.DOOrthoSize(7.5f, 3f);
+                    //GameManager.CameraManager.MainCamera.DOOrthoSize(7.5f, 3f);
+                    //GameManager.CameraManager.OrtoSize = Mathf.Lerp(GameManager.CameraManager.OrtoSize, 7.5f, 10f * Time.deltaTime);
+                    if(!isRoutineActive)
+                        StartCoroutine(CamSizeRoutine(7.5f, 11f, 3f));
                     //AdditionalSpawnerHolder.SetActive(false);
                     OpenCloseAdditionalSpawners(false);
                     activeSpawnTime = NormalSpawnTime;
@@ -223,6 +230,23 @@ public class SpawnerManager : CustomBehaviour
         AdditionalSpawnersV2.ForEach(x => x.SpawnEnemyV2());
     }
 
+    private IEnumerator CamSizeRoutine(float endValue, float startValue, float time)
+    {
+        if(endValue > startValue)
+            isRoutineActive = false;
+        else
+            isRoutineActive = true;
+        Debug.Log("Cam değişiyor.");
+        float elapsed = 0;
+        while(elapsed <= time)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / time);
+            GameManager.CameraManager.OrtoSize = Mathf.Lerp(startValue, endValue, t);
+            yield return null;
+        }
+        
+    }
 
     public void MainSpawnerRoutineStop()
     {

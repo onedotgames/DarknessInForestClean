@@ -103,7 +103,6 @@ public class BossBase : CustomBehaviour
     public float timeValue2;
     public float timeValue3;
     private Tweener punchTween;
-    private int chestCount;
     public ScoreCounter ScoreCounter;
     public PlayAnimation PlayAnimation;
     public Image PlayAnimationImage;
@@ -745,7 +744,7 @@ public class BossBase : CustomBehaviour
             OnDeath();
             //var chestDropNumber = UnityEngine.Random.Range(0,200);
             var chestDropNumber = 150;
-            if(chestDropNumber > 100 && chestCount <= 2 /*chestDropNumber == 99*/)
+            if(chestDropNumber > 100 && Player.chestCount < 2 /*chestDropNumber == 99*/)
             {
                 DropChest();
             }
@@ -761,11 +760,10 @@ public class BossBase : CustomBehaviour
 
     public void DropChest()
     {
-        if(chestCount < 2)
+        if(Player.chestCount < 2)
         {
-            Debug.Log("Chest Dropped");
             var chest = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.ChestPooler].GetObjectFromPool();
-            chestCount++;
+            Player.chestCount++;
             chest.transform.position = transform.position;
             var endValue = new Vector3
                 (
@@ -863,12 +861,6 @@ public class BossBase : CustomBehaviour
         Burned = false;
         FrostBitten = false;
         StopAllCoroutines();
-        chestCount = 0;
-        var chestPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.ChestPooler];
-        for (int i = 0; i < chestPool.TempList.Count; i++)
-        {
-            chestPool.ReturnObjectToPool(chestPool.TempList[i]);
-        }
     }
 
     private void RestartGame()
@@ -884,17 +876,10 @@ public class BossBase : CustomBehaviour
         Burned = false;
         FrostBitten = false;
         StopAllCoroutines();
-        chestCount = 0;
-        var chestPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.ChestPooler];
-        for (int i = 0; i < chestPool.TempList.Count; i++)
-        {
-            chestPool.ReturnObjectToPool(chestPool.TempList[i]);
-        }
     }
 
     private void StartGame()
     {
-        chestCount = 0;
         Poisoned = false;
         Burned = false;
         FrostBitten = false;
@@ -914,12 +899,7 @@ public class BossBase : CustomBehaviour
         Burned = false;
         FrostBitten = false;
         StopAllCoroutines();
-        chestCount = 0;
-        var chestPool = GameManager.PoolingManager.CollectablePoolerList[(int)CollectablePoolerType.ChestPooler];
-        for (int i = 0; i < chestPool.TempList.Count; i++)
-        {
-            chestPool.ReturnObjectToPool(chestPool.TempList[i]);
-        }
+
     }
 
     private void OnDestroy()

@@ -9,7 +9,6 @@ using UnityEngine.EventSystems;
 
 public class InitialMenu : UIPanel
 {
-
     public float MenuSwipeSpeed;
     public float ButtonAnimationSpeed;
 

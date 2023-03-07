@@ -12,6 +12,12 @@ public class Circle : MonoBehaviour
     private float startDeg = -9;
     private int i = 0;
 
+    
+
+    private void Update()
+    {
+        
+    }
 
     public void RotateCircle()
     {

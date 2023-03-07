@@ -21,6 +21,12 @@ public class MiniGameBase : MonoBehaviour
     public GameManager GameManager;
     public HUD HUD;
 
+    [Header("Swipe")]
+    public Vector2 clickedMousePos;
+    public Vector2 finalPos;
+    public LayerMask layerMask;
+    private RaycastHit2D hit;
+
     private void Start()
     {
         PrepareMiniGame();
@@ -54,6 +60,34 @@ public class MiniGameBase : MonoBehaviour
     }
     private void Update()
     {
+        if(Input.GetMouseButtonDown(0))
+        {
+            clickedMousePos = Input.mousePosition;
+            hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector3.forward, Mathf.Infinity, layerMask);
+            Debug.Log(hit.collider.gameObject.tag);
+        }
+        if(Input.GetMouseButton(0))
+        {
+            finalPos = Input.mousePosition;
+        }
+        if(Input.GetMouseButtonUp(0))
+        {
+            if(hit.collider != null)
+            {
+                if(hit.collider.gameObject.CompareTag("BigCircle"))
+                {
+                    hit.collider.gameObject.GetComponent<Circle>().RotateCircle();
+                }
+                else if(hit.collider.gameObject.CompareTag("MediumCircle"))
+                {
+                    hit.collider.gameObject.GetComponent<Circle>().RotateCircle();
+                }
+                else if(hit.collider.gameObject.CompareTag("SmallCircle"))
+                {
+                    hit.collider.gameObject.GetComponent<Circle>().RotateCircle();
+                }
+            }
+        }
         if (gameObject.activeInHierarchy)
         {
             if (BigCircle.GetComponent<Circle>().isTrueImage && MediumCircle.GetComponent<Circle>().isTrueImage && SmallCircle.GetComponent<Circle>().isTrueImage)
