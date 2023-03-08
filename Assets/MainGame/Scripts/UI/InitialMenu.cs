@@ -165,7 +165,7 @@ public class InitialMenu : UIPanel
 
         rectBG.DOLocalMoveX(CoopBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
         rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, -1));
-        GameManager.TutorialManager.TutorialPanel.ClosePanel();
+        GameManager.TutorialManagerBase.TutorialPanel.ClosePanel();
 
     }
     private void OnEquipmentBTNClicked()
@@ -185,9 +185,9 @@ public class InitialMenu : UIPanel
 
         rectBG.DOLocalMoveX(EquipmentBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
         rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 1));
-        GameManager.TutorialManager.TutorialPanel.ClosePanel();
+        GameManager.TutorialManagerBase.TutorialPanel.ClosePanel();
 
-        GameManager.TutorialManager.EquipmentTutorialOn();
+        GameManager.TutorialManagerBase.EquipmentTutorialOn();
     }
     private void OnHomeBTNClicked()
     {
@@ -207,7 +207,7 @@ public class InitialMenu : UIPanel
 
         rectBG.DOLocalMoveX(HomeBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
         rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 3));
-        GameManager.TutorialManager.TutorialPanel.ClosePanel();
+        GameManager.TutorialManagerBase.TutorialPanel.ClosePanel();
 
     }
     private void OnLevelsBTNClicked()
@@ -229,8 +229,8 @@ public class InitialMenu : UIPanel
 
         rectBG.DOLocalMoveX(LevelsBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
         rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 5));
-        GameManager.TutorialManager.TutorialPanel.ClosePanel();
-        GameManager.TutorialManager.LevelsTutorialOn();
+        GameManager.TutorialManagerBase.TutorialPanel.ClosePanel();
+        GameManager.TutorialManagerBase.LevelsTutorialOn();
 
 
     }
@@ -253,7 +253,7 @@ public class InitialMenu : UIPanel
 
         rectBG.DOLocalMoveX(LeaderBoardBTN.transform.localPosition.x, 0.3f).SetEase(Ease.OutQuad);
         rectBG.rotation = Quaternion.Euler(new Vector3(0, 0, 7));
-        GameManager.TutorialManager.TutorialPanel.ClosePanel();
+        GameManager.TutorialManagerBase.TutorialPanel.ClosePanel();
 
     }
 

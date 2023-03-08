@@ -11,7 +11,7 @@ using UnityEngine.Advertisements;
 
 
 
-public class AnimationManager : MonoBehaviour
+public class AnimationManager : CustomBehaviour
 {
     public bool PlayOnEnable = true;
     bool WaitForPickupFriends;
@@ -19,11 +19,16 @@ public class AnimationManager : MonoBehaviour
     bool WaitForAksFriends;
     System.Collections.Generic.Dictionary<string, string> parameters;
 
+    public override void Initialize(GameManager gameManager)
+    {
+        base.Initialize(gameManager);
+    }
+
     void OnEnable()
     {
         if (PlayOnEnable)
         {
-            SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.swish[0]);
+            //SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.swish[0]);
 
             //if( !GetComponent<SequencePlayer>().sequenceArray[0].isPlaying )
             //    GetComponent<SequencePlayer>().Play();
@@ -316,7 +321,7 @@ public class AnimationManager : MonoBehaviour
 
     public void CloseMenu()
     {
-        SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.click);
+        //SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.click);
         if (gameObject.name == "MenuPreGameOver")
         {
             ShowGameOver();
@@ -343,14 +348,14 @@ public class AnimationManager : MonoBehaviour
 
             }
         }
-        SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.swish[1]);
+        //SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.swish[1]);
 
         gameObject.SetActive(false);
     }
 
     public void SwishSound()
     {
-        SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.swish[1]);
+        //SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.swish[1]);
 
     }
 
@@ -362,39 +367,48 @@ public class AnimationManager : MonoBehaviour
 
     public void Play()
     {
-        SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.click);
+        //SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.click);
         if (gameObject.name == "MenuPreGameOver")
         {
-            if (InitScript.Gems >= 12)
-            {
-                InitScript.Instance.SpendGems(12);
-                //                LevelData.LimitAmount += 12;
-                LevelManager.Instance.gameStatus = GameState.WaitAfterClose;
-                gameObject.SetActive(false);
+            //if (InitScript.Gems >= 12)
+            //{
+            //    InitScript.Instance.SpendGems(12);
+            //    //                LevelData.LimitAmount += 12;
+            //    LevelManager.Instance.gameStatus = GameState.WaitAfterClose;
+            //    gameObject.SetActive(false);
 
-            }
-            else
-            {
-                BuyGems();
-            }
+            //}
+            //else
+            //{
+            //    BuyGems();
+            //}
+
+            //InitScript.Instance.SpendGems(12);
+            //                LevelData.LimitAmount += 12;
+            GameManager.Match3LevelManager.gameStatus = GameState.WaitAfterClose;
+            gameObject.SetActive(false);
         }
         else if (gameObject.name == "MenuFailed")
         {
-            LevelManager.Instance.gameStatus = GameState.Map;
+            GameManager.Match3LevelManager.gameStatus = GameState.Map;
         }
         else if (gameObject.name == "MenuPlay")
         {
-            if (InitScript.lifes > 0)
-            {
-                InitScript.Instance.SpendLife(1);
-                LevelManager.THIS.gameStatus = GameState.PrepareGame;
-                CloseMenu();
-                //Application.LoadLevel( "game" );
-            }
-            else
-            {
-                BuyLifeShop();
-            }
+            //if (InitScript.lifes > 0)
+            //{
+            //    InitScript.Instance.SpendLife(1);
+            //    LevelManager.THIS.gameStatus = GameState.PrepareGame;
+            //    CloseMenu();
+            //    //Application.LoadLevel( "game" );
+            //}
+            //else
+            //{
+            //    BuyLifeShop();
+            //}
+
+            //InitScript.Instance.SpendLife(1);
+            GameManager.Match3LevelManager.gameStatus = GameState.PrepareGame;
+            CloseMenu();
 
         }
         else if (gameObject.name == "MenuPause")
@@ -406,8 +420,8 @@ public class AnimationManager : MonoBehaviour
 
     public void PlayTutorial()
     {
-        SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.click);
-        LevelManager.Instance.gameStatus = GameState.Playing;
+        //SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.click);
+        GameManager.Match3LevelManager.gameStatus = GameState.Playing;
         //    mainscript.Instance.dropDownTime = Time.time + 0.5f;
         //        CloseMenu();
     }
@@ -415,13 +429,13 @@ public class AnimationManager : MonoBehaviour
     public void BackToMap()
     {
         Time.timeScale = 1;
-        LevelManager.THIS.gameStatus = GameState.GameOver;
+        GameManager.Match3LevelManager.gameStatus = GameState.GameOver;
         CloseMenu();
     }
 
     public void Next()
     {
-        SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.click);
+        //SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.click);
         CloseMenu();
     }
 
@@ -435,7 +449,7 @@ public class AnimationManager : MonoBehaviour
     public void BuyGems()
     {
 
-        SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.click);
+        //SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.click);
         GameObject.Find("CanvasGlobal").transform.Find("GemsShop").gameObject.SetActive(true);
     }
 

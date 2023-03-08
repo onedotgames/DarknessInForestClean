@@ -36,7 +36,7 @@ public enum GameState
 }
 
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : CustomBehaviour
 {
 
     public static LevelManager THIS;
@@ -97,6 +97,11 @@ public class LevelManager : MonoBehaviour
     public BoostIcon activatedBoost;
     public string androidSharingPath;
     public string iosSharingPath;
+
+    public override void Initialize(GameManager gameManager)
+    {
+        base.Initialize(gameManager);
+    }
 
     public BoostIcon ActivatedBoost
     {
@@ -234,6 +239,7 @@ public class LevelManager : MonoBehaviour
     internal int latstMatchColor;
     public CombineManager combineManager;
     public TargetObject[] targetObject;
+    public GameObject prePlay;
 
     #region EVENTS
 
@@ -263,10 +269,10 @@ public class LevelManager : MonoBehaviour
             {
                 passLevelCounter++;
 
-                MusicBase.Instance.GetComponent<AudioSource>().Stop();
-                MusicBase.Instance.GetComponent<AudioSource>().loop = true;
-                MusicBase.Instance.GetComponent<AudioSource>().clip = MusicBase.Instance.music[1];
-                MusicBase.Instance.GetComponent<AudioSource>().Play();
+                //MusicBase.Instance.GetComponent<AudioSource>().Stop();
+                //MusicBase.Instance.GetComponent<AudioSource>().loop = true;
+                //MusicBase.Instance.GetComponent<AudioSource>().clip = MusicBase.Instance.music[1];
+                //MusicBase.Instance.GetComponent<AudioSource>().Play();
                 PrepareGame();
             }
             else if (value == GameState.WaitForPopup)
@@ -286,11 +292,11 @@ public class LevelManager : MonoBehaviour
             {
                 if (PlayerPrefs.GetInt("OpenLevelTest") <= 0)
                 {
-                    MusicBase.Instance.GetComponent<AudioSource>().Stop();
-                    MusicBase.Instance.GetComponent<AudioSource>().loop = true;
-                    MusicBase.Instance.GetComponent<AudioSource>().clip = MusicBase.Instance.music[0];
-                    MusicBase.Instance.GetComponent<AudioSource>().Play();
-                    EnableMap(true);
+                    //MusicBase.Instance.GetComponent<AudioSource>().Stop();
+                    //MusicBase.Instance.GetComponent<AudioSource>().loop = true;
+                    //MusicBase.Instance.GetComponent<AudioSource>().clip = MusicBase.Instance.music[0];
+                    //MusicBase.Instance.GetComponent<AudioSource>().Play();
+                    //EnableMap(true);
                     OnMapState();
                 }
                 else
@@ -528,7 +534,7 @@ public class LevelManager : MonoBehaviour
         ingrCountTarget[1] = 0;
 
         TargetBlocks = 0;
-        EnableMap(false);
+        //EnableMap(false);
 
 
         GameField.transform.position = Vector3.zero;
@@ -551,18 +557,18 @@ public class LevelManager : MonoBehaviour
         //    getSize = maxRows - 9;
         //if (getSize > 0)
         //    camera.orthographicSize = 6.5f + getSize * 0.5f;
-        GameObject.Find("Canvas").transform.Find("PrePlay").gameObject.SetActive(true);
-        if (limitType == LIMIT.MOVES)
-        {
-            InGameBoosts[0].gameObject.SetActive(true);
-            InGameBoosts[1].gameObject.SetActive(false);
-        }
-        else
-        {
-            InGameBoosts[0].gameObject.SetActive(false);
-            InGameBoosts[1].gameObject.SetActive(true);
+        prePlay.SetActive(true);
+        //if (limitType == LIMIT.MOVES)
+        //{
+        //    InGameBoosts[0].gameObject.SetActive(true);
+        //    InGameBoosts[1].gameObject.SetActive(false);
+        //}
+        //else
+        //{
+        //    InGameBoosts[0].gameObject.SetActive(false);
+        //    InGameBoosts[1].gameObject.SetActive(true);
 
-        }
+        //}
         OnEnterGame();
     }
 

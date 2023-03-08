@@ -211,8 +211,8 @@ public class InitScript : MonoBehaviour
 
         if (gameObject.GetComponent<AspectCamera>() == null) gameObject.AddComponent<AspectCamera>().map = FindObjectOfType<LevelsMap>().transform.Find("map_background_01").GetComponent<SpriteRenderer>().sprite; //gameObject.AddComponent<AspectCamera>().topPanel = GetComponent<LevelManager>().Level.transform.Find("Canvas/Panel/Panel/Panel").GetComponent<RectTransform>();//2.2.2
 
-        GameObject.Find("Music").GetComponent<AudioSource>().volume = PlayerPrefs.GetInt("Music");
-        SoundBase.Instance.GetComponent<AudioSource>().volume = PlayerPrefs.GetInt("Sound");
+        //GameObject.Find("Music").GetComponent<AudioSource>().volume = PlayerPrefs.GetInt("Music");
+        //SoundBase.Instance.GetComponent<AudioSource>().volume = PlayerPrefs.GetInt("Sound");
 
 #if UNITY_ADS//2.1.1
         enableUnityAds = true;

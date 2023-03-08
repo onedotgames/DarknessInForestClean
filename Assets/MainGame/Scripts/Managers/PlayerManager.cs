@@ -7,6 +7,7 @@ public class PlayerManager : CustomBehaviour
 {
     #region Fields
     public Player CurrentPlayer;
+    
     #endregion
     
     #region Initialization
