@@ -13,7 +13,7 @@ public class GameManager : CustomBehaviour
     public JoystickManager JoystickManager;
     public PlayerManager PlayerManager;
     public AIManager AIManager;
-    public LevelManager LevelManager;
+    public LevelManagerBaseGame LevelManager;
     public VibrationsManager VibrationsManager;
     public RewardManager RewardManager;
     public CameraManager CameraManager;

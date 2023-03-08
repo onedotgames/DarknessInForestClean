@@ -7,9 +7,9 @@ public sealed class Tile : MonoBehaviour
     public int x;
     public int y;
 
-    private Item _item;
+    private ItemBase _item;
 
-    public Item Item
+    public ItemBase Item
     {
         get => _item;
 
