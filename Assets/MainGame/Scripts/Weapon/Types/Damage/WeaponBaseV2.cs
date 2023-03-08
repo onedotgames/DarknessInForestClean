@@ -269,7 +269,7 @@ public class WeaponBaseV2 : CustomBehaviour
             Debug.Log("Should play minigame");
             CloseSkillPanel();
             //PlayMinigame(UnityEngine.Random.Range(0, GameManager.SkillManager.Minigames.Length));
-            PlayMinigame(0);
+            PlayMinigame(1);
         }
         else
         {
@@ -306,36 +306,21 @@ public class WeaponBaseV2 : CustomBehaviour
     }
     public void PlayMinigame(int gameIndex)
     {
-        Time.timeScale = 0;
-        var miniGameObject = GameManager.SkillManager.Minigames[gameIndex];
-        var miniGame = miniGameObject.GetComponent<MiniGameBase>();
-        miniGame.TargetImage = SkillSO.Icon;
-        miniGame.TargetBox.sprite = SkillSO.Icon;
-        Debug.Log(SkillSO.Icon.name);
-        miniGame.Weapons[0] = SkillSO.Icon;
-        if (gameIndex == 0)
-        {
-            // for (int i = 0; i < miniGame.Weapons.Count; i++)
-            // {
-            //     if (miniGame.Weapons[i].name == SkillSO.Icon.name)
-            //     {
-            //         controlInt++;
-            //     }
-
-            // }
-            // if (controlInt == 0)
-            // {
-            //     //resim yoktur..
-            //     miniGame.Weapons[0] = SkillSO.Icon;
-            // }
-        }
-        miniGameObject.transform.localScale = Vector3.zero;
-        miniGameObject.SetActive(true);
-        if(gameIndex == 1)
-        {//match3
-            ScoreCounter.miniGameType = MiniGameType.Evolve;
-        }
-        miniGameObject.transform.DOScale(Vector3.one * 0.8f, 1f).SetUpdate(true);
+        //Time.timeScale = 0;
+        //var miniGameObject = GameManager.SkillManager.Minigames[gameIndex];
+        //var miniGame = miniGameObject.GetComponent<MiniGameBase>();
+        //miniGame.TargetImage = SkillSO.Icon;
+        //miniGame.TargetBox.sprite = SkillSO.Icon;
+        //Debug.Log(SkillSO.Icon.name);
+        //miniGame.Weapons[0] = SkillSO.Icon;
+        //miniGameObject.transform.localScale = Vector3.zero;
+        //miniGameObject.SetActive(true);
+        //if(gameIndex == 1)
+        //{//match3
+        //    ScoreCounter.miniGameType = MiniGameType.Evolve;
+        //}
+        //miniGameObject.transform.DOScale(Vector3.one * 0.8f, 1f).SetUpdate(true);
+        GameManager.SkillManager.AllWeaponsV2[(int)GameManager.SkillManager.selectedWeaponData.Weapon.SkillSO.PoolerType].EvolveWeapon();
     }
     public void MakePropertyReadyForChange(PropertyToChange propertyToChange)
     {
