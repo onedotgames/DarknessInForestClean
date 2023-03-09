@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using JellyGarden.Scripts.Targets;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
+using Panda.Examples.PlayTag;
 
 public class SquareBlocks
 {
@@ -97,10 +98,14 @@ public class LevelManager : CustomBehaviour
     public BoostIcon activatedBoost;
     public string androidSharingPath;
     public string iosSharingPath;
-
+    public MapCamera MapCamera;
+    public Canvas CanvasGlobal;
+    public Canvas CanvasGlobalObject;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
+        //MapCamera = GetComponent<MapCamera>();
+        //CanvasGlobal = CanvasGlobalObject.GetComponent<Canvas>();
     }
 
     public BoostIcon ActivatedBoost
@@ -273,6 +278,7 @@ public class LevelManager : CustomBehaviour
                 //MusicBase.Instance.GetComponent<AudioSource>().loop = true;
                 //MusicBase.Instance.GetComponent<AudioSource>().clip = MusicBase.Instance.music[1];
                 //MusicBase.Instance.GetComponent<AudioSource>().Play();
+
                 PrepareGame();
             }
             else if (value == GameState.WaitForPopup)
@@ -395,10 +401,13 @@ public class LevelManager : CustomBehaviour
     public void EnableMap(bool enable)
     {
         float aspect = (float)Screen.height / (float)Screen.width;//2.1.4
-        GetComponent<Camera>().orthographicSize = 5.3f;
+        //GetComponent<Camera>().orthographicSize = 5.3f;
         aspect = (float)Math.Round(aspect, 2);
-        GameObject.Find("CanvasGlobal").GetComponent<GraphicRaycaster>().enabled = false;
-        GameObject.Find("CanvasGlobal").GetComponent<GraphicRaycaster>().enabled = true;
+        var raycaster = CanvasGlobal.GetComponent<GraphicRaycaster>();
+        raycaster.enabled = false;
+        raycaster.enabled = true;
+        var player = GameManager.PlayerManager.CurrentPlayer.transform.position;
+
         if (enable)
         {
             // if (aspect == 1.6f)
@@ -417,39 +426,40 @@ public class LevelManager : CustomBehaviour
             //     GetComponent<Camera>().orthographicSize = 8.2f;                  //2960:1440
             // else if (aspect == 2.17f)
             //     GetComponent<Camera>().orthographicSize = 8.7f;                  //iphone x
-            GetComponent<Camera>().GetComponent<MapCamera>().SetPosition(new Vector2(0, GetComponent<Camera>().transform.position.y));
+            MapCamera.SetPosition(new Vector3(player.x, player.y, 10));
         }
         else
         {
             InitScript.DateOfExit = DateTime.Now.ToString();  //1.4
 
-            LevelManager.THIS.latstMatchColor = -1;
+            THIS.latstMatchColor = -1;
 
-            GetComponent<Camera>().orthographicSize = 6.5f;
-            Level.transform.Find("Canvas/Panel").GetComponent<RectTransform>().anchoredPosition = Vector3.zero;//2.2
-            if (aspect == 2.06f)
-                GetComponent<Camera>().orthographicSize = 7.6f;                  //2960:1440
-            else if (aspect == 2.17f)
-            {
-                GetComponent<Camera>().orthographicSize = 8.1f;                  //iphone x
-                Level.transform.Find("Canvas/Panel").GetComponent<RectTransform>().anchoredPosition = Vector3.down * 50;//2.2
+            //GetComponent<Camera>().orthographicSize = 6.5f;
+            Level.transform.Find("Canvas/Panel").GetComponent<RectTransform>().anchoredPosition = new Vector3(player.x, player.y, 10);//2.2
+            //if (aspect == 2.06f)
+            //    GetComponent<Camera>().orthographicSize = 7.6f;                  //2960:1440
+            //else if (aspect == 2.17f)
+            //{
+            //    GetComponent<Camera>().orthographicSize = 8.1f;                  //iphone x
+            //    Level.transform.Find("Canvas/Panel").GetComponent<RectTransform>().anchoredPosition = Vector3.down * 50;//2.2
 
-            }
+            //}
 
             Level.transform.Find("Canvas").GetComponent<GraphicRaycaster>().enabled = false;
             Level.transform.Find("Canvas").GetComponent<GraphicRaycaster>().enabled = true;
 
         }
-        Camera.main.GetComponent<MapCamera>().enabled = enable;
+        //Camera.main.GetComponent<MapCamera>().enabled = enable;
         LevelsMap.SetActive(!enable);
         LevelsMap.SetActive(enable);
         Level.SetActive(!enable);
-
+        
+        GameField.transform.position = new Vector3(player.x, player.y, 10);
         if (enable)
             GameField.gameObject.SetActive(false);
 
-        if (!enable)
-            Camera.main.transform.position = new Vector3(0, 0, -10);
+        //if (!enable)
+        //    Camera.main.transform.position = new Vector3(0, 0, -10);
         foreach (Transform item in GameField.transform)
         {
             Destroy(item.gameObject);
@@ -510,6 +520,7 @@ public class LevelManager : CustomBehaviour
 
     void PrepareGame()
     {
+        Debug.Log("Preparing Game");
         ActivatedBoost = null;
         Score = 0;
         stars = 0;
@@ -534,10 +545,10 @@ public class LevelManager : CustomBehaviour
         ingrCountTarget[1] = 0;
 
         TargetBlocks = 0;
-        //EnableMap(false);
+        EnableMap(false);
 
 
-        GameField.transform.position = Vector3.zero;
+        GameField.transform.position = new Vector3(GameManager.PlayerManager.CurrentPlayer.transform.position.x, GameManager.PlayerManager.CurrentPlayer.transform.position.y,10);
         firstSquarePosition = GameField.transform.position;
 
         squaresArray = new Square[maxCols * maxRows];
@@ -901,7 +912,7 @@ public class LevelManager : CustomBehaviour
         clip.AddEvent(new AnimationEvent() { time = 1, functionName = "EndAnimGamField" });
         anim.AddClip(clip, "appear");
         anim.Play("appear");
-        GameField.transform.position = new Vector2(pos.x + 15, pos.y + yOffset);
+        //GameField.transform.position = new Vector2(pos.x + 15, pos.y + yOffset);
 
     }
 

@@ -21,7 +21,7 @@ public class MapCamera : MonoBehaviour
         _transform = transform;
         currentTime = 0;
         speed = 0;
-
+        Camera = transform.GetComponent<Camera>();
     }
 
     public void OnDrawGizmos()
@@ -29,21 +29,21 @@ public class MapCamera : MonoBehaviour
         Gizmos.DrawWireCube(Bounds.center, Bounds.size);
     }
 
-    public void Update()
-    {
+//    public void Update()
+//    {
 
-#if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
-			HandleTouchInput();
-#else
-        HandleMouseInput();
-#endif
-    }
+//#if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
+//			HandleTouchInput();
+//#else
+//        //HandleMouseInput();
+//#endif
+//    }
 
-    void LateUpdate()
-    {
+    //void LateUpdate()
+    //{
 
-        SetPosition(transform.position);
-    }
+    //    SetPosition(transform.position);
+    //}
 
     private void HandleTouchInput()
     {
@@ -123,7 +123,7 @@ public class MapCamera : MonoBehaviour
     {
         Vector2 validatedPosition = ApplyBounds(position);
         _transform = transform;
-        _transform.position = new Vector3(validatedPosition.x, validatedPosition.y, _transform.position.z);
+        _transform.position = new Vector3(validatedPosition.x, validatedPosition.y, 10);
     }
 
     private Vector2 ApplyBounds(Vector2 position)
