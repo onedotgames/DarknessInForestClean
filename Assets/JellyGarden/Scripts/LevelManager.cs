@@ -249,6 +249,7 @@ public class LevelManager : CustomBehaviour
     public CombineManager combineManager;
     public TargetObject[] targetObject;
     public GameObject prePlay;
+    public ScoreCounter ScoreCounter;
 
     #region EVENTS
 
@@ -345,7 +346,7 @@ public class LevelManager : CustomBehaviour
                 //InitScript.THIS.AddGems(1);//Add coins after win
                 if (!InitScript.Instance.losingLifeEveryGame)
                     InitScript.Instance.AddLife(1);
-                OnMenuComplete();
+                //OnMenuComplete();
                 if (PlayerPrefs.GetInt(string.Format("Level.{0:000}.StarsCount", currentLevel), 0) < stars)
                     PlayerPrefs.SetInt(string.Format("Level.{0:000}.StarsCount", currentLevel), stars);
                 if (Score > PlayerPrefs.GetInt("Score" + currentLevel))
@@ -358,9 +359,11 @@ public class LevelManager : CustomBehaviour
                 NetworkManager.dataManager.SetPlayerLevel(currentLevel + 1);
                 NetworkManager.dataManager.SetStars();
 #endif
-                GameObject.Find("CanvasGlobal").transform.Find("MenuComplete").gameObject.SetActive(true);
+                //CanvasGlobal.transform.Find("MenuComplete").gameObject.SetActive(true);
+                //GameManager.UIManager.GetPanel(Panels.Hud).OpenPanel();
+                ScoreCounter.SuccessBTNClick();
                 SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.complete[1]);
-                OnWin();
+                OnWin?.Invoke();
             }
 
 

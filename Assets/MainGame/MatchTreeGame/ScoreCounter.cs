@@ -84,6 +84,7 @@ public sealed class ScoreCounter : MonoBehaviour
         SuccessBTN.transform.localScale = Vector3.zero;
         MiniGamePanel.SetActive(false);
         GameManager.UIManager.GetPanel(Panels.Hud).OpenPanel();
+        GameManager.IsMiniGame = false;
 
     }
 
