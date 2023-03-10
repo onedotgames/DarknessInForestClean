@@ -8,6 +8,8 @@ using JellyGarden.Scripts.Targets;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 using Panda.Examples.PlayTag;
+using UnityEngine.UIElements;
+using DG.Tweening;
 
 public class SquareBlocks
 {
@@ -101,6 +103,8 @@ public class LevelManager : CustomBehaviour
     public MapCamera MapCamera;
     public Canvas CanvasGlobal;
     public Canvas CanvasGlobalObject;
+    public GameObject PreCompleteObject;
+    public GameObject CompleteObject;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -283,7 +287,7 @@ public class LevelManager : CustomBehaviour
             }
             else if (value == GameState.WaitForPopup)
             {
-
+                Debug.Log("Initting Level", this.gameObject);
                 InitLevel();
                 OnLevelLoaded();
 
@@ -302,12 +306,12 @@ public class LevelManager : CustomBehaviour
                     //MusicBase.Instance.GetComponent<AudioSource>().loop = true;
                     //MusicBase.Instance.GetComponent<AudioSource>().clip = MusicBase.Instance.music[0];
                     //MusicBase.Instance.GetComponent<AudioSource>().Play();
-                    //EnableMap(true);
+                    EnableMap(true);
                     OnMapState();
                 }
                 else
                 {
-                    LevelManager.THIS.gameStatus = GameState.PrepareGame;
+                    THIS.gameStatus = GameState.PrepareGame;
                     PlayerPrefs.SetInt("OpenLevelTest", 0);
                     PlayerPrefs.Save();
                 }
@@ -401,7 +405,7 @@ public class LevelManager : CustomBehaviour
     public void EnableMap(bool enable)
     {
         float aspect = (float)Screen.height / (float)Screen.width;//2.1.4
-        //GetComponent<Camera>().orthographicSize = 5.3f;
+        MainCamera.orthographicSize = 5.3f;
         aspect = (float)Math.Round(aspect, 2);
         var raycaster = CanvasGlobal.GetComponent<GraphicRaycaster>();
         raycaster.enabled = false;
@@ -426,7 +430,8 @@ public class LevelManager : CustomBehaviour
             //     GetComponent<Camera>().orthographicSize = 8.2f;                  //2960:1440
             // else if (aspect == 2.17f)
             //     GetComponent<Camera>().orthographicSize = 8.7f;                  //iphone x
-            MapCamera.SetPosition(new Vector3(player.x, player.y, 10));
+            MapCamera.SetPosition(new Vector2(0, MainCamera.transform.position.y));
+
         }
         else
         {
@@ -434,32 +439,32 @@ public class LevelManager : CustomBehaviour
 
             THIS.latstMatchColor = -1;
 
-            //GetComponent<Camera>().orthographicSize = 6.5f;
-            Level.transform.Find("Canvas/Panel").GetComponent<RectTransform>().anchoredPosition = new Vector3(player.x, player.y, 10);//2.2
-            //if (aspect == 2.06f)
-            //    GetComponent<Camera>().orthographicSize = 7.6f;                  //2960:1440
-            //else if (aspect == 2.17f)
-            //{
-            //    GetComponent<Camera>().orthographicSize = 8.1f;                  //iphone x
-            //    Level.transform.Find("Canvas/Panel").GetComponent<RectTransform>().anchoredPosition = Vector3.down * 50;//2.2
+            MainCamera.orthographicSize = 6.5f;
+            Level.transform.Find("Canvas/Panel").GetComponent<RectTransform>().anchoredPosition = Vector3.zero;//2.2
+            if (aspect == 2.06f)   
+                MainCamera.orthographicSize = 7.6f;                  //2960:1440
+            else if (aspect == 2.17f)
+            {
+                MainCamera.orthographicSize = 8.1f;                  //iphone x
+                Level.transform.Find("Canvas/Panel").GetComponent<RectTransform>().anchoredPosition = Vector3.down * 50;//2.2
 
-            //}
+            }
 
             Level.transform.Find("Canvas").GetComponent<GraphicRaycaster>().enabled = false;
             Level.transform.Find("Canvas").GetComponent<GraphicRaycaster>().enabled = true;
 
         }
-        //Camera.main.GetComponent<MapCamera>().enabled = enable;
+        MainCamera.GetComponent<MapCamera>().enabled = enable;
         LevelsMap.SetActive(!enable);
         LevelsMap.SetActive(enable);
         Level.SetActive(!enable);
         
-        GameField.transform.position = new Vector3(player.x, player.y, 10);
+        //GameField.transform.parent.position = new Vector3(player.x, player.y, 10);
         if (enable)
             GameField.gameObject.SetActive(false);
 
-        //if (!enable)
-        //    Camera.main.transform.position = new Vector3(0, 0, -10);
+        if (!enable)
+            MainCamera.transform.position = new Vector3(0, 0, -10);
         foreach (Transform item in GameField.transform)
         {
             Destroy(item.gameObject);
@@ -514,7 +519,7 @@ public class LevelManager : CustomBehaviour
             StartCoroutine(TimeTick());
         }
 //        InitTargets();
-        GameField.gameObject.SetActive(true);
+        //GameField.gameObject.SetActive(true);
 
     }
 
@@ -548,7 +553,13 @@ public class LevelManager : CustomBehaviour
         EnableMap(false);
 
 
-        GameField.transform.position = new Vector3(GameManager.PlayerManager.CurrentPlayer.transform.position.x, GameManager.PlayerManager.CurrentPlayer.transform.position.y,10);
+        //GameField.transform.parent.position = new Vector3(GameManager.PlayerManager.
+        //    CurrentPlayer.transform.position.x,
+        //    GameManager.PlayerManager.CurrentPlayer.transform.position.y, 10);
+        GameField.transform.position = new Vector3(GameManager.PlayerManager.
+            CurrentPlayer.transform.position.x,
+            GameManager.PlayerManager.CurrentPlayer.transform.position.y, 10);
+        Debug.Log("After Map Enabling Game Field");
         firstSquarePosition = GameField.transform.position;
 
         squaresArray = new Square[maxCols * maxRows];
@@ -569,17 +580,23 @@ public class LevelManager : CustomBehaviour
         //if (getSize > 0)
         //    camera.orthographicSize = 6.5f + getSize * 0.5f;
         prePlay.SetActive(true);
-        //if (limitType == LIMIT.MOVES)
-        //{
-        //    InGameBoosts[0].gameObject.SetActive(true);
-        //    InGameBoosts[1].gameObject.SetActive(false);
-        //}
-        //else
-        //{
-        //    InGameBoosts[0].gameObject.SetActive(false);
-        //    InGameBoosts[1].gameObject.SetActive(true);
+        if (limitType == LIMIT.MOVES)
+        {
+            InGameBoosts[0].gameObject.SetActive(true);
+            InGameBoosts[1].gameObject.SetActive(false);
+        }
+        else
+        {
+            InGameBoosts[0].gameObject.SetActive(false);
+            InGameBoosts[1].gameObject.SetActive(true);
 
-        //}
+        }
+        GameField.transform.position = new Vector3(MainCamera.transform.position.x - MainCamera.orthographicSize / 2,
+            MainCamera.transform.position.y + maxRows / 2,
+            GameField.transform.position.z);
+        Debug.Log("After PrePlay GameField");
+        //GameField.transform.localScale = Vector3.one * 0.75f;
+        GameField.gameObject.SetActive(true);
         OnEnterGame();
     }
 
@@ -697,7 +714,7 @@ public class LevelManager : CustomBehaviour
     IEnumerator PreWinAnimationsCor()
     {
 
-        GameObject.Find("Canvas").transform.Find("CompleteLabel").gameObject.SetActive(true);
+        CompleteObject.gameObject.SetActive(true);
         yield return new WaitForSeconds(1);
 
         List<Item> items = GetRandomItems(Mathf.Clamp(limitType == LIMIT.MOVES ? Limit : 8, 0, 15)); //2.2.2
@@ -727,12 +744,12 @@ public class LevelManager : CustomBehaviour
         while (dragBlocked || GetMatches().Count > 0)
             yield return new WaitForSeconds(0.2f);
 
-        GameObject.Find("Canvas").transform.Find("CompleteLabel").gameObject.SetActive(false);
-        SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.complete[0]);
+        CompleteObject.SetActive(false);
+        //SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.complete[0]);
 
-        GameObject.Find("Canvas").transform.Find("PreCompleteBanner").gameObject.SetActive(true);
+        PreCompleteObject.SetActive(true);
         yield return new WaitForSeconds(3);
-        GameObject.Find("Canvas").transform.Find("PreCompleteBanner").gameObject.SetActive(false);
+        PreCompleteObject.SetActive(false);
 
 
         gameStatus = GameState.Win;
@@ -797,15 +814,15 @@ public class LevelManager : CustomBehaviour
 
         if (Input.GetKeyUp(KeyCode.Escape))
         {
-            if (LevelManager.THIS.gameStatus == GameState.Playing)
+            if (THIS.gameStatus == GameState.Playing)
                 GameObject.Find("CanvasGlobal").transform.Find("MenuPause").gameObject.SetActive(true);
-            else if (LevelManager.THIS.gameStatus == GameState.Map)
+            else if (THIS.gameStatus == GameState.Map)
                 Application.Quit();
 
         }
 
 
-        if (LevelManager.THIS.gameStatus == GameState.Playing)
+        if (THIS.gameStatus == GameState.Playing)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -814,25 +831,25 @@ public class LevelManager : CustomBehaviour
                 if (hit != null)
                 {
                     Item item = hit.gameObject.GetComponent<Item>();
-                    if (!LevelManager.THIS.DragBlocked && LevelManager.THIS.gameStatus == GameState.Playing)
+                    if (!THIS.DragBlocked && THIS.gameStatus == GameState.Playing)
                     {
-                        if (LevelManager.THIS.ActivatedBoost.type == BoostType.Bomb && item.currentType != ItemsTypes.BOMB && item.currentType != ItemsTypes.INGREDIENT)
+                        if (THIS.ActivatedBoost.type == BoostType.Bomb && item.currentType != ItemsTypes.BOMB && item.currentType != ItemsTypes.INGREDIENT)
                         {
-                            SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.boostBomb);
-                            LevelManager.THIS.DragBlocked = true;
+                            //SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.boostBomb);
+                            THIS.DragBlocked = true;
                             GameObject obj = Instantiate(Resources.Load("Prefabs/Effects/bomb"), item.transform.position, item.transform.rotation) as GameObject;
                             obj.GetComponent<SpriteRenderer>().sortingOrder = 4;
                             obj.GetComponent<BoostAnimation>().square = item.square;
-                            LevelManager.THIS.ActivatedBoost = null;
+                            THIS.ActivatedBoost = null;
                         }
-                        else if (LevelManager.THIS.ActivatedBoost.type == BoostType.Random_color && item.currentType != ItemsTypes.BOMB)
+                        else if (THIS.ActivatedBoost.type == BoostType.Random_color && item.currentType != ItemsTypes.BOMB)
                         {
-                            SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.boostColorReplace);
-                            LevelManager.THIS.DragBlocked = true;
+                            //SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.boostColorReplace);
+                            THIS.DragBlocked = true;
                             GameObject obj = Instantiate(Resources.Load("Prefabs/Effects/random_color_item"), item.transform.position, item.transform.rotation) as GameObject;
                             obj.GetComponent<BoostAnimation>().square = item.square;
                             obj.GetComponent<SpriteRenderer>().sortingOrder = 4;
-                            LevelManager.THIS.ActivatedBoost = null;
+                            THIS.ActivatedBoost = null;
                         }
                         else if (item.square.type != SquareTypes.WIREBLOCK)
                         {
@@ -840,6 +857,12 @@ public class LevelManager : CustomBehaviour
                             item.mousePos = item.GetMousePosition();
                             item.deltaPos = Vector3.zero;
                         }
+                        //if (item.square.type != SquareTypes.WIREBLOCK)
+                        //{
+                        //    item.dragThis = true;
+                        //    item.mousePos = item.GetMousePosition();
+                        //    item.deltaPos = Vector3.zero;
+                        //}
                     }
                 }
 
@@ -893,6 +916,9 @@ public class LevelManager : CustomBehaviour
 
         }
         AnimateField(fieldPos);
+        //AnimateField(new Vector3(GameManager.PlayerManager.transform.position.x,
+            //GameManager.PlayerManager.transform.position.y,
+            //10));
 
     }
 
@@ -906,14 +932,18 @@ public class LevelManager : CustomBehaviour
         AnimationClip clip = new AnimationClip();
         AnimationCurve curveX = new AnimationCurve(new Keyframe(0, pos.x + 15), new Keyframe(0.7f, pos.x - 0.2f), new Keyframe(0.8f, pos.x));
         AnimationCurve curveY = new AnimationCurve(new Keyframe(0, pos.y + yOffset), new Keyframe(1, pos.y + yOffset));
+        AnimationCurve curveZ = new AnimationCurve(new Keyframe(0, 10), new Keyframe(1, 10));
         clip.legacy = true;//2.1.6
         clip.SetCurve("", typeof(Transform), "localPosition.x", curveX);
         clip.SetCurve("", typeof(Transform), "localPosition.y", curveY);
+        clip.SetCurve("", typeof(Transform), "localPosition.z", curveZ);
         clip.AddEvent(new AnimationEvent() { time = 1, functionName = "EndAnimGamField" });
         anim.AddClip(clip, "appear");
         anim.Play("appear");
-        //GameField.transform.position = new Vector2(pos.x + 15, pos.y + yOffset);
+        GameField.transform.position = new Vector3(pos.x + 15, pos.y + yOffset,10);
+        Debug.Log("Animating Field", this.gameObject);
 
+        MainCamera.DOOrthoSize(8.5f, 1f).OnComplete(() => GameManager.UIManager.GetPanel(Panels.Hud).ClosePanel());
     }
 
     void CreateSquare(int col, int row, bool chessColor = false)
@@ -926,6 +956,7 @@ public class LevelManager : CustomBehaviour
         }
         square.transform.SetParent(GameField);
         square.transform.localPosition = firstSquarePosition + new Vector2(col * squareWidth, -row * squareHeight);
+        //square.transform.position = firstSquarePosition + new Vector2(col * squareWidth, -row * squareHeight);
         squaresArray[row * maxCols + col] = square.GetComponent<Square>();
         square.GetComponent<Square>().row = row;
         square.GetComponent<Square>().col = col;
@@ -944,6 +975,7 @@ public class LevelManager : CustomBehaviour
         {
             GameObject block = Instantiate(blockPrefab, firstSquarePosition + new Vector2(col * squareWidth, -row * squareHeight), Quaternion.identity) as GameObject;
             block.transform.SetParent(square.transform);
+            //block.transform.localPosition = new Vector3(0, 0, -0.01f);
             block.transform.localPosition = new Vector3(0, 0, -0.01f);
             square.GetComponent<Square>().block.Add(block);
             square.GetComponent<Square>().type = SquareTypes.BLOCK;

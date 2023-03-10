@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -72,19 +73,19 @@ public class CameraManager : CustomBehaviour
     private void LateUpdate()
     {
         PlayerFollow();
-        if (!sizeFit)
-        {
-            MainCamera.orthographicSize += MainCamera.orthographicSize * 2 * Time.deltaTime;
-        }
-        else
-        {
-            MainCamera.orthographicSize = OrtoSize;
-        }
-        if(MainCamera.orthographicSize >= OrtoSize)
-        {
-            sizeFit = true;
-            MainCamera.orthographicSize = OrtoSize;
-        }
+        //if (!sizeFit)
+        //{
+        //    MainCamera.orthographicSize += MainCamera.orthographicSize * 2 * Time.deltaTime;
+        //}
+        //else
+        //{
+        //    MainCamera.orthographicSize = OrtoSize;
+        //}
+        //if(MainCamera.orthographicSize >= OrtoSize)
+        //{
+        //    sizeFit = true;
+        //    MainCamera.orthographicSize = OrtoSize;
+        //}
     }
 
     private void PlayerFollow()
@@ -121,7 +122,8 @@ public class CameraManager : CustomBehaviour
         OrtoSize = 7.5f;
         mCanFollow = true;
         sizeFit = false;
-        CreateBoundaries.SetV2();
+        CreateBoundaries.SetV2(); 
+        MainCamera.DOOrthoSize(OrtoSize,1f);
     }
 
     private void ReturnToMainMenu()

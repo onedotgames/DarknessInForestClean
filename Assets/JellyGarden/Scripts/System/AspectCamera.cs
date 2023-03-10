@@ -52,10 +52,10 @@ public class AspectCamera : MonoBehaviour
             var h = fieldRect.width * Screen.height / Screen.width / 2 + 1.5f;
             var w = (fieldRect.height + 2.5f * 2) / 2 + 2f;
             var maxLength = Mathf.Max(h, w);
-            Camera.main.orthographicSize = Mathf.Clamp(maxLength, 4, maxLength);
+            //Camera.main.orthographicSize = Mathf.Clamp(maxLength, 4, maxLength);
         }
-        else
-            Camera.main.orthographicSize = 8f / Screen.width * Screen.height / 2f;
+        //else
+            //Camera.main.orthographicSize = 8f / Screen.width * Screen.height / 2f;
 
 
     }

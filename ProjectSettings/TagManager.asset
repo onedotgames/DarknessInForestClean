@@ -32,6 +32,7 @@ TagManager:
   - BigCircle
   - MediumCircle
   - SmallCircle
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -68,4 +69,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: UI
+    uniqueID: 3100539023
     locked: 0

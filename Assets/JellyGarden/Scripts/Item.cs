@@ -876,7 +876,7 @@ public class Item : MonoBehaviour
                 partcl.transform.localScale = Vector3.one * 0.5f;
                 partcl.transform.position = transform.position;
                 partcl.GetComponent<Animator>().SetInteger("color", color);
-                SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.destroy[Random.Range(0, SoundBase.Instance.destroy.Length)]);
+                //SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.destroy[Random.Range(0, SoundBase.Instance.destroy.Length)]);
                 //   Destroy(partcl, 1f);
             }
             if (explEffect)

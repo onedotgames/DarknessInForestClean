@@ -43,6 +43,7 @@ public class GameManager : CustomBehaviour
     public bool IsGamePaused = false;
     public bool IsBossTime = false;
     public bool IsDevelopmentModeOn = false;
+    public bool IsMiniGame = false;
 
     #region Actions
     public event Action OnStartGame;

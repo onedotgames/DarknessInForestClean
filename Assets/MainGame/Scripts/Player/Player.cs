@@ -191,6 +191,7 @@ public class Player : CustomBehaviour
             //miniGameObject.transform.DOScale(Vector3.one * 0.75f, 1f).SetUpdate(true);
             //ScoreCounter.miniGameType = MiniGameType.Chest;
             GameManager.AnimationManager.Play();
+            GameManager.IsMiniGame = true;
             //GameManager.Match3LevelManager.pre
             //Time.timeScale = 0f;
         }

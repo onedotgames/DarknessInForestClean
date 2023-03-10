@@ -29,21 +29,21 @@ public class MapCamera : MonoBehaviour
         Gizmos.DrawWireCube(Bounds.center, Bounds.size);
     }
 
-//    public void Update()
-//    {
+    public void Update()
+    {
 
-//#if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
-//			HandleTouchInput();
-//#else
-//        //HandleMouseInput();
-//#endif
-//    }
+#if (UNITY_ANDROID || UNITY_IPHONE) && !UNITY_EDITOR
+			HandleTouchInput();
+#else
+        HandleMouseInput();
+#endif
+    }
 
-    //void LateUpdate()
-    //{
+    void LateUpdate()
+    {
 
-    //    SetPosition(transform.position);
-    //}
+        SetPosition(transform.position);
+    }
 
     private void HandleTouchInput()
     {

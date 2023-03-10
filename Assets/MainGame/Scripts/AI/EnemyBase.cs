@@ -96,7 +96,7 @@ public class EnemyBase : CustomBehaviour
         SymbiotModel.GetComponent<SortingGroup>().sortingOrder = 1;
         if (GameManager != null)
         {
-            if (!GameManager.IsGamePaused)
+            if (!GameManager.IsGamePaused && !GameManager.IsMiniGame)
             {
                 if (IsActivated)
                 {

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 898c95711e47a2042bc57849f22ad882, type: 3}
   m_Name: JumperBoss
   m_EditorClassIdentifier: 
-  mBaseHealth: 4000
+  mBaseHealth: 100
   mBaseMoveSpeed: 2
   mAttackRange: 0
   mAttackCooldown: 3
