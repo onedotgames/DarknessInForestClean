@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
 using System;
+using DG.Tweening;
 
 public class SceneManager : CustomBehaviour
 {
@@ -30,15 +31,21 @@ public class SceneManager : CustomBehaviour
 
     IEnumerator LoadSceneAsync(int sceneId)
     {
-        AsyncOperation operation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneId);
+        //AsyncOperation operation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneId);
+        //LoadingScreen.SetActive(true);
+        //if (!operation.isDone)
+        //{
+        //    float progressValue = Mathf.Clamp01(operation.progress / 1f);
+
+        //    //LoadingBarFill.value = progressValue;
+        //    LoadingBarFill.DOValue(1f, 3f).;
+        //    yield return null;
+        //}
         LoadingScreen.SetActive(true);
-        if (!operation.isDone)
-        {
-            float progressValue = Mathf.Clamp01(operation.progress / 1f);
-
-            LoadingBarFill.value = progressValue;
-
-            yield return null;
-        }
+        LoadingBarFill.DOValue(1f, 3f).OnComplete(() =>
+         {
+             AsyncOperation operation = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneId);
+         });
+        yield return null;
     }
 }
