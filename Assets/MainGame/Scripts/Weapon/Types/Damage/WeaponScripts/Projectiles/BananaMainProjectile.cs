@@ -19,6 +19,14 @@ public class BananaMainProjectile : ProjectileBase
         {
             transform.position = Player.gameObject.transform.position;
         }
+        if(GameManager.IsMiniGame && MiniBananas[0].gameObject.activeSelf)
+        {
+            MiniBananas.ForEach(x => x.gameObject.SetActive(false));
+        }
+        else if(!GameManager.IsMiniGame && !MiniBananas[0].gameObject.activeSelf)
+        {
+            MiniBananas.ForEach(x => x.gameObject.SetActive(true));
+        }
     }
 
     private void ScaleUpRotator()

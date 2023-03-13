@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class CloverProjectile : ProjectileBase
 {
-
+    [SerializeField] private GameObject PinkTrail;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -15,11 +15,24 @@ public class CloverProjectile : ProjectileBase
 
     private void Update()
     {
-        if(!GameManager.IsGamePaused && GameManager.IsGameStarted && IsReady)
+        if(!GameManager.IsGamePaused && GameManager.IsGameStarted && IsReady && !GameManager.IsMiniGame)
         {
             //ContinueuslyPlayVFX(MovementVFX);
             RotateModel();
             LinearMovement(Direction);
+        }
+
+        if (GameManager.IsMiniGame && Model.activeSelf)
+        {
+            Model.SetActive(false);
+            MovementVFX.Stop();
+            PinkTrail.SetActive(false);
+        }
+        else if (!GameManager.IsMiniGame && !Model.activeSelf)
+        {
+            Model.SetActive(true);
+            MovementVFX.Play();
+            PinkTrail.SetActive(true);
         }
     }
 
@@ -107,7 +120,6 @@ public class CloverProjectile : ProjectileBase
 
 
     }
-
 
     private void OnBecameInvisible()
     {

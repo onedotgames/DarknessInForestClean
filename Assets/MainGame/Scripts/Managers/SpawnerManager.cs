@@ -114,7 +114,7 @@ public class SpawnerManager : CustomBehaviour
     }
     private void Update()
     {
-        if (GameManager.IsGameStarted && !GameManager.IsGamePaused && !GameManager.IsBossTime)
+        if (GameManager.IsGameStarted && !GameManager.IsGamePaused && !GameManager.IsBossTime && !GameManager.IsMiniGame)
         {
             timeValue += Time.deltaTime;
             if(timeValue >= activeSpawnTime)

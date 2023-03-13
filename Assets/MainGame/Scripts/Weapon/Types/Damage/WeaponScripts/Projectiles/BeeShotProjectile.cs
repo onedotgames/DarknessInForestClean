@@ -16,11 +16,21 @@ public class BeeShotProjectile : ProjectileBase
 
     private void Update()
     {
-        if (!GameManager.IsGamePaused && GameManager.IsGameStarted)
+        if (!GameManager.IsGamePaused && GameManager.IsGameStarted && !GameManager.IsMiniGame)
         {
             //ContinueuslyPlayVFX(MovementVFX);
 
             LinearMovement(-Direction);
+        }
+        if (GameManager.IsMiniGame && Model.activeSelf)
+        {
+            Model.SetActive(false);
+            MovementVFX.Stop();
+        }
+        else if (!GameManager.IsMiniGame && !Model.activeSelf)
+        {
+            Model.SetActive(true);
+            MovementVFX.Play();
         }
     }
 

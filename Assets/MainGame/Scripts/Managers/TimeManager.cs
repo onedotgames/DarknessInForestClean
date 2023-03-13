@@ -40,7 +40,7 @@ public class TimeManager : CustomBehaviour
         {
             if (!GameManager.IsGamePaused)
             {
-                if (!GameManager.IsBossTime)
+                if (!GameManager.IsBossTime && !GameManager.IsMiniGame)
                 {
                     TimeValue += Time.deltaTime;
                 }

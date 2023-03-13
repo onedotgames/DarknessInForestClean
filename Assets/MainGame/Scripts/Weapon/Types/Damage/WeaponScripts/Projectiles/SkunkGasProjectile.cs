@@ -19,6 +19,17 @@ public class SkunkGasProjectile : ProjectileBase
         {
             transform.position = Player.gameObject.transform.position;
         }
+        if (GameManager.IsMiniGame && Model.activeSelf)
+        {
+            Model.SetActive(false);
+
+
+        }
+        else if (!GameManager.IsMiniGame && !Model.activeSelf)
+        {
+            Model.SetActive(true);
+
+        }
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -30,11 +41,15 @@ public class SkunkGasProjectile : ProjectileBase
 
             enemy.GetHit(Damage);
 
-            if (!enemy.Poisoned)
+            if(enemy.BaseHealth > 0)
             {
-                enemy.Poisoned = true;
-                enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.Poisoned));
-            }         
+                if (!enemy.Poisoned)
+                {
+                    enemy.Poisoned = true;
+                    enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.Poisoned));
+                }
+            }
+                    
 
         }
         if (collision.CompareTag("Boss"))
@@ -43,12 +58,15 @@ public class SkunkGasProjectile : ProjectileBase
             enemy.gameObject.transform.DOPunchScale(new Vector3(.1f, 0f, 0f), 0.5f);
 
             enemy.GetHit(Damage);
-
-            if (!enemy.Burned)
+            if(enemy.currentHP > 0)
             {
-                enemy.Burned = true;
-                enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.Burned));
+                if (!enemy.Poisoned)
+                {
+                    enemy.Poisoned = true;
+                    enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.Poisoned));
+                }
             }
+            
 
         }
         if (collision.CompareTag("Barrel"))

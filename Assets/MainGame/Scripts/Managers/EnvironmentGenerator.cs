@@ -81,7 +81,7 @@ public class EnvironmentGenerator : CustomBehaviour
     }
     private void Update()
     {
-        if (!GameManager.IsGamePaused && GameManager.IsGameStarted && _timerOn)
+        if (!GameManager.IsGamePaused && GameManager.IsGameStarted && _timerOn && !GameManager.IsMiniGame && !GameManager.IsBossTime)
         {
             _timeValue += Time.deltaTime;
             if (_timeValue >= _spawnCooldown)

@@ -35,7 +35,7 @@ public class PlayerHealthManager : CustomBehaviour
 
     private void Update()
     {
-        if(GameManager.IsGameStarted && !GameManager.IsGamePaused && IsRegenActive)
+        if(GameManager.IsGameStarted && !GameManager.IsGamePaused && IsRegenActive && !GameManager.IsMiniGame)
         {
             _timeValue += Time.deltaTime;
             if (_timeValue >= HpReg.UtilitySO.Cooldown)
@@ -57,6 +57,17 @@ public class PlayerHealthManager : CustomBehaviour
                 }
             }
             
+            
+        }
+
+        if(GameManager.IsGameStarted && !GameManager.IsGamePaused && IsRegenActive && GameManager.IsMiniGame 
+            && Player.HealingEffect.gameObject.activeSelf
+            )
+        {
+            
+                Player.HealingEffect.gameObject.SetActive(false);
+
+
         }
     }
 

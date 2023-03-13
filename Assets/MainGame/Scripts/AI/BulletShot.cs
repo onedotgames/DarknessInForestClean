@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulletShot : MonoBehaviour
@@ -11,11 +12,21 @@ public class BulletShot : MonoBehaviour
     public Vector3 DirectionNorm;
     public PoolerBase PoolerBase;
     public GameManager gm;
+    [SerializeField] private SpriteRenderer spriteRenderer;
     private void Update()
     {
-        if (isShotted)
+        if (isShotted && !gm.IsMiniGame)
         {
             Shot();
+        }
+
+        if (isShotted && gm.IsMiniGame)
+        {
+            spriteRenderer.enabled = false;
+        }
+        else if(isShotted && !gm.IsMiniGame && !spriteRenderer.enabled)
+        {
+            spriteRenderer.enabled = true;
         }
     }
     public void Subscribe()
@@ -27,6 +38,8 @@ public class BulletShot : MonoBehaviour
             gm.OnRestartGame += RestartGame;
         }
     }
+    
+
 
     public void Shot()
     {

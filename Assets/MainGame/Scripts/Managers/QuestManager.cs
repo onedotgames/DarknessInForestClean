@@ -105,48 +105,51 @@ public class QuestManager : CustomBehaviour
 
     public void Update()
     {
-        if (GameManager != null && canQuestsStart)
+        if(GameManager.IsGameStarted && !GameManager.IsBossTime && !GameManager.IsMiniGame)
         {
-            timer += Time.deltaTime;
-            if (!towerQuest)
+            if (GameManager != null && canQuestsStart)
             {
-                questText.text = "Kill " + enemy + ": " + currentKillCount + " / 50";
-                TowerPanel.SetActive(false);
+                timer += Time.deltaTime;
+                if (!towerQuest)
+                {
+                    questText.text = "Kill " + enemy + ": " + currentKillCount + " / 50";
+                    TowerPanel.SetActive(false);
+                }
+                else
+                {
+                    towerText.text = "Tower Health: " + Tower.GetComponent<TowerSystem>().TowerHealth;
+                }
+                if ((int)timer == QuestSpawnRateSecond && !hasActiveQuest && canSpawnQuest)
+                {
+                    canSpawnQuest = false;
+                    SpawnQuest();
+                }
+                if (hasActiveQuest)
+                {
+                    if (currentKillCount == 50 || TowerSystem.isTowerDestroyed)
+                    {
+                        QuestSuccess();
+                    }
+                }
+
+            }
+            if (QuestNPC.activeInHierarchy && Mathf.Abs(Vector3.Distance(QuestNPC.transform.position, GameManager.PlayerManager.CurrentPlayer.transform.position)) < 5f)
+            {
+                isNpcNear = true;
             }
             else
             {
-                towerText.text = "Tower Health: " + Tower.GetComponent<TowerSystem>().TowerHealth;
+                isNpcNear = false;
             }
-            if ((int)timer == QuestSpawnRateSecond && !hasActiveQuest && canSpawnQuest)
+            if (Tower.activeInHierarchy && hasActiveQuest && Mathf.Abs(Vector3.Distance(Tower.transform.position, GameManager.PlayerManager.CurrentPlayer.transform.position)) < 5f)
             {
-                canSpawnQuest = false;
-                SpawnQuest();
+                isTowerNear = true;
             }
-            if (hasActiveQuest)
+            else
             {
-                if(currentKillCount == 50 || TowerSystem.isTowerDestroyed)
-                {
-                    QuestSuccess();
-                }
+                isTowerNear = false;
             }
-            
-        }
-        if (QuestNPC.activeInHierarchy && Mathf.Abs(Vector3.Distance(QuestNPC.transform.position, GameManager.PlayerManager.CurrentPlayer.transform.position)) < 5f)
-        {
-            isNpcNear = true;
-        }
-        else
-        {
-            isNpcNear = false;
-        }
-        if (Tower.activeInHierarchy && hasActiveQuest && Mathf.Abs(Vector3.Distance(Tower.transform.position, GameManager.PlayerManager.CurrentPlayer.transform.position)) < 5f)
-        {
-            isTowerNear = true;
-        }
-        else
-        {
-            isTowerNear = false;
-        }
+        }  
     }
 
     public void SpawnQuest()

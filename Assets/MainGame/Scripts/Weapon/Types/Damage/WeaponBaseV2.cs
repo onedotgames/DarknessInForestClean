@@ -242,7 +242,7 @@ public class WeaponBaseV2 : CustomBehaviour
 
     private async void Update()
     {
-        if (!GameManager.IsGamePaused && GameManager.IsGameStarted && _timerOn)
+        if (!GameManager.IsGamePaused && GameManager.IsGameStarted && _timerOn && !GameManager.IsMiniGame)
         {
             _timeValue += Time.deltaTime;
             if (_timeValue >= Cooldown)

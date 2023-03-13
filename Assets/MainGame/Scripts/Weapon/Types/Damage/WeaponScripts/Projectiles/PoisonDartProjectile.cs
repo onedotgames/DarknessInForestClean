@@ -35,7 +35,7 @@ public class PoisonDartProjectile : ProjectileBase
 
     private void Update()
     {
-        if (!GameManager.IsGamePaused && GameManager.IsGameStarted && IsReady)
+        if (!GameManager.IsGamePaused && GameManager.IsGameStarted && IsReady && !GameManager.IsMiniGame)
         {
             //ContinueuslyPlayVFX(MovementVFX);
             //RotateModel();
@@ -61,6 +61,17 @@ public class PoisonDartProjectile : ProjectileBase
                     Return();
                 }
             }
+        }
+
+        if (GameManager.IsMiniGame && Model.activeSelf)
+        {
+            Model.SetActive(false);
+            Aura.SetActive(false);
+        }
+        else if (!GameManager.IsMiniGame && !Model.activeSelf)
+        {
+            Model.SetActive(true);
+            Aura.SetActive(true);
         }
     }
     private void CloseEnlargement()
@@ -90,11 +101,15 @@ public class PoisonDartProjectile : ProjectileBase
 
             ChangeModel();
 
-            if (!enemy.FrostBitten)
+            if(enemy.BaseHealth > 0)
             {
-                enemy.FrostBitten = true;
-                enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.FrostBitten));
+                if (!enemy.FrostBitten)
+                {
+                    enemy.FrostBitten = true;
+                    enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.FrostBitten));
+                }
             }
+            
             
 
             Invoke("CloseEnlargement", 0.35f);
@@ -109,12 +124,16 @@ public class PoisonDartProjectile : ProjectileBase
             enemy.GetHit(Damage);
 
             ChangeModel();
-
-            if (!enemy.FrostBitten)
+            if (enemy.currentHP > 0)
             {
-                enemy.FrostBitten = true;
-                enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.FrostBitten));
+                if (!enemy.FrostBitten)
+                {
+
+                    enemy.FrostBitten = true;
+                    enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.FrostBitten));
+                }
             }
+            
 
             Invoke("CloseEnlargement", 0.35f);
             _circleCollider2D.radius = _targetBoxColliderSize;

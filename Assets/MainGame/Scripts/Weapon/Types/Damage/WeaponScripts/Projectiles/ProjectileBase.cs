@@ -64,7 +64,9 @@ public class ProjectileBase : CustomBehaviour
     protected virtual void Return()
     {
         IsReady = false;
+        
         Pooler.ReturnObjectToPool(ProjectileToSpawn);
+        
     }
 
     protected virtual void TriggerReturn(float time)

@@ -30,7 +30,7 @@ public class PlayerManager : CustomBehaviour
     }
     #endregion
 
-
+    
     #region Update Methods
     public void UpdateCoinCountData(int collectedCoin)
     {

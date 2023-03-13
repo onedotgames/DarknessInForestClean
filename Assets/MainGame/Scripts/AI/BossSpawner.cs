@@ -45,7 +45,7 @@ public class BossSpawner : CustomBehaviour
     }
     private void Update()
     {
-        if (!GameManager.IsGamePaused && GameManager.IsGameStarted)
+        if (!GameManager.IsGamePaused && GameManager.IsGameStarted && !GameManager.IsMiniGame)
         {
             if (!GameManager.IsBossTime)
             {
@@ -173,7 +173,7 @@ public class BossSpawner : CustomBehaviour
 
     }
 
-    private void ClearOtherEnemies()
+    public void ClearOtherEnemies()
     {
         GameManager.BossSpawn();
         GameManager.AIManager.AIList.Clear();

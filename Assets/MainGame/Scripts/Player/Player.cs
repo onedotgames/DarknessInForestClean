@@ -79,6 +79,9 @@ public class Player : CustomBehaviour
     public ScoreCounter ScoreCounter;
     public int chestCount;
     private float TempMoveSpeed;
+
+    [SerializeField] private Canvas PlayerCanvas;
+    [SerializeField] private GameObject Shadow;
     public override void Initialize(GameManager gameManager)
     {
         base.Initialize(gameManager);
@@ -92,7 +95,7 @@ public class Player : CustomBehaviour
     }
     private void Update()
     {
-        if (!GameManager.IsGamePaused)
+        if (!GameManager.IsGamePaused && !GameManager.IsMiniGame)
         {
             if (IsGameStarted)
             {
@@ -111,7 +114,27 @@ public class Player : CustomBehaviour
                 }
             }
             oldPos = transform.position;
+
+            
         }
+
+        if (GameManager.IsMiniGame && Model.activeSelf && GameManager.IsGameStarted)
+        {
+            Model.SetActive(false);
+            PlayerCanvas.enabled = false;
+            Shadow.SetActive(false);
+            rb2d.velocity = Vector3.zero;
+            
+        }
+        else if (!GameManager.IsMiniGame && !Model.activeSelf)
+        {
+            Model.SetActive(true);
+            PlayerCanvas.enabled = true;
+            Shadow.SetActive(true);
+            mForwardSpeed = PlayerVariables.MoveSpeed + GameManager.InventoryManager.GlobalSpeedIncrease;
+        }
+
+
     }
     private void LateUpdate()
     {
@@ -192,6 +215,7 @@ public class Player : CustomBehaviour
             //ScoreCounter.miniGameType = MiniGameType.Chest;
             GameManager.AnimationManager.Play();
             GameManager.IsMiniGame = true;
+            GameManager.SpawnerManager.BossSpawner.ClearOtherEnemies();
             //GameManager.Match3LevelManager.pre
             //Time.timeScale = 0f;
         }

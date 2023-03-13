@@ -90,6 +90,7 @@ public class CameraManager : CustomBehaviour
 
     private void PlayerFollow()
     {
+        
         if (!mCanFollow)
         {
             return;
@@ -106,8 +107,10 @@ public class CameraManager : CustomBehaviour
                 mUpdatedCameraPosition = new Vector3(mOffsetX, mCurrentOffset.y, mCurrentOffset.z + PlayerTransform.position.z);
                 mCameraTransform.position = mUpdatedCameraPosition;
             }
-            
+
         }
+        
+        
     }
 
     private void ResetOffset()

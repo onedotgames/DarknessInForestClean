@@ -14,6 +14,16 @@ public class BirdBombProjectile : ProjectileBase
         base.Initialize(gameManager);
     }
 
+    private void Update()
+    {
+        if (GameManager.IsMiniGame && Model.activeSelf)
+        {
+            Model.SetActive(false);
+            Return();
+
+        }
+    }
+
     public void Drop()
     {
         _circleCollider2D.enabled = false;

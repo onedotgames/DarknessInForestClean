@@ -9,24 +9,37 @@ public class WhipProjetile : ProjectileBase
     public ContactFilter2D contactFilter2;
     public void WhipAttack()
     {
-        float horizontal = GameManager.JoystickManager.GetHorizontal();
-        float vertical = GameManager.JoystickManager.GetVertical();
-
-        if (horizontal != 0 || vertical != 0)
+        if (!GameManager.IsMiniGame && !GameManager.IsGamePaused)
         {
+            float horizontal = GameManager.JoystickManager.GetHorizontal();
+            float vertical = GameManager.JoystickManager.GetVertical();
 
-            Cast(horizontal, vertical, GameManager.PlayerManager.CurrentPlayer.Angle);
+            if (horizontal != 0 || vertical != 0)
+            {
+
+                Cast(horizontal, vertical, GameManager.PlayerManager.CurrentPlayer.Angle);
+            }
+            else if (horizontal == 0 && vertical == 0)
+            {
+                Cast(horizontal, vertical, GameManager.PlayerManager.CurrentPlayer.LastAngle);
+
+            }
+
+            IvySlash.Play();
+
+            Invoke("ReturnToPooler", IvySlash.main.duration);
         }
-        else if (horizontal == 0 && vertical == 0)
-        {
-            Cast(horizontal, vertical, GameManager.PlayerManager.CurrentPlayer.LastAngle);
-
-        }
-
-        IvySlash.Play();
-
-        Invoke("ReturnToPooler", IvySlash.main.duration);
+        
     }
+
+    private void Update()
+    {
+        if(GameManager.IsMiniGame || GameManager.IsGamePaused)
+        {
+            IvySlash.Stop();
+        }
+    }
+
     private void Cast(float horizontal, float vertical, float angle)
     {
         transform.eulerAngles = new Vector3(0, 0, angle - 90);

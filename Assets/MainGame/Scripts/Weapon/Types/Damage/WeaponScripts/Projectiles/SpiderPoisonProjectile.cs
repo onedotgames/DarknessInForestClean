@@ -36,7 +36,7 @@ public class SpiderPoisonProjectile : ProjectileBase
     }
     private void Update()
     {
-        if (!GameManager.IsGamePaused && GameManager.IsGameStarted && IsReady)
+        if (!GameManager.IsGamePaused && GameManager.IsGameStarted && IsReady && !GameManager.IsMiniGame)
         {
             //ContinueuslyPlayVFX(MovementVFX);
             //RotateModel();
@@ -63,6 +63,18 @@ public class SpiderPoisonProjectile : ProjectileBase
                 }
             }
         }
+
+        if (GameManager.IsMiniGame && Model.activeSelf)
+        {
+            Model.SetActive(false);
+            _OpenWebModel.SetActive(false);
+
+        }
+        else if (!GameManager.IsMiniGame && !Model.activeSelf)
+        {
+            Model.SetActive(true);
+            _OpenWebModel.SetActive(true);
+        }
     }
 
     private void CloseEnlargement()
@@ -81,11 +93,15 @@ public class SpiderPoisonProjectile : ProjectileBase
 
             ChangeModel();
 
-            if (!enemy.Burned)
+            if (enemy.BaseHealth > 0)
             {
-                enemy.Burned = true;
-                enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.Burned));
+                if (!enemy.Burned)
+                {
+                    enemy.Burned = true;
+                    enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.Burned));
+                }
             }
+            
 
             Invoke("CloseEnlargement", 0.35f);
             _boxCollider.size = new Vector2(_boxColliderXSize, _boxColliderYSize);
@@ -100,11 +116,15 @@ public class SpiderPoisonProjectile : ProjectileBase
 
             ChangeModel();
 
-            if (!enemy.Poisoned)
+            if(enemy.currentHP > 0)
             {
-                enemy.Poisoned = true;
-                enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.Burned));
+                if (!enemy.Burned)
+                {
+                    enemy.Burned = true;
+                    enemy.StartCoroutine(enemy.GetAOEHit(PoisonAreaDamage, AoETickInterval, PoisonDuration, enemy.Burned));
+                }
             }
+            
 
             Invoke("CloseEnlargement", 0.35f);
             _boxCollider.size = new Vector2(_boxColliderXSize, _boxColliderYSize);

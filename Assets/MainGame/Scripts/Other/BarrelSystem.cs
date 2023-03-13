@@ -22,7 +22,7 @@ public class BarrelSystem : CustomBehaviour
 
     private void Update()
     {
-        if (canBarrelSystemStart)
+        if (canBarrelSystemStart && !GameManager.IsMiniGame)
         {
             timer += Time.deltaTime;
             if (timer >= 10)

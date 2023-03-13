@@ -48,7 +48,7 @@ public class BossBase : CustomBehaviour
     public float BaseSpecialOneCooldown;
     public float BaseSpecialTwoCooldown;
 
-    private float currentHP;
+    public float currentHP { get; private set; }
 
     public int ChargeCount;
     public float StartDelay;

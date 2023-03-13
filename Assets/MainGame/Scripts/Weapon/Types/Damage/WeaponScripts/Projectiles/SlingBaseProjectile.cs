@@ -43,7 +43,20 @@ public class SlingBaseProjectile : ProjectileBase
     }
     private void Update()
     {
-        LinearMovement(Direction);
+        if(!GameManager.IsGamePaused && GameManager.IsGameStarted && !GameManager.IsMiniGame)
+        {
+            LinearMovement(Direction);
+
+        }
+
+        if (GameManager.IsMiniGame && Model.activeSelf)
+        {
+            Model.SetActive(false);
+        }
+        else if (!GameManager.IsMiniGame && !Model.activeSelf)
+        {
+            Model.SetActive(true);
+        }
     }
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {

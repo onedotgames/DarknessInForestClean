@@ -32,7 +32,7 @@ public class SpiderWebProjectile : ProjectileBase
     }
     private void Update()
     {
-        if (!GameManager.IsGamePaused && GameManager.IsGameStarted)
+        if (!GameManager.IsGamePaused && GameManager.IsGameStarted && !GameManager.IsMiniGame)
         {
             //ContinueuslyPlayVFX(MovementVFX);
             //RotateModel();
@@ -40,6 +40,18 @@ public class SpiderWebProjectile : ProjectileBase
             {
                 LinearMovement(Direction);
             }
+        }
+
+        if (GameManager.IsMiniGame && Model.activeSelf)
+        {
+            Model.SetActive(false);
+            _OpenWebModel.SetActive(false);
+
+        }
+        else if (!GameManager.IsMiniGame && !Model.activeSelf)
+        {
+            Model.SetActive(true);
+            _OpenWebModel.SetActive(true);
         }
     }
 

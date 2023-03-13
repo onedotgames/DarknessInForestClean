@@ -383,6 +383,7 @@ public class LevelManager : CustomBehaviour
     {
         Level.SetActive(false);
         ScoreCounter.SuccessBTNClick();
+        GameManager.IsMiniGame = false;
     }
 
     public void MenuPlayEvent()

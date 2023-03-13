@@ -28,10 +28,20 @@ public class CHammerProjectile : ProjectileBase
 
     private void Update()
     {
-        if (!GameManager.IsGamePaused && GameManager.IsGameStarted && IsReady)
+        if (!GameManager.IsGamePaused && GameManager.IsGameStarted && IsReady && !GameManager.IsMiniGame)
         {
             RotateModel();
             ChammerMovement();
+        }
+        if (GameManager.IsMiniGame && Model.activeSelf)
+        {
+            Model.SetActive(false);
+            SetActivenessOfElements(false);
+        }
+        else if (!GameManager.IsMiniGame && !Model.activeSelf)
+        {
+            Model.SetActive(true);
+            SetActivenessOfElements(true);
         }
     }
 
