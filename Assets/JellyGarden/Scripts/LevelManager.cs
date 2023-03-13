@@ -775,6 +775,7 @@ public class LevelManager : CustomBehaviour
         gameStatus = GameState.Win;
     }
 
+    public LayerMask ItemLayerMask;
     void Update()
     {
         //  AvctivatedBoostView = ActivatedBoost;
@@ -847,7 +848,7 @@ public class LevelManager : CustomBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 OnStartPlay();
-                Collider2D hit = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                Collider2D hit = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition), ItemLayerMask);
                 if (hit != null)
                 {
                     Item item = hit.gameObject.GetComponent<Item>();
@@ -889,7 +890,7 @@ public class LevelManager : CustomBehaviour
             }
             else if (Input.GetMouseButtonUp(0))
             {
-                Collider2D hit = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                Collider2D hit = Physics2D.OverlapPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition),ItemLayerMask);
                 if (hit != null)
                 {
                     Item item = hit.gameObject.GetComponent<Item>();
