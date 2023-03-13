@@ -460,9 +460,9 @@ public class EnvironmentGenerator : CustomBehaviour
         _rightOfRight = _leftOfRight + _spawnAreaWidth;
 
         var randomLeft = Random.Range(_leftOfLeft, _rightOfLeft);
-        Debug.Log(randomLeft);
+        //Debug.Log(randomLeft);
         var randomRight = Random.Range(_leftOfRight, _rightOfRight);
-        Debug.Log(randomRight);
+        //Debug.Log(randomRight);
 
         _bottomOfTop = playerTransformPosition.y + (MainCamera.orthographicSize + 1);
         _topOfTop = _bottomOfTop + _spawnAreaWidth;

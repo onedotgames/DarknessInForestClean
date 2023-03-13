@@ -110,6 +110,12 @@ public class LevelManager : CustomBehaviour
         base.Initialize(gameManager);
         //MapCamera = GetComponent<MapCamera>();
         //CanvasGlobal = CanvasGlobalObject.GetComponent<Canvas>();
+        OnWin += OnWinMethod;
+    }
+
+    private void OnDisable()
+    {
+        OnWin -= OnWinMethod;
     }
 
     public BoostIcon ActivatedBoost
@@ -361,13 +367,22 @@ public class LevelManager : CustomBehaviour
 #endif
                 //CanvasGlobal.transform.Find("MenuComplete").gameObject.SetActive(true);
                 //GameManager.UIManager.GetPanel(Panels.Hud).OpenPanel();
-                ScoreCounter.SuccessBTNClick();
+                //ScoreCounter.SuccessBTNClick();
                 SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot(SoundBase.Instance.complete[1]);
-                OnWin?.Invoke();
+                if(OnWin != null)
+                {
+                    OnWin();
+                }
             }
 
 
         }
+    }
+
+    private void OnWinMethod()
+    {
+        Level.SetActive(false);
+        ScoreCounter.SuccessBTNClick();
     }
 
     public void MenuPlayEvent()
@@ -473,6 +488,8 @@ public class LevelManager : CustomBehaviour
             Destroy(item.gameObject);
         }
     }
+
+    
 
     // Use this for initialization
     void Start()

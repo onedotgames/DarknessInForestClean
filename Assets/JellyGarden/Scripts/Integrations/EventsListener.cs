@@ -47,6 +47,8 @@ public class EventsListener : MonoBehaviour {
     }
     void OnWin() {
         AnalyticsEvent("OnWin", LevelManager.THIS.currentLevel);
+
+
     }
     void OnLose() {
         AnalyticsEvent("OnLose", LevelManager.THIS.currentLevel);
